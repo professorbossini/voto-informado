@@ -1,5 +1,7 @@
 # Voto Informado · Eleições 2026
 
+**No ar:** https://professorbossini.dev/voto-informado/
+
 Site de transparência eleitoral que reúne **somente dados públicos oficiais** (TSE, Câmara dos
 Deputados e Senado Federal) sobre todas as candidaturas de 2026 e sobre os gastos de mandato de
 deputados federais e senadores. Não produz opinião, não exibe pesquisas e não recomenda votos.
@@ -63,11 +65,17 @@ No dia da eleição, `make apuracao` consulta o feed oficial do TSE a cada 5 min
 ## Publicando como site estático
 
 ```bash
-make exportar  # frontend/dist com o app + api/*.json + fotos + planos de governo (~600 MB, ~43 mil arquivos)
+make publicar  # build + export + push para gh-pages (GitHub Pages)
 ```
 
-Hospede `frontend/dist` com fallback de SPA (toda rota → `index.html`). Rode `make dados && make exportar`
-de novo para atualizar.
+O export gera também uma página HTML por candidatura (título, descrição e foto oficial nas meta tags),
+para que links compartilhados abram com status 200 e prévia correta. Para outra hospedagem, `make exportar`
+gera `frontend/dist` (~600 MB); configure fallback de SPA (rota → `index.html`).
+
+## Backend no Cloud Run + banco no Neon
+
+A API também roda contra Postgres (`DATABASE_URL`). `make neon` publica o banco (sem CPF, troca atômica)
+e `backend/Dockerfile` empacota a API para o Cloud Run. Passo a passo em [DEPLOY.md](DEPLOY.md).
 
 ## Login (desligado)
 
