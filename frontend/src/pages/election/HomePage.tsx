@@ -197,14 +197,14 @@ function DueloDeDados({ lista }: { lista: Candidato[] }) {
             <Typography variant="overline" color="primary">
               Duelo de dados · Presidência
             </Typography>
-            <Typography variant="h4" component="h2">
-              Compare duas candidaturas em 10 segundos
+            <Typography variant="h3" component="h1" sx={{ fontSize: { xs: '1.7rem', md: '2rem' } }}>
+              Quem está na sua urna, lado a lado
             </Typography>
             <Typography variant="body2" color="text.secondary">
               Dupla sorteada ao acaso entre as {lista.length} candidaturas na urna. Troque os nomes como quiser.
             </Typography>
           </Box>
-          <Button variant="tonal" startIcon={<CasinoRounded />} onClick={() => setPar(sortearDupla(lista))}>
+          <Button variant="tonal" startIcon={<CasinoRounded />} onClick={() => setPar(sortearDupla(lista))} sx={{ whiteSpace: 'nowrap', flexShrink: 0, alignSelf: { xs: 'flex-start', sm: 'center' } }}>
             Sortear outra dupla
           </Button>
         </Stack>
@@ -238,7 +238,7 @@ function DueloDeDados({ lista }: { lista: Candidato[] }) {
             </Box>
             <Stack direction={{ xs: 'column', sm: 'row' }} sx={{ justifyContent: 'space-between', alignItems: { sm: 'center' }, gap: 1.5, mt: 2 }}>
               <SourceNote keys={['tse_candidatos', 'tse_bens', 'tse_prestacao', 'tse_historico']} note="valores de campanha parciais; patrimônio autodeclarado" />
-              <Button component={RouterLink} to={`/comparar?c=${a.sq},${b.sq}`} variant="contained" endIcon={<CompareArrowsRounded />}>
+              <Button component={RouterLink} to={`/comparar?c=${a.sq},${b.sq}`} variant="contained" endIcon={<CompareArrowsRounded />} sx={{ whiteSpace: 'nowrap', flexShrink: 0 }}>
                 Comparação completa
               </Button>
             </Stack>
@@ -396,67 +396,69 @@ export function HomePage() {
 
   return (
     <Stack spacing={{ xs: 4, md: 6 }}>
-      {/* Hero: contagem + busca */}
-      <Box
-        sx={(theme) => ({
-          position: 'relative',
-          overflow: 'hidden',
-          borderRadius: 6,
-          p: { xs: 2.5, md: 5 },
-          border: `1px solid ${theme.vars.palette.divider}`,
-          background: `radial-gradient(120% 140% at 0% 0%, ${theme.alpha(theme.vars.palette.lime.main, 0.24)} 0%, transparent 55%), radial-gradient(120% 140% at 100% 100%, ${theme.alpha('#7649CF', 0.2)} 0%, transparent 55%), ${theme.vars.palette.background.paper}`,
-        })}
-      >
-        <Grid container spacing={{ xs: 3, md: 5 }} sx={{ alignItems: 'center' }}>
-          <Grid size={{ xs: 12, md: 6 }}>
-            <Typography variant="overline" color="primary">
-              {segundo ? `2º turno · ${dateLong(meta!.eleicao.data_2turno)}` : 'Eleições 2026 · 1º turno em 4 de outubro'}
-            </Typography>
-            <Typography variant="h1" sx={{ fontSize: { xs: '2rem', md: '2.9rem' }, mt: 0.5, mb: 1.5 }}>
-              Quem está na sua urna, lado a lado.
-            </Typography>
-            <Typography color="text.secondary" sx={{ mb: 2.5, maxWidth: 520 }}>
-              Patrimônio, campanha e trajetória de todas as candidaturas, com dados oficiais. Sem opinião e sem
-              recomendação de voto.
-            </Typography>
-            <CandidateSearch onPick={(sq) => void navigate(`/candidato/${sq}`)} placeholder="Busque qualquer candidatura por nome ou número" />
-          </Grid>
-          <Grid size={{ xs: 12, md: 6 }}>
-            <Stack spacing={1.25} sx={{ alignItems: 'center' }}>
-              <Typography variant="subtitle2" color="text.secondary" sx={{ textAlign: 'center' }}>
-                {cd.done ? 'A votação já começou ou terminou' : 'Faltam para a abertura das urnas (8h de Brasília)'}
-              </Typography>
+      {/* Comparação primeiro; contagem, ordem dos votos e busca ao lado (telas grandes) ou abaixo */}
+      <Grid container spacing={3} sx={{ alignItems: 'flex-start' }}>
+        <Grid size={{ xs: 12, lg: 8 }}>
+          {presidente.loading ? <Skeleton variant="rounded" height={620} /> : naUrna.length >= 2 && <DueloDeDados lista={naUrna} />}
+        </Grid>
+        <Grid size={{ xs: 12, lg: 4 }} sx={{ position: { lg: 'sticky' }, top: { lg: 88 } }}>
+          <Box
+            sx={(theme) => ({
+              borderRadius: 6,
+              p: { xs: 2.5, md: 3 },
+              border: `1px solid ${theme.vars.palette.divider}`,
+              background: `radial-gradient(120% 120% at 0% 0%, ${theme.alpha(theme.vars.palette.lime.main, 0.24)} 0%, transparent 60%), radial-gradient(120% 120% at 100% 100%, ${theme.alpha('#7649CF', 0.2)} 0%, transparent 60%), ${theme.vars.palette.background.paper}`,
+            })}
+          >
+            <Stack spacing={2} sx={{ alignItems: 'center', textAlign: 'center' }}>
+              <Box>
+                <Typography variant="overline" color="primary">
+                  {segundo ? `2º turno · ${dateLong(meta!.eleicao.data_2turno)}` : 'Eleições 2026 · 1º turno em 4 de outubro'}
+                </Typography>
+                <Typography variant="subtitle2" color="text.secondary">
+                  {cd.done ? 'A votação já começou ou terminou' : 'Faltam para a abertura das urnas (8h de Brasília)'}
+                </Typography>
+              </Box>
               {!cd.done && (
-                <Stack direction="row" spacing={{ xs: 0.75, sm: 1.25 }} role="timer" aria-label={`Faltam ${cd.dias} dias, ${cd.horas} horas e ${cd.minutos} minutos`}>
+                <Stack direction="row" spacing={{ xs: 0.75, sm: 1 }} role="timer" aria-label={`Faltam ${cd.dias} dias, ${cd.horas} horas e ${cd.minutos} minutos`}>
                   <CountUnit value={cd.dias} label={cd.dias === 1 ? 'dia' : 'dias'} />
                   <CountUnit value={cd.horas} label="horas" />
                   <CountUnit value={cd.minutos} label="min" />
                   <CountUnit value={cd.segundos} label="seg" />
                 </Stack>
               )}
-              <Stack direction="row" useFlexGap sx={{ flexWrap: 'wrap', justifyContent: 'center', pt: 1, gap: 0.75 }} aria-label="Ordem dos seis votos na urna">
-                {VOTOS.map((v, i) => (
-                  <Box key={v.label} sx={{ px: 1, py: 0.5, borderRadius: 2, bgcolor: 'background.subtle', border: 1, borderColor: 'divider' }}>
-                    <Typography variant="caption" sx={{ fontWeight: 700 }}>
-                      {i + 1}. {v.label}
-                    </Typography>
-                    <Typography variant="caption" color="text.secondary">
-                      {' '}
-                      · {DIGITOS[v.cargo]} díg.
-                    </Typography>
-                  </Box>
-                ))}
-              </Stack>
-              <Typography variant="caption" color="text.secondary" sx={{ textAlign: 'center' }}>
-                A ordem dos votos na urna. Os dois votos para o Senado devem ir para pessoas diferentes.
-              </Typography>
+              <Box sx={{ width: '100%' }}>
+                <Typography variant="caption" color="text.secondary" component="div" sx={{ mb: 0.75, fontWeight: 600 }}>
+                  A ordem dos 6 votos na urna
+                </Typography>
+                <Stack direction="row" useFlexGap sx={{ flexWrap: 'wrap', justifyContent: 'center', gap: 0.75 }} aria-label="Ordem dos seis votos na urna">
+                  {VOTOS.map((v, i) => (
+                    <Box key={v.label} sx={{ px: 1, py: 0.5, borderRadius: 2, bgcolor: 'background.subtle', border: 1, borderColor: 'divider' }}>
+                      <Typography variant="caption" sx={{ fontWeight: 700 }}>
+                        {i + 1}. {v.label}
+                      </Typography>
+                      <Typography variant="caption" color="text.secondary">
+                        {' '}
+                        · {DIGITOS[v.cargo]} díg.
+                      </Typography>
+                    </Box>
+                  ))}
+                </Stack>
+                <Typography variant="caption" color="text.secondary" component="div" sx={{ mt: 0.75 }}>
+                  Os dois votos para o Senado devem ir para pessoas diferentes.
+                </Typography>
+              </Box>
+              <Box sx={{ width: '100%', textAlign: 'left' }}>
+                <Typography variant="body2" color="text.secondary" sx={{ mb: 1, textAlign: 'center' }}>
+                  Patrimônio, campanha e trajetória de todas as candidaturas, com dados oficiais. Sem opinião e sem
+                  recomendação de voto.
+                </Typography>
+                <CandidateSearch onPick={(sq) => void navigate(`/candidato/${sq}`)} placeholder="Busque por nome ou número" />
+              </Box>
             </Stack>
-          </Grid>
+          </Box>
         </Grid>
-      </Box>
-
-      {/* Duelo */}
-      {presidente.loading ? <Skeleton variant="rounded" height={520} /> : naUrna.length >= 2 && <DueloDeDados lista={naUrna} />}
+      </Grid>
 
       {/* Mapa */}
       <Card sx={{ borderRadius: 6 }}>
