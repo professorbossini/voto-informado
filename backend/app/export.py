@@ -6,10 +6,11 @@ Uso: .venv/bin/python -m app.export [destino]   (padrão: ../frontend/dist, depo
 
 from __future__ import annotations
 
+import html
 import json
+import re
 import shutil
 import sqlite3
-import sys
 from pathlib import Path
 
 from etl.common import DB_PATH, PHOTOS, PROPOSTAS, ROOT
@@ -67,5 +68,84 @@ def run(dest: Path) -> None:
     print(f"export: {len(sqs)} candidatos, {len(pids)} parlamentares, {fotos} fotos, {props} propostas → {dest}")
 
 
+CARGO_LABEL = {
+    "presidente": "Presidente", "vice-presidente": "Vice-presidente", "governador": "Governador(a)",
+    "vice-governador": "Vice-governador(a)", "senador": "Senador(a)", "1-suplente": "1º suplente",
+    "2-suplente": "2º suplente", "deputado-federal": "Deputado(a) federal",
+    "deputado-estadual": "Deputado(a) estadual", "deputado-distrital": "Deputado(a) distrital",
+}
+
+
+def _page(template: str, dest: Path, rel: str, title: str, description: str, url: str, image: str | None = None) -> None:
+    """Static copy of the SPA shell for a deep link: 200 status and proper link previews."""
+    t, d = html.escape(title, quote=True), html.escape(description, quote=True)
+    meta = [
+        f'<meta property="og:title" content="{t}" />',
+        f'<meta property="og:description" content="{d}" />',
+        f'<meta property="og:url" content="{html.escape(url, quote=True)}" />',
+        '<meta property="og:type" content="website" />',
+        '<meta property="og:site_name" content="Voto Informado" />',
+        '<meta name="twitter:card" content="summary" />',
+    ]
+    if image:
+        meta.append(f'<meta property="og:image" content="{html.escape(image, quote=True)}" />')
+    page = re.sub(r'\s*<meta property="og:[^>]*>', "", template)  # as da página inicial dão lugar às desta rota
+    page = re.sub(r"<title>.*?</title>", f"<title>{t}</title>", page, count=1, flags=re.S)
+    page = re.sub(r'(<meta\s+name="description"\s+content=")[^"]*(")', lambda m: m.group(1) + d + m.group(2), page, count=1, flags=re.S)
+    page = page.replace("</head>", "    " + "\n    ".join(meta) + "\n  </head>", 1)
+    out = dest / rel / "index.html"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(page, encoding="utf-8")
+
+
+def write_pages(dest: Path, site_url: str) -> None:
+    """One HTML per route (candidates, parliamentarians, lists), all built from dist/index.html."""
+    site = site_url.rstrip("/")
+    template = (dest / "index.html").read_text(encoding="utf-8")
+    conn = sqlite3.connect(f"file:{DB_PATH}?mode=ro", uri=True)
+    conn.row_factory = sqlite3.Row
+    resumo = "Dados oficiais do TSE, da Câmara e do Senado. Sem opinião, sem pesquisas, sem recomendação de voto."
+    estaticas = {
+        "eleicao": "Candidaturas 2026 por estado",
+        "comparar": "Comparar candidaturas",
+        "cola": "Minha cola para a urna",
+        "simulador": "Simulador de urna (educativo)",
+        "segundo-turno": "2º turno",
+        "gastos": "Gastos de mandato (cota parlamentar)",
+        "numeros": "A eleição em números",
+        "sobre": "Fontes e método",
+    }
+    for rel, titulo in estaticas.items():
+        _page(template, dest, rel, f"{titulo} · Voto Informado", resumo, f"{site}/{rel}")
+    cargos = ["presidente", "governador", "senador", "deputado-federal", "deputado-estadual", "deputado-distrital"]
+    for uf, nome in q.UF_NOMES.items():
+        _page(template, dest, f"eleicao/{uf}", f"Candidaturas · {nome} · Voto Informado", resumo, f"{site}/eleicao/{uf}")
+        for cargo in cargos:
+            _page(template, dest, f"eleicao/{uf}/{cargo}", f"Candidaturas · {nome} · Voto Informado", resumo, f"{site}/eleicao/{uf}/{cargo}")
+    n = 0
+    for r in conn.execute("SELECT c.sq, c.nome_urna, c.numero, c.partido, c.cargo, c.uf, EXISTS(SELECT 1 FROM fotos f WHERE f.sq=c.sq) foto FROM candidatos c"):
+        cargo = CARGO_LABEL.get(r["cargo"], r["cargo"])
+        local = "Brasil" if r["uf"] == "BR" else r["uf"]
+        titulo = f"{r['nome_urna'].title()} ({r['numero']}, {r['partido']}) · {cargo} · {local}"
+        desc = f"Perfil oficial: situação do registro, patrimônio declarado, campanha e trajetória. {resumo}"
+        foto = f"{site}/fotos/{r['sq']}.jpg" if r["foto"] else None
+        _page(template, dest, f"candidato/{r['sq']}", titulo, desc, f"{site}/candidato/{r['sq']}", foto)
+        n += 1
+    for r in conn.execute("SELECT id, nome, partido, uf, casa, foto_url FROM parlamentares"):
+        casa = "Câmara dos Deputados" if r["casa"] == "camara" else "Senado Federal"
+        pid = q.pub_id(r["id"])
+        _page(template, dest, f"parlamentar/{pid}", f"{r['nome']} ({r['partido']}-{r['uf']}) · cota parlamentar · {casa}",
+              f"Gastos de mandato publicados pela {casa}. {resumo}", f"{site}/parlamentar/{pid}", r["foto_url"])
+    print(f"páginas: {n} candidaturas + rotas fixas com título e prévia de link")
+
+
 if __name__ == "__main__":
-    run(Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT.parent / "frontend" / "dist")
+    import argparse
+
+    ap = argparse.ArgumentParser()
+    ap.add_argument("destino", nargs="?", default=str(ROOT.parent / "frontend" / "dist"))
+    ap.add_argument("--site-url", help="URL pública do site: gera uma página HTML por rota (prévia de links, status 200)")
+    args = ap.parse_args()
+    run(Path(args.destino))
+    if args.site_url:
+        write_pages(Path(args.destino), args.site_url)

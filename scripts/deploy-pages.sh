@@ -16,8 +16,13 @@ OUT="$ROOT/frontend/dist"
 echo "→ build do frontend com base /$NAME/"
 (cd "$ROOT/frontend" && VITE_BASE_PATH="/$NAME/" npx vite build)
 
-echo "→ exportando a API estática, fotos e planos de governo"
-(cd "$ROOT/backend" && .venv/bin/python -m app.export "$OUT")
+# URL pública real (respeita domínio próprio configurado no GitHub Pages da conta)
+SITE_URL="$(gh api "repos/$REPO/pages" --jq .html_url 2>/dev/null || true)"
+SITE_URL="${SITE_URL:-https://${REPO%%/*}.github.io/$NAME/}"
+SITE_URL="${SITE_URL/http:\/\//https://}"
+
+echo "→ exportando a API estática, fotos, planos de governo e páginas por rota ($SITE_URL)"
+(cd "$ROOT/backend" && .venv/bin/python -m app.export "$OUT" --site-url "$SITE_URL")
 
 # SPA no GitHub Pages: rotas profundas caem no 404.html, que é o próprio app.
 cp "$OUT/index.html" "$OUT/404.html"
@@ -38,4 +43,4 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 git remote add origin "https://github.com/$REPO.git"
 git -c http.postBuffer=524288000 push -q -f origin gh-pages
 
-echo "✓ publicado: https://${REPO%%/*}.github.io/$NAME/"
+echo "✓ publicado: $SITE_URL"
