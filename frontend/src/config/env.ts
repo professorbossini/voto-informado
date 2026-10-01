@@ -30,6 +30,12 @@ export interface AppEnv {
    * site is public. Flip VITE_ENABLE_LOGIN=true when a signed-in feature exists.
    */
   enableLogin: boolean;
+  /**
+   * Aba de pesquisas eleitorais. DESLIGADA (pendente): os números de registro das pesquisas
+   * ainda não foram conferidos no PesqEle/TSE. Ligar com VITE_ENABLE_PESQUISAS=true (e
+   * PESQUISAS_ATIVAS=1 no backend) só depois dessa conferência.
+   */
+  enablePesquisas: boolean;
   /** Base URL of the public election API (`/api/*.json`). Empty = same origin. */
   dataUrl: string;
   /** Base URL of photos and government-plan PDFs (`/fotos`, `/propostas`). Defaults to dataUrl. */
@@ -77,6 +83,7 @@ export const env: AppEnv = {
   enableEmailPassword: readBool('VITE_ENABLE_EMAIL_PASSWORD', true),
   apiUrl: read('VITE_API_URL').replace(/\/+$/, '') || null,
   enableLogin: readBool('VITE_ENABLE_LOGIN', false),
+  enablePesquisas: readBool('VITE_ENABLE_PESQUISAS', false),
   // Same origin by default, under the app's base path (e.g. /voto-informado on GitHub Pages).
   dataUrl: (read('VITE_DATA_URL') || import.meta.env.BASE_URL).replace(/\/+$/, ''),
   assetsUrl: (read('VITE_ASSETS_URL') || read('VITE_DATA_URL') || import.meta.env.BASE_URL).replace(/\/+$/, ''),

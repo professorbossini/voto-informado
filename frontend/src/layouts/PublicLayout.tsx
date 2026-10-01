@@ -52,7 +52,9 @@ function TrustBar() {
       <Container maxWidth="lg" sx={{ py: 0.75, display: 'flex', alignItems: 'center', gap: 1, flexWrap: 'wrap' }}>
         <Typography variant="caption" sx={{ fontWeight: 600 }}>
           <VerifiedRounded sx={{ fontSize: 15, verticalAlign: 'text-bottom', mr: 0.5 }} />
-          Dados oficiais (TSE, Câmara e Senado) e pesquisas registradas no TSE · sem opinião, sem recomendação de voto
+          {env.enablePesquisas
+            ? 'Dados oficiais (TSE, Câmara e Senado) e pesquisas registradas no TSE · sem opinião, sem recomendação de voto'
+            : 'Somente dados oficiais (TSE, Câmara e Senado) · sem opinião, sem recomendação de voto'}
         </Typography>
         {meta?.atualizacao.tse_gerado_em && (
           <Typography variant="caption" sx={{ display: { xs: 'none', sm: 'inline' } }}>
@@ -76,7 +78,7 @@ function Footer() {
             <BrandLogo size="small" />
             <Typography variant="body2" color="text.secondary">
               Este site apenas reúne e organiza dados públicos publicados por órgãos oficiais. Não produz opinião, não
-              apoia candidatos ou partidos e não recomenda votos. Pesquisas aparecem só quando registradas no TSE, com a fonte. Todos os candidatos são
+              apoia candidatos ou partidos e não recomenda votos.{env.enablePesquisas ? ' Pesquisas aparecem só quando registradas no TSE, com a fonte.' : ''} Todos os candidatos são
               apresentados com os mesmos campos, na mesma ordem (alfabética) e com o mesmo destaque.
             </Typography>
             <Typography variant="caption" color="text.secondary">

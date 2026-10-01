@@ -72,6 +72,12 @@ O export gera também uma página HTML por candidatura (título, descrição e f
 para que links compartilhados abram com status 200 e prévia correta. Para outra hospedagem, `make exportar`
 gera `frontend/dist` (~600 MB); configure fallback de SPA (rota → `index.html`).
 
+## Pesquisas eleitorais (pendente, fora do ar)
+
+O código da aba de pesquisas e os dados curados (`backend/curadoria/pesquisas.json`) estão no repositório,
+mas a funcionalidade está **desligada** até que cada número de registro seja conferido no PesqEle/TSE.
+Passo a passo para religar em [backend/curadoria/PESQUISAS_PENDENTE.md](backend/curadoria/PESQUISAS_PENDENTE.md).
+
 ## Backend no Cloud Run + banco no Neon
 
 A API também roda contra Postgres (`DATABASE_URL`). `make neon` publica o banco (sem CPF, troca atômica)

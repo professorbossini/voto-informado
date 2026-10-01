@@ -8,6 +8,7 @@ import TouchAppRounded from '@mui/icons-material/TouchAppRounded';
 import InfoRounded from '@mui/icons-material/InfoRounded';
 import SyncAltRounded from '@mui/icons-material/SyncAltRounded';
 import PollRounded from '@mui/icons-material/PollRounded';
+import { env } from '@/config/env';
 
 /** Main navigation. `mobile: true` items go to the bottom bar; the rest live in "Mais". */
 export const NAV_ITEMS = [
@@ -15,7 +16,8 @@ export const NAV_ITEMS = [
   { to: '/eleicao', label: 'Candidatos', icon: HowToVoteRounded, mobile: true },
   { to: '/comparar', label: 'Comparar', icon: CompareArrowsRounded, mobile: true },
   { to: '/cola', label: 'Minha cola', short: 'Cola', icon: ListAltRounded, mobile: true },
-  { to: '/pesquisas', label: 'Pesquisas', icon: PollRounded, mobile: false },
+  // Pesquisas: pendente (ver env.enablePesquisas).
+  ...(env.enablePesquisas ? [{ to: '/pesquisas', label: 'Pesquisas', icon: PollRounded, mobile: false } as const] : []),
   { to: '/simulador', label: 'Simulador de urna', icon: TouchAppRounded, mobile: false },
   { to: '/segundo-turno', label: '2º turno', icon: SyncAltRounded, mobile: false },
   { to: '/gastos', label: 'Gastos de mandato', icon: ReceiptLongRounded, mobile: false },

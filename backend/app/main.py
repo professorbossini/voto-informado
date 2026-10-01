@@ -13,7 +13,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.staticfiles import StaticFiles
 
-from etl.common import PHOTOS, PROPOSTAS
+from etl.common import PESQUISAS_ATIVAS, PHOTOS, PROPOSTAS
 
 from . import queries as q
 from .db import DATABASE_URL, connection
@@ -119,6 +119,8 @@ def parlamentar(pid: str, conn=Depends(db)):
 
 @app.get("/api/pesquisas.json")
 def pesquisas(conn=Depends(db)):
+    if not PESQUISAS_ATIVAS:  # pendente de conferência no PesqEle
+        raise HTTPException(status_code=404, detail="Não encontrado")
     return cached("pesquisas", lambda: q.pesquisas(conn))
 
 

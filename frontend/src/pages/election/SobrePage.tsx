@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import { Alert, Box, Card, CardContent, Divider, Grid, Link, Skeleton, Stack, Typography } from '@mui/material';
 import { FonteDetalhe } from '@/components/election/SourceNote';
 import { FAISCA_REPO_URL } from '@/config/brand';
+import { env } from '@/config/env';
 import { dateTime } from '@/data/format';
 import { useMeta } from '@/data/MetaContext';
 import { PageHeader } from '@/pages/PageHeader';
@@ -44,7 +45,9 @@ export function SobrePage() {
         <Bloco title="Compromisso de neutralidade">
           <Box component="ul" sx={{ m: 0, pl: 2.5 }}>
             <li>Nenhuma opinião, nota, adjetivo ou recomendação de voto.</li>
-            <li>Pesquisas eleitorais: só as registradas no TSE, transcritas como divulgadas pelos institutos, com todas as informações exigidas por lei (instituto, contratante, registro, período, amostra, margem de erro e confiança). Sem média, projeção ou agregação própria.</li>
+            {env.enablePesquisas && (
+              <li>Pesquisas eleitorais: só as registradas no TSE, transcritas como divulgadas pelos institutos, com todas as informações exigidas por lei (instituto, contratante, registro, período, amostra, margem de erro e confiança). Sem média, projeção ou agregação própria.</li>
+            )}
             <li>Todas as candidaturas têm a mesma página, com os mesmos campos, na mesma ordem e com o mesmo destaque.</li>
             <li>Listas em ordem alfabética do nome de urna. Outras ordenações (por bens, arrecadação, gastos) só quando você escolhe.</li>
             <li>Nenhuma cor associada a partidos. Gráficos que comparam pessoas usam uma única cor neutra; cores diferentes aparecem só para categorias (como fonte de recursos).</li>

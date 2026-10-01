@@ -13,7 +13,7 @@ import shutil
 import sqlite3
 from pathlib import Path
 
-from etl.common import DB_PATH, PHOTOS, PROPOSTAS, ROOT
+from etl.common import DB_PATH, PESQUISAS_ATIVAS, PHOTOS, PROPOSTAS, ROOT
 
 from . import queries as q
 
@@ -47,7 +47,8 @@ def run(dest: Path) -> None:
     _write(dest, "estatisticas.json", q.estatisticas(conn))
     _write(dest, "parlamentares.json", q.parlamentares(conn))
     _write(dest, "resultados.json", q.resultados(conn))
-    _write(dest, "pesquisas.json", q.pesquisas(conn))
+    if PESQUISAS_ATIVAS:  # pendente de conferência no PesqEle: desligado por padrão
+        _write(dest, "pesquisas.json", q.pesquisas(conn))
     _write(dest, "segundo-turno.json", q.segundo_turno(conn))
     for uf in q.UF_NOMES:
         if uf == "BR":
@@ -115,8 +116,9 @@ def write_pages(dest: Path, site_url: str) -> None:
         "gastos": "Gastos de mandato (cota parlamentar)",
         "numeros": "A eleição em números",
         "sobre": "Fontes e método",
-        "pesquisas": "Pesquisas registradas no TSE",
     }
+    if PESQUISAS_ATIVAS:
+        estaticas["pesquisas"] = "Pesquisas registradas no TSE"
     for rel, titulo in estaticas.items():
         _page(template, dest, rel, f"{titulo} · Voto Informado", resumo, f"{site}/{rel}")
     cargos = ["presidente", "governador", "senador", "deputado-federal", "deputado-estadual", "deputado-distrital"]

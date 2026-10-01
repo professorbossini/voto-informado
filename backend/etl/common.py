@@ -24,6 +24,11 @@ PHOTOS = DATA / "fotos"
 PROPOSTAS = DATA / "propostas"
 
 TSE_CDN = "https://cdn.tse.jus.br/estatistica/sead"
+
+# Pesquisas eleitorais: PENDENTE. Os números de registro ainda não foram conferidos no
+# PesqEle/TSE, por isso a funcionalidade fica desligada (dados e código seguem no repositório).
+# Ligar com PESQUISAS_ATIVAS=1 (e VITE_ENABLE_PESQUISAS=true no frontend) após a conferência.
+PESQUISAS_ATIVAS = os.environ.get("PESQUISAS_ATIVAS", "").strip().lower() in ("1", "true", "sim", "yes")
 ANO = 2026
 # Códigos oficiais do TSE para 2026 (resultados.tse.jus.br/oficial/comum/config/ele-c.json)
 ELEICAO_FEDERAL_T1, ELEICAO_FEDERAL_T2 = "6257", "6258"
@@ -68,13 +73,23 @@ def download(url: str, dest: Path, *, max_age_hours: float = 12, retries: int = 
     if dest.exists() and dest.stat().st_size > 0:
         age_h = (time.time() - dest.stat().st_mtime) / 3600
         if age_h < max_age_hours:
-            if not _meta_path(dest).exists():
-                try:
-                    head = requests.head(url, timeout=30, allow_redirects=True, headers={"User-Agent": USER_AGENT})
-                    _write_meta(dest, url, head.headers.get("Last-Modified"))
-                except requests.RequestException:
-                    _write_meta(dest, url, None)
-            return dest
+            # Mesmo com cópia recente, pergunta ao servidor oficial se há versão mais nova.
+            try:
+                head = requests.head(url, timeout=30, allow_redirects=True, headers={"User-Agent": USER_AGENT})
+                remoto = head.headers.get("Last-Modified")
+            except requests.RequestException:
+                remoto = None
+            local = file_meta(dest).get("publicado_em")
+            if remoto is None or local is None:
+                if not _meta_path(dest).exists():
+                    _write_meta(dest, url, remoto)
+                return dest
+            try:
+                mais_novo = parsedate_to_datetime(remoto) > datetime.fromisoformat(local)
+            except (TypeError, ValueError):
+                mais_novo = False
+            if not mais_novo:
+                return dest
     last_error: Exception | None = None
     for attempt in range(retries):
         try:

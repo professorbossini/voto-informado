@@ -8,7 +8,10 @@ pesquisa com suas fontes, e conferidos na carga:
 - cada nome corresponde a uma candidatura da base do TSE (para foto e link).
 Qualquer falha interrompe a carga: nada entra no site sem passar na conferência.
 
-Uso: .venv/bin/python -m etl.pesquisas
+STATUS: PENDENTE. Desligado por padrão (etl.common.PESQUISAS_ATIVAS): enquanto os registros não
+forem conferidos no PesqEle, este passo apenas remove tabelas e fonte de pesquisas do banco.
+
+Uso: PESQUISAS_ATIVAS=1 .venv/bin/python -m etl.pesquisas
 """
 
 from __future__ import annotations
@@ -89,6 +92,13 @@ def validar(conn: sqlite3.Connection, pesquisas: list[dict]) -> list[str]:
 
 def run() -> None:
     conn = common.connect()
+    if not common.PESQUISAS_ATIVAS:
+        conn.executescript("DROP TABLE IF EXISTS pesquisas; DROP TABLE IF EXISTS pesquisa_resultados;")
+        conn.execute("CREATE TABLE IF NOT EXISTS fontes (chave TEXT PRIMARY KEY)")
+        conn.execute("DELETE FROM fontes WHERE chave = 'pesquisas_registradas'")
+        conn.commit()
+        print("pesquisas: DESATIVADAS (pendente de conferência no PesqEle); nada publicado")
+        return
     conn.executescript(
         """
         DROP TABLE IF EXISTS pesquisas;

@@ -26,6 +26,8 @@ import ListAltRounded from '@mui/icons-material/ListAltRounded';
 import PollRounded from '@mui/icons-material/PollRounded';
 import ReceiptLongRounded from '@mui/icons-material/ReceiptLongRounded';
 import TouchAppRounded from '@mui/icons-material/TouchAppRounded';
+import InsightsRounded from '@mui/icons-material/InsightsRounded';
+import { env } from '@/config/env';
 import { Link as RouterLink, useNavigate } from 'react-router';
 import { SERIES } from '@/components/charts/palette';
 import { CandidatePhoto } from '@/components/election/CandidatePhoto';
@@ -369,7 +371,9 @@ function VisaoGeral({ lista }: { lista: Candidato[] }) {
 // ── Página ────────────────────────────────────────────────────────────────────
 
 const ATALHOS = [
-  { to: '/pesquisas', icon: PollRounded, title: 'Pesquisas registradas', text: 'Resultados de pesquisas com registro no TSE.' },
+  env.enablePesquisas
+    ? { to: '/pesquisas', icon: PollRounded, title: 'Pesquisas registradas', text: 'Resultados de pesquisas com registro no TSE.' }
+    : { to: '/numeros', icon: InsightsRounded, title: 'A eleição em números', text: 'Gênero, idade, instrução e financiamento das candidaturas.' },
   { to: '/cola', icon: ListAltRounded, title: 'Monte sua cola', text: 'Seus números na ordem da urna, para imprimir.' },
   { to: '/simulador', icon: TouchAppRounded, title: 'Treine na urna', text: 'Simulador com as fotos e números reais.' },
   { to: '/gastos', icon: ReceiptLongRounded, title: 'Gastos de mandato', text: 'Cota de deputados e senadores desde 2023.' },

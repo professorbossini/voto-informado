@@ -38,12 +38,20 @@ def run() -> None:
         step.run()
         print(f"✓ {step.__name__.split('.')[-1]} ({time.time() - t:.0f}s)\n")
 
-    with sqlite3.connect(tmp) as conn:  # consolida o WAL antes da troca
-        conn.execute("PRAGMA wal_checkpoint(TRUNCATE)")
-        conn.execute("PRAGMA journal_mode=DELETE")
-    os.replace(tmp, OFICIAL)
+    finalizar(tmp)
+
+
+def finalizar(tmp: Path) -> None:
+    """Grava uma cópia compacta e autossuficiente (sem WAL) e a troca pela oficial de uma vez."""
+    final = OFICIAL.with_name(OFICIAL.name + ".final")
+    final.unlink(missing_ok=True)
+    with sqlite3.connect(tmp) as conn:  # funciona mesmo com outras conexões abertas
+        conn.execute(f"VACUUM INTO '{final}'")
+    os.replace(final, OFICIAL)
     for suffix in ("-wal", "-shm"):
         Path(str(OFICIAL) + suffix).unlink(missing_ok=True)
+    for f in (tmp, Path(str(tmp) + "-wal"), Path(str(tmp) + "-shm")):
+        f.unlink(missing_ok=True)
     print(f"✓ banco atualizado: {OFICIAL}")
 
 
