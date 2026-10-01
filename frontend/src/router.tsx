@@ -47,6 +47,7 @@ export const router = createBrowserRouter([
       { path: '/candidato/:sq', ...page(() => import('@/pages/election/CandidatoPage'), 'CandidatoPage') },
       { path: '/comparar', ...page(() => import('@/pages/election/CompararPage'), 'CompararPage') },
       { path: '/cola', ...page(() => import('@/pages/election/ColaPage'), 'ColaPage') },
+      { path: '/pesquisas', ...page(() => import('@/pages/election/PesquisasPage'), 'PesquisasPage') },
       { path: '/simulador', ...page(() => import('@/pages/election/SimuladorPage'), 'SimuladorPage') },
       { path: '/segundo-turno', ...page(() => import('@/pages/election/SegundoTurnoPage'), 'SegundoTurnoPage') },
       { path: '/gastos', ...page(() => import('@/pages/election/GastosPage'), 'GastosPage') },

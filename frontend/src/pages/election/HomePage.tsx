@@ -1,40 +1,49 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import {
   Box,
   Button,
+  ButtonBase,
   Card,
   CardActionArea,
   CardContent,
+  FormControl,
   Grid,
-  Link,
+  MenuItem,
+  Select,
   Skeleton,
   Stack,
+  ToggleButton,
+  ToggleButtonGroup,
+  Tooltip,
   Typography,
+  useMediaQuery,
+  type Theme,
 } from '@mui/material';
 import ArrowForwardRounded from '@mui/icons-material/ArrowForwardRounded';
-import BalanceRounded from '@mui/icons-material/BalanceRounded';
+import CasinoRounded from '@mui/icons-material/CasinoRounded';
 import CompareArrowsRounded from '@mui/icons-material/CompareArrowsRounded';
-import InsightsRounded from '@mui/icons-material/InsightsRounded';
 import ListAltRounded from '@mui/icons-material/ListAltRounded';
-import PolicyRounded from '@mui/icons-material/PolicyRounded';
+import PollRounded from '@mui/icons-material/PollRounded';
 import ReceiptLongRounded from '@mui/icons-material/ReceiptLongRounded';
-import SortByAlphaRounded from '@mui/icons-material/SortByAlphaRounded';
-import SyncAltRounded from '@mui/icons-material/SyncAltRounded';
 import TouchAppRounded from '@mui/icons-material/TouchAppRounded';
 import { Link as RouterLink, useNavigate } from 'react-router';
+import { SERIES } from '@/components/charts/palette';
 import { CandidatePhoto } from '@/components/election/CandidatePhoto';
+import { CandidateSearch } from '@/components/election/CandidateSearch';
 import { SourceNote } from '@/components/election/SourceNote';
-import { UfTileMap } from '@/components/election/UfTileMap';
+import { BrazilMap } from '@/components/election/UfTileMap';
 import { data } from '@/data/api';
-import { CARGO_LABEL, dateLong, DIGITOS, nomeProprio, number } from '@/data/format';
+import { dateLong, DIGITOS, moneyCompact, nomeProprio, number } from '@/data/format';
 import { useMeta } from '@/data/MetaContext';
-import type { Cargo } from '@/data/types';
+import type { Candidato, CandidatoDetalhe, Cargo } from '@/data/types';
 import { useAsync } from '@/hooks/useAsync';
+
+// ── Contagem regressiva ───────────────────────────────────────────────────────
 
 function useCountdown(target: Date) {
   const [now, setNow] = useState(() => Date.now());
   useEffect(() => {
-    const t = setInterval(() => setNow(Date.now()), 30_000);
+    const t = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(t);
   }, []);
   const diff = Math.max(0, target.getTime() - now);
@@ -43,13 +52,30 @@ function useCountdown(target: Date) {
     dias: Math.floor(diff / 86_400_000),
     horas: Math.floor((diff % 86_400_000) / 3_600_000),
     minutos: Math.floor((diff % 3_600_000) / 60_000),
+    segundos: Math.floor((diff % 60_000) / 1000),
   };
 }
 
 function CountUnit({ value, label }: { value: number; label: string }) {
   return (
-    <Box sx={{ textAlign: 'center', minWidth: 64, px: 1.5, py: 1, borderRadius: 3, bgcolor: 'background.paper', border: 1, borderColor: 'divider' }}>
-      <Typography sx={{ fontSize: '1.75rem', fontWeight: 700, lineHeight: 1.1, fontVariantNumeric: 'tabular-nums' }}>{value}</Typography>
+    <Box
+      sx={(theme) => ({
+        textAlign: 'center',
+        minWidth: { xs: 64, sm: 78 },
+        px: 1,
+        py: 1.25,
+        borderRadius: 3,
+        bgcolor: 'background.paper',
+        border: `1px solid ${theme.vars.palette.divider}`,
+        boxShadow: `0 8px 24px -16px ${theme.alpha('#140E26', 0.4)}`,
+      })}
+    >
+      <Typography
+        sx={{ fontSize: { xs: '1.9rem', sm: '2.4rem' }, fontWeight: 700, lineHeight: 1, fontVariantNumeric: 'tabular-nums', fontVariationSettings: "'ROND' 100" }}
+        aria-hidden
+      >
+        {String(value).padStart(2, '0')}
+      </Typography>
       <Typography variant="caption" color="text.secondary">
         {label}
       </Typography>
@@ -57,41 +83,305 @@ function CountUnit({ value, label }: { value: number; label: string }) {
   );
 }
 
-const PRINCIPIOS = [
-  {
-    icon: PolicyRounded,
-    title: 'Só fontes oficiais',
-    text: 'TSE, Câmara dos Deputados e Senado Federal. Cada número mostra de qual arquivo oficial veio e quando foi coletado.',
-  },
-  {
-    icon: SortByAlphaRounded,
-    title: 'Mesmo espaço para todos',
-    text: 'Os mesmos campos, no mesmo formato e em ordem alfabética. Ninguém aparece com destaque por quem é ou pelo partido.',
-  },
-  {
-    icon: BalanceRounded,
-    title: 'Sem opinião',
-    text: 'Não publicamos pesquisas, notas, rankings de "melhores" nem recomendações de voto. A decisão é sua.',
-  },
+// ── Duelo de dados ────────────────────────────────────────────────────────────
+
+function sortearDupla(lista: Candidato[]): [string, string] | null {
+  if (lista.length < 2) return null;
+  const a = Math.floor(Math.random() * lista.length);
+  let b = Math.floor(Math.random() * (lista.length - 1));
+  if (b >= a) b += 1;
+  return [lista[a].sq, lista[b].sq];
+}
+
+interface Metrica {
+  label: string;
+  hint?: string;
+  value: (c: CandidatoDetalhe) => number | null;
+  format: (v: number) => string;
+}
+
+const METRICAS: Metrica[] = [
+  { label: 'Patrimônio declarado', hint: 'Soma dos bens declarados ao TSE em 2026 (autodeclarado)', value: (c) => (c.bens.length || c.declarou_bens ? c.bens_total : null), format: moneyCompact },
+  { label: 'Arrecadação da campanha', hint: 'Receitas declaradas ao TSE até a data do arquivo (parcial)', value: (c) => c.receitas, format: moneyCompact },
+  { label: 'Gastos contratados', hint: 'Despesas contratadas declaradas ao TSE (parcial)', value: (c) => c.despesas, format: moneyCompact },
+  { label: 'Idade', value: (c) => c.idade, format: (v) => `${v} anos` },
+  { label: 'Candidaturas anteriores', hint: 'Desde 2004, segundo o histórico do TSE', value: (c) => c.historico.length, format: (v) => number(v) },
 ];
 
-const FERRAMENTAS = [
-  { to: '/eleicao', icon: ListAltRounded, title: 'Candidatos por estado', text: 'Presidente, governador, Senado e deputados, com filtros.' },
-  { to: '/comparar', icon: CompareArrowsRounded, title: 'Compare lado a lado', text: 'Até 4 candidaturas: perfil, patrimônio, campanha e trajetória.' },
-  { to: '/cola', icon: ListAltRounded, title: 'Monte sua cola', text: 'Anote seus números na ordem da urna. Fica só no seu aparelho.' },
-  { to: '/simulador', icon: TouchAppRounded, title: 'Simulador de urna', text: 'Treine a sequência de votos com fotos e números reais.' },
-  { to: '/gastos', icon: ReceiptLongRounded, title: 'Gastos de mandato', text: 'Cota parlamentar de deputados federais e senadores desde 2023.' },
-  { to: '/numeros', icon: InsightsRounded, title: 'A eleição em números', text: 'Quem são as candidaturas: gênero, idade, instrução, financiamento.' },
-  { to: '/segundo-turno', icon: SyncAltRounded, title: '2º turno', text: 'Após a apuração, os finalistas comparados com dados oficiais.' },
+/** One metric, two people: mirrored bars on a shared scale, value always written. Same color for both. */
+function DuelRow({ m, a, b }: { m: Metrica; a: CandidatoDetalhe; b: CandidatoDetalhe }) {
+  const va = m.value(a);
+  const vb = m.value(b);
+  const max = Math.max(va ?? 0, vb ?? 0, 1);
+  const bar = (v: number | null, side: 'left' | 'right') => (
+    <Box sx={{ flex: 1, display: 'flex', flexDirection: side === 'left' ? 'row-reverse' : 'row', alignItems: 'center', gap: 1, minWidth: 0 }}>
+      <Box
+        sx={(theme) => ({
+          height: 12,
+          width: `${((v ?? 0) / max) * 100}%`,
+          minWidth: v ? 3 : 0,
+          backgroundColor: SERIES.light,
+          borderRadius: side === 'left' ? '4px 0 0 4px' : '0 4px 4px 0',
+          transition: 'width 600ms cubic-bezier(0.05, 0.7, 0.1, 1)',
+          ...theme.applyStyles('dark', { backgroundColor: SERIES.dark }),
+        })}
+      />
+      <Typography variant="body2" sx={{ fontWeight: 700, whiteSpace: 'nowrap', fontVariantNumeric: 'tabular-nums' }}>
+        {v == null ? 'Não informado' : m.format(v)}
+      </Typography>
+    </Box>
+  );
+  return (
+    <Box sx={{ py: 1 }}>
+      <Tooltip title={m.hint ?? ''} disableHoverListener={!m.hint}>
+        <Typography variant="caption" color="text.secondary" component="div" sx={{ textAlign: 'center', mb: 0.5, fontWeight: 600, letterSpacing: '0.02em' }}>
+          {m.label}
+        </Typography>
+      </Tooltip>
+      <Stack direction="row" spacing={0.75} sx={{ alignItems: 'center' }}>
+        {bar(va, 'left')}
+        <Box sx={{ width: 2, height: 18, bgcolor: 'divider', flexShrink: 0 }} />
+        {bar(vb, 'right')}
+      </Stack>
+    </Box>
+  );
+}
+
+function Lado({ c, lista, onChange, align }: { c: CandidatoDetalhe; lista: Candidato[]; onChange: (sq: string) => void; align: 'left' | 'right' }) {
+  return (
+    <Stack spacing={1} sx={{ alignItems: align === 'left' ? 'flex-start' : 'flex-end', textAlign: align, flex: 1, minWidth: 0 }}>
+      <ButtonBase component={RouterLink} to={`/candidato/${c.sq}`} sx={{ borderRadius: 3 }} aria-label={`Ver perfil de ${nomeProprio(c.nome_urna)}`}>
+        <CandidatePhoto src={c.foto} alt={`Foto de ${nomeProprio(c.nome_urna)}`} width={112} rounded={16} />
+      </ButtonBase>
+      <Box sx={{ minWidth: 0, maxWidth: '100%' }}>
+        <Typography variant="h6" sx={{ lineHeight: 1.15 }}>
+          {nomeProprio(c.nome_urna)}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          <Box component="span" sx={{ fontFamily: 'monospace', fontWeight: 700, color: 'text.primary' }}>
+            {c.numero}
+          </Box>{' '}
+          · {c.partido}
+        </Typography>
+      </Box>
+      <FormControl size="small" sx={{ width: '100%', maxWidth: 220 }}>
+        <Select value={c.sq} onChange={(e) => onChange(e.target.value)} inputProps={{ 'aria-label': `Trocar candidatura do lado ${align === 'left' ? 'esquerdo' : 'direito'}` }}>
+          {lista.map((x) => (
+            <MenuItem key={x.sq} value={x.sq}>
+              {nomeProprio(x.nome_urna)} ({x.partido})
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    </Stack>
+  );
+}
+
+function DueloDeDados({ lista }: { lista: Candidato[] }) {
+  const [par, setPar] = useState<[string, string] | null>(() => sortearDupla(lista));
+  const key = par?.join(',') ?? '';
+  const det = useAsync(() => (par ? Promise.all(par.map((sq) => data.candidato(sq))) : Promise.resolve(null)), [key]);
+  const [a, b] = det.data ?? [];
+
+  return (
+    <Card
+      sx={(theme) => ({
+        borderRadius: 6,
+        overflow: 'visible',
+        background: `linear-gradient(180deg, ${theme.alpha(theme.vars.palette.primary.main, 0.06)}, transparent 40%), ${theme.vars.palette.background.paper}`,
+      })}
+    >
+      <CardContent sx={{ p: { xs: 2, md: 4 } }}>
+        <Stack direction={{ xs: 'column', sm: 'row' }} sx={{ justifyContent: 'space-between', alignItems: { sm: 'center' }, gap: 1.5, mb: 2 }}>
+          <Box>
+            <Typography variant="overline" color="primary">
+              Duelo de dados · Presidência
+            </Typography>
+            <Typography variant="h4" component="h2">
+              Compare duas candidaturas em 10 segundos
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Dupla sorteada ao acaso entre as {lista.length} candidaturas na urna. Troque os nomes como quiser.
+            </Typography>
+          </Box>
+          <Button variant="tonal" startIcon={<CasinoRounded />} onClick={() => setPar(sortearDupla(lista))}>
+            Sortear outra dupla
+          </Button>
+        </Stack>
+
+        {!a || !b ? (
+          <Skeleton variant="rounded" height={420} />
+        ) : (
+          <>
+            <Stack direction="row" spacing={{ xs: 1, sm: 3 }} sx={{ alignItems: 'flex-start', mb: 2 }}>
+              <Lado c={a} lista={lista.filter((x) => x.sq !== b.sq)} onChange={(sq) => setPar([sq, b.sq])} align="left" />
+              <Typography sx={{ alignSelf: 'center', fontWeight: 800, fontSize: { xs: '1.2rem', sm: '1.6rem' }, color: 'text.disabled', px: { xs: 0, sm: 1 } }} aria-hidden>
+                ×
+              </Typography>
+              <Lado c={b} lista={lista.filter((x) => x.sq !== a.sq)} onChange={(sq) => setPar([a.sq, sq])} align="right" />
+            </Stack>
+            <Box sx={{ borderTop: 1, borderColor: 'divider', pt: 1 }}>
+              {METRICAS.map((m) => (
+                <DuelRow key={m.label} m={m} a={a} b={b} />
+              ))}
+              <Box sx={{ py: 1, display: 'grid', gridTemplateColumns: '1fr auto 1fr', gap: 1, alignItems: 'start' }}>
+                <Typography variant="body2" sx={{ textAlign: 'left' }}>
+                  {a.mandato_atual ? `Mandato atual: ${a.mandato_atual}` : a.eleito_ultima ? `Eleito(a): ${a.eleito_ultima}` : 'Sem mandato no Congresso'}
+                </Typography>
+                <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 600, pt: 0.25 }}>
+                  Trajetória
+                </Typography>
+                <Typography variant="body2" sx={{ textAlign: 'right' }}>
+                  {b.mandato_atual ? `Mandato atual: ${b.mandato_atual}` : b.eleito_ultima ? `Eleito(a): ${b.eleito_ultima}` : 'Sem mandato no Congresso'}
+                </Typography>
+              </Box>
+            </Box>
+            <Stack direction={{ xs: 'column', sm: 'row' }} sx={{ justifyContent: 'space-between', alignItems: { sm: 'center' }, gap: 1.5, mt: 2 }}>
+              <SourceNote keys={['tse_candidatos', 'tse_bens', 'tse_prestacao', 'tse_historico']} note="valores de campanha parciais; patrimônio autodeclarado" />
+              <Button component={RouterLink} to={`/comparar?c=${a.sq},${b.sq}`} variant="contained" endIcon={<CompareArrowsRounded />}>
+                Comparação completa
+              </Button>
+            </Stack>
+          </>
+        )}
+      </CardContent>
+    </Card>
+  );
+}
+
+// ── Todos os presidenciáveis num olhar ────────────────────────────────────────
+
+type Ordem = 'nome' | 'bens' | 'receitas' | 'despesas';
+
+const COLS: { key: Exclude<Ordem, 'nome'>; label: string; v: (c: Candidato) => number | null }[] = [
+  { key: 'bens', label: 'Patrimônio', v: (c) => (c.declarou_bens || c.bens_total ? c.bens_total : null) },
+  { key: 'receitas', label: 'Arrecadou', v: (c) => c.receitas },
+  { key: 'despesas', label: 'Gastou', v: (c) => c.despesas },
 ];
 
-const ORDEM_URNA: { cargo: Cargo; label: string }[] = [
-  { cargo: 'deputado-federal', label: 'Deputado(a) federal' },
-  { cargo: 'deputado-estadual', label: 'Deputado(a) estadual ou distrital' },
-  { cargo: 'senador', label: 'Senador(a) · 1ª vaga' },
-  { cargo: 'senador', label: 'Senador(a) · 2ª vaga' },
-  { cargo: 'governador', label: 'Governador(a)' },
-  { cargo: 'presidente', label: 'Presidente' },
+function ColHeader({ active, onClick, children }: { active: boolean; onClick: () => void; children: ReactNode }) {
+  return (
+    <ButtonBase
+      onClick={onClick}
+      aria-pressed={active}
+      sx={{ justifyContent: 'flex-start', borderRadius: 1, px: 0.5, fontWeight: active ? 800 : 600, fontSize: '0.75rem', color: active ? 'primary.main' : 'text.secondary', textTransform: 'uppercase', letterSpacing: '0.05em' }}
+    >
+      {children}
+    </ButtonBase>
+  );
+}
+
+function VisaoGeral({ lista }: { lista: Candidato[] }) {
+  const [ordem, setOrdem] = useState<Ordem>('nome');
+  // No celular, uma métrica por vez (sem rolagem lateral).
+  const compacto = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
+  const [metricaCel, setMetricaCel] = useState<Exclude<Ordem, 'nome'>>('bens');
+  const cols = compacto ? COLS.filter((c) => c.key === metricaCel) : COLS;
+  const grid = compacto ? '1.6fr 1fr' : '2fr repeat(3, 1fr)';
+  const max = Object.fromEntries(COLS.map((col) => [col.key, Math.max(1, ...lista.map((c) => col.v(c) ?? 0))]));
+  const rows = useMemo(() => {
+    const col = COLS.find((c) => c.key === ordem);
+    return [...lista].sort((a, b) => (col ? (col.v(b) ?? -1) - (col.v(a) ?? -1) : 0) || a.nome_urna.localeCompare(b.nome_urna, 'pt-BR'));
+  }, [lista, ordem]);
+
+  return (
+    <Card sx={{ borderRadius: 6 }}>
+      <CardContent sx={{ p: { xs: 2, md: 4 } }}>
+        <Typography variant="overline" color="primary">
+          Todos de uma vez
+        </Typography>
+        <Typography variant="h4" component="h2">
+          As {lista.length} candidaturas à Presidência
+        </Typography>
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+          Em ordem alfabética. Toque no título de uma coluna para ordenar por ela; toque num nome para ver o perfil.
+        </Typography>
+        {compacto && (
+          <ToggleButtonGroup exclusive size="small" value={metricaCel} onChange={(_, v) => v && setMetricaCel(v)} sx={{ mb: 1.5 }} aria-label="Métrica exibida">
+            {COLS.map((c) => (
+              <ToggleButton key={c.key} value={c.key}>
+                {c.label}
+              </ToggleButton>
+            ))}
+          </ToggleButtonGroup>
+        )}
+        <Box>
+          <Box>
+            <Box sx={{ display: 'grid', gridTemplateColumns: grid, gap: 2, pb: 1, borderBottom: 1, borderColor: 'divider' }}>
+              <ColHeader active={ordem === 'nome'} onClick={() => setOrdem('nome')}>
+                Candidatura {ordem === 'nome' ? '↓ A–Z' : ''}
+              </ColHeader>
+              {cols.map((c) => (
+                <ColHeader key={c.key} active={ordem === c.key} onClick={() => setOrdem(c.key)}>
+                  {c.label} {ordem === c.key ? '↓' : ''}
+                </ColHeader>
+              ))}
+            </Box>
+            {rows.map((c) => (
+              <Box
+                key={c.sq}
+                component={RouterLink}
+                to={`/candidato/${c.sq}`}
+                sx={{ display: 'grid', gridTemplateColumns: grid, gap: 2, alignItems: 'center', py: 0.75, borderBottom: 1, borderColor: 'divider', textDecoration: 'none', color: 'inherit', '&:hover': { bgcolor: 'action.hover' } }}
+              >
+                <Stack direction="row" spacing={1.25} sx={{ alignItems: 'center', minWidth: 0 }}>
+                  <CandidatePhoto src={c.foto} alt="" width={34} rounded={8} />
+                  <Box sx={{ minWidth: 0 }}>
+                    <Typography variant="body2" sx={{ fontWeight: 600 }} noWrap>
+                      {nomeProprio(c.nome_urna)}
+                    </Typography>
+                    <Typography variant="caption" color="text.secondary">
+                      {c.numero} · {c.partido}
+                    </Typography>
+                  </Box>
+                </Stack>
+                {cols.map((col) => {
+                  const v = col.v(c);
+                  return (
+                    <Box key={col.key} sx={{ minWidth: 0 }}>
+                      <Typography variant="caption" sx={{ fontWeight: 600, fontVariantNumeric: 'tabular-nums' }}>
+                        {v == null ? '—' : moneyCompact(v)}
+                      </Typography>
+                      <Box
+                        sx={(theme) => ({
+                          height: 6,
+                          mt: 0.25,
+                          width: `${((v ?? 0) / max[col.key]) * 100}%`,
+                          minWidth: v ? 2 : 0,
+                          borderRadius: '0 3px 3px 0',
+                          backgroundColor: SERIES.light,
+                          ...theme.applyStyles('dark', { backgroundColor: SERIES.dark }),
+                        })}
+                      />
+                    </Box>
+                  );
+                })}
+              </Box>
+            ))}
+          </Box>
+        </Box>
+        <SourceNote keys={['tse_candidatos', 'tse_bens', 'tse_prestacao', 'tse_fotos']} sx={{ mt: 2 }} note="“—” = não declarou ou sem registro" />
+      </CardContent>
+    </Card>
+  );
+}
+
+// ── Página ────────────────────────────────────────────────────────────────────
+
+const ATALHOS = [
+  { to: '/pesquisas', icon: PollRounded, title: 'Pesquisas registradas', text: 'Resultados de pesquisas com registro no TSE.' },
+  { to: '/cola', icon: ListAltRounded, title: 'Monte sua cola', text: 'Seus números na ordem da urna, para imprimir.' },
+  { to: '/simulador', icon: TouchAppRounded, title: 'Treine na urna', text: 'Simulador com as fotos e números reais.' },
+  { to: '/gastos', icon: ReceiptLongRounded, title: 'Gastos de mandato', text: 'Cota de deputados e senadores desde 2023.' },
+];
+
+const VOTOS: { cargo: Cargo; label: string }[] = [
+  { cargo: 'deputado-federal', label: 'Dep. federal' },
+  { cargo: 'deputado-estadual', label: 'Dep. estadual' },
+  { cargo: 'senador', label: 'Senado 1' },
+  { cargo: 'senador', label: 'Senado 2' },
+  { cargo: 'governador', label: 'Governo' },
+  { cargo: 'presidente', label: 'Presidência' },
 ];
 
 export function HomePage() {
@@ -102,224 +392,129 @@ export function HomePage() {
   const alvo = new Date(`${segundo ? meta?.eleicao.data_2turno : '2026-10-04'}T08:00:00-03:00`);
   const cd = useCountdown(alvo);
   const naUrna = (presidente.data?.candidatos ?? []).filter((c) => c.na_urna);
+  const names = Object.fromEntries((meta?.ufs ?? []).map((u) => [u.uf, u.nome]));
 
   return (
-    <Stack spacing={{ xs: 5, md: 7 }}>
-      {/* Hero */}
+    <Stack spacing={{ xs: 4, md: 6 }}>
+      {/* Hero: contagem + busca */}
       <Box
         sx={(theme) => ({
           position: 'relative',
           overflow: 'hidden',
           borderRadius: 6,
-          p: { xs: 3, md: 6 },
+          p: { xs: 2.5, md: 5 },
           border: `1px solid ${theme.vars.palette.divider}`,
-          background: `radial-gradient(120% 140% at 0% 0%, ${theme.alpha(theme.vars.palette.lime.main, 0.22)} 0%, transparent 55%), radial-gradient(120% 140% at 100% 100%, ${theme.alpha('#7649CF', 0.18)} 0%, transparent 55%), ${theme.vars.palette.background.paper}`,
+          background: `radial-gradient(120% 140% at 0% 0%, ${theme.alpha(theme.vars.palette.lime.main, 0.24)} 0%, transparent 55%), radial-gradient(120% 140% at 100% 100%, ${theme.alpha('#7649CF', 0.2)} 0%, transparent 55%), ${theme.vars.palette.background.paper}`,
         })}
       >
-        <Grid container spacing={4} sx={{ alignItems: 'center' }}>
-          <Grid size={{ xs: 12, md: 7 }}>
+        <Grid container spacing={{ xs: 3, md: 5 }} sx={{ alignItems: 'center' }}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Typography variant="overline" color="primary">
-              Eleições gerais · {segundo ? `2º turno em ${dateLong(meta!.eleicao.data_2turno)}` : '1º turno em 4 de outubro de 2026'}
+              {segundo ? `2º turno · ${dateLong(meta!.eleicao.data_2turno)}` : 'Eleições 2026 · 1º turno em 4 de outubro'}
             </Typography>
-            <Typography variant="h1" sx={{ fontSize: { xs: '2.1rem', md: '3.1rem' }, mt: 1, mb: 2 }}>
-              Conheça quem está na sua urna antes de votar.
+            <Typography variant="h1" sx={{ fontSize: { xs: '2rem', md: '2.9rem' }, mt: 0.5, mb: 1.5 }}>
+              Quem está na sua urna, lado a lado.
             </Typography>
-            <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 560, mb: 3 }}>
-              Patrimônio declarado, financiamento de campanha, trajetória eleitoral e gastos de mandato de todas as
-              candidaturas, organizados a partir de dados públicos oficiais. Sem opinião, sem pesquisas, sem
+            <Typography color="text.secondary" sx={{ mb: 2.5, maxWidth: 520 }}>
+              Patrimônio, campanha e trajetória de todas as candidaturas, com dados oficiais. Sem opinião e sem
               recomendação de voto.
             </Typography>
-            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5}>
-              <Button component={RouterLink} to="/eleicao" variant="contained" size="large" endIcon={<ArrowForwardRounded />}>
-                Ver candidatos do meu estado
-              </Button>
-              <Button component={RouterLink} to="/cola" variant="tonal" size="large">
-                Montar minha cola
-              </Button>
-            </Stack>
+            <CandidateSearch onPick={(sq) => void navigate(`/candidato/${sq}`)} placeholder="Busque qualquer candidatura por nome ou número" />
           </Grid>
-          <Grid size={{ xs: 12, md: 5 }}>
-            <Stack spacing={1.5} sx={{ alignItems: { xs: 'flex-start', md: 'center' } }}>
-              <Typography variant="subtitle2" color="text.secondary">
-                {cd.done ? 'A votação já começou ou terminou' : 'Faltam para a abertura das urnas (8h, horário de Brasília)'}
+          <Grid size={{ xs: 12, md: 6 }}>
+            <Stack spacing={1.25} sx={{ alignItems: 'center' }}>
+              <Typography variant="subtitle2" color="text.secondary" sx={{ textAlign: 'center' }}>
+                {cd.done ? 'A votação já começou ou terminou' : 'Faltam para a abertura das urnas (8h de Brasília)'}
               </Typography>
               {!cd.done && (
-                <Stack direction="row" spacing={1}>
+                <Stack direction="row" spacing={{ xs: 0.75, sm: 1.25 }} role="timer" aria-label={`Faltam ${cd.dias} dias, ${cd.horas} horas e ${cd.minutos} minutos`}>
                   <CountUnit value={cd.dias} label={cd.dias === 1 ? 'dia' : 'dias'} />
                   <CountUnit value={cd.horas} label="horas" />
                   <CountUnit value={cd.minutos} label="min" />
+                  <CountUnit value={cd.segundos} label="seg" />
                 </Stack>
               )}
-              {meta && (
-                <Typography variant="body2" color="text.secondary" sx={{ textAlign: { md: 'center' } }}>
-                  {number(['presidente', 'governador', 'senador', 'deputado-federal', 'deputado-estadual', 'deputado-distrital'].reduce((s, k) => s + (meta.totais[k as Cargo] ?? 0), 0))} candidaturas na urna em todo o país (sem contar vices e suplentes).
-                </Typography>
-              )}
+              <Stack direction="row" useFlexGap sx={{ flexWrap: 'wrap', justifyContent: 'center', pt: 1, gap: 0.75 }} aria-label="Ordem dos seis votos na urna">
+                {VOTOS.map((v, i) => (
+                  <Box key={v.label} sx={{ px: 1, py: 0.5, borderRadius: 2, bgcolor: 'background.subtle', border: 1, borderColor: 'divider' }}>
+                    <Typography variant="caption" sx={{ fontWeight: 700 }}>
+                      {i + 1}. {v.label}
+                    </Typography>
+                    <Typography variant="caption" color="text.secondary">
+                      {' '}
+                      · {DIGITOS[v.cargo]} díg.
+                    </Typography>
+                  </Box>
+                ))}
+              </Stack>
+              <Typography variant="caption" color="text.secondary" sx={{ textAlign: 'center' }}>
+                A ordem dos votos na urna. Os dois votos para o Senado devem ir para pessoas diferentes.
+              </Typography>
             </Stack>
           </Grid>
         </Grid>
       </Box>
 
-      {/* Escolha o estado */}
-      <Grid container spacing={4} sx={{ alignItems: 'center' }}>
-        <Grid size={{ xs: 12, md: 5 }}>
-          <Typography variant="h3" component="h2" sx={{ mb: 1 }}>
-            Escolha seu estado
-          </Typography>
-          <Typography color="text.secondary" sx={{ mb: 2 }}>
-            Você vota em quem disputa no estado onde tem título: governador(a), duas vagas ao Senado, deputados federais e
-            estaduais (ou distritais, no DF), além da Presidência.
-          </Typography>
-          {meta && (
-            <SourceNote keys={['tse_candidatos', 'tse_vagas']} />
-          )}
-        </Grid>
-        <Grid size={{ xs: 12, md: 7 }} sx={{ display: 'flex', justifyContent: { md: 'center' }, overflowX: 'auto' }}>
-          <UfTileMap
-            onSelect={(uf) => void navigate(`/eleicao/${uf}`)}
-            names={Object.fromEntries((meta?.ufs ?? []).map((u) => [u.uf, u.nome]))}
-            size={46}
-          />
-        </Grid>
-      </Grid>
+      {/* Duelo */}
+      {presidente.loading ? <Skeleton variant="rounded" height={520} /> : naUrna.length >= 2 && <DueloDeDados lista={naUrna} />}
 
-      {/* Presidência */}
-      <Box>
-        <Stack direction={{ xs: 'column', sm: 'row' }} sx={{ justifyContent: 'space-between', alignItems: { sm: 'flex-end' }, mb: 2, gap: 1 }}>
-          <Box>
-            <Typography variant="h3" component="h2">
-              Candidaturas à Presidência
-            </Typography>
-            <Typography color="text.secondary">
-              {naUrna.length ? `${naUrna.length} nomes na urna, em ordem alfabética.` : 'Carregando…'}
-            </Typography>
-          </Box>
-          <Button component={RouterLink} to="/eleicao/BR/presidente" endIcon={<ArrowForwardRounded />}>
-            Ver perfis completos
-          </Button>
-        </Stack>
-        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: 'repeat(3, 1fr)', sm: 'repeat(5, 1fr)', md: 'repeat(7, 1fr)' }, gap: 2 }}>
-          {presidente.loading &&
-            Array.from({ length: 7 }, (_, i) => <Skeleton key={i} variant="rounded" sx={{ aspectRatio: '3 / 4', height: 'auto' }} />)}
-          {naUrna.map((c) => (
-            <Box
-              key={c.sq}
-              component={RouterLink}
-              to={`/candidato/${c.sq}`}
-              sx={{ textDecoration: 'none', color: 'inherit', '&:hover img': { transform: 'scale(1.04)' }, '& img': { transition: 'transform 300ms' } }}
-            >
-              <CandidatePhoto src={c.foto} alt={`Foto de ${nomeProprio(c.nome_urna)}`} width="100%" />
-              <Typography variant="subtitle2" sx={{ mt: 0.75, lineHeight: 1.25 }}>
-                {nomeProprio(c.nome_urna)}
-              </Typography>
-              <Typography variant="caption" color="text.secondary">
-                {c.numero} · {c.partido}
-              </Typography>
-            </Box>
-          ))}
-        </Box>
-        <SourceNote keys={['tse_candidatos', 'tse_complementar', 'tse_fotos']} sx={{ mt: 2 }} />
-      </Box>
-
-      {/* Princípios */}
-      <Box>
-        <Typography variant="h3" component="h2" sx={{ mb: 2 }}>
-          Como este site funciona
-        </Typography>
-        <Grid container spacing={2}>
-          {PRINCIPIOS.map((p) => (
-            <Grid key={p.title} size={{ xs: 12, md: 4 }}>
-              <Card sx={{ height: '100%' }}>
-                <CardContent>
-                  <Box sx={{ width: 44, height: 44, borderRadius: 3, display: 'grid', placeItems: 'center', bgcolor: 'primary.container', color: 'primary.onContainer', mb: 1.5 }}>
-                    <p.icon />
-                  </Box>
-                  <Typography variant="h6" component="h3">
-                    {p.title}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
-                    {p.text}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
-
-      {/* Ferramentas */}
-      <Box>
-        <Typography variant="h3" component="h2" sx={{ mb: 2 }}>
-          O que você pode fazer aqui
-        </Typography>
-        <Grid container spacing={2}>
-          {FERRAMENTAS.map((f) => (
-            <Grid key={f.to} size={{ xs: 12, sm: 6, md: 3 }}>
-              <Card sx={{ height: '100%', '&:hover': { borderColor: 'primary.light' } }}>
-                <CardActionArea component={RouterLink} to={f.to} sx={{ height: '100%', alignItems: 'flex-start' }}>
-                  <CardContent>
-                    <f.icon color="primary" />
-                    <Typography variant="subtitle1" sx={{ fontWeight: 600, mt: 1 }}>
-                      {f.title}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {f.text}
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
-
-      {/* Ordem da urna */}
-      <Card>
-        <CardContent sx={{ p: { xs: 2.5, md: 4 } }}>
-          <Grid container spacing={4}>
+      {/* Mapa */}
+      <Card sx={{ borderRadius: 6 }}>
+        <CardContent sx={{ p: { xs: 2, md: 4 } }}>
+          <Grid container spacing={3} sx={{ alignItems: 'center' }}>
             <Grid size={{ xs: 12, md: 5 }}>
+              <Typography variant="overline" color="primary">
+                Governo, Senado e deputados
+              </Typography>
               <Typography variant="h4" component="h2" sx={{ mb: 1 }}>
-                A ordem dos votos na urna
+                Toque no seu estado
               </Typography>
               <Typography color="text.secondary" sx={{ mb: 2 }}>
-                Em 2026 cada estado elege duas pessoas para o Senado, por isso são seis votos. Os dois votos para o Senado
-                devem ir para pessoas diferentes: se o mesmo nome for escolhido duas vezes, o segundo voto é anulado (
-                <Link href="https://www12.senado.leg.br/noticias/materias/2026/09/28/eleicoes-2026-veja-o-que-e-fato-sobre-o-voto-para-o-senado" target="_blank" rel="noopener noreferrer">
-                  Agência Senado
-                </Link>
-                ).
+                Veja todas as candidaturas a governador(a), às duas vagas do Senado e a deputado(a) federal e estadual de
+                onde você vota.
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                A votação vai das 8h às 17h, horário de Brasília. Leve um documento oficial com foto ou use o e-Título. O
-                celular não pode entrar na cabine: anote seus números no papel.{' '}
-                <Link href="https://www.tse.jus.br/" target="_blank" rel="noopener noreferrer">
-                  Orientações oficiais no site do TSE
-                </Link>
-              </Typography>
+              {meta && (
+                <Typography variant="body2" color="text.secondary">
+                  {number(['presidente', 'governador', 'senador', 'deputado-federal', 'deputado-estadual', 'deputado-distrital'].reduce((s, k) => s + (meta.totais[k as Cargo] ?? 0), 0))}{' '}
+                  candidaturas na urna em todo o país.
+                </Typography>
+              )}
             </Grid>
             <Grid size={{ xs: 12, md: 7 }}>
-              <Stack component="ol" spacing={1} sx={{ p: 0, m: 0, listStyle: 'none' }}>
-                {ORDEM_URNA.map((o, i) => (
-                  <Stack component="li" key={o.label} direction="row" spacing={2} sx={{ alignItems: 'center', p: 1.25, borderRadius: 3, bgcolor: 'background.subtle' }}>
-                    <Box sx={{ width: 32, height: 32, borderRadius: '50%', bgcolor: 'primary.main', color: 'primary.contrastText', display: 'grid', placeItems: 'center', fontWeight: 700, flexShrink: 0 }}>
-                      {i + 1}
-                    </Box>
-                    <Typography sx={{ flex: 1, fontWeight: 500 }}>{o.label}</Typography>
-                    <Stack direction="row" spacing={0.5} aria-label={`${DIGITOS[o.cargo]} dígitos`}>
-                      {Array.from({ length: DIGITOS[o.cargo] ?? 0 }, (_, d) => (
-                        <Box key={d} sx={{ width: 18, height: 24, border: 1.5, borderColor: 'text.secondary', borderRadius: 0.75 }} />
-                      ))}
-                    </Stack>
-                  </Stack>
-                ))}
-              </Stack>
-              <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 1 }}>
-                Os quadrados indicam quantos dígitos tem o número de cada cargo ({CARGO_LABEL['deputado-federal']}: 4, estadual/distrital: 5, Senado: 3, governo e Presidência: 2).
-              </Typography>
+              <BrazilMap onSelect={(uf) => void navigate(`/eleicao/${uf}`)} names={names} width={540} />
             </Grid>
           </Grid>
         </CardContent>
       </Card>
+
+      {/* Visão geral */}
+      {naUrna.length > 0 && <VisaoGeral lista={naUrna} />}
+
+      {/* Atalhos */}
+      <Grid container spacing={2}>
+        {ATALHOS.map((f) => (
+          <Grid key={f.to} size={{ xs: 12, sm: 6, md: 3 }}>
+            <Card sx={{ height: '100%', borderRadius: 4, '&:hover': { borderColor: 'primary.light' } }}>
+              <CardActionArea component={RouterLink} to={f.to} sx={{ height: '100%', alignItems: 'flex-start' }}>
+                <CardContent>
+                  <Box sx={{ width: 44, height: 44, borderRadius: 3, display: 'grid', placeItems: 'center', bgcolor: 'primary.container', color: 'primary.onContainer', mb: 1.5 }}>
+                    <f.icon />
+                  </Box>
+                  <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
+                    {f.title}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {f.text}
+                  </Typography>
+                  <Typography variant="body2" color="primary" sx={{ mt: 1, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                    Abrir <ArrowForwardRounded fontSize="small" />
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
     </Stack>
   );
 }

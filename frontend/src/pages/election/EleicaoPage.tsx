@@ -351,7 +351,7 @@ export function EleicaoPage() {
               </Typography>
             </Grid>
             <Grid size={{ xs: 12, md: 7 }} sx={{ overflowX: 'auto' }}>
-              <UfTileMap onSelect={(u) => go(u, 'governador')} names={Object.fromEntries((meta?.ufs ?? []).map((u) => [u.uf, u.nome]))} size={40} />
+              <UfTileMap onSelect={(u) => go(u, 'governador')} names={Object.fromEntries((meta?.ufs ?? []).map((u) => [u.uf, u.nome]))} width={500} />
             </Grid>
           </Grid>
         </Card>

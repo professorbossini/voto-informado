@@ -1,91 +1,146 @@
-import { Box, ButtonBase, Tooltip, Typography } from '@mui/material';
+import { useState } from 'react';
+import { Box, Typography } from '@mui/material';
+import { IBGE_VIEWBOX, UF_SHAPES } from './brazilMapData';
 
-/** Tile-grid cartogram of Brazil: every UF is the same size, so none dominates visually. */
-const GRID: Record<string, [number, number]> = {
-  RR: [0, 2], AP: [0, 4],
-  AM: [1, 1], PA: [1, 3], MA: [1, 4], CE: [1, 5], RN: [1, 6],
-  AC: [2, 0], RO: [2, 1], MT: [2, 2], TO: [2, 3], PI: [2, 4], PE: [2, 5], PB: [2, 6],
-  MS: [3, 2], GO: [3, 3], DF: [3, 4], BA: [3, 5], AL: [3, 6],
-  PR: [4, 2], SP: [4, 3], MG: [4, 4], ES: [4, 5], SE: [4, 6],
-  SC: [5, 2], RJ: [5, 4],
-  RS: [6, 2],
-};
-
-/** Sequential blue ramp (light→dark) for magnitude; text color flips by luminance. */
+/** Sequential blue ramp (light→dark) for magnitude; label color flips by luminance. */
 const RAMP = ['#cde2fb', '#9ec5f4', '#6da7ec', '#3987e5', '#256abf', '#184f95', '#0d366b'];
 
-export function UfTileMap({
-  selected,
-  onSelect,
-  values,
-  format,
-  names,
-  size = 44,
-}: {
+/** Small coastal states get their label in the ocean, with a leader line. */
+const CALLOUT: Record<string, [number, number]> = {
+  RN: [-34.4, 4.6],
+  PB: [-34.4, 6.5],
+  PE: [-34.4, 8.3],
+  AL: [-34.4, 10.0],
+  SE: [-34.4, 11.7],
+  ES: [-37.6, 20.4],
+  RJ: [-40.2, 24.3],
+};
+/** Labels nudged so DF (inside GO) stays readable. */
+const NUDGE: Record<string, [number, number]> = { GO: [-50.4, 15.4], DF: [-47.79, 15.95] };
+
+const [VB_X, VB_Y, VB_W, VB_H] = IBGE_VIEWBOX.split(/\s+/).map(Number);
+// a little room on the right for the coastal labels
+const VIEWBOX = `${VB_X - 0.5} ${VB_Y - 0.5} ${VB_W + 4.2} ${VB_H + 1}`;
+
+export interface BrazilMapProps {
   selected?: string | null;
   onSelect?: (uf: string) => void;
-  /** Optional magnitude per UF → sequential fill. */
+  /** Optional magnitude per UF → sequential fill (choropleth). */
   values?: Record<string, number>;
   format?: (v: number) => string;
   names?: Record<string, string>;
+  /** Map width in px (height follows the aspect ratio). Defaults to 100% of the container, max 560. */
+  width?: number | string;
+  /** Legacy prop from the tile version: tile size → map width ≈ size × 9. */
   size?: number;
-}) {
+}
+
+/**
+ * Map of Brazil drawn from the official IBGE state boundaries. Click (or Tab + Enter) a state to
+ * select it. Every state has the same visual weight; color only encodes a value the user asked for.
+ */
+export function BrazilMap({ selected, onSelect, values, format, names, width, size }: BrazilMapProps) {
+  const [hover, setHover] = useState<string | null>(null);
   const nums = values ? Object.values(values) : [];
   const min = nums.length ? Math.min(...nums) : 0;
   const max = nums.length ? Math.max(...nums) : 1;
   const step = (v: number) => Math.min(RAMP.length - 1, Math.floor(((v - min) / (max - min || 1)) * RAMP.length));
+  const label = (uf: string) => `${names?.[uf] ?? uf}${values?.[uf] != null && format ? `: ${format(values[uf])}` : ''}`;
+  const active = hover ?? selected ?? null;
 
   return (
-    <Box>
+    <Box sx={{ width: width ?? (size ? size * 9 : '100%'), maxWidth: '100%', mx: 'auto' }}>
       <Box
-        role={onSelect ? 'radiogroup' : undefined}
-        aria-label="Unidades da federação"
-        sx={{ display: 'grid', gridTemplateColumns: `repeat(7, ${size}px)`, gridAutoRows: `${size}px`, gap: '4px', width: 'max-content', maxWidth: '100%' }}
+        component="svg"
+        viewBox={VIEWBOX}
+        role={onSelect ? 'group' : 'img'}
+        aria-label={onSelect ? 'Mapa do Brasil: escolha um estado' : 'Mapa do Brasil por estado'}
+        sx={{ width: '100%', height: 'auto', display: 'block', overflow: 'visible' }}
       >
-        {Object.entries(GRID).map(([uf, [r, c]]) => {
+        <g transform="scale(0.0001,-0.0001)">
+          {UF_SHAPES.map(({ uf, d }) => {
+            const v = values?.[uf];
+            const s = v != null ? step(v) : null;
+            const isSel = selected === uf;
+            return (
+              <Box
+                key={uf}
+                component="path"
+                d={d}
+                role={onSelect ? 'button' : undefined}
+                tabIndex={onSelect ? 0 : undefined}
+                aria-label={label(uf)}
+                aria-pressed={onSelect ? isSel : undefined}
+                onClick={() => onSelect?.(uf)}
+                onKeyDown={(e: React.KeyboardEvent) => {
+                  if (onSelect && (e.key === 'Enter' || e.key === ' ')) {
+                    e.preventDefault();
+                    onSelect(uf);
+                  }
+                }}
+                onMouseEnter={() => setHover(uf)}
+                onMouseLeave={() => setHover(null)}
+                onFocus={() => setHover(uf)}
+                onBlur={() => setHover(null)}
+                vectorEffect="non-scaling-stroke"
+                sx={(theme) => ({
+                  cursor: onSelect ? 'pointer' : 'default',
+                  strokeWidth: isSel ? 2 : 1,
+                  stroke: theme.vars.palette.background.paper,
+                  transition: 'fill 150ms',
+                  outline: 'none',
+                  fill:
+                    s != null
+                      ? RAMP[s]
+                      : isSel
+                        ? theme.vars.palette.primary.main
+                        : hover === uf
+                          ? theme.alpha(theme.vars.palette.primary.main, 0.35)
+                          : theme.alpha(theme.vars.palette.primary.main, 0.13),
+                  ...(s != null && hover === uf && { filter: 'brightness(0.9)' }),
+                  ...(s != null && isSel && { stroke: theme.vars.palette.text.primary }),
+                  '&:focus-visible': { stroke: theme.vars.palette.text.primary, strokeWidth: 2.5 },
+                })}
+              >
+                <title>{label(uf)}</title>
+              </Box>
+            );
+          })}
+        </g>
+        {UF_SHAPES.map(({ uf, cx, cy }) => {
+          const callout = CALLOUT[uf];
           const v = values?.[uf];
           const s = v != null ? step(v) : null;
-          const isSel = selected === uf;
-          const label = `${names?.[uf] ?? uf}${v != null && format ? `: ${format(v)}` : ''}`;
-          const tile = (
-            <ButtonBase
-              role={onSelect ? 'radio' : undefined}
-              aria-checked={onSelect ? isSel : undefined}
-              aria-label={label}
-              disabled={!onSelect}
-              onClick={() => onSelect?.(uf)}
-              sx={(theme) => ({
-                width: '100%',
-                height: '100%',
-                borderRadius: '10px',
-                fontWeight: 700,
-                fontSize: size < 40 ? '0.7rem' : '0.8125rem',
-                letterSpacing: '0.02em',
-                transition: 'transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1), background-color 200ms',
-                ...(s != null
-                  ? { backgroundColor: RAMP[s], color: s >= 3 ? '#fff' : '#0d366b' }
-                  : {
-                      backgroundColor: isSel ? theme.vars.palette.primary.main : theme.vars.palette.background.subtle,
-                      color: isSel ? theme.vars.palette.primary.contrastText : theme.vars.palette.text.primary,
-                      border: `1px solid ${theme.vars.palette.divider}`,
-                    }),
-                ...(isSel && s != null && { outline: `3px solid ${theme.vars.palette.primary.main}`, outlineOffset: 1 }),
-                '&:hover': onSelect ? { transform: 'scale(1.08)' } : undefined,
-                '&.Mui-disabled': { color: s != null ? (s >= 3 ? '#fff' : '#0d366b') : theme.vars.palette.text.primary },
-              })}
-            >
-              {uf}
-            </ButtonBase>
-          );
+          const onFill = selected === uf || (s != null && s >= 3);
+          const [lx, ly] = callout ?? NUDGE[uf] ?? [cx, cy];
           return (
-            <Tooltip key={uf} title={label}>
-              <Box sx={{ gridRow: r + 1, gridColumn: c + 1, display: 'grid' }}>{tile}</Box>
-            </Tooltip>
+            <g key={uf} pointerEvents="none">
+              {callout && <line x1={cx} y1={cy} x2={lx - 0.25} y2={ly - 0.25} strokeWidth={0.06} stroke="currentColor" opacity={0.45} />}
+              <Box
+                component="text"
+                x={lx}
+                y={ly}
+                textAnchor={callout ? 'start' : 'middle'}
+                dominantBaseline="middle"
+                sx={(theme) => ({
+                  fontSize: uf === 'DF' ? 0.8 : 1.15,
+                  fontWeight: active === uf ? 800 : 700,
+                  fontFamily: theme.typography.fontFamily,
+                  fill: !callout && onFill ? '#fff' : theme.vars.palette.text.primary,
+                  letterSpacing: '0.02em',
+                })}
+              >
+                {uf}
+              </Box>
+            </g>
           );
         })}
       </Box>
+      <Typography variant="caption" color="text.secondary" sx={{ display: 'block', textAlign: 'center', minHeight: '1.4em', mt: 0.5 }} aria-live="polite">
+        {active ? label(active) : onSelect ? 'Toque ou clique em um estado' : ''}
+      </Typography>
       {values && format && (
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 1.5 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1, mt: 0.5 }}>
           <Typography variant="caption" color="text.secondary">
             {format(min)}
           </Typography>
@@ -99,6 +154,12 @@ export function UfTileMap({
           </Typography>
         </Box>
       )}
+      <Typography variant="caption" color="text.disabled" sx={{ display: 'block', textAlign: 'center', fontSize: '0.65rem', mt: 0.5 }}>
+        Contornos: malha oficial do IBGE
+      </Typography>
     </Box>
   );
 }
+
+/** Kept for existing call sites: the tile cartogram became the real map. */
+export const UfTileMap = BrazilMap;

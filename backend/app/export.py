@@ -47,6 +47,7 @@ def run(dest: Path) -> None:
     _write(dest, "estatisticas.json", q.estatisticas(conn))
     _write(dest, "parlamentares.json", q.parlamentares(conn))
     _write(dest, "resultados.json", q.resultados(conn))
+    _write(dest, "pesquisas.json", q.pesquisas(conn))
     _write(dest, "segundo-turno.json", q.segundo_turno(conn))
     for uf in q.UF_NOMES:
         if uf == "BR":
@@ -114,6 +115,7 @@ def write_pages(dest: Path, site_url: str) -> None:
         "gastos": "Gastos de mandato (cota parlamentar)",
         "numeros": "A eleição em números",
         "sobre": "Fontes e método",
+        "pesquisas": "Pesquisas registradas no TSE",
     }
     for rel, titulo in estaticas.items():
         _page(template, dest, rel, f"{titulo} · Voto Informado", resumo, f"{site}/{rel}")

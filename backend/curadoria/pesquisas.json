@@ -1,0 +1,3455 @@
+{
+ "coletado_em": "2026-10-01T11:27:29-03:00",
+ "pesquisas": [
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "datafolha-2026-09-24",
+   "instituto": "Datafolha",
+   "contratante": "Empresa Folha da Manhã S.A. (Folha de S.Paulo) e Globo Comunicação e Participações S.A. (TV Globo)",
+   "registro_tse": "BR-00304/2026",
+   "campo_inicio": "2026-09-22",
+   "campo_fim": "2026-09-23",
+   "divulgacao": "2026-09-24",
+   "entrevistas": 2002,
+   "margem_erro_pp": 2.0,
+   "metodologia": "Entrevistas presenciais em pontos de fluxo populacional (eleitores de 16 anos ou mais)",
+   "turno": 1,
+   "cenario": "estimulado",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 40
+    },
+    {
+     "nome": "Flávio Bolsonaro",
+     "partido": "PL",
+     "pct": 36
+    },
+    {
+     "nome": "Escritor Augusto Cury",
+     "partido": "Avante",
+     "pct": 5
+    },
+    {
+     "nome": "Ronaldo Caiado",
+     "partido": "PSD",
+     "pct": 4
+    },
+    {
+     "nome": "Renan Santos",
+     "partido": "Missão",
+     "pct": 3
+    },
+    {
+     "nome": "Zema",
+     "partido": "Novo",
+     "pct": 1
+    },
+    {
+     "nome": "Samara",
+     "partido": "UP",
+     "pct": 1
+    },
+    {
+     "nome": "Leonardo Avalanche",
+     "partido": "PRTB",
+     "pct": 0
+    },
+    {
+     "nome": "Clariana Barão",
+     "partido": "DC",
+     "pct": 0
+    },
+    {
+     "nome": "Edmilson Costa",
+     "partido": "PCB",
+     "pct": 0
+    },
+    {
+     "nome": "Hertz Dias",
+     "partido": "PSTU",
+     "pct": 0
+    },
+    {
+     "nome": "Rui Costa Pimenta",
+     "partido": "PCO",
+     "pct": 0
+    },
+    {
+     "nome": "Veterinário Wilson Grassi",
+     "partido": "Democrata",
+     "pct": 0
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Branco/nulo/nenhum",
+     "pct": 5
+    },
+    {
+     "rotulo": "Indecisos (não sabem)",
+     "pct": 2
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Gazeta do Povo - Datafolha divulga pesquisa para presidente; veja os números",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/datafolha-presidente-setembro-2026-4/",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Estado de Minas - Datafolha: Lula tem 40% e Flávio Bolsonaro, 36% no 1º turno",
+     "url": "https://www.em.com.br/politica/2026/09/7508079-pesquisa-datafolha-lula-tem-40-e-flavio-bolsonaro-36-no-1-turno.html",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Poder360 - Lula e Flávio empatam em 2º turno, diz Datafolha",
+     "url": "https://www.poder360.com.br/poder-eleicoes-2026/lula-e-flavio-empatam-em-2o-turno-diz-datafolha/",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "NSC Total - metodologia da pesquisa Datafolha (24/09)",
+     "url": "https://www.nsctotal.com.br/politica/eleicoes-2026-que-horas-sai-a-pesquisa-datafolha-para-presidente-hoje-24-09",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Números do 1º turno conferidos em Gazeta do Povo e Estado de Minas (idênticos). Soma publicada = 97% (arredondamento; candidatos com 0% podem ter frações). Período de campo: Gazeta, Estado de Minas e Poder360 informam 22 a 23/09; NSC Total (matéria anterior à divulgação) e a Wikipedia citam 22 a 24/09. Custo informado pelo Poder360: R$ 307.641,60. O Datafolha anunciou nova rodada para divulgação em 01/10 e rodada final no sábado 03/10 (4.006 entrevistas), ainda não publicadas no momento da coleta.",
+   "instituto_curto": "Datafolha"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "datafolha-2026-09-24-2t-lula-flavio",
+   "instituto": "Datafolha",
+   "contratante": "Empresa Folha da Manhã S.A. (Folha de S.Paulo) e Globo Comunicação e Participações S.A. (TV Globo)",
+   "registro_tse": "BR-00304/2026",
+   "campo_inicio": "2026-09-22",
+   "campo_fim": "2026-09-23",
+   "divulgacao": "2026-09-24",
+   "entrevistas": 2002,
+   "margem_erro_pp": 2.0,
+   "metodologia": "Entrevistas presenciais em pontos de fluxo populacional (eleitores de 16 anos ou mais)",
+   "turno": 2,
+   "cenario": "Lula x Flávio Bolsonaro",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 47
+    },
+    {
+     "nome": "Flávio Bolsonaro",
+     "partido": "PL",
+     "pct": 45
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Branco/nulo",
+     "pct": 7
+    },
+    {
+     "rotulo": "Indecisos",
+     "pct": 1
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Gazeta do Povo - Datafolha divulga pesquisa para presidente; veja os números",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/datafolha-presidente-setembro-2026-4/",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Poder360 - Lula e Flávio empatam em 2º turno, diz Datafolha",
+     "url": "https://www.poder360.com.br/poder-eleicoes-2026/lula-e-flavio-empatam-em-2o-turno-diz-datafolha/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Fonte do detalhamento brancos/nulos e indecisos: Gazeta do Povo. Placar dos candidatos confirmado pelo Poder360.",
+   "instituto_curto": "Datafolha"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "datafolha-2026-09-24-2t-lula-cury",
+   "instituto": "Datafolha",
+   "contratante": "Empresa Folha da Manhã S.A. (Folha de S.Paulo) e Globo Comunicação e Participações S.A. (TV Globo)",
+   "registro_tse": "BR-00304/2026",
+   "campo_inicio": "2026-09-22",
+   "campo_fim": "2026-09-23",
+   "divulgacao": "2026-09-24",
+   "entrevistas": 2002,
+   "margem_erro_pp": 2.0,
+   "metodologia": "Entrevistas presenciais em pontos de fluxo populacional (eleitores de 16 anos ou mais)",
+   "turno": 2,
+   "cenario": "Lula x Escritor Augusto Cury",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 46
+    },
+    {
+     "nome": "Escritor Augusto Cury",
+     "partido": "Avante",
+     "pct": 43
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Branco/nulo",
+     "pct": 9
+    },
+    {
+     "rotulo": "Indecisos",
+     "pct": 1
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Gazeta do Povo - Datafolha divulga pesquisa para presidente; veja os números",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/datafolha-presidente-setembro-2026-4/",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Poder360 - Lula e Flávio empatam em 2º turno, diz Datafolha",
+     "url": "https://www.poder360.com.br/poder-eleicoes-2026/lula-e-flavio-empatam-em-2o-turno-diz-datafolha/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Fonte do detalhamento brancos/nulos e indecisos: Gazeta do Povo. Placar dos candidatos confirmado pelo Poder360.",
+   "instituto_curto": "Datafolha"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "datafolha-2026-09-24-2t-lula-caiado",
+   "instituto": "Datafolha",
+   "contratante": "Empresa Folha da Manhã S.A. (Folha de S.Paulo) e Globo Comunicação e Participações S.A. (TV Globo)",
+   "registro_tse": "BR-00304/2026",
+   "campo_inicio": "2026-09-22",
+   "campo_fim": "2026-09-23",
+   "divulgacao": "2026-09-24",
+   "entrevistas": 2002,
+   "margem_erro_pp": 2.0,
+   "metodologia": "Entrevistas presenciais em pontos de fluxo populacional (eleitores de 16 anos ou mais)",
+   "turno": 2,
+   "cenario": "Lula x Ronaldo Caiado",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 46
+    },
+    {
+     "nome": "Ronaldo Caiado",
+     "partido": "PSD",
+     "pct": 44
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Branco/nulo",
+     "pct": 9
+    },
+    {
+     "rotulo": "Indecisos",
+     "pct": 1
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Gazeta do Povo - Datafolha divulga pesquisa para presidente; veja os números",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/datafolha-presidente-setembro-2026-4/",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Poder360 - Lula e Flávio empatam em 2º turno, diz Datafolha",
+     "url": "https://www.poder360.com.br/poder-eleicoes-2026/lula-e-flavio-empatam-em-2o-turno-diz-datafolha/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Fonte do detalhamento brancos/nulos e indecisos: Gazeta do Povo. Placar dos candidatos confirmado pelo Poder360.",
+   "instituto_curto": "Datafolha"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "datafolha-2026-09-24-2t-lula-zema",
+   "instituto": "Datafolha",
+   "contratante": "Empresa Folha da Manhã S.A. (Folha de S.Paulo) e Globo Comunicação e Participações S.A. (TV Globo)",
+   "registro_tse": "BR-00304/2026",
+   "campo_inicio": "2026-09-22",
+   "campo_fim": "2026-09-23",
+   "divulgacao": "2026-09-24",
+   "entrevistas": 2002,
+   "margem_erro_pp": 2.0,
+   "metodologia": "Entrevistas presenciais em pontos de fluxo populacional (eleitores de 16 anos ou mais)",
+   "turno": 2,
+   "cenario": "Lula x Zema",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 48
+    },
+    {
+     "nome": "Zema",
+     "partido": "Novo",
+     "pct": 39
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Branco/nulo",
+     "pct": 11
+    },
+    {
+     "rotulo": "Indecisos",
+     "pct": 1
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Gazeta do Povo - Datafolha divulga pesquisa para presidente; veja os números",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/datafolha-presidente-setembro-2026-4/",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Poder360 - Lula e Flávio empatam em 2º turno, diz Datafolha",
+     "url": "https://www.poder360.com.br/poder-eleicoes-2026/lula-e-flavio-empatam-em-2o-turno-diz-datafolha/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Fonte do detalhamento brancos/nulos e indecisos: Gazeta do Povo. Placar dos candidatos confirmado pelo Poder360.",
+   "instituto_curto": "Datafolha"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "datafolha-2026-09-24-2t-lula-renan",
+   "instituto": "Datafolha",
+   "contratante": "Empresa Folha da Manhã S.A. (Folha de S.Paulo) e Globo Comunicação e Participações S.A. (TV Globo)",
+   "registro_tse": "BR-00304/2026",
+   "campo_inicio": "2026-09-22",
+   "campo_fim": "2026-09-23",
+   "divulgacao": "2026-09-24",
+   "entrevistas": 2002,
+   "margem_erro_pp": 2.0,
+   "metodologia": "Entrevistas presenciais em pontos de fluxo populacional (eleitores de 16 anos ou mais)",
+   "turno": 2,
+   "cenario": "Lula x Renan Santos",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 48
+    },
+    {
+     "nome": "Renan Santos",
+     "partido": "Missão",
+     "pct": 39
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Branco/nulo",
+     "pct": 12
+    },
+    {
+     "rotulo": "Indecisos",
+     "pct": 2
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Gazeta do Povo - Datafolha divulga pesquisa para presidente; veja os números",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/datafolha-presidente-setembro-2026-4/",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Poder360 - Lula e Flávio empatam em 2º turno, diz Datafolha",
+     "url": "https://www.poder360.com.br/poder-eleicoes-2026/lula-e-flavio-empatam-em-2o-turno-diz-datafolha/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Fonte do detalhamento brancos/nulos e indecisos: Gazeta do Povo. Placar dos candidatos confirmado pelo Poder360.",
+   "instituto_curto": "Datafolha"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "quaest-2026-09-28",
+   "instituto": "Quaest",
+   "contratante": "Editora Globo S.A. e Globo Comunicação e Participações S.A. (TV Globo / jornal O Globo)",
+   "registro_tse": "BR-06520/2026",
+   "campo_inicio": "2026-09-24",
+   "campo_fim": "2026-09-27",
+   "divulgacao": "2026-09-28",
+   "entrevistas": 2004,
+   "margem_erro_pp": 2.0,
+   "metodologia": "Entrevistas presenciais domiciliares (eleitores de 16 anos ou mais)",
+   "turno": 1,
+   "cenario": "estimulado",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 39
+    },
+    {
+     "nome": "Flávio Bolsonaro",
+     "partido": "PL",
+     "pct": 34
+    },
+    {
+     "nome": "Escritor Augusto Cury",
+     "partido": "Avante",
+     "pct": 4
+    },
+    {
+     "nome": "Ronaldo Caiado",
+     "partido": "PSD",
+     "pct": 4
+    },
+    {
+     "nome": "Renan Santos",
+     "partido": "Missão",
+     "pct": 3
+    },
+    {
+     "nome": "Zema",
+     "partido": "Novo",
+     "pct": 1
+    },
+    {
+     "nome": "Samara",
+     "partido": "UP",
+     "pct": 0
+    },
+    {
+     "nome": "Clariana Barão",
+     "partido": "DC",
+     "pct": 0
+    },
+    {
+     "nome": "Edmilson Costa",
+     "partido": "PCB",
+     "pct": 0
+    },
+    {
+     "nome": "Hertz Dias",
+     "partido": "PSTU",
+     "pct": 0
+    },
+    {
+     "nome": "Rui Costa Pimenta",
+     "partido": "PCO",
+     "pct": 0
+    },
+    {
+     "nome": "Veterinário Wilson Grassi",
+     "partido": "Democrata",
+     "pct": 0
+    },
+    {
+     "nome": "Leonardo Avalanche",
+     "partido": "PRTB",
+     "pct": 0
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Branco/nulo/não vai votar",
+     "pct": 10
+    },
+    {
+     "rotulo": "Indecisos",
+     "pct": 5
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Gazeta do Povo - Quaest divulga nova pesquisa para presidente; veja os números",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/quaest-presidente-setembro-2026-5/",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "TVT News - Quaest divulga nova pesquisa para presidente nesta segunda (28)",
+     "url": "https://tvtnews.com.br/quaest-pesquisa-presidente-28-setembro-2026/",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Tribuna de Minas - Lula cresce entre católicos, mulheres e independentes, aponta Quaest",
+     "url": "https://tribunademinas.com.br/noticias/politica/eleicoes-2026/28-09-2026/eleicoes-2026-lula-cresce-entre-catolicos-mulheres-e-independentes-aponta-pesquisa-quaest.html",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Poder360 - Lula e Flávio empatam com 42% no 2º turno, diz Quaest",
+     "url": "https://www.poder360.com.br/poder-eleicoes-2026/lula-e-flavio-empatam-com-42-no-2o-turno-diz-quaest/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "1º turno conferido em Gazeta do Povo e TVT News (idênticos). Soma = 100%. Custo informado pelo Poder360: R$ 314.628. Tribuna de Minas confirma entrevistas presenciais.",
+   "instituto_curto": "Quaest"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "quaest-2026-09-28-2t-lula-flavio",
+   "instituto": "Quaest",
+   "contratante": "Editora Globo S.A. e Globo Comunicação e Participações S.A. (TV Globo / jornal O Globo)",
+   "registro_tse": "BR-06520/2026",
+   "campo_inicio": "2026-09-24",
+   "campo_fim": "2026-09-27",
+   "divulgacao": "2026-09-28",
+   "entrevistas": 2004,
+   "margem_erro_pp": 2.0,
+   "metodologia": "Entrevistas presenciais domiciliares (eleitores de 16 anos ou mais)",
+   "turno": 2,
+   "cenario": "Lula x Flávio Bolsonaro",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 42
+    },
+    {
+     "nome": "Flávio Bolsonaro",
+     "partido": "PL",
+     "pct": 42
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Branco/nulo/não vai votar",
+     "pct": 13
+    },
+    {
+     "rotulo": "Indecisos",
+     "pct": 3
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Gazeta do Povo - Quaest divulga nova pesquisa para presidente; veja os números",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/quaest-presidente-setembro-2026-5/",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "TVT News - Quaest divulga nova pesquisa para presidente nesta segunda (28)",
+     "url": "https://tvtnews.com.br/quaest-pesquisa-presidente-28-setembro-2026/",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Tribuna de Minas - Lula cresce entre católicos, mulheres e independentes, aponta Quaest",
+     "url": "https://tribunademinas.com.br/noticias/politica/eleicoes-2026/28-09-2026/eleicoes-2026-lula-cresce-entre-catolicos-mulheres-e-independentes-aponta-pesquisa-quaest.html",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Poder360 - Lula e Flávio empatam com 42% no 2º turno, diz Quaest",
+     "url": "https://www.poder360.com.br/poder-eleicoes-2026/lula-e-flavio-empatam-com-42-no-2o-turno-diz-quaest/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Placar 42% x 42% confirmado em TVT News, Tribuna de Minas e Poder360; brancos/nulos e indecisos apenas na Gazeta do Povo.",
+   "instituto_curto": "Quaest"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "quaest-2026-09-28-2t-lula-caiado",
+   "instituto": "Quaest",
+   "contratante": "Editora Globo S.A. e Globo Comunicação e Participações S.A. (TV Globo / jornal O Globo)",
+   "registro_tse": "BR-06520/2026",
+   "campo_inicio": "2026-09-24",
+   "campo_fim": "2026-09-27",
+   "divulgacao": "2026-09-28",
+   "entrevistas": 2004,
+   "margem_erro_pp": 2.0,
+   "metodologia": "Entrevistas presenciais domiciliares (eleitores de 16 anos ou mais)",
+   "turno": 2,
+   "cenario": "Lula x Ronaldo Caiado",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 43
+    },
+    {
+     "nome": "Ronaldo Caiado",
+     "partido": "PSD",
+     "pct": 40
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Branco/nulo/não vai votar",
+     "pct": 15
+    },
+    {
+     "rotulo": "Indecisos",
+     "pct": 2
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Gazeta do Povo - Quaest divulga nova pesquisa para presidente; veja os números",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/quaest-presidente-setembro-2026-5/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Detalhamento (brancos/nulos/indecisos) apenas na Gazeta do Povo (1 fonte).",
+   "instituto_curto": "Quaest"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "quaest-2026-09-28-2t-lula-cury",
+   "instituto": "Quaest",
+   "contratante": "Editora Globo S.A. e Globo Comunicação e Participações S.A. (TV Globo / jornal O Globo)",
+   "registro_tse": "BR-06520/2026",
+   "campo_inicio": "2026-09-24",
+   "campo_fim": "2026-09-27",
+   "divulgacao": "2026-09-28",
+   "entrevistas": 2004,
+   "margem_erro_pp": 2.0,
+   "metodologia": "Entrevistas presenciais domiciliares (eleitores de 16 anos ou mais)",
+   "turno": 2,
+   "cenario": "Lula x Escritor Augusto Cury",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 42
+    },
+    {
+     "nome": "Escritor Augusto Cury",
+     "partido": "Avante",
+     "pct": 33
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Branco/nulo/não vai votar",
+     "pct": 20
+    },
+    {
+     "rotulo": "Indecisos",
+     "pct": 5
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Gazeta do Povo - Quaest divulga nova pesquisa para presidente; veja os números",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/quaest-presidente-setembro-2026-5/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Detalhamento (brancos/nulos/indecisos) apenas na Gazeta do Povo (1 fonte).",
+   "instituto_curto": "Quaest"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "quaest-2026-09-28-2t-lula-renan",
+   "instituto": "Quaest",
+   "contratante": "Editora Globo S.A. e Globo Comunicação e Participações S.A. (TV Globo / jornal O Globo)",
+   "registro_tse": "BR-06520/2026",
+   "campo_inicio": "2026-09-24",
+   "campo_fim": "2026-09-27",
+   "divulgacao": "2026-09-28",
+   "entrevistas": 2004,
+   "margem_erro_pp": 2.0,
+   "metodologia": "Entrevistas presenciais domiciliares (eleitores de 16 anos ou mais)",
+   "turno": 2,
+   "cenario": "Lula x Renan Santos",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 42
+    },
+    {
+     "nome": "Renan Santos",
+     "partido": "Missão",
+     "pct": 39
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Branco/nulo/não vai votar",
+     "pct": 17
+    },
+    {
+     "rotulo": "Indecisos",
+     "pct": 2
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Gazeta do Povo - Quaest divulga nova pesquisa para presidente; veja os números",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/quaest-presidente-setembro-2026-5/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Detalhamento (brancos/nulos/indecisos) apenas na Gazeta do Povo (1 fonte).",
+   "instituto_curto": "Quaest"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "quaest-2026-09-28-2t-lula-zema",
+   "instituto": "Quaest",
+   "contratante": "Editora Globo S.A. e Globo Comunicação e Participações S.A. (TV Globo / jornal O Globo)",
+   "registro_tse": "BR-06520/2026",
+   "campo_inicio": "2026-09-24",
+   "campo_fim": "2026-09-27",
+   "divulgacao": "2026-09-28",
+   "entrevistas": 2004,
+   "margem_erro_pp": 2.0,
+   "metodologia": "Entrevistas presenciais domiciliares (eleitores de 16 anos ou mais)",
+   "turno": 2,
+   "cenario": "Lula x Zema",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 46
+    },
+    {
+     "nome": "Zema",
+     "partido": "Novo",
+     "pct": 30
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Branco/nulo/não vai votar",
+     "pct": 19
+    },
+    {
+     "rotulo": "Indecisos",
+     "pct": 5
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Gazeta do Povo - Quaest divulga nova pesquisa para presidente; veja os números",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/quaest-presidente-setembro-2026-5/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Detalhamento (brancos/nulos/indecisos) apenas na Gazeta do Povo (1 fonte).",
+   "instituto_curto": "Quaest"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "atlasintel-2026-09-29",
+   "instituto": "AtlasIntel",
+   "contratante": "Recursos próprios (AtlasIntel), segundo Poder360 e Gazeta do Povo; divulgada em parceria com a Bloomberg",
+   "registro_tse": "BR-04391/2026",
+   "campo_inicio": "2026-09-23",
+   "campo_fim": "2026-09-28",
+   "divulgacao": "2026-09-29",
+   "entrevistas": 5005,
+   "margem_erro_pp": 1.0,
+   "metodologia": "Online, recrutamento digital aleatório (Atlas RDR)",
+   "turno": 1,
+   "cenario": "estimulado",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 45.3
+    },
+    {
+     "nome": "Flávio Bolsonaro",
+     "partido": "PL",
+     "pct": 42.2
+    },
+    {
+     "nome": "Renan Santos",
+     "partido": "Missão",
+     "pct": 5.2
+    },
+    {
+     "nome": "Escritor Augusto Cury",
+     "partido": "Avante",
+     "pct": 2.0
+    },
+    {
+     "nome": "Ronaldo Caiado",
+     "partido": "PSD",
+     "pct": 1.8
+    },
+    {
+     "nome": "Zema",
+     "partido": "Novo",
+     "pct": 0.9
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Outros candidatos (somados)",
+     "pct": 0.5
+    },
+    {
+     "rotulo": "Brancos/nulos",
+     "pct": 0.9
+    },
+    {
+     "rotulo": "Indecisos",
+     "pct": 1.2
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Correio Braziliense - Atlas/Bloomberg: Lula lidera no 1º turno com 45,3% e Flávio tem 42,2%",
+     "url": "https://www.correiobraziliense.com.br/politica/2026/09/7510394-atlas-lula-lidera-1-turno-com-453-e-flavio-tem-422.html",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "TVT News - Lula lidera 1º turno e empata com Flávio no 2º, mostra Atlas",
+     "url": "https://tvtnews.com.br/atlasintel-29-9-pesquisa-presidente-2026/",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Poder360 - Flávio tem 47,7% e Lula, 47,6% no 2º turno, diz AtlasIntel",
+     "url": "https://www.poder360.com.br/poder-eleicoes-2026/flavio-tem-477-e-lula-476-no-2o-turno-diz-atlasintel/",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Revista Empreende - AtlasIntel mostra Lula com 45,3% e Flávio com 42,2%",
+     "url": "https://revistaempreende.com.br/atlasintel-lula-flavio-bolsonaro-pesquisa-presidente-2026/",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Gazeta do Povo - AtlasIntel divulga pesquisa para presidente da República",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/atlasintel-presidente-setembro-2026-4/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Votos totais conferidos em Correio Braziliense, TVT News, Poder360 e Revista Empreende (idênticos). Soma = 100%. Valores individuais dos candidatos agrupados em 'outros' (0,5%) não publicados. A Gazeta do Povo publicou os VOTOS VÁLIDOS (Lula 46,2%, Flávio 43,1%, Renan 5,3%, Cury 2,1%, Caiado 1,8%, Zema 0,9%, outros 0,5%) - não confundir. Contratante: Poder360 e Gazeta indicam recursos próprios; Revista Empreende cita a Bloomberg como contratante - divergência a confirmar no PesqEle.",
+   "instituto_curto": "AtlasIntel"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "atlasintel-2026-09-29-2t-lula-flavio",
+   "instituto": "AtlasIntel",
+   "contratante": "Recursos próprios (AtlasIntel), segundo Poder360 e Gazeta do Povo; divulgada em parceria com a Bloomberg",
+   "registro_tse": "BR-04391/2026",
+   "campo_inicio": "2026-09-23",
+   "campo_fim": "2026-09-28",
+   "divulgacao": "2026-09-29",
+   "entrevistas": 5005,
+   "margem_erro_pp": 1.0,
+   "metodologia": "Online, recrutamento digital aleatório (Atlas RDR)",
+   "turno": 2,
+   "cenario": "Lula x Flávio Bolsonaro",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 47.6
+    },
+    {
+     "nome": "Flávio Bolsonaro",
+     "partido": "PL",
+     "pct": 47.7
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Brancos/nulos/indecisos",
+     "pct": 4.8
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Correio Braziliense - Atlas/Bloomberg: Lula lidera no 1º turno com 45,3% e Flávio tem 42,2%",
+     "url": "https://www.correiobraziliense.com.br/politica/2026/09/7510394-atlas-lula-lidera-1-turno-com-453-e-flavio-tem-422.html",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "TVT News - Lula lidera 1º turno e empata com Flávio no 2º, mostra Atlas",
+     "url": "https://tvtnews.com.br/atlasintel-29-9-pesquisa-presidente-2026/",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Poder360 - Flávio tem 47,7% e Lula, 47,6% no 2º turno, diz AtlasIntel",
+     "url": "https://www.poder360.com.br/poder-eleicoes-2026/flavio-tem-477-e-lula-476-no-2o-turno-diz-atlasintel/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Confirmado em Correio Braziliense, Poder360 e TVT News. Em votos válidos (Gazeta do Povo): 50% x 50%.",
+   "instituto_curto": "AtlasIntel"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "atlasintel-2026-09-29-2t-lula-caiado",
+   "instituto": "AtlasIntel",
+   "contratante": "Recursos próprios (AtlasIntel), segundo Poder360 e Gazeta do Povo; divulgada em parceria com a Bloomberg",
+   "registro_tse": "BR-04391/2026",
+   "campo_inicio": "2026-09-23",
+   "campo_fim": "2026-09-28",
+   "divulgacao": "2026-09-29",
+   "entrevistas": 5005,
+   "margem_erro_pp": 1.0,
+   "metodologia": "Online, recrutamento digital aleatório (Atlas RDR)",
+   "turno": 2,
+   "cenario": "Lula x Ronaldo Caiado",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 45.9
+    },
+    {
+     "nome": "Ronaldo Caiado",
+     "partido": "PSD",
+     "pct": 43.4
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Brancos/nulos/indecisos",
+     "pct": 10.8
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Correio Braziliense - Atlas/Bloomberg: Lula lidera no 1º turno com 45,3% e Flávio tem 42,2%",
+     "url": "https://www.correiobraziliense.com.br/politica/2026/09/7510394-atlas-lula-lidera-1-turno-com-453-e-flavio-tem-422.html",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Gazeta do Povo - AtlasIntel divulga pesquisa para presidente da República",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/atlasintel-presidente-setembro-2026-4/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Votos totais segundo Correio Braziliense; o percentual de brancos/nulos agrega indecisos. Gazeta do Povo publicou só votos válidos para este cenário. Votos válidos (Gazeta): Lula 51,4% x Caiado 48,6%.",
+   "instituto_curto": "AtlasIntel"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "atlasintel-2026-09-29-2t-lula-zema",
+   "instituto": "AtlasIntel",
+   "contratante": "Recursos próprios (AtlasIntel), segundo Poder360 e Gazeta do Povo; divulgada em parceria com a Bloomberg",
+   "registro_tse": "BR-04391/2026",
+   "campo_inicio": "2026-09-23",
+   "campo_fim": "2026-09-28",
+   "divulgacao": "2026-09-29",
+   "entrevistas": 5005,
+   "margem_erro_pp": 1.0,
+   "metodologia": "Online, recrutamento digital aleatório (Atlas RDR)",
+   "turno": 2,
+   "cenario": "Lula x Zema",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 47.4
+    },
+    {
+     "nome": "Zema",
+     "partido": "Novo",
+     "pct": 41.2
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Brancos/nulos/indecisos",
+     "pct": 11.4
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Correio Braziliense - Atlas/Bloomberg: Lula lidera no 1º turno com 45,3% e Flávio tem 42,2%",
+     "url": "https://www.correiobraziliense.com.br/politica/2026/09/7510394-atlas-lula-lidera-1-turno-com-453-e-flavio-tem-422.html",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Gazeta do Povo - AtlasIntel divulga pesquisa para presidente da República",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/atlasintel-presidente-setembro-2026-4/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Votos totais segundo Correio Braziliense; o percentual de brancos/nulos agrega indecisos. Gazeta do Povo publicou só votos válidos para este cenário. Votos válidos (Gazeta): Lula 53,5% x Zema 46,5%.",
+   "instituto_curto": "AtlasIntel"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "atlasintel-2026-09-29-2t-lula-cury",
+   "instituto": "AtlasIntel",
+   "contratante": "Recursos próprios (AtlasIntel), segundo Poder360 e Gazeta do Povo; divulgada em parceria com a Bloomberg",
+   "registro_tse": "BR-04391/2026",
+   "campo_inicio": "2026-09-23",
+   "campo_fim": "2026-09-28",
+   "divulgacao": "2026-09-29",
+   "entrevistas": 5005,
+   "margem_erro_pp": 1.0,
+   "metodologia": "Online, recrutamento digital aleatório (Atlas RDR)",
+   "turno": 2,
+   "cenario": "Lula x Escritor Augusto Cury",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 46.2
+    },
+    {
+     "nome": "Escritor Augusto Cury",
+     "partido": "Avante",
+     "pct": 36.1
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Brancos/nulos/indecisos",
+     "pct": 17.7
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Correio Braziliense - Atlas/Bloomberg: Lula lidera no 1º turno com 45,3% e Flávio tem 42,2%",
+     "url": "https://www.correiobraziliense.com.br/politica/2026/09/7510394-atlas-lula-lidera-1-turno-com-453-e-flavio-tem-422.html",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Gazeta do Povo - AtlasIntel divulga pesquisa para presidente da República",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/atlasintel-presidente-setembro-2026-4/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Votos totais segundo Correio Braziliense; o percentual de brancos/nulos agrega indecisos. Gazeta do Povo publicou só votos válidos para este cenário. Votos válidos (Gazeta): Lula 56,1% x Cury 43,9%.",
+   "instituto_curto": "AtlasIntel"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "atlasintel-2026-09-29-2t-lula-renan",
+   "instituto": "AtlasIntel",
+   "contratante": "Recursos próprios (AtlasIntel), segundo Poder360 e Gazeta do Povo; divulgada em parceria com a Bloomberg",
+   "registro_tse": "BR-04391/2026",
+   "campo_inicio": "2026-09-23",
+   "campo_fim": "2026-09-28",
+   "divulgacao": "2026-09-29",
+   "entrevistas": 5005,
+   "margem_erro_pp": 1.0,
+   "metodologia": "Online, recrutamento digital aleatório (Atlas RDR)",
+   "turno": 2,
+   "cenario": "Lula x Renan Santos",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 46.4
+    },
+    {
+     "nome": "Renan Santos",
+     "partido": "Missão",
+     "pct": 28.9
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Brancos/nulos/indecisos",
+     "pct": 24.7
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Correio Braziliense - Atlas/Bloomberg: Lula lidera no 1º turno com 45,3% e Flávio tem 42,2%",
+     "url": "https://www.correiobraziliense.com.br/politica/2026/09/7510394-atlas-lula-lidera-1-turno-com-453-e-flavio-tem-422.html",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Gazeta do Povo - AtlasIntel divulga pesquisa para presidente da República",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/atlasintel-presidente-setembro-2026-4/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Votos totais segundo Correio Braziliense; o percentual de brancos/nulos agrega indecisos. Gazeta do Povo publicou só votos válidos para este cenário. Votos válidos (Gazeta): Lula 61,6% x Renan 38,4%.",
+   "instituto_curto": "AtlasIntel"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "futura-2026-09-30",
+   "instituto": "Futura Inteligência",
+   "contratante": "Recursos próprios (Futura Inteligência), segundo CNN Brasil, Exame e Quenty; outras fontes citam “100% Cidades”",
+   "registro_tse": "BR-01122/2026",
+   "campo_inicio": "2026-09-25",
+   "campo_fim": "2026-09-29",
+   "divulgacao": "2026-09-30",
+   "entrevistas": 2000,
+   "margem_erro_pp": 2.2,
+   "metodologia": "Entrevistas telefônicas assistidas por computador (CATI)",
+   "turno": 1,
+   "cenario": "estimulado",
+   "resultados": [
+    {
+     "nome": "Flávio Bolsonaro",
+     "partido": "PL",
+     "pct": 42.2
+    },
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 39.4
+    },
+    {
+     "nome": "Ronaldo Caiado",
+     "partido": "PSD",
+     "pct": 4.0
+    },
+    {
+     "nome": "Escritor Augusto Cury",
+     "partido": "Avante",
+     "pct": 3.8
+    },
+    {
+     "nome": "Renan Santos",
+     "partido": "Missão",
+     "pct": 3.2
+    },
+    {
+     "nome": "Zema",
+     "partido": "Novo",
+     "pct": 1.6
+    },
+    {
+     "nome": "Edmilson Costa",
+     "partido": "PCB",
+     "pct": 0.2
+    },
+    {
+     "nome": "Samara",
+     "partido": "UP",
+     "pct": 0.2
+    },
+    {
+     "nome": "Leonardo Avalanche",
+     "partido": "PRTB",
+     "pct": 0.1
+    },
+    {
+     "nome": "Rui Costa Pimenta",
+     "partido": "PCO",
+     "pct": 0.1
+    },
+    {
+     "nome": "Veterinário Wilson Grassi",
+     "partido": "Democrata",
+     "pct": 0.1
+    },
+    {
+     "nome": "Hertz Dias",
+     "partido": "PSTU",
+     "pct": 0.1
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Brancos/nulos",
+     "pct": 2.4
+    },
+    {
+     "rotulo": "Indecisos",
+     "pct": 2.6
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Poder360 - Flávio tem 49% contra 43,5% de Lula no 2º turno, diz Futura",
+     "url": "https://www.poder360.com.br/poder-eleicoes-2026/flavio-tem-49-contra-435-de-lula-no-2o-turno-diz-futura/",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Quenty - Pesquisa Futura para presidente (25 a 29 de setembro)",
+     "url": "https://quenty.com.br/resumo/30-setembro-2026/pesquisa-futura-presidente-25-a-29-de-setembro",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Percentuais dos candidatos idênticos em Poder360 e Quenty; brancos/nulos e indecisos apenas no Poder360. Soma = 100%. Clariana Barão (DC) não aparece na lista publicada. Contratante: CNN, Exame e Quenty dizem Futura (recursos próprios); GP1 cita '100% Cidades' e o Poder360 menciona 'Futura/100% Cidades' - divergência a confirmar no PesqEle. Atenção: o PDF da Futura hospedado pelo Poder360 (Pesquisa-Presidente-Brasil-Futura-Setembro.pdf) refere-se a rodada ANTERIOR (campo 11 a 15/09, BR-00749/2026).",
+   "instituto_curto": "Futura"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "futura-2026-09-30-2t-lula-flavio",
+   "instituto": "Futura Inteligência",
+   "contratante": "Recursos próprios (Futura Inteligência), segundo CNN Brasil, Exame e Quenty; outras fontes citam “100% Cidades”",
+   "registro_tse": "BR-01122/2026",
+   "campo_inicio": "2026-09-25",
+   "campo_fim": "2026-09-29",
+   "divulgacao": "2026-09-30",
+   "entrevistas": 2000,
+   "margem_erro_pp": 2.2,
+   "metodologia": "Entrevistas telefônicas assistidas por computador (CATI)",
+   "turno": 2,
+   "cenario": "Lula x Flávio Bolsonaro",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 43.5
+    },
+    {
+     "nome": "Flávio Bolsonaro",
+     "partido": "PL",
+     "pct": 49.0
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Branco/nulo/não vai votar",
+     "pct": 6.2
+    },
+    {
+     "rotulo": "Indecisos",
+     "pct": 1.3
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Poder360 - Flávio tem 49% contra 43,5% de Lula no 2º turno, diz Futura",
+     "url": "https://www.poder360.com.br/poder-eleicoes-2026/flavio-tem-49-contra-435-de-lula-no-2o-turno-diz-futura/",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "CNN Brasil - Futura: Flávio tem 49% das intenções de voto no 2º turno; Lula, 43,5%",
+     "url": "https://www.cnnbrasil.com.br/eleicoes/futura-flavio-tem-49-das-intencoes-de-voto-no-2o-turno-lula-435/",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Exame - Pesquisa Futura: Flávio Bolsonaro tem 49% e Lula, 43,5%, no 2º turno",
+     "url": "https://exame.com/brasil/pesquisa-futura-flavio-bolsonaro-tem-49-e-lula-435-no-2o-turno/",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "GP1 - Pesquisa Futura: Flávio Bolsonaro tem 49% e Lula 43,5% em eventual segundo turno",
+     "url": "https://www.gp1.com.br/eleicoes-2026/noticia/2026/9/30/pesquisa-futura-flavio-bolsonaro-tem-49-e-lula-435-em-eventual-segundo-turno-632790.html",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Conferido em CNN Brasil e Exame (idênticos); placar também em GP1 e Poder360.",
+   "instituto_curto": "Futura"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "futura-2026-09-30-2t-lula-caiado",
+   "instituto": "Futura Inteligência",
+   "contratante": "Recursos próprios (Futura Inteligência), segundo CNN Brasil, Exame e Quenty; outras fontes citam “100% Cidades”",
+   "registro_tse": "BR-01122/2026",
+   "campo_inicio": "2026-09-25",
+   "campo_fim": "2026-09-29",
+   "divulgacao": "2026-09-30",
+   "entrevistas": 2000,
+   "margem_erro_pp": 2.2,
+   "metodologia": "Entrevistas telefônicas assistidas por computador (CATI)",
+   "turno": 2,
+   "cenario": "Lula x Ronaldo Caiado",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 42.4
+    },
+    {
+     "nome": "Ronaldo Caiado",
+     "partido": "PSD",
+     "pct": 45.6
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Branco/nulo/não vai votar",
+     "pct": 10.5
+    },
+    {
+     "rotulo": "Indecisos",
+     "pct": 1.5
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "CNN Brasil - Futura: Flávio tem 49% das intenções de voto no 2º turno; Lula, 43,5%",
+     "url": "https://www.cnnbrasil.com.br/eleicoes/futura-flavio-tem-49-das-intencoes-de-voto-no-2o-turno-lula-435/",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Exame - Pesquisa Futura: Flávio Bolsonaro tem 49% e Lula, 43,5%, no 2º turno",
+     "url": "https://exame.com/brasil/pesquisa-futura-flavio-bolsonaro-tem-49-e-lula-435-no-2o-turno/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Conferido em CNN Brasil e Exame (idênticos); placar também em GP1 e Poder360.",
+   "instituto_curto": "Futura"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "futura-2026-09-30-2t-lula-zema",
+   "instituto": "Futura Inteligência",
+   "contratante": "Recursos próprios (Futura Inteligência), segundo CNN Brasil, Exame e Quenty; outras fontes citam “100% Cidades”",
+   "registro_tse": "BR-01122/2026",
+   "campo_inicio": "2026-09-25",
+   "campo_fim": "2026-09-29",
+   "divulgacao": "2026-09-30",
+   "entrevistas": 2000,
+   "margem_erro_pp": 2.2,
+   "metodologia": "Entrevistas telefônicas assistidas por computador (CATI)",
+   "turno": 2,
+   "cenario": "Lula x Zema",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 45.1
+    },
+    {
+     "nome": "Zema",
+     "partido": "Novo",
+     "pct": 42.2
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Branco/nulo/não vai votar",
+     "pct": 10.5
+    },
+    {
+     "rotulo": "Indecisos",
+     "pct": 2.3
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "CNN Brasil - Futura: Flávio tem 49% das intenções de voto no 2º turno; Lula, 43,5%",
+     "url": "https://www.cnnbrasil.com.br/eleicoes/futura-flavio-tem-49-das-intencoes-de-voto-no-2o-turno-lula-435/",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Exame - Pesquisa Futura: Flávio Bolsonaro tem 49% e Lula, 43,5%, no 2º turno",
+     "url": "https://exame.com/brasil/pesquisa-futura-flavio-bolsonaro-tem-49-e-lula-435-no-2o-turno/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Conferido em CNN Brasil e Exame (idênticos); placar também em GP1 e Poder360.",
+   "instituto_curto": "Futura"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "futura-2026-09-30-2t-lula-renan",
+   "instituto": "Futura Inteligência",
+   "contratante": "Recursos próprios (Futura Inteligência), segundo CNN Brasil, Exame e Quenty; outras fontes citam “100% Cidades”",
+   "registro_tse": "BR-01122/2026",
+   "campo_inicio": "2026-09-25",
+   "campo_fim": "2026-09-29",
+   "divulgacao": "2026-09-30",
+   "entrevistas": 2000,
+   "margem_erro_pp": 2.2,
+   "metodologia": "Entrevistas telefônicas assistidas por computador (CATI)",
+   "turno": 2,
+   "cenario": "Lula x Renan Santos",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 44.6
+    },
+    {
+     "nome": "Renan Santos",
+     "partido": "Missão",
+     "pct": 40.7
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Branco/nulo/não vai votar",
+     "pct": 12.3
+    },
+    {
+     "rotulo": "Indecisos",
+     "pct": 2.5
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "CNN Brasil - Futura: Flávio tem 49% das intenções de voto no 2º turno; Lula, 43,5%",
+     "url": "https://www.cnnbrasil.com.br/eleicoes/futura-flavio-tem-49-das-intencoes-de-voto-no-2o-turno-lula-435/",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Exame - Pesquisa Futura: Flávio Bolsonaro tem 49% e Lula, 43,5%, no 2º turno",
+     "url": "https://exame.com/brasil/pesquisa-futura-flavio-bolsonaro-tem-49-e-lula-435-no-2o-turno/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Conferido em CNN Brasil e Exame (idênticos); placar também em GP1 e Poder360.",
+   "instituto_curto": "Futura"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "futura-2026-09-30-2t-lula-cury",
+   "instituto": "Futura Inteligência",
+   "contratante": "Recursos próprios (Futura Inteligência), segundo CNN Brasil, Exame e Quenty; outras fontes citam “100% Cidades”",
+   "registro_tse": "BR-01122/2026",
+   "campo_inicio": "2026-09-25",
+   "campo_fim": "2026-09-29",
+   "divulgacao": "2026-09-30",
+   "entrevistas": 2000,
+   "margem_erro_pp": 2.2,
+   "metodologia": "Entrevistas telefônicas assistidas por computador (CATI)",
+   "turno": 2,
+   "cenario": "Lula x Escritor Augusto Cury",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 42.0
+    },
+    {
+     "nome": "Escritor Augusto Cury",
+     "partido": "Avante",
+     "pct": 45.1
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Branco/nulo/não vai votar",
+     "pct": 10.9
+    },
+    {
+     "rotulo": "Indecisos",
+     "pct": 1.9
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "CNN Brasil - Futura: Flávio tem 49% das intenções de voto no 2º turno; Lula, 43,5%",
+     "url": "https://www.cnnbrasil.com.br/eleicoes/futura-flavio-tem-49-das-intencoes-de-voto-no-2o-turno-lula-435/",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Exame - Pesquisa Futura: Flávio Bolsonaro tem 49% e Lula, 43,5%, no 2º turno",
+     "url": "https://exame.com/brasil/pesquisa-futura-flavio-bolsonaro-tem-49-e-lula-435-no-2o-turno/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Conferido em CNN Brasil e Exame (idênticos); placar também em GP1 e Poder360.",
+   "instituto_curto": "Futura"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "ideia-2026-09-30",
+   "instituto": "Ideia (Instituto Ideia)",
+   "contratante": "Canal Meio S.A. (Meio)",
+   "registro_tse": "BR-08706/2026",
+   "campo_inicio": "2026-09-25",
+   "campo_fim": "2026-09-28",
+   "divulgacao": "2026-09-30",
+   "entrevistas": 2000,
+   "margem_erro_pp": 2.2,
+   "metodologia": "Entrevistas por telefone (eleitores de 16 anos ou mais)",
+   "turno": 1,
+   "cenario": "estimulado",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 39.4
+    },
+    {
+     "nome": "Flávio Bolsonaro",
+     "partido": "PL",
+     "pct": 38.4
+    },
+    {
+     "nome": "Escritor Augusto Cury",
+     "partido": "Avante",
+     "pct": 6.7
+    },
+    {
+     "nome": "Renan Santos",
+     "partido": "Missão",
+     "pct": 4.5
+    },
+    {
+     "nome": "Ronaldo Caiado",
+     "partido": "PSD",
+     "pct": 4.4
+    },
+    {
+     "nome": "Zema",
+     "partido": "Novo",
+     "pct": 3.5
+    },
+    {
+     "nome": "Samara",
+     "partido": "UP",
+     "pct": 0.4
+    },
+    {
+     "nome": "Clariana Barão",
+     "partido": "DC",
+     "pct": 0.3
+    },
+    {
+     "nome": "Hertz Dias",
+     "partido": "PSTU",
+     "pct": 0.3
+    },
+    {
+     "nome": "Veterinário Wilson Grassi",
+     "partido": "Democrata",
+     "pct": 0.1
+    },
+    {
+     "nome": "Leonardo Avalanche",
+     "partido": "PRTB",
+     "pct": 0.1
+    },
+    {
+     "nome": "Rui Costa Pimenta",
+     "partido": "PCO",
+     "pct": 0.1
+    },
+    {
+     "nome": "Edmilson Costa",
+     "partido": "PCB",
+     "pct": 0.1
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Brancos/nulos",
+     "pct": 0.7
+    },
+    {
+     "rotulo": "Indecisos",
+     "pct": 1.5
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Gazeta do Povo - Meio/Ideia divulga nova pesquisa para presidente; veja os números",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/meio-ideia-presidente-setembro-2026-2/",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "NC News - Meio/Ideia: Lula tem 39,4% e Flávio Bolsonaro, 38,4% no 1º turno",
+     "url": "https://ncnews.com.br/2026/09/30/meio-ideia-lula-tem-394-e-flavio-bolsonaro-384-no-1o-turno/",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Agora RN - Pesquisa Meio/Ideia: Lula com 39,4% e Flávio com 38,4%",
+     "url": "https://agorarn.com.br/politica/pesquisa-meio-ideia-lula-flavio-setembro/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Seis primeiros colocados idênticos em Gazeta do Povo, NC News e Agora RN; brancos/nulos (0,7%) e indecisos (1,5%) em Gazeta e Agora RN. Valores individuais dos candidatos abaixo de 1% apenas na Gazeta do Povo (Agora RN diz apenas 'abaixo de 1%'). Soma publicada = 100,5% (arredondamento).",
+   "instituto_curto": "Ideia"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "ideia-2026-09-30-2t-lula-flavio",
+   "instituto": "Ideia (Instituto Ideia)",
+   "contratante": "Canal Meio S.A. (Meio)",
+   "registro_tse": "BR-08706/2026",
+   "campo_inicio": "2026-09-25",
+   "campo_fim": "2026-09-28",
+   "divulgacao": "2026-09-30",
+   "entrevistas": 2000,
+   "margem_erro_pp": 2.2,
+   "metodologia": "Entrevistas por telefone (eleitores de 16 anos ou mais)",
+   "turno": 2,
+   "cenario": "Lula x Flávio Bolsonaro",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 48.5
+    },
+    {
+     "nome": "Flávio Bolsonaro",
+     "partido": "PL",
+     "pct": 48.0
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Brancos/nulos",
+     "pct": 2.1
+    },
+    {
+     "rotulo": "Indecisos",
+     "pct": 1.5
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Gazeta do Povo - Meio/Ideia divulga nova pesquisa para presidente; veja os números",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/meio-ideia-presidente-setembro-2026-2/",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Agora RN - Pesquisa Meio/Ideia: Lula com 39,4% e Flávio com 38,4%",
+     "url": "https://agorarn.com.br/politica/pesquisa-meio-ideia-lula-flavio-setembro/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Conferido em Gazeta do Povo e Agora RN (idênticos).",
+   "instituto_curto": "Ideia"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "ideia-2026-09-30-2t-lula-renan",
+   "instituto": "Ideia (Instituto Ideia)",
+   "contratante": "Canal Meio S.A. (Meio)",
+   "registro_tse": "BR-08706/2026",
+   "campo_inicio": "2026-09-25",
+   "campo_fim": "2026-09-28",
+   "divulgacao": "2026-09-30",
+   "entrevistas": 2000,
+   "margem_erro_pp": 2.2,
+   "metodologia": "Entrevistas por telefone (eleitores de 16 anos ou mais)",
+   "turno": 2,
+   "cenario": "Lula x Renan Santos",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 48.0
+    },
+    {
+     "nome": "Renan Santos",
+     "partido": "Missão",
+     "pct": 41.3
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Brancos/nulos",
+     "pct": 8.0
+    },
+    {
+     "rotulo": "Indecisos",
+     "pct": 2.8
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Gazeta do Povo - Meio/Ideia divulga nova pesquisa para presidente; veja os números",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/meio-ideia-presidente-setembro-2026-2/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Apenas Gazeta do Povo (1 fonte).",
+   "instituto_curto": "Ideia"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "ideia-2026-09-30-2t-lula-zema",
+   "instituto": "Ideia (Instituto Ideia)",
+   "contratante": "Canal Meio S.A. (Meio)",
+   "registro_tse": "BR-08706/2026",
+   "campo_inicio": "2026-09-25",
+   "campo_fim": "2026-09-28",
+   "divulgacao": "2026-09-30",
+   "entrevistas": 2000,
+   "margem_erro_pp": 2.2,
+   "metodologia": "Entrevistas por telefone (eleitores de 16 anos ou mais)",
+   "turno": 2,
+   "cenario": "Lula x Zema",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 48.5
+    },
+    {
+     "nome": "Zema",
+     "partido": "Novo",
+     "pct": 44.0
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Brancos/nulos",
+     "pct": 5.0
+    },
+    {
+     "rotulo": "Indecisos",
+     "pct": 2.6
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Gazeta do Povo - Meio/Ideia divulga nova pesquisa para presidente; veja os números",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/meio-ideia-presidente-setembro-2026-2/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Apenas Gazeta do Povo (1 fonte).",
+   "instituto_curto": "Ideia"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "ideia-2026-09-30-2t-lula-caiado",
+   "instituto": "Ideia (Instituto Ideia)",
+   "contratante": "Canal Meio S.A. (Meio)",
+   "registro_tse": "BR-08706/2026",
+   "campo_inicio": "2026-09-25",
+   "campo_fim": "2026-09-28",
+   "divulgacao": "2026-09-30",
+   "entrevistas": 2000,
+   "margem_erro_pp": 2.2,
+   "metodologia": "Entrevistas por telefone (eleitores de 16 anos ou mais)",
+   "turno": 2,
+   "cenario": "Lula x Ronaldo Caiado",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 48.5
+    },
+    {
+     "nome": "Ronaldo Caiado",
+     "partido": "PSD",
+     "pct": 44.6
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Brancos/nulos",
+     "pct": 3.1
+    },
+    {
+     "rotulo": "Indecisos",
+     "pct": 3.9
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Gazeta do Povo - Meio/Ideia divulga nova pesquisa para presidente; veja os números",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/meio-ideia-presidente-setembro-2026-2/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Apenas Gazeta do Povo (1 fonte).",
+   "instituto_curto": "Ideia"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "ideia-2026-09-30-2t-lula-cury",
+   "instituto": "Ideia (Instituto Ideia)",
+   "contratante": "Canal Meio S.A. (Meio)",
+   "registro_tse": "BR-08706/2026",
+   "campo_inicio": "2026-09-25",
+   "campo_fim": "2026-09-28",
+   "divulgacao": "2026-09-30",
+   "entrevistas": 2000,
+   "margem_erro_pp": 2.2,
+   "metodologia": "Entrevistas por telefone (eleitores de 16 anos ou mais)",
+   "turno": 2,
+   "cenario": "Lula x Escritor Augusto Cury",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 48.0
+    },
+    {
+     "nome": "Escritor Augusto Cury",
+     "partido": "Avante",
+     "pct": 44.0
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Brancos/nulos",
+     "pct": 5.0
+    },
+    {
+     "rotulo": "Indecisos",
+     "pct": 3.1
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Gazeta do Povo - Meio/Ideia divulga nova pesquisa para presidente; veja os números",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/meio-ideia-presidente-setembro-2026-2/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Apenas Gazeta do Povo (1 fonte).",
+   "instituto_curto": "Ideia"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "indexa-2026-09-30",
+   "instituto": "Indexa",
+   "contratante": "Agência Estado S.A. (Broadcast / Estadão)",
+   "registro_tse": "BR-00698/2026",
+   "campo_inicio": "2026-09-27",
+   "campo_fim": "2026-09-29",
+   "divulgacao": "2026-09-30",
+   "entrevistas": 2000,
+   "margem_erro_pp": 2.2,
+   "metodologia": "Entrevistas individuais por telefone",
+   "turno": 1,
+   "cenario": "estimulado",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 39
+    },
+    {
+     "nome": "Flávio Bolsonaro",
+     "partido": "PL",
+     "pct": 34
+    },
+    {
+     "nome": "Ronaldo Caiado",
+     "partido": "PSD",
+     "pct": 4
+    },
+    {
+     "nome": "Escritor Augusto Cury",
+     "partido": "Avante",
+     "pct": 4
+    },
+    {
+     "nome": "Renan Santos",
+     "partido": "Missão",
+     "pct": 3
+    },
+    {
+     "nome": "Zema",
+     "partido": "Novo",
+     "pct": 1
+    },
+    {
+     "nome": "Edmilson Costa",
+     "partido": "PCB",
+     "pct": 0
+    },
+    {
+     "nome": "Hertz Dias",
+     "partido": "PSTU",
+     "pct": 0
+    },
+    {
+     "nome": "Rui Costa Pimenta",
+     "partido": "PCO",
+     "pct": 0
+    },
+    {
+     "nome": "Clariana Barão",
+     "partido": "DC",
+     "pct": 0
+    },
+    {
+     "nome": "Samara",
+     "partido": "UP",
+     "pct": 0
+    },
+    {
+     "nome": "Veterinário Wilson Grassi",
+     "partido": "Democrata",
+     "pct": 0
+    },
+    {
+     "nome": "Leonardo Avalanche",
+     "partido": "PRTB",
+     "pct": 0
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Branco/nulo",
+     "pct": 4
+    },
+    {
+     "rotulo": "Indecisos",
+     "pct": 7
+    },
+    {
+     "rotulo": "Não vai votar",
+     "pct": 4
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "CNN Brasil - Indexa/Broadcast: Lula tem 39% no 1º turno; Flávio, 34%",
+     "url": "https://www.cnnbrasil.com.br/eleicoes/indexa-broadcast-lula-tem-39-no-1o-turno-flavio-34/",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "CartaCapital - Os números da nova pesquisa Indexa/Broadcast",
+     "url": "https://www.cartacapital.com.br/politica/lula-lidera-em-1o-turno-e-empata-com-flavio-bolsonaro-no-2o-aponta-pesquisa-indexa-broadcast/",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Gazeta do Povo - O que mostra a pesquisa Indexa/Broadcast para presidente",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/indexa-broadcast-presidente-setembro-2026-2/",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Transmissão Política - Pesquisa Indexa/Broadcast: Lula tem 39% e Flávio Bolsonaro, 34%",
+     "url": "https://transmissaopolitica.com.br/politica-nacional/2026/09/30/pesquisa-indexa-lula-flavio-bolsonaro-presidente/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Conferido em CNN Brasil, CartaCapital e Gazeta do Povo (idênticos, incluindo brancos/nulos, indecisos e 'não vai votar'). Soma = 100%.",
+   "instituto_curto": "Indexa"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "indexa-2026-09-30-2t-lula-flavio",
+   "instituto": "Indexa",
+   "contratante": "Agência Estado S.A. (Broadcast / Estadão)",
+   "registro_tse": "BR-00698/2026",
+   "campo_inicio": "2026-09-27",
+   "campo_fim": "2026-09-29",
+   "divulgacao": "2026-09-30",
+   "entrevistas": 2000,
+   "margem_erro_pp": 2.2,
+   "metodologia": "Entrevistas individuais por telefone",
+   "turno": 2,
+   "cenario": "Lula x Flávio Bolsonaro",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 43
+    },
+    {
+     "nome": "Flávio Bolsonaro",
+     "partido": "PL",
+     "pct": 42
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Branco/nulo",
+     "pct": 7
+    },
+    {
+     "rotulo": "Indecisos",
+     "pct": 4
+    },
+    {
+     "rotulo": "Não vai votar",
+     "pct": 4
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "CartaCapital - Os números da nova pesquisa Indexa/Broadcast",
+     "url": "https://www.cartacapital.com.br/politica/lula-lidera-em-1o-turno-e-empata-com-flavio-bolsonaro-no-2o-aponta-pesquisa-indexa-broadcast/",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Gazeta do Povo - O que mostra a pesquisa Indexa/Broadcast para presidente",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/indexa-broadcast-presidente-setembro-2026-2/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Conferido em CartaCapital e Gazeta do Povo (idênticos, inclusive detalhamento).",
+   "instituto_curto": "Indexa"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "indexa-2026-09-30-2t-lula-zema",
+   "instituto": "Indexa",
+   "contratante": "Agência Estado S.A. (Broadcast / Estadão)",
+   "registro_tse": "BR-00698/2026",
+   "campo_inicio": "2026-09-27",
+   "campo_fim": "2026-09-29",
+   "divulgacao": "2026-09-30",
+   "entrevistas": 2000,
+   "margem_erro_pp": 2.2,
+   "metodologia": "Entrevistas individuais por telefone",
+   "turno": 2,
+   "cenario": "Lula x Zema",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 43
+    },
+    {
+     "nome": "Zema",
+     "partido": "Novo",
+     "pct": 36
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Branco/nulo",
+     "pct": 8
+    },
+    {
+     "rotulo": "Indecisos",
+     "pct": 8
+    },
+    {
+     "rotulo": "Não vai votar",
+     "pct": 5
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "CartaCapital - Os números da nova pesquisa Indexa/Broadcast",
+     "url": "https://www.cartacapital.com.br/politica/lula-lidera-em-1o-turno-e-empata-com-flavio-bolsonaro-no-2o-aponta-pesquisa-indexa-broadcast/",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Gazeta do Povo - O que mostra a pesquisa Indexa/Broadcast para presidente",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/indexa-broadcast-presidente-setembro-2026-2/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Placar dos candidatos confirmado na CartaCapital; detalhamento de brancos/nulos, indecisos e não vai votar apenas na Gazeta do Povo.",
+   "instituto_curto": "Indexa"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "indexa-2026-09-30-2t-lula-caiado",
+   "instituto": "Indexa",
+   "contratante": "Agência Estado S.A. (Broadcast / Estadão)",
+   "registro_tse": "BR-00698/2026",
+   "campo_inicio": "2026-09-27",
+   "campo_fim": "2026-09-29",
+   "divulgacao": "2026-09-30",
+   "entrevistas": 2000,
+   "margem_erro_pp": 2.2,
+   "metodologia": "Entrevistas individuais por telefone",
+   "turno": 2,
+   "cenario": "Lula x Ronaldo Caiado",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 43
+    },
+    {
+     "nome": "Ronaldo Caiado",
+     "partido": "PSD",
+     "pct": 40
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Branco/nulo",
+     "pct": 7
+    },
+    {
+     "rotulo": "Indecisos",
+     "pct": 6
+    },
+    {
+     "rotulo": "Não vai votar",
+     "pct": 4
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "CartaCapital - Os números da nova pesquisa Indexa/Broadcast",
+     "url": "https://www.cartacapital.com.br/politica/lula-lidera-em-1o-turno-e-empata-com-flavio-bolsonaro-no-2o-aponta-pesquisa-indexa-broadcast/",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Gazeta do Povo - O que mostra a pesquisa Indexa/Broadcast para presidente",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/indexa-broadcast-presidente-setembro-2026-2/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Placar dos candidatos confirmado na CartaCapital; detalhamento de brancos/nulos, indecisos e não vai votar apenas na Gazeta do Povo.",
+   "instituto_curto": "Indexa"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "indexa-2026-09-30-2t-lula-renan",
+   "instituto": "Indexa",
+   "contratante": "Agência Estado S.A. (Broadcast / Estadão)",
+   "registro_tse": "BR-00698/2026",
+   "campo_inicio": "2026-09-27",
+   "campo_fim": "2026-09-29",
+   "divulgacao": "2026-09-30",
+   "entrevistas": 2000,
+   "margem_erro_pp": 2.2,
+   "metodologia": "Entrevistas individuais por telefone",
+   "turno": 2,
+   "cenario": "Lula x Renan Santos",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 44
+    },
+    {
+     "nome": "Renan Santos",
+     "partido": "Missão",
+     "pct": 38
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Branco/nulo",
+     "pct": 7
+    },
+    {
+     "rotulo": "Indecisos",
+     "pct": 6
+    },
+    {
+     "rotulo": "Não vai votar",
+     "pct": 5
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "CartaCapital - Os números da nova pesquisa Indexa/Broadcast",
+     "url": "https://www.cartacapital.com.br/politica/lula-lidera-em-1o-turno-e-empata-com-flavio-bolsonaro-no-2o-aponta-pesquisa-indexa-broadcast/",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Gazeta do Povo - O que mostra a pesquisa Indexa/Broadcast para presidente",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/indexa-broadcast-presidente-setembro-2026-2/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Placar dos candidatos confirmado na CartaCapital; detalhamento de brancos/nulos, indecisos e não vai votar apenas na Gazeta do Povo.",
+   "instituto_curto": "Indexa"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "indexa-2026-09-30-2t-lula-cury",
+   "instituto": "Indexa",
+   "contratante": "Agência Estado S.A. (Broadcast / Estadão)",
+   "registro_tse": "BR-00698/2026",
+   "campo_inicio": "2026-09-27",
+   "campo_fim": "2026-09-29",
+   "divulgacao": "2026-09-30",
+   "entrevistas": 2000,
+   "margem_erro_pp": 2.2,
+   "metodologia": "Entrevistas individuais por telefone",
+   "turno": 2,
+   "cenario": "Lula x Escritor Augusto Cury",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 41
+    },
+    {
+     "nome": "Escritor Augusto Cury",
+     "partido": "Avante",
+     "pct": 39
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Branco/nulo",
+     "pct": 6
+    },
+    {
+     "rotulo": "Indecisos",
+     "pct": 9
+    },
+    {
+     "rotulo": "Não vai votar",
+     "pct": 5
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "CartaCapital - Os números da nova pesquisa Indexa/Broadcast",
+     "url": "https://www.cartacapital.com.br/politica/lula-lidera-em-1o-turno-e-empata-com-flavio-bolsonaro-no-2o-aponta-pesquisa-indexa-broadcast/",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Gazeta do Povo - O que mostra a pesquisa Indexa/Broadcast para presidente",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/indexa-broadcast-presidente-setembro-2026-2/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Placar dos candidatos confirmado na CartaCapital; detalhamento de brancos/nulos, indecisos e não vai votar apenas na Gazeta do Povo.",
+   "instituto_curto": "Indexa"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "voxbrasil-2026-09-29",
+   "instituto": "Vox Brasil (Instituto Vox Brasil Opinião e Pesquisas Ltda.)",
+   "contratante": "Instituto Vox Brasil Opinião e Pesquisas Ltda. (recursos próprios)",
+   "registro_tse": "BR-00895/2026",
+   "campo_inicio": "2026-09-26",
+   "campo_fim": "2026-09-28",
+   "divulgacao": "2026-09-29",
+   "entrevistas": 2100,
+   "margem_erro_pp": 2.15,
+   "metodologia": "Entrevistas presenciais domiciliares",
+   "turno": 1,
+   "cenario": "estimulado",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 41.1
+    },
+    {
+     "nome": "Flávio Bolsonaro",
+     "partido": "PL",
+     "pct": 37.8
+    },
+    {
+     "nome": "Ronaldo Caiado",
+     "partido": "PSD",
+     "pct": 3.8
+    },
+    {
+     "nome": "Renan Santos",
+     "partido": "Missão",
+     "pct": 2.7
+    },
+    {
+     "nome": "Escritor Augusto Cury",
+     "partido": "Avante",
+     "pct": 2.2
+    },
+    {
+     "nome": "Zema",
+     "partido": "Novo",
+     "pct": 1.8
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Brancos/nulos",
+     "pct": 3.5
+    },
+    {
+     "rotulo": "Não sabem/não responderam",
+     "pct": 6.8
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Exame - Pesquisa Vox Brasil presidente: Lula tem 41,1% e Flávio Bolsonaro, 37,8% no 1º turno",
+     "url": "https://exame.com/brasil/pesquisa-vox-brasil-lula-tem-411-e-flavio-bolsonaro-378-no-1o-turno/",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Metrópoles - Vox: Lula marca 41,1% no 1º turno; Flávio tem 37,8% e Caiado, 3,8%",
+     "url": "https://www.metropoles.com/brasil/vox-lula-marca-411-no-1o-turno-flavio-tem-378-e-caiado-38",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Quenty - Pesquisa Vox Brasil (26 a 28 de setembro)",
+     "url": "https://quenty.com.br/resumo/30-setembro-2026/pesquisa-vox-brasil-presidente-26-a-28-de-setembro",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Seis candidatos idênticos em Exame, Metrópoles (Lula, Flávio, Caiado) e Quenty; brancos/nulos e NS/NR apenas na Exame. Soma dos valores publicados = 99,7% (restante distribuído entre os demais candidatos). A Wikipedia em inglês registra Lula com 41,4% - divergência: todas as fontes primárias abertas dizem 41,1%. Divulgação em 29/09 conforme Exame ('divulgada nesta terça-feira, 29').",
+   "instituto_curto": "Vox Brasil"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "voxbrasil-2026-09-29-2t-lula-flavio",
+   "instituto": "Vox Brasil (Instituto Vox Brasil Opinião e Pesquisas Ltda.)",
+   "contratante": "Instituto Vox Brasil Opinião e Pesquisas Ltda. (recursos próprios)",
+   "registro_tse": "BR-00895/2026",
+   "campo_inicio": "2026-09-26",
+   "campo_fim": "2026-09-28",
+   "divulgacao": "2026-09-29",
+   "entrevistas": 2100,
+   "margem_erro_pp": 2.15,
+   "metodologia": "Entrevistas presenciais domiciliares",
+   "turno": 2,
+   "cenario": "Lula x Flávio Bolsonaro",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 44.7
+    },
+    {
+     "nome": "Flávio Bolsonaro",
+     "partido": "PL",
+     "pct": 45.2
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Brancos/nulos/nenhum",
+     "pct": 6.8
+    },
+    {
+     "rotulo": "Não sabem/não responderam",
+     "pct": 3.3
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Metrópoles - Vox: Lula marca 41,1% no 1º turno; Flávio tem 37,8% e Caiado, 3,8%",
+     "url": "https://www.metropoles.com/brasil/vox-lula-marca-411-no-1o-turno-flavio-tem-378-e-caiado-38",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Quenty - Pesquisa Vox Brasil (26 a 28 de setembro)",
+     "url": "https://quenty.com.br/resumo/30-setembro-2026/pesquisa-vox-brasil-presidente-26-a-28-de-setembro",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Exame - Pesquisa presidente: Flávio Bolsonaro tem 45,2% e Lula, 44,7%, no 2º turno, diz Vox",
+     "url": "https://exame.com/brasil/pesquisa-vox-brasil-flavio-bolsonaro-tem-452-e-lula-447-no-2o-turno/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Placar idêntico em Exame, Metrópoles e Quenty; detalhamento apenas na Exame.",
+   "instituto_curto": "Vox Brasil"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "voxbrasil-2026-09-29-2t-lula-zema",
+   "instituto": "Vox Brasil (Instituto Vox Brasil Opinião e Pesquisas Ltda.)",
+   "contratante": "Instituto Vox Brasil Opinião e Pesquisas Ltda. (recursos próprios)",
+   "registro_tse": "BR-00895/2026",
+   "campo_inicio": "2026-09-26",
+   "campo_fim": "2026-09-28",
+   "divulgacao": "2026-09-29",
+   "entrevistas": 2100,
+   "margem_erro_pp": 2.15,
+   "metodologia": "Entrevistas presenciais domiciliares",
+   "turno": 2,
+   "cenario": "Lula x Zema",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 46.1
+    },
+    {
+     "nome": "Zema",
+     "partido": "Novo",
+     "pct": 30.3
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Brancos/nulos",
+     "pct": 17.1
+    },
+    {
+     "rotulo": "Não responderam",
+     "pct": 6.5
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Metrópoles - Vox: Lula marca 41,1% no 1º turno; Flávio tem 37,8% e Caiado, 3,8%",
+     "url": "https://www.metropoles.com/brasil/vox-lula-marca-411-no-1o-turno-flavio-tem-378-e-caiado-38",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Exame - Pesquisa presidente: Flávio Bolsonaro tem 45,2% e Lula, 44,7%, no 2º turno, diz Vox",
+     "url": "https://exame.com/brasil/pesquisa-vox-brasil-flavio-bolsonaro-tem-452-e-lula-447-no-2o-turno/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Placar idêntico em Exame e Metrópoles; detalhamento apenas na Exame.",
+   "instituto_curto": "Vox Brasil"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "voxbrasil-2026-09-29-2t-lula-cury",
+   "instituto": "Vox Brasil (Instituto Vox Brasil Opinião e Pesquisas Ltda.)",
+   "contratante": "Instituto Vox Brasil Opinião e Pesquisas Ltda. (recursos próprios)",
+   "registro_tse": "BR-00895/2026",
+   "campo_inicio": "2026-09-26",
+   "campo_fim": "2026-09-28",
+   "divulgacao": "2026-09-29",
+   "entrevistas": 2100,
+   "margem_erro_pp": 2.15,
+   "metodologia": "Entrevistas presenciais domiciliares",
+   "turno": 2,
+   "cenario": "Lula x Escritor Augusto Cury",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 44.8
+    },
+    {
+     "nome": "Escritor Augusto Cury",
+     "partido": "Avante",
+     "pct": 35.1
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Brancos/nulos",
+     "pct": 15.3
+    },
+    {
+     "rotulo": "Não sabem/não responderam",
+     "pct": 4.8
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Metrópoles - Vox: Lula marca 41,1% no 1º turno; Flávio tem 37,8% e Caiado, 3,8%",
+     "url": "https://www.metropoles.com/brasil/vox-lula-marca-411-no-1o-turno-flavio-tem-378-e-caiado-38",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Exame - Pesquisa presidente: Flávio Bolsonaro tem 45,2% e Lula, 44,7%, no 2º turno, diz Vox",
+     "url": "https://exame.com/brasil/pesquisa-vox-brasil-flavio-bolsonaro-tem-452-e-lula-447-no-2o-turno/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Placar idêntico em Exame e Metrópoles; detalhamento apenas na Exame.",
+   "instituto_curto": "Vox Brasil"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "nexus-2026-09-28",
+   "instituto": "Nexus - Pesquisa e Inteligência de Dados (Grupo FSB)",
+   "contratante": "Banco BTG Pactual S.A.",
+   "registro_tse": "BR-07557/2026",
+   "campo_inicio": "2026-09-25",
+   "campo_fim": "2026-09-27",
+   "divulgacao": "2026-09-28",
+   "entrevistas": 2000,
+   "margem_erro_pp": 2.0,
+   "metodologia": "Entrevistas telefônicas (CATI), cotas por sexo, idade, escolaridade, tipo de telefone e DDD",
+   "turno": 1,
+   "cenario": "estimulado",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 42
+    },
+    {
+     "nome": "Flávio Bolsonaro",
+     "partido": "PL",
+     "pct": 37
+    },
+    {
+     "nome": "Escritor Augusto Cury",
+     "partido": "Avante",
+     "pct": 5
+    },
+    {
+     "nome": "Ronaldo Caiado",
+     "partido": "PSD",
+     "pct": 5
+    },
+    {
+     "nome": "Renan Santos",
+     "partido": "Missão",
+     "pct": 4
+    },
+    {
+     "nome": "Zema",
+     "partido": "Novo",
+     "pct": 1
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Outros candidatos (somados)",
+     "pct": 1
+    },
+    {
+     "rotulo": "Brancos/nulos",
+     "pct": 3
+    },
+    {
+     "rotulo": "Não responderam",
+     "pct": 2
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Nexus (FSB) - Pesquisa BTG/Nexus de intenção de votos para presidente do Brasil - 28 de setembro de 2026",
+     "url": "https://www.nexus.fsb.com.br/estudos-divulgados/pesquisa-btg-nexus-de-intencao-de-votos-para-presidente-do-brasil-28-de-setembro-de-2026/",
+     "tipo": "instituto"
+    },
+    {
+     "titulo": "Gazeta do Povo - Nexus/BTG Pactual divulga nova pesquisa para presidente; veja o resultado",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/nexus-btg-pactual-presidente-setembro-2026-3/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Votos totais extraídos da página do próprio instituto (Nexus). Soma = 100%. A Gazeta do Povo publicou os VOTOS VÁLIDOS (Lula 44%, Flávio 39%, Cury 5%, Caiado 5%, Renan 4%, Zema 1%, Samara 1%). Contratante informado pela Gazeta do Povo (a página da Nexus não o explicita).",
+   "instituto_curto": "Nexus"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "nexus-2026-09-28-2t-lula-flavio",
+   "instituto": "Nexus - Pesquisa e Inteligência de Dados (Grupo FSB)",
+   "contratante": "Banco BTG Pactual S.A.",
+   "registro_tse": "BR-07557/2026",
+   "campo_inicio": "2026-09-25",
+   "campo_fim": "2026-09-27",
+   "divulgacao": "2026-09-28",
+   "entrevistas": 2000,
+   "margem_erro_pp": 2.0,
+   "metodologia": "Entrevistas telefônicas (CATI), cotas por sexo, idade, escolaridade, tipo de telefone e DDD",
+   "turno": 2,
+   "cenario": "Lula x Flávio Bolsonaro",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 46
+    },
+    {
+     "nome": "Flávio Bolsonaro",
+     "partido": "PL",
+     "pct": 44
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Brancos/nulos",
+     "pct": 8
+    },
+    {
+     "rotulo": "Não responderam",
+     "pct": 1
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Nexus (FSB) - Pesquisa BTG/Nexus de intenção de votos para presidente do Brasil - 28 de setembro de 2026",
+     "url": "https://www.nexus.fsb.com.br/estudos-divulgados/pesquisa-btg-nexus-de-intencao-de-votos-para-presidente-do-brasil-28-de-setembro-de-2026/",
+     "tipo": "instituto"
+    },
+    {
+     "titulo": "Gazeta do Povo - Nexus/BTG Pactual divulga nova pesquisa para presidente; veja o resultado",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/nexus-btg-pactual-presidente-setembro-2026-3/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Conferido na página da Nexus e na Gazeta do Povo (idênticos).",
+   "instituto_curto": "Nexus"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "nexus-2026-09-28-2t-lula-caiado",
+   "instituto": "Nexus - Pesquisa e Inteligência de Dados (Grupo FSB)",
+   "contratante": "Banco BTG Pactual S.A.",
+   "registro_tse": "BR-07557/2026",
+   "campo_inicio": "2026-09-25",
+   "campo_fim": "2026-09-27",
+   "divulgacao": "2026-09-28",
+   "entrevistas": 2000,
+   "margem_erro_pp": 2.0,
+   "metodologia": "Entrevistas telefônicas (CATI), cotas por sexo, idade, escolaridade, tipo de telefone e DDD",
+   "turno": 2,
+   "cenario": "Lula x Ronaldo Caiado",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 46
+    },
+    {
+     "nome": "Ronaldo Caiado",
+     "partido": "PSD",
+     "pct": 42
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Brancos/nulos",
+     "pct": 10
+    },
+    {
+     "rotulo": "Indecisos",
+     "pct": 2
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Gazeta do Povo - Nexus/BTG Pactual divulga nova pesquisa para presidente; veja o resultado",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/nexus-btg-pactual-presidente-setembro-2026-3/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Apenas Gazeta do Povo (1 fonte).",
+   "instituto_curto": "Nexus"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "nexus-2026-09-28-2t-lula-zema",
+   "instituto": "Nexus - Pesquisa e Inteligência de Dados (Grupo FSB)",
+   "contratante": "Banco BTG Pactual S.A.",
+   "registro_tse": "BR-07557/2026",
+   "campo_inicio": "2026-09-25",
+   "campo_fim": "2026-09-27",
+   "divulgacao": "2026-09-28",
+   "entrevistas": 2000,
+   "margem_erro_pp": 2.0,
+   "metodologia": "Entrevistas telefônicas (CATI), cotas por sexo, idade, escolaridade, tipo de telefone e DDD",
+   "turno": 2,
+   "cenario": "Lula x Zema",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 48
+    },
+    {
+     "nome": "Zema",
+     "partido": "Novo",
+     "pct": 39
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Brancos/nulos",
+     "pct": 12
+    },
+    {
+     "rotulo": "Indecisos",
+     "pct": 2
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Gazeta do Povo - Nexus/BTG Pactual divulga nova pesquisa para presidente; veja o resultado",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/nexus-btg-pactual-presidente-setembro-2026-3/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Apenas Gazeta do Povo (1 fonte).",
+   "instituto_curto": "Nexus"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "nexus-2026-09-28-2t-lula-renan",
+   "instituto": "Nexus - Pesquisa e Inteligência de Dados (Grupo FSB)",
+   "contratante": "Banco BTG Pactual S.A.",
+   "registro_tse": "BR-07557/2026",
+   "campo_inicio": "2026-09-25",
+   "campo_fim": "2026-09-27",
+   "divulgacao": "2026-09-28",
+   "entrevistas": 2000,
+   "margem_erro_pp": 2.0,
+   "metodologia": "Entrevistas telefônicas (CATI), cotas por sexo, idade, escolaridade, tipo de telefone e DDD",
+   "turno": 2,
+   "cenario": "Lula x Renan Santos",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 48
+    },
+    {
+     "nome": "Renan Santos",
+     "partido": "Missão",
+     "pct": 37
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Brancos/nulos",
+     "pct": 13
+    },
+    {
+     "rotulo": "Indecisos",
+     "pct": 2
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Gazeta do Povo - Nexus/BTG Pactual divulga nova pesquisa para presidente; veja o resultado",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/nexus-btg-pactual-presidente-setembro-2026-3/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Apenas Gazeta do Povo (1 fonte).",
+   "instituto_curto": "Nexus"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "nexus-2026-09-28-2t-lula-cury",
+   "instituto": "Nexus - Pesquisa e Inteligência de Dados (Grupo FSB)",
+   "contratante": "Banco BTG Pactual S.A.",
+   "registro_tse": "BR-07557/2026",
+   "campo_inicio": "2026-09-25",
+   "campo_fim": "2026-09-27",
+   "divulgacao": "2026-09-28",
+   "entrevistas": 2000,
+   "margem_erro_pp": 2.0,
+   "metodologia": "Entrevistas telefônicas (CATI), cotas por sexo, idade, escolaridade, tipo de telefone e DDD",
+   "turno": 2,
+   "cenario": "Lula x Escritor Augusto Cury",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 46
+    },
+    {
+     "nome": "Escritor Augusto Cury",
+     "partido": "Avante",
+     "pct": 41
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Brancos/nulos",
+     "pct": 11
+    },
+    {
+     "rotulo": "Indecisos",
+     "pct": 2
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Gazeta do Povo - Nexus/BTG Pactual divulga nova pesquisa para presidente; veja o resultado",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/nexus-btg-pactual-presidente-setembro-2026-3/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Apenas Gazeta do Povo (1 fonte).",
+   "instituto_curto": "Nexus"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "poderdata-2026-09-24",
+   "instituto": "PoderData (em parceria com Aya)",
+   "contratante": "PoderData / Poder360 Jornalismo (recursos próprios)",
+   "registro_tse": "BR-01739/2026",
+   "campo_inicio": "2026-09-20",
+   "campo_fim": "2026-09-23",
+   "divulgacao": "2026-09-24",
+   "entrevistas": 3000,
+   "margem_erro_pp": 1.8,
+   "metodologia": "Entrevistas por telefone (celulares e fixos) com sistema de URA (resposta audível automática); 723 municípios das 27 UFs",
+   "turno": 1,
+   "cenario": "estimulado",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 41
+    },
+    {
+     "nome": "Flávio Bolsonaro",
+     "partido": "PL",
+     "pct": 39
+    },
+    {
+     "nome": "Escritor Augusto Cury",
+     "partido": "Avante",
+     "pct": 6
+    },
+    {
+     "nome": "Renan Santos",
+     "partido": "Missão",
+     "pct": 3
+    },
+    {
+     "nome": "Ronaldo Caiado",
+     "partido": "PSD",
+     "pct": 2
+    },
+    {
+     "nome": "Zema",
+     "partido": "Novo",
+     "pct": 1
+    },
+    {
+     "nome": "Rui Costa Pimenta",
+     "partido": "PCO",
+     "pct": 1
+    },
+    {
+     "nome": "Samara",
+     "partido": "UP",
+     "pct": 1
+    },
+    {
+     "nome": "Clariana Barão",
+     "partido": "DC",
+     "pct": 1
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Demais candidatos (Edmilson Costa, Hertz Dias, Wilson Grassi, Leonardo Avalanche - não nomeados individualmente)",
+     "pct": 0
+    },
+    {
+     "rotulo": "Brancos/nulos",
+     "pct": 4
+    },
+    {
+     "rotulo": "Indecisos",
+     "pct": 2
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Poder360 - Flávio tem 46% e Lula, 45% no 2º turno, diz PoderData/Aya",
+     "url": "https://www.poder360.com.br/poderdata/flavio-tem-46-e-lula-45-no-2o-turno-diz-poderdata-aya/",
+     "tipo": "instituto"
+    },
+    {
+     "titulo": "Poder360 - Em votos válidos, Lula tem 43% contra 42% de Flávio no 1º turno",
+     "url": "https://www.poder360.com.br/poderdata/em-votos-validos-lula-tem-43-contra-42-de-flavio-no-1o-turno/",
+     "tipo": "instituto"
+    },
+    {
+     "titulo": "Gazeta do Povo - PoderData divulga nova pesquisa para presidente; veja os números",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/poderdata-presidente-setembro-2026-3/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Votos totais publicados apenas pelo Poder360 (veículo do próprio grupo do instituto) - 1 fonte. A Gazeta do Povo publicou os VOTOS VÁLIDOS (Lula 43%, Flávio 42%, Cury 6%, Renan 3%, Caiado 2%, Zema/Samara/Rui/Clariana 1%), coerentes com o Poder360. Margem de erro: Poder360 informa 1,8 p.p.; Gazeta do Povo informa 2 p.p. Soma dos votos totais = 101% (arredondamento). Campo anterior às pesquisas das demais empresas; uma nova rodada PoderData estava prevista, sem resultado publicado no momento da coleta.",
+   "instituto_curto": "PoderData/Aya"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "poderdata-2026-09-24-2t-lula-flavio",
+   "instituto": "PoderData (em parceria com Aya)",
+   "contratante": "PoderData / Poder360 Jornalismo (recursos próprios)",
+   "registro_tse": "BR-01739/2026",
+   "campo_inicio": "2026-09-20",
+   "campo_fim": "2026-09-23",
+   "divulgacao": "2026-09-24",
+   "entrevistas": 3000,
+   "margem_erro_pp": 1.8,
+   "metodologia": "Entrevistas por telefone (celulares e fixos) com sistema de URA (resposta audível automática); 723 municípios das 27 UFs",
+   "turno": 2,
+   "cenario": "Lula x Flávio Bolsonaro",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 45
+    },
+    {
+     "nome": "Flávio Bolsonaro",
+     "partido": "PL",
+     "pct": 46
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Brancos/nulos",
+     "pct": 7
+    },
+    {
+     "rotulo": "Indecisos",
+     "pct": 2
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Poder360 - Flávio tem 46% e Lula, 45% no 2º turno, diz PoderData/Aya",
+     "url": "https://www.poder360.com.br/poderdata/flavio-tem-46-e-lula-45-no-2o-turno-diz-poderdata-aya/",
+     "tipo": "instituto"
+    },
+    {
+     "titulo": "Gazeta do Povo - PoderData divulga nova pesquisa para presidente; veja os números",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/poderdata-presidente-setembro-2026-3/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Placar confirmado em Poder360 e Gazeta do Povo; brancos/nulos e indecisos apenas na Gazeta do Povo.",
+   "instituto_curto": "PoderData/Aya"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "poderdata-2026-09-24-2t-lula-cury",
+   "instituto": "PoderData (em parceria com Aya)",
+   "contratante": "PoderData / Poder360 Jornalismo (recursos próprios)",
+   "registro_tse": "BR-01739/2026",
+   "campo_inicio": "2026-09-20",
+   "campo_fim": "2026-09-23",
+   "divulgacao": "2026-09-24",
+   "entrevistas": 3000,
+   "margem_erro_pp": 1.8,
+   "metodologia": "Entrevistas por telefone (celulares e fixos) com sistema de URA (resposta audível automática); 723 municípios das 27 UFs",
+   "turno": 2,
+   "cenario": "Lula x Escritor Augusto Cury",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 42
+    },
+    {
+     "nome": "Escritor Augusto Cury",
+     "partido": "Avante",
+     "pct": 45
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Brancos/nulos",
+     "pct": 10
+    },
+    {
+     "rotulo": "Indecisos",
+     "pct": 3
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Poder360 - Flávio tem 46% e Lula, 45% no 2º turno, diz PoderData/Aya",
+     "url": "https://www.poder360.com.br/poderdata/flavio-tem-46-e-lula-45-no-2o-turno-diz-poderdata-aya/",
+     "tipo": "instituto"
+    },
+    {
+     "titulo": "Gazeta do Povo - PoderData divulga nova pesquisa para presidente; veja os números",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/poderdata-presidente-setembro-2026-3/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Placar confirmado em Poder360 e Gazeta do Povo; brancos/nulos e indecisos apenas na Gazeta do Povo.",
+   "instituto_curto": "PoderData/Aya"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "poderdata-2026-09-24-2t-flavio-cury",
+   "instituto": "PoderData (em parceria com Aya)",
+   "contratante": "PoderData / Poder360 Jornalismo (recursos próprios)",
+   "registro_tse": "BR-01739/2026",
+   "campo_inicio": "2026-09-20",
+   "campo_fim": "2026-09-23",
+   "divulgacao": "2026-09-24",
+   "entrevistas": 3000,
+   "margem_erro_pp": 1.8,
+   "metodologia": "Entrevistas por telefone (celulares e fixos) com sistema de URA (resposta audível automática); 723 municípios das 27 UFs",
+   "turno": 2,
+   "cenario": "Flávio Bolsonaro x Escritor Augusto Cury",
+   "resultados": [
+    {
+     "nome": "Flávio Bolsonaro",
+     "partido": "PL",
+     "pct": 41
+    },
+    {
+     "nome": "Escritor Augusto Cury",
+     "partido": "Avante",
+     "pct": 39
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Brancos/nulos",
+     "pct": 17
+    },
+    {
+     "rotulo": "Indecisos",
+     "pct": 3
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Poder360 - Flávio tem 46% e Lula, 45% no 2º turno, diz PoderData/Aya",
+     "url": "https://www.poder360.com.br/poderdata/flavio-tem-46-e-lula-45-no-2o-turno-diz-poderdata-aya/",
+     "tipo": "instituto"
+    },
+    {
+     "titulo": "Gazeta do Povo - PoderData divulga nova pesquisa para presidente; veja os números",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/poderdata-presidente-setembro-2026-3/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Placar confirmado em Poder360 e Gazeta do Povo; brancos/nulos e indecisos apenas na Gazeta do Povo.",
+   "instituto_curto": "PoderData/Aya"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "realtimebigdata-2026-10-01",
+   "instituto": "Real Time Big Data",
+   "contratante": "Recursos próprios (Real Time Big Data)",
+   "registro_tse": "BR-09503/2026",
+   "campo_inicio": "2026-09-26",
+   "campo_fim": "2026-09-30",
+   "divulgacao": "2026-10-01",
+   "entrevistas": 2000,
+   "margem_erro_pp": 2.0,
+   "metodologia": "Entrevistas por telefone",
+   "turno": 1,
+   "cenario": "estimulado",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 43
+    },
+    {
+     "nome": "Flávio Bolsonaro",
+     "partido": "PL",
+     "pct": 39
+    },
+    {
+     "nome": "Renan Santos",
+     "partido": "Missão",
+     "pct": 4
+    },
+    {
+     "nome": "Escritor Augusto Cury",
+     "partido": "Avante",
+     "pct": 3
+    },
+    {
+     "nome": "Ronaldo Caiado",
+     "partido": "PSD",
+     "pct": 3
+    },
+    {
+     "nome": "Zema",
+     "partido": "Novo",
+     "pct": 1
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Demais candidatos somados (Clariana Barão, Rui Costa Pimenta, Samara, Edmilson Costa, Hertz Dias, Wilson Grassi, Leonardo Avalanche)",
+     "pct": 1
+    },
+    {
+     "rotulo": "Brancos/nulos",
+     "pct": 3
+    },
+    {
+     "rotulo": "Não sabem/não responderam",
+     "pct": 3
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Diário do Grande ABC - Real Time Big Data: Lula e Flávio Bolsonaro estão em empate técnico nos dois turnos",
+     "url": "https://www.dgabc.com.br/Noticia/4350084/real-time-big-data-lula-e-flavio-bolsonaro-estao-em-empate-tecnico-nos-dois-turnos-da-eleicao",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Transmissão Política - Real Time Big Data: Lula tem 43% e Flávio, 39% no 1º turno",
+     "url": "https://transmissaopolitica.com.br/politica-nacional/2026/10/01/real-time-big-data-lula-flavio-presidente-2026/",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Gazeta do Povo - Nova pesquisa Real Time Big Data mostra intenção de voto para presidente a três dias da eleição",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/real-time-big-data-presidente-outubro-2026/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Votos totais conferidos em Diário do Grande ABC e Transmissão Política (idênticos). Soma = 100%. A Gazeta do Povo publicou os VOTOS VÁLIDOS (Lula 46%, Flávio 41%, Renan 5%, Cury 3%, Caiado 3%, Zema 1%, outros 1%). Um resumo automático de busca citou 'brancos e nulos 8% / NS 11%' - NÃO confirmado em nenhuma fonte aberta; descartado.",
+   "instituto_curto": "Real Time Big Data"
+  },
+  {
+   "cargo": "presidente",
+   "abrangencia": "BR",
+   "confianca_pct": 95,
+   "id": "realtimebigdata-2026-10-01-2t-lula-flavio",
+   "instituto": "Real Time Big Data",
+   "contratante": "Recursos próprios (Real Time Big Data)",
+   "registro_tse": "BR-09503/2026",
+   "campo_inicio": "2026-09-26",
+   "campo_fim": "2026-09-30",
+   "divulgacao": "2026-10-01",
+   "entrevistas": 2000,
+   "margem_erro_pp": 2.0,
+   "metodologia": "Entrevistas por telefone",
+   "turno": 2,
+   "cenario": "Lula x Flávio Bolsonaro",
+   "resultados": [
+    {
+     "nome": "Lula",
+     "partido": "PT",
+     "pct": 45
+    },
+    {
+     "nome": "Flávio Bolsonaro",
+     "partido": "PL",
+     "pct": 46
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Brancos/nulos",
+     "pct": 5
+    },
+    {
+     "rotulo": "Não sabem/não responderam",
+     "pct": 4
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Diário do Grande ABC - Real Time Big Data: Lula e Flávio Bolsonaro estão em empate técnico nos dois turnos",
+     "url": "https://www.dgabc.com.br/Noticia/4350084/real-time-big-data-lula-e-flavio-bolsonaro-estao-em-empate-tecnico-nos-dois-turnos-da-eleicao",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Transmissão Política - Real Time Big Data: Lula tem 43% e Flávio, 39% no 1º turno",
+     "url": "https://transmissaopolitica.com.br/politica-nacional/2026/10/01/real-time-big-data-lula-flavio-presidente-2026/",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Gazeta do Povo - Nova pesquisa Real Time Big Data mostra intenção de voto para presidente a três dias da eleição",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/real-time-big-data-presidente-outubro-2026/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Placar confirmado em Diário do Grande ABC e Transmissão Política; brancos/nulos e NS/NR na Transmissão Política. Em votos válidos: Flávio 51% x Lula 49%. Outros cenários de 2º turno foram publicados só em votos válidos (Gazeta) e não foram incluídos.",
+   "instituto_curto": "Real Time Big Data"
+  },
+  {
+   "id": "datafolha-sp-2026-09-24",
+   "cargo": "governador",
+   "turno": 1,
+   "cenario": "estimulado",
+   "abrangencia": "SP",
+   "instituto": "Datafolha",
+   "contratante": "Empresa Folha da Manhã S.A. e Globo Comunicação e Participações S.A.",
+   "registro_tse": "SP-03730/2026",
+   "campo_inicio": "2026-09-22",
+   "campo_fim": "2026-09-23",
+   "divulgacao": "2026-09-24",
+   "entrevistas": 1610,
+   "margem_erro_pp": 2.0,
+   "confianca_pct": 95,
+   "metodologia": null,
+   "resultados": [
+    {
+     "nome": "Tarcísio",
+     "partido": "Republicanos",
+     "pct": 50
+    },
+    {
+     "nome": "Fernando Haddad",
+     "partido": "PT",
+     "pct": 30
+    },
+    {
+     "nome": "Policial Edjane",
+     "partido": "Agir",
+     "pct": 2
+    },
+    {
+     "nome": "Carlos Machado",
+     "partido": "PCB",
+     "pct": 2
+    },
+    {
+     "nome": "Vera Lúcia",
+     "partido": "PSTU",
+     "pct": 2
+    },
+    {
+     "nome": "Vivian Mendes",
+     "partido": "UP",
+     "pct": 2
+    },
+    {
+     "nome": "Izadora Dias",
+     "partido": "PCO",
+     "pct": 1
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Branco/nulo/nenhum",
+     "pct": 8
+    },
+    {
+     "rotulo": "Indecisos",
+     "pct": 3
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "Gazeta do Povo - Datafolha divulga pesquisa para governador de São Paulo",
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/datafolha-governador-sao-paulo-setembro-2026-2/",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "SP Rio+ - Datafolha mostra Tarcísio com 50% e Haddad com 30%",
+     "url": "https://spriomais.com.br/2026/09/25/datafolha-mostra-tarcisio-com-50-e-haddad-com-30-na-disputa-pelo-governo-de-sp/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Conferido em 2 fontes. Divergência: Gazeta dá Izadora Dias (PCO) 1%; SP Rio+ agrupa-a entre os candidatos com 2%. Com 1% a soma fecha em 100%. Votos válidos (Gazeta): Tarcísio 56%, Haddad 34%.",
+   "instituto_curto": "Datafolha"
+  },
+  {
+   "id": "quaest-mg-2026-09-29",
+   "cargo": "governador",
+   "turno": 1,
+   "cenario": "estimulado",
+   "abrangencia": "MG",
+   "instituto": "Quaest",
+   "contratante": "Globo Comunicação e Participações S.A. (TV Globo), segundo CartaCapital e Revista Fórum",
+   "registro_tse": "MG-02019/2026",
+   "campo_inicio": "2026-09-25",
+   "campo_fim": "2026-09-28",
+   "divulgacao": "2026-09-29",
+   "entrevistas": 1506,
+   "margem_erro_pp": 3.0,
+   "confianca_pct": 95,
+   "metodologia": null,
+   "resultados": [
+    {
+     "nome": "Cleitinho Azevedo",
+     "partido": "Republicanos",
+     "pct": 37
+    },
+    {
+     "nome": "Patrus Ananias",
+     "partido": "PT",
+     "pct": 18
+    },
+    {
+     "nome": "Alexandre Kalil",
+     "partido": "PDT",
+     "pct": 9
+    },
+    {
+     "nome": "Mateus Simões",
+     "partido": "PSD",
+     "pct": 6
+    },
+    {
+     "nome": "Flávio Roscoe",
+     "partido": "PL",
+     "pct": 5
+    },
+    {
+     "nome": "Gabriel",
+     "partido": "MDB",
+     "pct": 2
+    },
+    {
+     "nome": "Ben Mendes",
+     "partido": "Missão",
+     "pct": 2
+    },
+    {
+     "nome": "Professor Túlio Lopes",
+     "partido": "PCB",
+     "pct": 1
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Demais candidatos",
+     "pct": 0
+    },
+    {
+     "rotulo": "Indecisos",
+     "pct": 11
+    },
+    {
+     "rotulo": "Branco/nulo/não vai votar",
+     "pct": 9
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "CartaCapital - Cleitinho lidera corrida ao governo de MG com 37%, aponta Quaest",
+     "url": "https://www.cartacapital.com.br/politica/cleitinho-lidera-corrida-ao-governo-de-mg-com-37-aponta-quaest/",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Revista Fórum - Disputa pelo governo de Minas segue embolada, aponta nova Quaest",
+     "url": "https://revistaforum.com.br/politica/governo-minas-quaest/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Candidatos idênticos nas 2 fontes. CartaCapital separa indecisos (11%) e branco/nulo/não vai votar (9%); Revista Fórum agrega os dois em 20%. Soma = 100%.",
+   "instituto_curto": "Quaest"
+  },
+  {
+   "id": "quaest-rj-2026-09-29",
+   "cargo": "governador",
+   "turno": 1,
+   "cenario": "estimulado (com Garotinho)",
+   "abrangencia": "RJ",
+   "instituto": "Quaest",
+   "contratante": "Globo Comunicação e Participações S.A. (TV Globo)",
+   "registro_tse": "RJ-04419/2026",
+   "campo_inicio": "2026-09-25",
+   "campo_fim": "2026-09-28",
+   "divulgacao": "2026-09-29",
+   "entrevistas": 1302,
+   "margem_erro_pp": 3.0,
+   "confianca_pct": 95,
+   "metodologia": "Entrevistas presenciais domiciliares",
+   "resultados": [
+    {
+     "nome": "Eduardo Paes",
+     "partido": "PSD",
+     "pct": 34
+    },
+    {
+     "nome": "Douglas Ruas",
+     "partido": "PL",
+     "pct": 25
+    },
+    {
+     "nome": "Garotinho",
+     "partido": "Republicanos",
+     "pct": 9
+    },
+    {
+     "nome": "William Siri",
+     "partido": "PSOL",
+     "pct": 1
+    },
+    {
+     "nome": "Juliete Pantoja",
+     "partido": "UP",
+     "pct": 1
+    },
+    {
+     "nome": "Coronel Busnello",
+     "partido": "Missão",
+     "pct": 1
+    },
+    {
+     "nome": "André Marinho",
+     "partido": "Novo",
+     "pct": 0
+    },
+    {
+     "nome": "Luan Monteiro",
+     "partido": "PCO",
+     "pct": 0
+    }
+   ],
+   "outros": [
+    {
+     "rotulo": "Indecisos",
+     "pct": 14
+    },
+    {
+     "rotulo": "Branco/nulo/não vai votar",
+     "pct": 14
+    }
+   ],
+   "fontes": [
+    {
+     "titulo": "O Povo - Na pesquisa Quaest Rio de Janeiro, Paes tem 34% e Ruas, 25%",
+     "url": "https://www.opovo.com.br/noticias/politica/eleicoes/2026/09/29/na-pesquisa-quaest-rio-de-janeiro-paes-tem-34-e-ruas-25.html",
+     "tipo": "imprensa"
+    },
+    {
+     "titulo": "Maricá Info - Pesquisa Quaest aponta mudanças na corrida pelo Governo do RJ",
+     "url": "https://maricainfo.com/politica/pesquisa-quaest-rj-paes-ruas-setembro-2026/",
+     "tipo": "imprensa"
+    }
+   ],
+   "observacoes": "Seis primeiros idênticos nas 2 fontes; indecisos e brancos/nulos apenas em O Povo. Margem de erro DIVERGENTE: Maricá Info informa 3 p.p.; O Povo informa 2 p.p. (adotado 3, igual ao informado pela Gazeta do Povo para a rodada anterior da Quaest no RJ com a mesma amostra de 1.302) - confirmar no PesqEle. A pesquisa também testou cenário sem Garotinho (O Povo): Paes 35%, Ruas 26%, Siri 2%, Cyro Garcia 2%, Busnello 1%, Pantoja 1%, Marinho 1%, Monteiro 1%, indecisos 16%, branco/nulo/não vai votar 15%. 2º turno (O Povo): Paes 43% x Ruas 33% (BN 15%, indecisos 9%); Paes 48% x Garotinho 20% (BN 21%, indecisos 11%).",
+   "instituto_curto": "Quaest"
+  }
+ ],
+ "criterio": "Somente pesquisas com registro no TSE citado de forma idêntica em ao menos duas fontes (ou fonte do próprio instituto); valores transcritos como publicados (votos totais)."
+}

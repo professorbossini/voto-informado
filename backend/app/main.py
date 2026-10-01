@@ -117,6 +117,11 @@ def parlamentar(pid: str, conn=Depends(db)):
     return _found(cached(f"parl:{pid}", lambda: q.parlamentar(conn, pid)))
 
 
+@app.get("/api/pesquisas.json")
+def pesquisas(conn=Depends(db)):
+    return cached("pesquisas", lambda: q.pesquisas(conn))
+
+
 @app.get("/api/resultados.json")
 def resultados(conn=Depends(db)):
     return cached("resultados", lambda: q.resultados(conn))

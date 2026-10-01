@@ -32,7 +32,7 @@ def run() -> None:
     from . import common
 
     importlib.reload(common)
-    steps = [importlib.reload(importlib.import_module(f"etl.{m}")) for m in ("tse", "parlamentares", "derivados", "resultados")]
+    steps = [importlib.reload(importlib.import_module(f"etl.{m}")) for m in ("tse", "parlamentares", "derivados", "resultados", "pesquisas")]
     for step in steps:
         t = time.time()
         step.run()

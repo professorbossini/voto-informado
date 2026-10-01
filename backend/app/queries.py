@@ -416,6 +416,29 @@ def parlamentar(conn: sqlite3.Connection, pid: str, resumo: bool = False) -> dic
     return p
 
 
+# ── Pesquisas registradas ─────────────────────────────────────────────────────
+
+
+def pesquisas(conn: sqlite3.Connection) -> dict:
+    """Polls registered at the TSE, exactly as published (no averages or projections)."""
+    if not _has(conn, "pesquisas"):
+        return {"pesquisas": [], "fontes": []}
+    fotos = {r["sq"] for r in _rows(conn, "SELECT sq FROM fotos")} if _has(conn, "fotos") else set()
+    resultados = defaultdict(list)
+    na_urna = {r["sq"]: bool(r["na_urna"]) for r in _rows(conn, "SELECT sq, na_urna FROM candidatos WHERE cargo IN ('presidente','governador','senador')")}
+    for r in _rows(conn, "SELECT pesquisa_id, nome, partido, pct, sq FROM pesquisa_resultados"):
+        r["foto"] = f"/fotos/{r['sq']}.jpg" if r["sq"] in fotos else None
+        r["na_urna"] = na_urna.get(r["sq"], True)
+        resultados[r.pop("pesquisa_id")].append(r)
+    out = []
+    for p in _rows(conn, "SELECT * FROM pesquisas ORDER BY campo_fim DESC, divulgacao DESC, instituto"):
+        p["fontes"] = json.loads(p.pop("fontes_json") or "[]")
+        p["outros"] = json.loads(p.pop("outros_json") or "[]")
+        p["resultados"] = sorted(resultados.get(p["id"], []), key=lambda r: alpha_key(r["nome"]))
+        out.append(p)
+    return {"pesquisas": out, "fontes": ["pesquisas_registradas"]}
+
+
 # ── Apuração / 2º turno ───────────────────────────────────────────────────────
 
 

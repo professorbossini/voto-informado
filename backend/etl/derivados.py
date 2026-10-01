@@ -214,6 +214,10 @@ def register_ceap_sources(conn: sqlite3.Connection) -> None:
         descricao="Lista oficial de senadores, partido, UF e foto.")
     import json
     common.set_meta(conn, "ceap_avisos", json.dumps(AVISOS_CEAP, ensure_ascii=False))
+    reg(conn, "ibge_malhas", nome="Malha das unidades da federação (mapa do Brasil)", orgao="Instituto Brasileiro de Geografia e Estatística (IBGE) · API de Malhas",
+        url="https://servicodados.ibge.gov.br/api/v3/malhas/paises/BR?formato=image/svg+xml&intrarregiao=UF&qualidade=minima",
+        pagina="https://servicodados.ibge.gov.br/api/docs/malhas?versao=3",
+        descricao="Contornos oficiais dos estados usados no mapa de seleção e nos mapas de dados do site.")
 
 
 def _titulo_local(texto: str) -> str:

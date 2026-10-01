@@ -304,6 +304,34 @@ export interface Resultados {
   fontes: string[];
 }
 
+export interface Pesquisa {
+  id: string;
+  cargo: Cargo;
+  turno: number;
+  cenario: string;
+  abrangencia: string;
+  instituto: string;
+  instituto_curto: string;
+  contratante: string;
+  registro_tse: string;
+  campo_inicio: string;
+  campo_fim: string;
+  divulgacao: string;
+  entrevistas: number;
+  margem_erro_pp: number;
+  confianca_pct: number;
+  metodologia: string | null;
+  observacoes: string | null;
+  fontes: { titulo: string; url: string; tipo: string }[];
+  outros: { rotulo: string; pct: number }[];
+  resultados: { nome: string; partido: string | null; pct: number; sq: string | null; foto: string | null; na_urna: boolean }[];
+}
+
+export interface ListaPesquisas {
+  pesquisas: Pesquisa[];
+  fontes: string[];
+}
+
 export interface SegundoTurno {
   fase: Fase;
   disputas: { uf: string; nome_uf: string; cargo: Cargo; candidatos: CandidatoDetalhe[] }[];

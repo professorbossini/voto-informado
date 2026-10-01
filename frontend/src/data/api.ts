@@ -6,6 +6,7 @@ import type {
   ListaDeputados,
   ListaMajoritarios,
   ListaParlamentares,
+  ListaPesquisas,
   ListaPresidente,
   Meta,
   ParlamentarDetalhe,
@@ -64,5 +65,6 @@ export const data = {
   parlamentares: () => get<ListaParlamentares>('parlamentares.json'),
   parlamentar: (id: string) => get<ParlamentarDetalhe>(`parlamentar/${encodeURIComponent(id)}.json`),
   resultados: () => get<Resultados>('resultados.json'),
+  pesquisas: () => get<ListaPesquisas>('pesquisas.json'),
   segundoTurno: () => get<SegundoTurno>('segundo-turno.json'),
 };
