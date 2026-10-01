@@ -105,7 +105,7 @@ def write_pages(dest: Path, site_url: str) -> None:
     template = (dest / "index.html").read_text(encoding="utf-8")
     conn = sqlite3.connect(f"file:{DB_PATH}?mode=ro", uri=True)
     conn.row_factory = sqlite3.Row
-    resumo = "Dados oficiais do TSE, da Câmara e do Senado. Sem opinião, sem pesquisas, sem recomendação de voto."
+    resumo = "Dados oficiais do TSE, da Câmara e do Senado. Sem opinião e sem recomendação de voto."
     estaticas = {
         "eleicao": "Candidaturas 2026 por estado",
         "comparar": "Comparar candidaturas",
