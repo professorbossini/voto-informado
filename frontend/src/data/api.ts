@@ -1,0 +1,68 @@
+import { env } from '@/config/env';
+import type {
+  BuscaItem,
+  CandidatoDetalhe,
+  Estatisticas,
+  ListaDeputados,
+  ListaMajoritarios,
+  ListaParlamentares,
+  ListaPresidente,
+  Meta,
+  ParlamentarDetalhe,
+  Partido,
+  Resultados,
+  SegundoTurno,
+} from './types';
+
+/**
+ * Public, read-only election data. Every path is a plain GET with no query string,
+ * so it works both against the FastAPI backend and as static files on any host.
+ * Responses are cached for the session: the data only changes once a day.
+ */
+const cache = new Map<string, Promise<unknown>>();
+
+/** Absolute URL for data assets (photos, PDFs) returned by the API as `/fotos/...`. */
+export function assetUrl(path: string | null | undefined): string | null {
+  if (!path) return null;
+  return /^https?:\/\//.test(path) ? path : `${env.assetsUrl}${path}`;
+}
+
+export class DataError extends Error {
+  readonly status: number;
+  constructor(status: number, message: string) {
+    super(message);
+    this.name = 'DataError';
+    this.status = status;
+  }
+}
+
+function get<T>(path: string): Promise<T> {
+  const url = `${env.dataUrl}/api/${path}`;
+  let pending = cache.get(url) as Promise<T> | undefined;
+  if (!pending) {
+    pending = fetch(url, { headers: { Accept: 'application/json' } }).then(async (res) => {
+      if (!res.ok) {
+        throw new DataError(res.status, res.status === 404 ? 'Não encontrado' : `Erro ${res.status} ao carregar dados`);
+      }
+      return (await res.json()) as T;
+    });
+    pending.catch(() => cache.delete(url));
+    cache.set(url, pending);
+  }
+  return pending;
+}
+
+export const data = {
+  meta: () => get<Meta>('meta.json'),
+  presidente: () => get<ListaPresidente>('presidente.json'),
+  majoritarios: (uf: string) => get<ListaMajoritarios>(`uf/${uf.toUpperCase()}.json`),
+  deputados: (uf: string) => get<ListaDeputados>(`uf/${uf.toUpperCase()}/deputados.json`),
+  candidato: (sq: string) => get<CandidatoDetalhe>(`candidato/${encodeURIComponent(sq)}.json`),
+  busca: () => get<BuscaItem[]>('busca.json'),
+  partidos: () => get<Partido[]>('partidos.json'),
+  estatisticas: () => get<Estatisticas>('estatisticas.json'),
+  parlamentares: () => get<ListaParlamentares>('parlamentares.json'),
+  parlamentar: (id: string) => get<ParlamentarDetalhe>(`parlamentar/${encodeURIComponent(id)}.json`),
+  resultados: () => get<Resultados>('resultados.json'),
+  segundoTurno: () => get<SegundoTurno>('segundo-turno.json'),
+};

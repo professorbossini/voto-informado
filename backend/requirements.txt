@@ -1,0 +1,7 @@
+# ETL + API local + testes
+-r requirements-api.txt
+pandas>=2.2
+pyarrow>=17
+sqlalchemy>=2.0
+pytest>=8
+httpx>=0.27

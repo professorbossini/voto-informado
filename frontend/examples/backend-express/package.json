@@ -1,0 +1,30 @@
+{
+  "name": "faisca-backend-express",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Reference API implementing the Faísca auth contract (Google code exchange, JWT sessions, refresh cookies).",
+  "type": "module",
+  "engines": {
+    "node": ">=20.19"
+  },
+  "scripts": {
+    "dev": "node --env-file=.env --import tsx --watch src/server.ts",
+    "start": "node --env-file=.env --import tsx src/server.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "google-auth-library": "^11.1.0",
+    "jose": "^6.2.12"
+  },
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.10",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/node": "^22.20.4",
+    "tsx": "^4.23.15",
+    "typescript": "~6.0.3"
+  }
+}

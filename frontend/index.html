@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#5B2DB0" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#140E26" media="(prefers-color-scheme: dark)" />
+    <meta
+      name="description"
+      content="Eleições 2026: quem está na sua urna, com dados oficiais do TSE, da Câmara e do Senado. Sem opinião, sem pesquisas, sem recomendação de voto."
+    />
+    <title>%APP_TITLE%</title>
+    <style>
+      html[data-light] {
+        background: #fbfafe;
+        color-scheme: light;
+      }
+      html[data-dark] {
+        background: #140e26;
+        color-scheme: dark;
+      }
+    </style>
+    <script>
+      // Applies the saved color scheme before first paint (no light/dark flash).
+      (function () {
+        try {
+          var mode = localStorage.getItem('mui-mode') || 'system';
+          var dark =
+            mode === 'dark' ||
+            (mode === 'system' && matchMedia('(prefers-color-scheme: dark)').matches);
+          document.documentElement.setAttribute(dark ? 'data-dark' : 'data-light', '');
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

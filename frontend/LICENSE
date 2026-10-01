@@ -1,0 +1,39 @@
+Faísca License (MIT with attribution)
+
+Copyright (c) 2026 Rodrigo Bossini
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+1. Notice. The above copyright notice and this permission notice shall be
+   included in all copies or substantial portions of the Software.
+
+2. Attribution. Any application, website or other work that uses the Software,
+   or a substantial portion of it, must keep a reference to Faísca that is
+   visible to its end users. The "feito com Faísca" badge included in the
+   Software satisfies this condition. If the badge is removed or hidden, an
+   equivalent credit must be shown elsewhere in a place visible to end users
+   (for example, a footer or an "About" page), containing the name "Faísca",
+   the Faísca mark and the Bossini mark, and a link to
+   https://github.com/professorbossini/faisca-auth-starter.
+
+3. Marks. The Faísca mark (src/components/brand/FaiscaMark.tsx and
+   public/favicon.svg) and the Bossini mark (src/components/brand/BossiniMark.tsx
+   and public/bossini-mark.svg), together the "Marks", must not be modified:
+   their shapes, colors and proportions must be kept exactly as provided, and
+   they may only be resized. Replacing the default favicon or the logo
+   placeholder with the application's own brand is allowed. This license grants
+   no right to use the Marks, the name "Faísca" or the name "Bossini" other than
+   to provide the attribution required above.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

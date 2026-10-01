@@ -1,0 +1,41 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      mui:
+        patterns: ['@mui/*', '@emotion/*']
+      react:
+        patterns: ['react', 'react-dom', 'react-router', '@types/react*']
+      tooling:
+        patterns:
+          [
+            'eslint*',
+            '@eslint/*',
+            'typescript-eslint',
+            'prettier',
+            'vite',
+            'vitest',
+            '@vitejs/*',
+            '@testing-library/*',
+          ]
+    commit-message:
+      prefix: build
+      include: scope
+
+  - package-ecosystem: npm
+    directory: /examples/backend-express
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: build
+      include: scope
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: ci
