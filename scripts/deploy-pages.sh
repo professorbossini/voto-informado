@@ -8,18 +8,30 @@
 # repositório não acumular centenas de MB de dados antigos no histórico.
 set -euo pipefail
 
+#
+# Variáveis opcionais:
+#   SITE_DOMAIN=www.tanaurna.com.br   domínio próprio: site na raiz + arquivo CNAME do GitHub Pages
+#   API_URL=https://...run.app        API no Cloud Run (o site lê os JSON dela; fotos e PDFs seguem no Pages)
 REPO="${1:-professorbossini/voto-informado}"
 NAME="${REPO#*/}"
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 OUT="$ROOT/frontend/dist"
+SITE_DOMAIN="${SITE_DOMAIN:-}"
+API_URL="${API_URL:-}"
 
-echo "→ build do frontend com base /$NAME/"
-(cd "$ROOT/frontend" && VITE_BASE_PATH="/$NAME/" npx vite build)
+if [ -n "$SITE_DOMAIN" ]; then
+  BASE="/"
+  SITE_URL="https://$SITE_DOMAIN/"
+else
+  BASE="/$NAME/"
+  # URL pública real (respeita domínio próprio configurado no GitHub Pages da conta)
+  SITE_URL="$(gh api "repos/$REPO/pages" --jq .html_url 2>/dev/null || true)"
+  SITE_URL="${SITE_URL:-https://${REPO%%/*}.github.io/$NAME/}"
+  SITE_URL="${SITE_URL/http:\/\//https://}"
+fi
 
-# URL pública real (respeita domínio próprio configurado no GitHub Pages da conta)
-SITE_URL="$(gh api "repos/$REPO/pages" --jq .html_url 2>/dev/null || true)"
-SITE_URL="${SITE_URL:-https://${REPO%%/*}.github.io/$NAME/}"
-SITE_URL="${SITE_URL/http:\/\//https://}"
+echo "→ build do frontend (base $BASE${API_URL:+, API em $API_URL})"
+(cd "$ROOT/frontend" && VITE_BASE_PATH="$BASE" VITE_DATA_URL="$API_URL" VITE_ASSETS_URL="${API_URL:+$BASE}" npx vite build)
 
 echo "→ exportando a API estática, fotos, planos de governo e páginas por rota ($SITE_URL)"
 (cd "$ROOT/backend" && .venv/bin/python -m app.export "$OUT" --site-url "$SITE_URL")
@@ -27,6 +39,7 @@ echo "→ exportando a API estática, fotos, planos de governo e páginas por ro
 # SPA no GitHub Pages: rotas profundas caem no 404.html, que é o próprio app.
 cp "$OUT/index.html" "$OUT/404.html"
 touch "$OUT/.nojekyll"
+[ -n "$SITE_DOMAIN" ] && echo "$SITE_DOMAIN" > "$OUT/CNAME"
 rm -f "$OUT/_redirects" "$OUT/_headers"
 find "$OUT" -name "*.map" -delete
 
