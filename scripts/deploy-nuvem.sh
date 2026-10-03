@@ -110,7 +110,7 @@ echo "→ implantando a API ($SERVICE, $REGION)"
 
 URL="$("$GCLOUD" run services describe "$SERVICE" --region "$REGION" --format='value(status.url)')"
 echo "→ conferindo $URL"
-curl -fsS "$URL/healthz" | grep -q '"db":"postgres"' || { echo "✗ /healthz não respondeu com o Postgres"; exit 1; }
+curl -fsS "$URL/api/saude" | grep -q '"db":"postgres"' || { echo "✗ /api/saude não respondeu com o Postgres"; exit 1; }
 curl -fsS "$URL/api/meta.json" >/dev/null || { echo "✗ /api/meta.json falhou"; exit 1; }
 
 echo "✓ API no ar: $URL"

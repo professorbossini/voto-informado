@@ -58,6 +58,8 @@ def _found(value):
     return value
 
 
+# O Cloud Run reserva caminhos terminados em "z" (/healthz não chega à API): use /api/saude.
+@app.get("/api/saude", include_in_schema=False)
 @app.get("/healthz", include_in_schema=False)
 def healthz():
     return {"ok": True, "db": "postgres" if DATABASE_URL else "sqlite"}

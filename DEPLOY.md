@@ -21,7 +21,7 @@ make publicar    # build + export + push para a branch gh-pages
 ## Atalho: Neon + Cloud Run de uma vez
 
 Depois de `gcloud auth login` e `(cd frontend && npx neonctl auth)`, um comando faz as seções 2 e 3 inteiras
-(cria o que faltar, reaproveita o que existe e confere a API no fim):
+(cria o que faltar, reaproveita o que existe e confere a API no fim pelo `/api/saude`):
 
 ```bash
 GCP_PROJECT=voto-informado-bossini make nuvem
@@ -69,7 +69,7 @@ gcloud run deploy voto-informado-api \
   --cpu 1 --memory 512Mi --min-instances 0 --max-instances 10 --concurrency 80
 ```
 
-Teste: `curl https://voto-informado-api-XXXX.a.run.app/healthz` → `{"ok":true,"db":"postgres"}`.
+Teste: `curl https://voto-informado-api-XXXX.a.run.app/api/saude` → `{"ok":true,"db":"postgres"}`.
 
 A API é somente leitura, com CORS aberto para GET, `Cache-Control: public, max-age=300` e cache em
 memória: cada instância consulta o Neon no máximo uma vez a cada 5 minutos por rota.
