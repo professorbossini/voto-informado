@@ -1,4 +1,4 @@
-package dev.professorbossini.votoinformado;
+package dev.professorbossini.tanaurna;
 
 import android.os.Bundle;
 import com.getcapacitor.BridgeActivity;

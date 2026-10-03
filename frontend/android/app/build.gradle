@@ -9,10 +9,10 @@ if (keystorePropsFile.exists()) {
 }
 
 android {
-    namespace = "dev.professorbossini.votoinformado"
+    namespace = "dev.professorbossini.tanaurna"
     compileSdk = rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "dev.professorbossini.votoinformado"
+        applicationId "dev.professorbossini.tanaurna"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         // A cada envio para a loja: versionCode +1 (inteiro) e versionName legível.

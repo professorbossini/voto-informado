@@ -91,7 +91,7 @@ figure{{margin:0}} figure img{{width:100%;border-radius:10px;border:1px solid va
 code{{background:var(--chip);padding:1px 6px;border-radius:6px;font-size:14px;word-break:break-all}}
 .aviso{{background:var(--chip);border-radius:14px;padding:12px 16px}}
 </style></head><body><main>
-<h1>Kit Google Play · Voto Informado</h1>
+<h1>Kit Google Play · Tá na Urna</h1>
 <p class="sub">Tudo o que o Play Console pede, pronto para copiar, na ordem do <a href="README.md">guia de publicação</a>. Textos em pt-BR com os limites de caracteres conferidos.</p>
 <nav><a href="#arquivos">Arquivos</a><a href="#ficha">Ficha da loja</a><a href="#contato">Contato e links</a><a href="#conteudo">Conteúdo do app</a><a href="#seguranca">Segurança dos dados</a><a href="#versao">Versão</a></nav>
 

@@ -1,8 +1,10 @@
-# Voto Informado: atalhos do dia a dia. Rode `make help`.
+# Tá na Urna: atalhos do dia a dia. Rode `make help`.
 BACK := backend
 FRONT := frontend
 PY := $(BACK)/.venv/bin/python
 API_PORT ?= 8077
+# Domínio próprio do site (GitHub Pages). Vazio = professorbossini.dev/voto-informado.
+SITE_DOMAIN ?= www.tanaurna.com.br
 
 .PHONY: help setup dados api web dev apuracao exportar build testes publicar nuvem neon api-pg app app-release app-loja
 
@@ -52,7 +54,7 @@ testes:
 	cd $(FRONT) && npx tsc -b --noEmit && npm test
 
 publicar:
-	scripts/deploy-pages.sh
+	SITE_DOMAIN=$(SITE_DOMAIN) scripts/deploy-pages.sh
 
 nuvem:
 	scripts/deploy-nuvem.sh

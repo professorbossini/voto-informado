@@ -1,8 +1,8 @@
-# Publicar o app Voto Informado
+# Publicar o app Tá na Urna
 
 O app Android (e, depois, o iOS) é feito com [Capacitor](https://capacitorjs.com): a mesma interface React
 do site, empacotada como app nativo. Ele **embute a interface** e **lê os dados oficiais do site público**
-(`https://professorbossini.dev/voto-informado`). Por isso, atualizar os dados (`make dados && make publicar`)
+(`https://www.tanaurna.com.br`). Por isso, atualizar os dados (`make dados && make publicar`)
 atualiza o app na hora, sem lançar versão nova na loja.
 
 **Para preencher o Play Console, abra o [kit-google-play.html](kit-google-play.html) no navegador**: todos os
@@ -10,10 +10,10 @@ textos, respostas e imagens, com botão de copiar.
 
 | O quê | Onde |
 |---|---|
-| Projeto Android | `frontend/android/` (id `dev.professorbossini.votoinformado`, Android 7+ / API 24, alvo API 36) |
+| Projeto Android | `frontend/android/` (id `dev.professorbossini.tanaurna`, Android 7+ / API 24, alvo API 36) |
 | Configuração do app | `frontend/capacitor.config.ts` e `frontend/.env.app` (URLs do site) |
 | Código só do app | `frontend/src/native/` (compartilhar, imprimir, barras do sistema, botão voltar) |
-| Plugin nativo | `frontend/android/app/src/main/java/dev/professorbossini/votoinformado/AparelhoPlugin.java` |
+| Plugin nativo | `frontend/android/app/src/main/java/dev/professorbossini/tanaurna/AparelhoPlugin.java` |
 | Política de Privacidade e Termos | `/privacidade` e `/termos` no site; dados do responsável em `frontend/src/config/legal.ts` |
 | Ícone e splash (fonte) | `frontend/assets/` (`npm run app:assets` regenera todos os tamanhos) |
 | Artes e textos da loja | `loja/play/` (prontos) e `loja/fontes/` (para regenerar) |
@@ -39,7 +39,7 @@ A loja exige a URL da política **funcionando** antes do envio.
 make publicar
 ```
 
-Depois confira: https://professorbossini.dev/voto-informado/privacidade e `/termos`.
+Depois confira: https://www.tanaurna.com.br/privacidade e `/termos`.
 
 > Antes, revise `frontend/src/config/legal.ts`: o e-mail de contato aparece publicamente na política
 > (e também fica público na página da loja). Se quiser um e-mail só para o app, troque lá e no kit
@@ -60,7 +60,7 @@ Sua conta é de 2013. Contas pessoais criadas **antes de 13/11/2023 não precisa
 por 14 dias, então dá para ir direto para Produção.
 
 1. **Criar app** (https://play.google.com/console → Criar app)
-   - Nome: `Voto Informado: Eleições 2026` · Idioma padrão: Português (Brasil) · App · Gratuito
+   - Nome: `Tá na Urna: Eleições 2026` · Idioma padrão: Português (Brasil) · App · Gratuito
    - Marque as declarações (Políticas do programa para desenvolvedores e Leis de exportação dos EUA).
 2. **Painel → Configurar o app**: preencha cada item com as respostas das seções 4 e 5 do kit
    (Política de Privacidade, Acesso ao app, Anúncios, Classificação do conteúdo, Público-alvo, App de notícias,
@@ -113,7 +113,7 @@ onde o plugin nativo não existe). O que falta depende de um Mac:
    npm run app:build    # build + cap sync
    npx cap open ios     # no Xcode: Signing & Capabilities → seu Team; Product → Archive → Distribute
    ```
-3. **App Store Connect**: mesmo nome, Bundle ID `dev.professorbossini.votoinformado`, categoria Referência ou
+3. **App Store Connect**: mesmo nome, Bundle ID `dev.professorbossini.tanaurna`, categoria Referência ou
    Educação, classificação 4+, "Privacidade do app" → **Dados não coletados**, URL da política igual à do Android.
    A descrição do kit serve com poucas mudanças (troque "Android" por "iPhone" nas notas da versão).
 4. **Prints**: a Apple pede tamanhos de iPhone (ex.: 1320×2868). Regenere com `loja/fontes/gerar-artes.mjs`,

@@ -18,7 +18,7 @@ from etl.common import PESQUISAS_ATIVAS, PHOTOS, PROPOSTAS
 from . import queries as q
 from .db import DATABASE_URL, connection
 
-app = FastAPI(title="Voto Informado · API pública", version="1.0.0", docs_url="/api/docs", openapi_url="/api/openapi.json")
+app = FastAPI(title="Tá na Urna · API pública", version="1.0.0", docs_url="/api/docs", openapi_url="/api/openapi.json")
 app.add_middleware(GZipMiddleware, minimum_size=1024)
 # Somente leitura e dados públicos: qualquer origem pode consultar (GET).
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["GET"], allow_headers=["*"])

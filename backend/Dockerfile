@@ -1,4 +1,4 @@
-# API pública do Voto Informado para o Google Cloud Run (somente leitura, Postgres/Neon).
+# API pública do Tá na Urna para o Google Cloud Run (somente leitura, Postgres/Neon).
 FROM python:3.12-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1 \

@@ -1,13 +1,13 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 /**
- * Aplicativos Android e iOS do Voto Informado. A interface é a mesma do site (build `--mode app`,
+ * Aplicativos Android e iOS do Tá na Urna. A interface é a mesma do site (build `--mode app`,
  * ver .env.app) e os dados vêm do site público. Passo a passo de publicação em android/PUBLICAR.md.
  */
 const config: CapacitorConfig = {
   // Identificador permanente nas lojas: não mude depois da primeira publicação.
-  appId: 'dev.professorbossini.votoinformado',
-  appName: 'Voto Informado',
+  appId: 'dev.professorbossini.tanaurna',
+  appName: 'Tá na Urna',
   webDir: 'dist-app',
   plugins: {
     SplashScreen: {

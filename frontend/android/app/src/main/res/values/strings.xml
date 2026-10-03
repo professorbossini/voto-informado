@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Voto Informado</string>
-    <string name="title_activity_main">Voto Informado</string>
-    <string name="package_name">dev.professorbossini.votoinformado</string>
-    <string name="custom_url_scheme">dev.professorbossini.votoinformado</string>
+    <string name="app_name">Tá na Urna</string>
+    <string name="title_activity_main">Tá na Urna</string>
+    <string name="package_name">dev.professorbossini.tanaurna</string>
+    <string name="custom_url_scheme">dev.professorbossini.tanaurna</string>
 </resources>

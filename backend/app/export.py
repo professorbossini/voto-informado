@@ -86,7 +86,7 @@ def _page(template: str, dest: Path, rel: str, title: str, description: str, url
         f'<meta property="og:description" content="{d}" />',
         f'<meta property="og:url" content="{html.escape(url, quote=True)}" />',
         '<meta property="og:type" content="website" />',
-        '<meta property="og:site_name" content="Voto Informado" />',
+        '<meta property="og:site_name" content="Tá na Urna" />',
         '<meta name="twitter:card" content="summary" />',
     ]
     if image:
@@ -122,12 +122,12 @@ def write_pages(dest: Path, site_url: str) -> None:
     if PESQUISAS_ATIVAS:
         estaticas["pesquisas"] = "Pesquisas registradas no TSE"
     for rel, titulo in estaticas.items():
-        _page(template, dest, rel, f"{titulo} · Voto Informado", resumo, f"{site}/{rel}")
+        _page(template, dest, rel, f"{titulo} · Tá na Urna", resumo, f"{site}/{rel}")
     cargos = ["presidente", "governador", "senador", "deputado-federal", "deputado-estadual", "deputado-distrital"]
     for uf, nome in q.UF_NOMES.items():
-        _page(template, dest, f"eleicao/{uf}", f"Candidaturas · {nome} · Voto Informado", resumo, f"{site}/eleicao/{uf}")
+        _page(template, dest, f"eleicao/{uf}", f"Candidaturas · {nome} · Tá na Urna", resumo, f"{site}/eleicao/{uf}")
         for cargo in cargos:
-            _page(template, dest, f"eleicao/{uf}/{cargo}", f"Candidaturas · {nome} · Voto Informado", resumo, f"{site}/eleicao/{uf}/{cargo}")
+            _page(template, dest, f"eleicao/{uf}/{cargo}", f"Candidaturas · {nome} · Tá na Urna", resumo, f"{site}/eleicao/{uf}/{cargo}")
     n = 0
     for r in conn.execute("SELECT c.sq, c.nome_urna, c.numero, c.partido, c.cargo, c.uf, EXISTS(SELECT 1 FROM fotos f WHERE f.sq=c.sq) foto FROM candidatos c"):
         cargo = CARGO_LABEL.get(r["cargo"], r["cargo"])

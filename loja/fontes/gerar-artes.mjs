@@ -39,7 +39,7 @@ const destaque = (print) => `<!doctype html><html><head><meta charset="utf-8"><s
 .d b{color:#D9F57A;font-weight:600}
 .f{position:absolute;right:70px;top:46px;width:300px;height:600px;border-radius:36px;background:#120B22;padding:10px;transform:rotate(-6deg);box-shadow:0 30px 60px rgba(10,0,40,.55)}
 .f img{width:100%;height:100%;object-fit:cover;object-position:top;border-radius:27px}
-</style></head><body><img class="i" src="${img(join(AQUI, 'icone-1024.png'))}"><div class="n">Voto Informado</div>
+</style></head><body><img class="i" src="${img(join(AQUI, 'icone-1024.png'))}"><div class="n">Tá na Urna</div>
 <div class="d"><b>Eleições 2026</b> com dados oficiais do TSE, da Câmara e do Senado. Sem opinião e sem recomendação de voto.</div>
 <div class="f"><img src="${print}"></div></body></html>`;
 

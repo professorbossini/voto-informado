@@ -59,7 +59,7 @@ PROJECT="${GCP_PROJECT:-$("$GCLOUD" config get-value project 2>/dev/null || true
 [ -n "$PROJECT" ] || { echo "Defina GCP_PROJECT=<id-do-projeto> (letras minúsculas, números e hífen)"; exit 1; }
 if ! "$GCLOUD" projects describe "$PROJECT" >/dev/null 2>&1; then
   echo "→ criando o projeto $PROJECT no Google Cloud"
-  "$GCLOUD" projects create "$PROJECT" --name "Voto Informado"
+  "$GCLOUD" projects create "$PROJECT" --name "Tá na Urna"
 fi
 "$GCLOUD" config set project "$PROJECT" >/dev/null 2>&1
 

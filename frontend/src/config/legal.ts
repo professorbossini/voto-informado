@@ -4,7 +4,7 @@
  * As lojas (Google Play / App Store) apontam para /privacidade e /termos no site público.
  */
 export const LEGAL = {
-  projeto: 'Voto Informado',
+  projeto: 'Tá na Urna',
   responsavel: 'Rodrigo Bossini',
   email: 'professorbossini@gmail.com',
   /** Data da versão vigente dos dois textos (AAAA-MM-DD). */

@@ -86,7 +86,7 @@ function Footer() {
               arquivo de origem e a data da coleta.
             </Typography>
             <Typography variant="caption" color="text.secondary">
-              <strong>Serviço não oficial:</strong> o Voto Informado não tem vínculo com o TSE, a Justiça Eleitoral, a
+              <strong>Serviço não oficial:</strong> o Tá na Urna não tem vínculo com o TSE, a Justiça Eleitoral, a
               Câmara, o Senado ou qualquer órgão de governo, partido ou candidatura.
             </Typography>
           </Stack>

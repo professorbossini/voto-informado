@@ -1,4 +1,4 @@
-package dev.professorbossini.votoinformado;
+package dev.professorbossini.tanaurna;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -22,7 +22,7 @@ public class AparelhoPlugin extends Plugin {
      */
     @PluginMethod
     public void imprimir(PluginCall call) {
-        String titulo = call.getString("titulo", "Voto Informado");
+        String titulo = call.getString("titulo", "Tá na Urna");
         getActivity().runOnUiThread(() -> {
             try {
                 WebView webView = getBridge().getWebView();

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Cores da marca Voto Informado (mesmas do site: src/theme/tokens.ts). -->
+    <!-- Cores da marca Tá na Urna (mesmas do site: src/theme/tokens.ts). -->
     <color name="colorPrimary">#5B2DB0</color>
     <color name="colorPrimaryDark">#2A1263</color>
     <color name="colorAccent">#C6EF34</color>

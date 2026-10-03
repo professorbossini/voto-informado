@@ -1,6 +1,6 @@
-# Voto Informado · Eleições 2026
+# Tá na Urna · Eleições 2026
 
-**No ar:** https://professorbossini.dev/voto-informado/
+**No ar:** https://www.tanaurna.com.br/
 
 Site de transparência eleitoral que reúne **somente dados públicos oficiais** (TSE, Câmara dos
 Deputados e Senado Federal) sobre todas as candidaturas de 2026 e sobre os gastos de mandato de

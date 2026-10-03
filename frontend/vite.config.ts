@@ -5,7 +5,7 @@ import { defineConfig, loadEnv, type Plugin } from 'vite';
 
 /** Fills <title> with VITE_APP_NAME, falling back to a neutral placeholder. */
 function appTitle(mode: string): Plugin {
-  const name = loadEnv(mode, process.cwd()).VITE_APP_NAME?.trim() || 'Voto Informado';
+  const name = loadEnv(mode, process.cwd()).VITE_APP_NAME?.trim() || 'Tá na Urna';
   const escaped = name.replace(/[&<>"]/g, (c) => `&#${c.charCodeAt(0)};`);
   return {
     name: 'app-title',

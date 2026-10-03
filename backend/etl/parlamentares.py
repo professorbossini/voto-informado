@@ -147,6 +147,12 @@ def max_age(ano: int) -> float:
     return 12 if ano >= ANO_CORRENTE else 24 * 90
 
 
+def email_institucional(raw: object) -> str | None:
+    """Só e-mails do domínio da própria Casa (camara.leg.br / senado.leg.br)."""
+    e = str(raw or "").strip().lower()
+    return e if re.fullmatch(r"[a-z0-9._-]+@(camara|senado)\.leg\.br", e) else None
+
+
 def https(url: str | None) -> str | None:
     return url.replace("http://", "https://", 1) if url else url
 
@@ -323,6 +329,7 @@ def camara_parlamentares(ceap: pd.DataFrame) -> list[dict]:
             "pagina_oficial": CAMARA_PERFIL.format(id=i),
             "em_exercicio": 1 if i in em_exercicio else 0,
             "cpf": cpf,
+            "email": email_institucional(atual.get("email") or (st.get("gabinete") or {}).get("email")),
         })
     if divergentes:
         print(f"  aviso: {divergentes} deputados com CPF divergente entre CEAP e API (mantido o do CEAP)")
@@ -514,6 +521,7 @@ def senado_parlamentares(ceaps: pd.DataFrame) -> tuple[list[dict], pd.DataFrame,
             "pagina_oficial": https(d.get("UrlPaginaParlamentar")) or SENADO_PERFIL.format(cod=cod),
             "em_exercicio": 1 if cod in em_exercicio else 0,
             "cpf": None,  # o Senado não publica CPF dos senadores nos dados abertos
+            "email": email_institucional(d.get("EmailParlamentar")),
         })
     return out, resumo_nc, {"exerceu": len(exerceu)}
 
@@ -569,7 +577,8 @@ CREATE TABLE parlamentares (
   foto_url TEXT,
   pagina_oficial TEXT,
   em_exercicio INTEGER NOT NULL,
-  cpf TEXT
+  cpf TEXT,
+  email TEXT  -- e-mail institucional publicado pela própria Casa (não aparece no site)
 );
 CREATE TABLE ceap_mensal (
   parlamentar_id TEXT NOT NULL, ano INTEGER NOT NULL, mes INTEGER NOT NULL,
@@ -624,7 +633,7 @@ def main() -> None:
     with conn:
         conn.executescript(SCHEMA)
         campos = ["id", "casa", "id_casa", "nome", "nome_civil", "partido", "uf", "foto_url",
-                  "pagina_oficial", "em_exercicio", "cpf"]
+                  "pagina_oficial", "em_exercicio", "cpf", "email"]
         conn.executemany(f"INSERT INTO parlamentares ({','.join(campos)}) VALUES ({','.join('?' * len(campos))})",
                          [tuple(p[c] for c in campos) for p in parl_c + parl_s])
         conn.executemany("INSERT INTO ceap_mensal VALUES (?,?,?,?,?,?)",
@@ -646,10 +655,10 @@ def main() -> None:
     # ---------------- Resumo ----------------
     print("\n== Resumo")
     for casa in ("camara", "senado"):
-        n, ex, cpf = conn.execute(
-            "SELECT COUNT(*), SUM(em_exercicio), SUM(cpf IS NOT NULL) FROM parlamentares WHERE casa=?",
-            (casa,)).fetchone()
-        print(f"  {casa}: {n} parlamentares, {ex} em exercício, {cpf} com CPF")
+        n, ex, cpf, em = conn.execute(
+            "SELECT COUNT(*), SUM(em_exercicio), SUM(cpf IS NOT NULL), SUM(em_exercicio AND email IS NOT NULL) "
+            "FROM parlamentares WHERE casa=?", (casa,)).fetchone()
+        print(f"  {casa}: {n} parlamentares, {ex} em exercício ({em} com e-mail institucional), {cpf} com CPF")
     for t in ("parlamentares", "ceap_mensal", "ceap_fornecedor", "ceap_limite"):
         print(f"  {t}: {conn.execute(f'SELECT COUNT(*) FROM {t}').fetchone()[0]} linhas")
     print("  Total CEAP por casa/ano (R$):")
