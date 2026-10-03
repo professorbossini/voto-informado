@@ -15,3 +15,6 @@ frontend/.env.local
 frontend/coverage/
 
 .DS_Store
+
+# Apps (Capacitor)
+frontend/dist-app/

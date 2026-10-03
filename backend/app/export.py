@@ -116,6 +116,8 @@ def write_pages(dest: Path, site_url: str) -> None:
         "gastos": "Gastos de mandato (cota parlamentar)",
         "numeros": "A eleição em números",
         "sobre": "Fontes e método",
+        "privacidade": "Política de Privacidade",
+        "termos": "Termos de Uso",
     }
     if PESQUISAS_ATIVAS:
         estaticas["pesquisas"] = "Pesquisas registradas no TSE"

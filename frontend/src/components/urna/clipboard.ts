@@ -23,7 +23,3 @@ export async function copyText(text: string): Promise<boolean> {
   ta.remove();
   return ok;
 }
-
-export function canShare(): boolean {
-  return typeof navigator !== 'undefined' && typeof navigator.share === 'function';
-}

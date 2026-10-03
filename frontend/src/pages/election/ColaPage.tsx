@@ -48,7 +48,8 @@ import {
   type ColaEntry,
   type Office,
 } from '@/components/urna/ballot';
-import { canShare, copyText } from '@/components/urna/clipboard';
+import { copyText } from '@/components/urna/clipboard';
+import { canPrint, canShare, printPage, shareContent } from '@/native/platform';
 import { DigitBoxes } from '@/components/urna/DigitBoxes';
 import { UfPicker } from '@/components/urna/UfPicker';
 import { useBallot } from '@/components/urna/useBallot';
@@ -515,7 +516,7 @@ export function ColaPage() {
     setPick(office.key, sq);
   };
 
-  const imprimir = () => window.print();
+  const imprimir = () => printPage('Minha cola · Eleições 2026');
 
   const copiar = async () => {
     const ok = await copyText(text);
@@ -524,11 +525,7 @@ export function ColaPage() {
   };
 
   const compartilhar = async () => {
-    try {
-      await navigator.share({ title: 'Minha cola · Eleições 2026', text });
-    } catch {
-      /* user cancelled or share unavailable */
-    }
+    await shareContent({ title: 'Minha cola · Eleições 2026', text });
   };
 
   const limpar = () => {
@@ -639,9 +636,11 @@ export function ColaPage() {
                       {chosen} de {entries.length} cargos escolhidos
                     </Typography>
                     <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: 'wrap' }}>
-                      <Button variant="contained" startIcon={<PrintRounded />} onClick={imprimir}>
-                        Imprimir
-                      </Button>
+                      {canPrint() && (
+                        <Button variant="contained" startIcon={<PrintRounded />} onClick={imprimir}>
+                          Imprimir
+                        </Button>
+                      )}
                       <Button variant="tonal" startIcon={<ContentCopyRounded />} onClick={() => void copiar()}>
                         Copiar texto
                       </Button>

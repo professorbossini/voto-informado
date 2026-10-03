@@ -18,6 +18,18 @@ make dados       # atualiza tudo a partir das fontes oficiais
 make publicar    # build + export + push para a branch gh-pages
 ```
 
+## Atalho: Neon + Cloud Run de uma vez
+
+Depois de `gcloud auth login` e `(cd frontend && npx neonctl auth)`, um comando faz as seções 2 e 3 inteiras
+(cria o que faltar, reaproveita o que existe e confere a API no fim):
+
+```bash
+GCP_PROJECT=voto-informado-bossini make nuvem
+```
+
+O projeto do Google Cloud precisa de faturamento ativo (o script avisa e mostra as contas, se faltar).
+Para atualizar só os dados depois: `make dados && make nuvem` (ou `SO_API=1 make nuvem` para só reimplantar a API).
+
 ## 2. Banco no Neon
 
 1. Crie um projeto em https://neon.tech (região `sa-east-1`, São Paulo, se disponível) e copie a

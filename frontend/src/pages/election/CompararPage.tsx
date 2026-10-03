@@ -22,6 +22,7 @@ import IosShareRounded from '@mui/icons-material/IosShareRounded';
 import { Link as RouterLink, useSearchParams } from 'react-router';
 import { BarList } from '@/components/charts/charts';
 import { useNotify } from '@/components/feedback/notificationsContext';
+import { publicUrl, shareContent } from '@/native/platform';
 import { CandidatePhoto } from '@/components/election/CandidatePhoto';
 import { CandidateSearch } from '@/components/election/CandidateSearch';
 import { SourceNote } from '@/components/election/SourceNote';
@@ -133,16 +134,8 @@ export function CompararPage() {
   const cands = (res.data ?? []).filter((c): c is CandidatoDetalhe => Boolean(c));
 
   const share = async () => {
-    const url = `${window.location.origin}${import.meta.env.BASE_URL}comparar?c=${lista.join(',')}`;
-    try {
-      if (navigator.share) await navigator.share({ title: 'Comparação de candidaturas', url });
-      else {
-        await navigator.clipboard.writeText(url);
-        notify('Link da comparação copiado.');
-      }
-    } catch {
-      /* cancelled */
-    }
+    const url = publicUrl(`comparar?c=${lista.join(',')}`);
+    if ((await shareContent({ title: 'Comparação de candidaturas', url })) === 'copied') notify('Link da comparação copiado.');
   };
 
   return (

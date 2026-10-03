@@ -4,7 +4,7 @@ FRONT := frontend
 PY := $(BACK)/.venv/bin/python
 API_PORT ?= 8077
 
-.PHONY: help setup dados api web dev apuracao exportar build testes publicar neon api-pg
+.PHONY: help setup dados api web dev apuracao exportar build testes publicar nuvem neon api-pg app app-release app-loja
 
 help:
 	@echo "make setup     instala dependências (venv Python + npm)"
@@ -16,8 +16,12 @@ help:
 	@echo "make exportar  gera o site estático completo em frontend/dist"
 	@echo "make testes    testes do backend e do frontend"
 	@echo "make publicar  publica no GitHub Pages (branch gh-pages)"
+	@echo "make nuvem     Neon + API no Cloud Run, de ponta a ponta (GCP_PROJECT=..., DEPLOY.md)"
 	@echo "make neon      publica o banco no Postgres/Neon (DATABASE_URL)"
 	@echo "make api-pg    API local lendo do Postgres (DATABASE_URL)"
+	@echo "make app       build do app e abre o projeto Android (Android Studio)"
+	@echo "make app-release  gera o .aab assinado para a Google Play (loja/README.md)"
+	@echo "make app-loja  regenera artes e kit da loja (loja/fontes)"
 
 setup:
 	test -d $(BACK)/.venv || python3 -m venv $(BACK)/.venv
@@ -50,6 +54,9 @@ testes:
 publicar:
 	scripts/deploy-pages.sh
 
+nuvem:
+	scripts/deploy-nuvem.sh
+
 neon:
 	@test -n "$$DATABASE_URL" || (echo "Defina DATABASE_URL (string de conexão do Neon)"; exit 1)
 	cd $(BACK) && .venv/bin/python -m etl.neon
@@ -57,3 +64,18 @@ neon:
 api-pg:
 	@test -n "$$DATABASE_URL" || (echo "Defina DATABASE_URL"; exit 1)
 	cd $(BACK) && .venv/bin/uvicorn app.main:app --host 127.0.0.1 --port $(API_PORT)
+
+# ── Aplicativos (Capacitor) ── guia completo em loja/README.md
+app:
+	cd $(FRONT) && npm run app:android
+
+app-release:
+	@test -f $(FRONT)/android/keystore.properties || (echo "Falta frontend/android/keystore.properties (chave de upload): veja loja/README.md"; exit 1)
+	cd $(FRONT) && npm run app:build
+	cd $(FRONT)/android && ./gradlew bundleRelease
+	@echo "✓ $(FRONT)/android/app/build/outputs/bundle/release/app-release.aab"
+	@grep -E "versionCode|versionName" $(FRONT)/android/app/build.gradle | sed 's/^ */  /'
+
+app-loja:
+	python3 loja/fontes/gerar-kit.py
+	@echo "Artes: com o Chrome em --remote-debugging-port=9334, rode node loja/fontes/gerar-artes.mjs"

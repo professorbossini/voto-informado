@@ -40,6 +40,11 @@ export interface AppEnv {
   dataUrl: string;
   /** Base URL of photos and government-plan PDFs (`/fotos`, `/propostas`). Defaults to dataUrl. */
   assetsUrl: string;
+  /**
+   * Public address of the website, used in shared links. Empty = this page's own origin.
+   * The mobile apps run from a local origin, so their build sets VITE_SITE_URL (see .env.app).
+   */
+  siteUrl: string;
   firebase: FirebaseConfig;
   googleClientId: string;
 }
@@ -87,6 +92,7 @@ export const env: AppEnv = {
   // Same origin by default, under the app's base path (e.g. /voto-informado on GitHub Pages).
   dataUrl: (read('VITE_DATA_URL') || import.meta.env.BASE_URL).replace(/\/+$/, ''),
   assetsUrl: (read('VITE_ASSETS_URL') || read('VITE_DATA_URL') || import.meta.env.BASE_URL).replace(/\/+$/, ''),
+  siteUrl: read('VITE_SITE_URL').replace(/\/+$/, ''),
   firebase: {
     apiKey: read('VITE_FIREBASE_API_KEY'),
     authDomain: read('VITE_FIREBASE_AUTH_DOMAIN'),

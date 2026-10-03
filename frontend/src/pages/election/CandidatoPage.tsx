@@ -25,6 +25,7 @@ import ListAltRounded from '@mui/icons-material/ListAltRounded';
 import { Link as RouterLink, useNavigate, useParams } from 'react-router';
 import { BarList, ColumnChart, Meter, StatTile } from '@/components/charts/charts';
 import { useNotify } from '@/components/feedback/notificationsContext';
+import { publicUrl, shareContent } from '@/native/platform';
 import { CandidatePhoto } from '@/components/election/CandidatePhoto';
 import { SourceNote } from '@/components/election/SourceNote';
 import { StatusChip } from '@/components/election/StatusChip';
@@ -391,17 +392,9 @@ export function CandidatoPage() {
   };
 
   const share = async () => {
-    const url = window.location.href;
+    const url = publicUrl(`candidato/${c.sq}`);
     const text = `${nome} (${c.numero}, ${c.partido}) · ${CARGO_LABEL[c.cargo]}: dados oficiais do TSE`;
-    try {
-      if (navigator.share) await navigator.share({ title: nome, text, url });
-      else {
-        await navigator.clipboard.writeText(url);
-        notify('Link copiado.');
-      }
-    } catch {
-      /* user cancelled */
-    }
+    if ((await shareContent({ title: nome, text, url })) === 'copied') notify('Link copiado.');
   };
 
   return (

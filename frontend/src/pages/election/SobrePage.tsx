@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { Alert, Box, Card, CardContent, Divider, Grid, Link, Skeleton, Stack, Typography } from '@mui/material';
+import { Link as RouterLink } from 'react-router';
 import { FonteDetalhe } from '@/components/election/SourceNote';
 import { FAISCA_REPO_URL } from '@/config/brand';
 import { env } from '@/config/env';
@@ -151,8 +152,16 @@ export function SobrePage() {
 
         <Bloco title="Privacidade">
           <Typography variant="body2">
-            O site não usa login, cookies de rastreamento nem coleta dados pessoais. A sua cola de votação e a lista de
-            comparação ficam salvas apenas no seu navegador.
+            O site e o aplicativo não usam login, cookies de rastreamento nem coletam dados pessoais. A sua cola de
+            votação e a lista de comparação ficam salvas apenas no seu aparelho. Detalhes na{' '}
+            <Link component={RouterLink} to="/privacidade">
+              Política de Privacidade
+            </Link>{' '}
+            e nos{' '}
+            <Link component={RouterLink} to="/termos">
+              Termos de Uso
+            </Link>
+            .
           </Typography>
         </Bloco>
 

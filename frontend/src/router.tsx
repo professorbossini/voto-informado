@@ -55,6 +55,8 @@ export const router = createBrowserRouter([
       { path: '/parlamentar/:id', ...page(() => import('@/pages/election/ParlamentarPage'), 'ParlamentarPage') },
       { path: '/numeros', ...page(() => import('@/pages/election/NumerosPage'), 'NumerosPage') },
       { path: '/sobre', ...page(() => import('@/pages/election/SobrePage'), 'SobrePage') },
+      { path: '/privacidade', ...page(() => import('@/pages/legal/PrivacidadePage'), 'PrivacidadePage') },
+      { path: '/termos', ...page(() => import('@/pages/legal/TermosPage'), 'TermosPage') },
       { path: '*', element: <NotFoundPage /> },
       ...(env.enableLogin
         ? [

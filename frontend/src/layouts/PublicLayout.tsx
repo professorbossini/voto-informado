@@ -85,6 +85,10 @@ function Footer() {
               Encontrou divergência com a fonte oficial? A fonte oficial sempre prevalece. Cada bloco de dados indica o
               arquivo de origem e a data da coleta.
             </Typography>
+            <Typography variant="caption" color="text.secondary">
+              <strong>Serviço não oficial:</strong> o Voto Informado não tem vínculo com o TSE, a Justiça Eleitoral, a
+              Câmara, o Senado ou qualquer órgão de governo, partido ou candidatura.
+            </Typography>
           </Stack>
           <Stack spacing={0.75}>
             <Typography variant="subtitle2">Fontes oficiais</Typography>
@@ -105,6 +109,12 @@ function Footer() {
             </Link>
             <Link href="https://github.com/professorbossini/voto-informado/issues/new" target="_blank" rel="noopener noreferrer" variant="body2">
               Reportar erro ou divergência
+            </Link>
+            <Link component={RouterLink} to="/privacidade" variant="body2">
+              Política de Privacidade
+            </Link>
+            <Link component={RouterLink} to="/termos" variant="body2">
+              Termos de Uso
             </Link>
           </Stack>
         </Stack>
@@ -141,9 +151,10 @@ export function PublicLayout() {
   const desktop = useMediaQuery((theme: Theme) => theme.breakpoints.up('md'));
 
   return (
-    <Box sx={{ minHeight: '100dvh', display: 'flex', flexDirection: 'column', pb: { xs: 11, md: 0 } }}>
+    // env(safe-area-inset-*): status bar, notch and gesture bar in the Android/iOS apps (0 on most browsers).
+    <Box sx={{ minHeight: '100dvh', display: 'flex', flexDirection: 'column', pb: { xs: 'calc(88px + env(safe-area-inset-bottom))', md: 0 } }}>
       <GlobalStyles styles={{ '@media print': { '.vi-chrome, .MuiAppBar-root, .MuiBottomNavigation-root': { display: 'none !important' } } }} />
-      <AppBar position="sticky">
+      <AppBar position="sticky" sx={{ pt: 'env(safe-area-inset-top)' }}>
         <Toolbar sx={{ gap: 2, minHeight: { xs: 60, sm: 64 } }}>
           <NavLink to="/" style={{ textDecoration: 'none', color: 'inherit' }} aria-label="Início">
             <BrandLogo size="small" />
@@ -192,7 +203,7 @@ export function PublicLayout() {
       <Paper
         component="nav"
         aria-label="Navegação principal"
-        sx={{ display: { md: 'none' }, position: 'fixed', insetInline: 0, bottom: 0, zIndex: 'appBar', borderRadius: 0 }}
+        sx={{ display: { md: 'none' }, position: 'fixed', insetInline: 0, bottom: 0, zIndex: 'appBar', borderRadius: 0, pb: 'env(safe-area-inset-bottom)', bgcolor: 'background.paper' }}
       >
         <BottomNavigation value={mobileValue} showLabels sx={{ '& .MuiBottomNavigationAction-root': { minWidth: 0, px: 0.25 } }}>
           {mobileItems.map((item) => (

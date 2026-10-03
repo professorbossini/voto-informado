@@ -4,6 +4,7 @@ import { RouterProvider } from 'react-router';
 import { AuthProvider, type AuthAdapter } from '@/auth';
 import { NotificationsProvider } from '@/components/feedback/NotificationsProvider';
 import { MetaProvider } from '@/data/MetaProvider';
+import { NativeBridge } from '@/native/NativeBridge';
 import { router } from '@/router';
 import { theme } from '@/theme';
 
@@ -11,6 +12,7 @@ export function App({ adapter }: { adapter: AuthAdapter }) {
   return (
     <ThemeProvider theme={theme} defaultMode="system">
       <CssBaseline enableColorScheme />
+      <NativeBridge />
       <AuthProvider adapter={adapter}>
         <NotificationsProvider>
           <MetaProvider>

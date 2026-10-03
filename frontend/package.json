@@ -17,9 +17,18 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "app:build": "tsc -b && vite build --mode app --outDir dist-app --emptyOutDir && cap sync",
+    "app:android": "npm run app:build && cap open android",
+    "app:run": "npm run app:build && cap run android",
+    "app:assets": "capacitor-assets generate --android --ios --iconBackgroundColor '#5B2DB0' --iconBackgroundColorDark '#140E26' --splashBackgroundColor '#5B2DB0' --splashBackgroundColorDark '#140E26'"
   },
   "dependencies": {
+    "@capacitor/android": "^8.5.2",
+    "@capacitor/app": "^8.1.2",
+    "@capacitor/core": "^8.5.2",
+    "@capacitor/share": "^8.0.3",
+    "@capacitor/splash-screen": "^8.0.2",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@fontsource-variable/google-sans-flex": "^5.3.1",
@@ -32,6 +41,8 @@
     "react-router": "^8.4.0"
   },
   "devDependencies": {
+    "@capacitor/assets": "^3.0.5",
+    "@capacitor/cli": "^8.5.2",
     "@eslint/js": "^9.39.5",
     "@testing-library/dom": "^10.4.2",
     "@testing-library/jest-dom": "^7.0.1",

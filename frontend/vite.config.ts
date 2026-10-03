@@ -41,7 +41,8 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
-    sourcemap: true,
+    // The mobile apps ship the bundle inside the package: no source maps there.
+    sourcemap: mode !== 'app',
     rolldownOptions: {
       output: {
         // Long-term caching: vendor code changes less often than app code.

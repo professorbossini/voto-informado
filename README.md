@@ -72,6 +72,13 @@ O export gera também uma página HTML por candidatura (título, descrição e f
 para que links compartilhados abram com status 200 e prévia correta. Para outra hospedagem, `make exportar`
 gera `frontend/dist` (~600 MB); configure fallback de SPA (rota → `index.html`).
 
+## App Android (e iOS)
+
+O mesmo frontend vira app nativo com Capacitor (`frontend/android/`), lendo os dados do site público. Política de
+Privacidade e Termos em `/privacidade` e `/termos`. Gerar o pacote: `make app-release`. Guia de publicação na
+Google Play (e caminho para a App Store) em [loja/README.md](loja/README.md), com kit de preenchimento em
+`loja/kit-google-play.html`.
+
 ## Pesquisas eleitorais (pendente, fora do ar)
 
 O código da aba de pesquisas e os dados curados (`backend/curadoria/pesquisas.json`) estão no repositório,

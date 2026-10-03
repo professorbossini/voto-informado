@@ -17,6 +17,8 @@ coverage/
 .env
 .env.*
 !.env.example
+# Build dos apps: só URLs públicas, sem segredo
+!.env.app
 
 # Firebase local state
 .firebase/
