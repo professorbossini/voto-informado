@@ -1,7 +1,7 @@
 import presidente from './__fixtures__/apuracao-presidente-br.json';
 import depfed from './__fixtures__/apuracao-depfed-sp.json';
 import presidenteBa from './__fixtures__/apuracao-presidente-ba.json';
-import { cargoEstadual, num, parseApuracao, temSegundoTurno, urlApuracao, type RawUnificado } from './apuracao';
+import { cargoEstadual, finalistasDe, num, parseApuracao, temSegundoTurno, urlApuracao, vaiAo2Turno, type RawUnificado } from './apuracao';
 import { diaDeVotacao, noiteDeApuracao, proximaVotacao, turnoMaisRecente } from './calendario';
 import { ufDoPonto } from './localizacao';
 
@@ -53,6 +53,22 @@ describe('apuração do TSE', () => {
   it('usa o horário de Brasília (dg/hg), não o fuso local da UF (dt/ht)', () => {
     const raw = { ...(presidenteBa as unknown as RawUnificado), dg: '04/10/2026', hg: '18:49:44', dt: '04/10/2026', ht: '16:49:05' };
     expect(parseApuracao(raw, 'presidente', 'x').atualizado).toBe('04/10/2026 18:49:44');
+  });
+
+  it('reconhece os finalistas confirmados pelo TSE, em ordem alfabética', () => {
+    expect(vaiAo2Turno('2º turno')).toBe(true);
+    expect(vaiAo2Turno('2° Turno')).toBe(true);
+    expect(vaiAo2Turno('Eleito')).toBe(false);
+    expect(vaiAo2Turno('Não eleito')).toBe(false);
+    expect(vaiAo2Turno(null)).toBe(false);
+    const a = parseApuracao(presidenteBa as unknown as RawUnificado, 'presidente', 'x');
+    expect(finalistasDe(a)).toEqual([]); // parcial: ninguém marcado ainda
+    const [x, y] = a.candidatos;
+    const conf = { ...a, candidatos: a.candidatos.map((c) => (c === x || c === y ? { ...c, situacao: '2º turno' } : c)) };
+    const f = finalistasDe(conf);
+    expect(f.map((c) => c.sq).sort()).toEqual([x.sq, y.sq].sort());
+    expect(f.map((c) => c.nomeUrna)).toEqual([...f.map((c) => c.nomeUrna)].sort((p, q) => p.localeCompare(q, 'pt-BR')));
+    expect(finalistasDe({ ...conf, turno: 2 })).toEqual([]);
   });
 
   it('traz vagas por partido/federação nos cargos proporcionais', () => {

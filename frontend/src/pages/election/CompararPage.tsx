@@ -18,6 +18,7 @@ import {
   Typography,
 } from '@mui/material';
 import CloseRounded from '@mui/icons-material/CloseRounded';
+import CompareArrowsRounded from '@mui/icons-material/CompareArrowsRounded';
 import IosShareRounded from '@mui/icons-material/IosShareRounded';
 import { Link as RouterLink, useSearchParams } from 'react-router';
 import { BarList } from '@/components/charts/charts';
@@ -25,11 +26,13 @@ import { useNotify } from '@/components/feedback/notificationsContext';
 import { publicUrl, shareContent } from '@/native/platform';
 import { CandidatePhoto } from '@/components/election/CandidatePhoto';
 import { CandidateSearch } from '@/components/election/CandidateSearch';
+import { useFinalistas, useUfUsuario, type DisputaFinal } from '@/components/resultados/hooks';
 import { SourceNote } from '@/components/election/SourceNote';
 import { StatusChip } from '@/components/election/StatusChip';
 import { data } from '@/data/api';
 import { CARGO_LABEL, money, moneyCompact, nomeProprio, NAO_INFORMADO, percent, variation } from '@/data/format';
 import { MAX_COMPARAR, useComparar } from '@/data/localStore';
+import { useMeta } from '@/data/MetaContext';
 import type { CandidatoDetalhe } from '@/data/types';
 import { useAsync } from '@/hooks/useAsync';
 import { PageHeader } from '@/pages/PageHeader';
@@ -129,6 +132,14 @@ export function CompararPage() {
     }
   }, [fromUrl, set, setParams]);
 
+  // Atalhos do 2º turno: finalistas confirmados pelo TSE.
+  const { meta } = useMeta();
+  const fin = useFinalistas();
+  const { uf: ufUsuario } = useUfUsuario({ detectarSozinho: false });
+  const nomeUf = (uf: string) => meta?.ufs.find((u) => u.uf === uf)?.nome ?? uf;
+  const atalhos = [fin.presidente, fin.governador(ufUsuario)].filter((d): d is DisputaFinal => Boolean(d && d.sqs.length >= 2));
+  const mesmaLista = (sqs: string[]) => sqs.length === lista.length && sqs.every((sq) => lista.includes(sq));
+
   const key = lista.join(',');
   const res = useAsync(() => Promise.all(lista.map((sq) => data.candidato(sq).catch(() => null))), [key]);
   const cands = (res.data ?? []).filter((c): c is CandidatoDetalhe => Boolean(c));
@@ -164,6 +175,27 @@ export function CompararPage() {
               toggle(sq);
             }}
           />
+          {atalhos.length > 0 && (
+            <Stack direction="row" useFlexGap sx={{ flexWrap: 'wrap', gap: 1, mt: 1.5, alignItems: 'center' }}>
+              <Typography variant="body2" sx={{ fontWeight: 700 }}>
+                2º turno:
+              </Typography>
+              {atalhos.map((d) => (
+                <Button
+                  key={`${d.uf}-${d.cargo}`}
+                  size="small"
+                  variant={mesmaLista(d.sqs) ? 'contained' : 'tonal'}
+                  startIcon={<CompareArrowsRounded />}
+                  onClick={() => set(d.sqs.slice(0, MAX_COMPARAR))}
+                >
+                  {d.cargo === 'presidente' ? 'Finalistas à Presidência' : `Finalistas ao Governo · ${nomeUf(d.uf)}`}
+                </Button>
+              ))}
+              <Button component={RouterLink} to="/segundo-turno" size="small">
+                Outros estados
+              </Button>
+            </Stack>
+          )}
           <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 1 }}>
             Dica: nas listas de candidatos, use o botão de comparar em cada cartão. Sua seleção fica salva só neste aparelho.
           </Typography>

@@ -6,6 +6,7 @@ import {
   Card,
   CardActionArea,
   CardContent,
+  Chip,
   FormControl,
   Grid,
   MenuItem,
@@ -34,6 +35,7 @@ import BarChartRounded from '@mui/icons-material/BarChartRounded';
 import { env } from '@/config/env';
 import { Link as RouterLink, useNavigate, useSearchParams } from 'react-router';
 import { ApuracaoAoVivo } from '@/components/resultados/ApuracaoAoVivo';
+import { useFinalistas, useUfUsuario, type DisputaFinal } from '@/components/resultados/hooks';
 import { noiteDeApuracao, proximaVotacao } from '@/data/calendario';
 import { SERIES } from '@/components/charts/palette';
 import { CandidatePhoto } from '@/components/election/CandidatePhoto';
@@ -155,7 +157,7 @@ function DuelRow({ m, a, b }: { m: Metrica; a: CandidatoDetalhe; b: CandidatoDet
   );
 }
 
-function Lado({ c, lista, onChange, align }: { c: CandidatoDetalhe; lista: Candidato[]; onChange: (sq: string) => void; align: 'left' | 'right' }) {
+function Lado({ c, lista, onChange, align, travado }: { c: CandidatoDetalhe; lista: Candidato[]; onChange: (sq: string) => void; align: 'left' | 'right'; travado?: boolean }) {
   return (
     <Stack spacing={1} sx={{ alignItems: align === 'left' ? 'flex-start' : 'flex-end', textAlign: align, flex: 1, minWidth: 0 }}>
       <ButtonBase component={RouterLink} to={`/candidato/${c.sq}`} sx={{ borderRadius: 3 }} aria-label={`Ver perfil de ${nomeProprio(c.nome_urna)}`}>
@@ -172,21 +174,32 @@ function Lado({ c, lista, onChange, align }: { c: CandidatoDetalhe; lista: Candi
           · {c.partido}
         </Typography>
       </Box>
-      <FormControl size="small" sx={{ width: '100%', maxWidth: 220 }}>
-        <Select value={c.sq} onChange={(e) => onChange(e.target.value)} inputProps={{ 'aria-label': `Trocar candidatura do lado ${align === 'left' ? 'esquerdo' : 'direito'}` }}>
-          {lista.map((x) => (
-            <MenuItem key={x.sq} value={x.sq}>
-              {nomeProprio(x.nome_urna)} ({x.partido})
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+      {!travado && (
+        <FormControl size="small" sx={{ width: '100%', maxWidth: 220 }}>
+          <Select value={c.sq} onChange={(e) => onChange(e.target.value)} inputProps={{ 'aria-label': `Trocar candidatura do lado ${align === 'left' ? 'esquerdo' : 'direito'}` }}>
+            {lista.map((x) => (
+              <MenuItem key={x.sq} value={x.sq}>
+                {nomeProprio(x.nome_urna)} ({x.partido})
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      )}
     </Stack>
   );
 }
 
-function DueloDeDados({ lista }: { lista: Candidato[] }) {
-  const [par, setPar] = useState<[string, string] | null>(() => sortearDupla(lista));
+/** Duelo de finalistas: par fixo confirmado pelo TSE (ordem alfabética), sem sorteio. */
+interface DueloFinal {
+  overline: string;
+  titulo: string;
+  sqs: [string, string];
+  /** % dos votos válidos no 1º turno, por SQ (apuração do TSE). */
+  pct1?: Record<string, number>;
+}
+
+function DueloDeDados({ lista, final }: { lista: Candidato[]; final?: DueloFinal }) {
+  const [par, setPar] = useState<[string, string] | null>(() => final?.sqs ?? sortearDupla(lista));
   const key = par?.join(',') ?? '';
   const det = useAsync(() => (par ? Promise.all(par.map((sq) => data.candidato(sq))) : Promise.resolve(null)), [key]);
   const [a, b] = det.data ?? [];
@@ -203,18 +216,22 @@ function DueloDeDados({ lista }: { lista: Candidato[] }) {
         <Stack direction={{ xs: 'column', sm: 'row' }} sx={{ justifyContent: 'space-between', alignItems: { sm: 'center' }, gap: 1.5, mb: 2 }}>
           <Box>
             <Typography variant="overline" color="primary">
-              Duelo de dados · Presidência
+              {final ? final.overline : 'Duelo de dados · Presidência'}
             </Typography>
             <Typography variant="h3" component="h1" sx={{ fontSize: { xs: '1.7rem', md: '2rem' } }}>
-              Quem está na sua urna, lado a lado
+              {final ? final.titulo : 'Quem está na sua urna, lado a lado'}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Dupla sorteada ao acaso entre as {lista.length} candidaturas na urna. Troque os nomes como quiser.
+              {final
+                ? 'Finalistas confirmados pelo TSE na apuração do 1º turno, em ordem alfabética.'
+                : `Dupla sorteada ao acaso entre as ${lista.length} candidaturas na urna. Troque os nomes como quiser.`}
             </Typography>
           </Box>
-          <Button variant="tonal" startIcon={<CasinoRounded />} onClick={() => setPar(sortearDupla(lista))} sx={{ whiteSpace: 'nowrap', flexShrink: 0, alignSelf: { xs: 'flex-start', sm: 'center' } }}>
-            Sortear outra dupla
-          </Button>
+          {!final && (
+            <Button variant="tonal" startIcon={<CasinoRounded />} onClick={() => setPar(sortearDupla(lista))} sx={{ whiteSpace: 'nowrap', flexShrink: 0, alignSelf: { xs: 'flex-start', sm: 'center' } }}>
+              Sortear outra dupla
+            </Button>
+          )}
         </Stack>
 
         {!a || !b ? (
@@ -222,13 +239,20 @@ function DueloDeDados({ lista }: { lista: Candidato[] }) {
         ) : (
           <>
             <Stack direction="row" spacing={{ xs: 1, sm: 3 }} sx={{ alignItems: 'flex-start', mb: 2 }}>
-              <Lado c={a} lista={lista.filter((x) => x.sq !== b.sq)} onChange={(sq) => setPar([sq, b.sq])} align="left" />
+              <Lado c={a} lista={lista.filter((x) => x.sq !== b.sq)} onChange={(sq) => setPar([sq, b.sq])} align="left" travado={Boolean(final)} />
               <Typography sx={{ alignSelf: 'center', fontWeight: 800, fontSize: { xs: '1.2rem', sm: '1.6rem' }, color: 'text.disabled', px: { xs: 0, sm: 1 } }} aria-hidden>
                 ×
               </Typography>
-              <Lado c={b} lista={lista.filter((x) => x.sq !== a.sq)} onChange={(sq) => setPar([a.sq, sq])} align="right" />
+              <Lado c={b} lista={lista.filter((x) => x.sq !== a.sq)} onChange={(sq) => setPar([a.sq, sq])} align="right" travado={Boolean(final)} />
             </Stack>
             <Box sx={{ borderTop: 1, borderColor: 'divider', pt: 1 }}>
+              {final?.pct1 && (
+                <DuelRow
+                  m={{ label: 'Votos válidos no 1º turno', hint: 'Percentual publicado pelo TSE na apuração do 1º turno', value: (c) => final.pct1?.[c.sq] ?? null, format: (v) => `${v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}%` }}
+                  a={a}
+                  b={b}
+                />
+              )}
               {METRICAS.map((m) => (
                 <DuelRow key={m.label} m={m} a={a} b={b} />
               ))}
@@ -374,6 +398,35 @@ function VisaoGeral({ lista }: { lista: Candidato[] }) {
   );
 }
 
+// ── 2º turno nos estados ─────────────────────────────────────────────────────
+
+function EstadosComSegundoTurno({ disputas, nomes }: { disputas: DisputaFinal[]; nomes: Record<string, string> }) {
+  const gov = disputas.filter((d) => d.cargo === 'governador').sort((a, b) => (nomes[a.uf] ?? a.uf).localeCompare(nomes[b.uf] ?? b.uf, 'pt-BR'));
+  return (
+    <Card sx={{ borderRadius: 6 }}>
+      <CardContent sx={{ p: { xs: 2, md: 3 } }}>
+        <Typography variant="overline" color="primary">
+          2º turno · Governo
+        </Typography>
+        <Typography variant="h5" component="h2" sx={{ mb: 0.5 }}>
+          {gov.length === 1 ? 'Um estado tem 2º turno para governador' : `${gov.length} estados têm 2º turno para governador`}
+        </Typography>
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5 }}>
+          Toque num estado para comparar os finalistas confirmados pelo TSE.
+        </Typography>
+        <Stack direction="row" useFlexGap sx={{ flexWrap: 'wrap', gap: 0.75 }}>
+          {gov.map((d) => (
+            <Chip key={d.uf} component={RouterLink} to={`/comparar?c=${d.sqs.join(',')}`} clickable label={nomes[d.uf] ?? d.uf} icon={<CompareArrowsRounded />} variant="outlined" />
+          ))}
+        </Stack>
+        <Button component={RouterLink} to="/segundo-turno" size="small" endIcon={<ArrowForwardRounded />} sx={{ mt: 1.5 }}>
+          Todas as disputas de 2º turno
+        </Button>
+      </CardContent>
+    </Card>
+  );
+}
+
 // ── Página ────────────────────────────────────────────────────────────────────
 
 const ATALHOS = [
@@ -447,6 +500,11 @@ function Candidaturas() {
   const { meta } = useMeta();
   const navigate = useNavigate();
   const presidente = useAsync(() => data.presidente(), []);
+  // 2º turno: assim que o TSE confirma os finalistas, o duelo passa a ser entre eles.
+  const fin = useFinalistas();
+  const { uf: ufUsuario } = useUfUsuario({ detectarSozinho: false });
+  const finGov = fin.governador(ufUsuario);
+  const pct1 = (d: DisputaFinal) => Object.fromEntries(Object.entries(d.votos1).map(([sq, v]) => [sq, v.pct]));
   // Contagem para a próxima abertura de urnas (1º turno; depois, o 2º turno onde houver).
   const [prox] = useState(() => proximaVotacao());
   const segundo = prox?.turno === 2;
@@ -460,7 +518,27 @@ function Candidaturas() {
       {/* Comparação primeiro; contagem, ordem dos votos e busca ao lado (telas grandes) ou abaixo */}
       <Grid container spacing={3} sx={{ alignItems: 'flex-start' }}>
         <Grid size={{ xs: 12, lg: 8 }}>
-          {presidente.loading ? <Skeleton variant="rounded" height={620} /> : naUrna.length >= 2 && <DueloDeDados lista={naUrna} />}
+          <Stack spacing={3}>
+            {presidente.loading ? (
+              <Skeleton variant="rounded" height={620} />
+            ) : fin.presidente && fin.presidente.sqs.length === 2 ? (
+              <DueloDeDados
+                key={`final-${fin.presidente.sqs.join(',')}`}
+                lista={naUrna}
+                final={{ overline: '2º turno · Presidência', titulo: 'Os dois finalistas, lado a lado', sqs: fin.presidente.sqs as [string, string], pct1: pct1(fin.presidente) }}
+              />
+            ) : (
+              naUrna.length >= 2 && <DueloDeDados lista={naUrna} />
+            )}
+            {finGov && finGov.sqs.length === 2 && (
+              <DueloDeDados
+                key={`final-gov-${finGov.sqs.join(',')}`}
+                lista={[]}
+                final={{ overline: `2º turno · Governo · ${names[finGov.uf] ?? finGov.uf}`, titulo: 'Finalistas no seu estado', sqs: finGov.sqs as [string, string], pct1: pct1(finGov) }}
+              />
+            )}
+            {fin.disputas.some((d) => d.cargo === 'governador') && <EstadosComSegundoTurno disputas={fin.disputas} nomes={names} />}
+          </Stack>
         </Grid>
         <Grid size={{ xs: 12, lg: 4 }} sx={{ position: { lg: 'sticky' }, top: { lg: 88 } }}>
           <Box

@@ -1,5 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { buscarApuracao, temSegundoTurno, urlApuracao, type Apuracao, type CargoApuracao, type Turno } from '@/data/apuracao';
+import { buscarApuracao, finalistasDe, temSegundoTurno, urlApuracao, type Apuracao, type CandidatoApurado, type CargoApuracao, type Turno } from '@/data/apuracao';
+import { data as api } from '@/data/api';
+import { inicioDivulgacao } from '@/data/calendario';
+import { useAsync } from '@/hooks/useAsync';
 import { useCola, useLocalState } from '@/data/localStore';
 import { ufDoPonto } from '@/data/localizacao';
 import { isNativeApp } from '@/native/platform';
@@ -209,9 +212,12 @@ export function useMapaApuracao(turno: Turno, cargo: CargoApuracao, ligado: bool
     if (!ligado) return;
     let vivo = true;
     const cargoDa = (uf: string): CargoApuracao => (cargo === 'deputado-estadual' || cargo === 'deputado-distrital' ? (uf === 'DF' ? 'deputado-distrital' : 'deputado-estadual') : cargo);
+    let tudoFinal = false;
     const rodar = () =>
       Promise.all(UFS.map((uf) => consultar(turno, cargoDa(uf), uf).then((a) => [uf, a] as const, () => [uf, undefined] as const))).then((pares) => {
         if (!vivo) return;
+        // Todas as UFs com totalização final: não há mais o que consultar.
+        tudoFinal = pares.every(([, a]) => a?.final);
         setPorUf((prev) => {
           const base = prev.chave === chave ? prev.dados : {};
           const dados = { ...base };
@@ -221,7 +227,7 @@ export function useMapaApuracao(turno: Turno, cargo: CargoApuracao, ligado: bool
         });
       });
     rodar();
-    const t = setInterval(() => document.visibilityState === 'visible' && rodar(), INTERVALO_MS);
+    const t = setInterval(() => !tudoFinal && document.visibilityState === 'visible' && rodar(), INTERVALO_MS);
     return () => {
       vivo = false;
       clearInterval(t);
@@ -230,3 +236,55 @@ export function useMapaApuracao(turno: Turno, cargo: CargoApuracao, ligado: bool
 
   return porUf.chave === chave ? porUf.dados : {};
 }
+
+// ── Finalistas do 2º turno ────────────────────────────────────────────────────
+
+export interface DisputaFinal {
+  /** "BR" (Presidente) ou a UF (Governador). */
+  uf: string;
+  cargo: 'presidente' | 'governador';
+  /** SQs em ordem alfabética do nome na urna. */
+  sqs: string[];
+  /** Votos do 1º turno, quando vieram da apuração ao vivo. */
+  votos1: Record<string, Pick<CandidatoApurado, 'votos' | 'pct' | 'posicao'>>;
+  /** 'tse' = lido agora do TSE; 'site' = do arquivo publicado pelo site (segundo-turno.json). */
+  origem: 'tse' | 'site';
+}
+
+/**
+ * Disputas de 2º turno com os finalistas confirmados pelo TSE (situação "2º turno" no
+ * arquivo do 1º turno), lidas ao vivo, mais as que o site já publicou. Presidente primeiro,
+ * depois as UFs em ordem alfabética. Antes das 17h de 4/10 não consulta nada.
+ */
+export function useFinalistas(ligado = true) {
+  // Momento da montagem (estável entre renderizações).
+  const [divulgando] = useState(() => Date.now() >= inicioDivulgacao(1).getTime());
+  const ativo = ligado && divulgando;
+  const pres = useApuracao(1, 'presidente', ativo ? 'BR' : null);
+  const gov = useMapaApuracao(1, 'governador', ativo);
+  const publicado = useAsync(() => (ligado ? api.segundoTurno().catch(() => null) : Promise.resolve(null)), [ligado]);
+
+  const disputas: DisputaFinal[] = [];
+  const add = (uf: string, cargo: DisputaFinal['cargo'], ap: Apuracao | null | undefined) => {
+    const f = finalistasDe(ap);
+    if (f.length >= 2) disputas.push({ uf, cargo, sqs: f.map((c) => c.sq), votos1: Object.fromEntries(f.map((c) => [c.sq, { votos: c.votos, pct: c.pct, posicao: c.posicao }])), origem: 'tse' });
+  };
+  add('BR', 'presidente', pres.data);
+  for (const uf of UFS) add(uf, 'governador', gov[uf]);
+  // O que o site já publicou e o TSE (ainda) não mostrou ao vivo, p.ex. se o TSE estiver fora do ar.
+  for (const d of publicado.data?.disputas ?? []) {
+    if ((d.cargo === 'presidente' || d.cargo === 'governador') && !disputas.some((x) => x.uf === d.uf && x.cargo === d.cargo)) {
+      const cands = [...d.candidatos].sort((a, b) => a.nome_urna.localeCompare(b.nome_urna, 'pt-BR'));
+      disputas.push({ uf: d.uf, cargo: d.cargo, sqs: cands.map((c) => c.sq), votos1: {}, origem: 'site' });
+    }
+  }
+  disputas.sort((a, b) => Number(a.cargo !== 'presidente') - Number(b.cargo !== 'presidente') || a.uf.localeCompare(b.uf));
+
+  return {
+    disputas,
+    presidente: disputas.find((d) => d.cargo === 'presidente') ?? null,
+    governador: (uf: string | null | undefined) => (uf ? (disputas.find((d) => d.cargo === 'governador' && d.uf === uf) ?? null) : null),
+    carregando: (ativo && pres.loading) || publicado.loading,
+  };
+}
+

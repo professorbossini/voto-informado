@@ -252,3 +252,17 @@ export function isCargoApuracao(c: string | null | undefined): c is CargoApuraca
 export function cargoDaBusca(c: Cargo): CargoApuracao | null {
   return isCargoApuracao(c) ? c : null;
 }
+
+/** Situação publicada pelo TSE para quem vai ao 2º turno ("2º turno"; aceita variações de grafia). */
+export function vaiAo2Turno(situacao: string | null | undefined): boolean {
+  return /^\s*2\s*[º°o]?\s*turno\s*$/i.test(situacao ?? '');
+}
+
+/**
+ * Finalistas confirmados pelo TSE numa disputa do 1º turno, em ordem alfabética do nome
+ * na urna (ordem neutra, a mesma das listas do site). Vazio enquanto não há confirmação.
+ */
+export function finalistasDe(ap: Apuracao | null | undefined): CandidatoApurado[] {
+  if (!ap || ap.turno !== 1) return [];
+  return ap.candidatos.filter((c) => vaiAo2Turno(c.situacao)).sort((a, b) => a.nomeUrna.localeCompare(b.nomeUrna, 'pt-BR'));
+}

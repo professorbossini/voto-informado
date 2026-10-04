@@ -1,15 +1,19 @@
+import { useEffect } from 'react';
 import {
+  Alert,
   Box,
   Button,
   Card,
   CardContent,
+  Chip,
   Skeleton,
   Stack,
   Typography,
 } from '@mui/material';
 import CompareArrowsRounded from '@mui/icons-material/CompareArrowsRounded';
 import BarChartRounded from '@mui/icons-material/BarChartRounded';
-import { Link as RouterLink } from 'react-router';
+import { Link as RouterLink, useLocation } from 'react-router';
+import { useFinalistas, useUfUsuario, type DisputaFinal } from '@/components/resultados/hooks';
 import { BarList } from '@/components/charts/charts';
 import { CandidatePhoto } from '@/components/election/CandidatePhoto';
 import { SourceNote } from '@/components/election/SourceNote';
@@ -21,7 +25,6 @@ import { useAsync } from '@/hooks/useAsync';
 import { PageHeader } from '@/pages/PageHeader';
 
 const LINHAS: { label: string; value: (c: CandidatoDetalhe) => string }[] = [
-  { label: 'Votos no 1º turno', value: (c) => { const r = c.resultados.find((x) => x.turno === 1); return r?.pct != null ? `${r.pct.toLocaleString('pt-BR', { maximumFractionDigits: 2 })}% (${(r.votos ?? 0).toLocaleString('pt-BR')} votos)` : 'Aguardando dados do TSE'; } },
   { label: 'Partido / federação', value: (c) => `${c.partido}${c.federacao_nome ? ` · ${nomeProprio(c.federacao_nome)}` : ''}` },
   { label: 'Vice', value: (c) => (c.companheiros ?? []).filter((x) => x.na_urna).map((x) => `${nomeProprio(x.nome_urna)} (${x.partido})`).join(', ') || '—' },
   { label: 'Idade', value: (c) => (c.idade != null ? `${c.idade} anos` : NAO_INFORMADO) },
@@ -33,16 +36,44 @@ const LINHAS: { label: string; value: (c: CandidatoDetalhe) => string }[] = [
   { label: 'Candidaturas anteriores (histórico do TSE)', value: (c) => `${c.historico.length} (${c.historico.filter((h) => h.eleito).length} com vitória registrada)` },
 ];
 
+const pctBr = (v: number) => `${v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}%`;
+
 export function SegundoTurnoPage() {
   const { meta } = useMeta();
-  const st = useAsync(() => data.segundoTurno(), []);
+  // Finalistas confirmados pelo TSE (ao vivo), mais os que o site já publicou.
+  const fin = useFinalistas();
+  const { uf: ufUsuario } = useUfUsuario({ detectarSozinho: false });
   const data2 = meta ? dateLong(meta.eleicao.data_2turno) : '25 de outubro de 2026';
+  const nomes = Object.fromEntries((meta?.ufs ?? []).map((u) => [u.uf, u.nome]));
+  const nomeUf = (uf: string) => (uf === 'BR' ? 'Brasil' : (nomes[uf] ?? uf));
+
+  // Presidente primeiro; depois os estados em ordem alfabética do nome.
+  const disputas = [...fin.disputas].sort(
+    (a, b) => Number(a.cargo !== 'presidente') - Number(b.cargo !== 'presidente') || nomeUf(a.uf).localeCompare(nomeUf(b.uf), 'pt-BR'),
+  );
+  const todos = disputas.flatMap((d) => d.sqs);
+  const chave = todos.join(',');
+  const cards = useAsync(() => Promise.all(todos.map((sq) => data.candidato(sq).catch(() => null))), [chave]);
+  const porSq = new Map((cards.data ?? []).filter((c): c is CandidatoDetalhe => Boolean(c)).map((c) => [c.sq, c]));
+
+  // Link com âncora (#st-SP-governador): rola até a disputa quando ela aparece.
+  const { hash } = useLocation();
+  useEffect(() => {
+    if (hash && porSq.size) document.getElementById(hash.slice(1))?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, [hash, porSq.size]);
+
+  const votos1 = (d: DisputaFinal, c: CandidatoDetalhe) => {
+    const v = d.votos1[c.sq];
+    if (v) return `${pctBr(v.pct)} (${v.votos.toLocaleString('pt-BR')} votos)`;
+    const r = c.resultados.find((x) => x.turno === 1);
+    return r?.pct != null ? `${pctBr(r.pct)} (${(r.votos ?? 0).toLocaleString('pt-BR')} votos)` : 'Aguardando dados do TSE';
+  };
 
   return (
     <>
       <PageHeader
         title="2º turno"
-        subtitle={`Marcado para ${data2}. Esta página é preenchida automaticamente com os dados oficiais da apuração do TSE.`}
+        subtitle={`Marcado para ${data2}. As disputas e os finalistas aparecem aqui assim que o TSE os confirma na apuração do 1º turno.`}
       />
 
       <Stack spacing={4}>
@@ -58,8 +89,6 @@ export function SegundoTurnoPage() {
             </Typography>
           </CardContent>
         </Card>
-
-        {st.loading && <Skeleton variant="rounded" height={240} />}
 
         <Card sx={(theme) => ({ borderColor: 'primary.light', background: `linear-gradient(135deg, ${theme.alpha(theme.vars.palette.primary.main, 0.08)}, transparent 60%), ${theme.vars.palette.background.paper}` })}>
           <CardContent sx={{ p: { xs: 2.5, md: 3 } }}>
@@ -80,52 +109,97 @@ export function SegundoTurnoPage() {
           </CardContent>
         </Card>
 
-        {st.data && st.data.disputas.length > 0 && (
+        {fin.carregando && <Skeleton variant="rounded" height={240} />}
+
+        {!fin.carregando && disputas.length === 0 && (
+          <Alert severity="info">
+            Ainda não há finalistas confirmados. Assim que o TSE marcar as candidaturas que vão ao 2º turno na apuração do
+            1º turno, as disputas aparecem aqui, com a comparação lado a lado. A página consulta o TSE a cada minuto.
+          </Alert>
+        )}
+
+        {disputas.length > 0 && (
           <Stack spacing={3}>
-            <Typography variant="h4" component="h2">
-              Disputas de 2º turno
-            </Typography>
-            {st.data.disputas.map((d) => (
-              <Card key={`${d.uf}-${d.cargo}`}>
-                <CardContent sx={{ p: { xs: 2, md: 3 } }}>
-                  <Stack direction={{ xs: 'column', sm: 'row' }} sx={{ justifyContent: 'space-between', alignItems: { sm: 'center' }, mb: 2, gap: 1 }}>
-                    <Typography variant="h5" component="h3">
-                      {CARGO_LABEL[d.cargo]} · {d.uf === 'BR' ? 'Brasil' : d.nome_uf}
-                    </Typography>
-                    <Button component={RouterLink} to={`/comparar?c=${d.candidatos.map((c) => c.sq).join(',')}`} startIcon={<CompareArrowsRounded />} variant="tonal" size="small">
-                      Comparação completa
-                    </Button>
-                  </Stack>
-                  <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr 1fr', md: `220px repeat(${d.candidatos.length}, 1fr)` }, gap: 2, alignItems: 'start' }}>
-                    <Box sx={{ display: { xs: 'none', md: 'block' } }} />
-                    {[...d.candidatos].sort((a, b) => a.nome_urna.localeCompare(b.nome_urna, 'pt-BR')).map((c) => (
-                      <Stack key={c.sq} spacing={1} component={RouterLink} to={`/candidato/${c.sq}`} sx={{ textDecoration: 'none', color: 'inherit', alignItems: 'center', textAlign: 'center' }}>
-                        <CandidatePhoto src={c.foto} alt={`Foto de ${nomeProprio(c.nome_urna)}`} width={110} />
-                        <Typography variant="h6">{nomeProprio(c.nome_urna)}</Typography>
-                        <Typography sx={{ fontFamily: 'monospace', fontWeight: 700, fontSize: '1.4rem' }}>{c.numero}</Typography>
-                      </Stack>
-                    ))}
-                    {LINHAS.map((l) => [
-                      <Typography key={`${l.label}-h`} variant="body2" color="text.secondary" sx={{ gridColumn: { xs: '1 / -1', md: 'auto' }, pt: 1, borderTop: 1, borderColor: 'divider' }}>
-                        {l.label}
-                      </Typography>,
-                      ...[...d.candidatos].sort((a, b) => a.nome_urna.localeCompare(b.nome_urna, 'pt-BR')).map((c) => (
-                        <Typography key={`${l.label}-${c.sq}`} variant="body2" sx={{ textAlign: 'center', pt: { md: 1 }, borderTop: { md: 1 }, borderColor: { md: 'divider' }, fontWeight: 500 }}>
-                          {l.value(c)}
+            <Box>
+              <Typography variant="h4" component="h2">
+                Disputas de 2º turno
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {disputas.some((d) => d.cargo === 'presidente') ? 'Presidente e ' : ''}
+                {disputas.filter((d) => d.cargo === 'governador').length} {disputas.filter((d) => d.cargo === 'governador').length === 1 ? 'estado' : 'estados'} com
+                2º turno para governador. Finalistas sempre em ordem alfabética.
+              </Typography>
+              <Stack direction="row" useFlexGap sx={{ flexWrap: 'wrap', gap: 0.75, mt: 1.5 }} component="nav" aria-label="Ir para a disputa">
+                {disputas.map((d) => (
+                  <Chip
+                    key={`${d.uf}-${d.cargo}`}
+                    size="small"
+                    clickable
+                    component="a"
+                    href={`#st-${d.uf}-${d.cargo}`}
+                    onClick={(e: React.MouseEvent) => {
+                      e.preventDefault();
+                      document.getElementById(`st-${d.uf}-${d.cargo}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }}
+                    label={d.cargo === 'presidente' ? 'Presidente' : nomeUf(d.uf)}
+                    color={d.uf === ufUsuario ? 'primary' : 'default'}
+                    variant={d.cargo === 'presidente' || d.uf === ufUsuario ? 'filled' : 'outlined'}
+                  />
+                ))}
+              </Stack>
+            </Box>
+            {cards.loading && <Skeleton variant="rounded" height={420} />}
+            {disputas.map((d) => {
+              const cs = d.sqs.map((sq) => porSq.get(sq)).filter((c): c is CandidatoDetalhe => Boolean(c));
+              if (!cs.length) return null;
+              return (
+                <Card key={`${d.uf}-${d.cargo}`} id={`st-${d.uf}-${d.cargo}`} sx={{ scrollMarginTop: 88 }}>
+                  <CardContent sx={{ p: { xs: 2, md: 3 } }}>
+                    <Stack direction={{ xs: 'column', sm: 'row' }} sx={{ justifyContent: 'space-between', alignItems: { sm: 'center' }, mb: 2, gap: 1 }}>
+                      <Box>
+                        <Typography variant="h5" component="h3">
+                          {CARGO_LABEL[d.cargo]} · {nomeUf(d.uf)}
+                          {d.uf === ufUsuario && <Chip size="small" color="primary" label="Seu estado" sx={{ ml: 1, verticalAlign: 'middle' }} />}
                         </Typography>
-                      )),
-                    ])}
-                  </Box>
-                  <Box sx={{ mt: 3 }}>
-                    <Typography variant="subtitle2" sx={{ mb: 1 }}>
-                      Patrimônio declarado
-                    </Typography>
-                    <BarList data={d.candidatos.map((c) => ({ label: nomeProprio(c.nome_urna), value: c.bens_total }))} format={moneyCompact} />
-                  </Box>
-                </CardContent>
-              </Card>
-            ))}
-            <SourceNote keys={st.data.fontes} />
+                        <Typography variant="caption" color="text.secondary">
+                          {d.origem === 'tse' ? 'Finalistas confirmados pelo TSE na apuração do 1º turno.' : 'Finalistas conforme os dados oficiais publicados pelo site.'}
+                        </Typography>
+                      </Box>
+                      <Button component={RouterLink} to={`/comparar?c=${d.sqs.join(',')}`} startIcon={<CompareArrowsRounded />} variant="tonal" size="small">
+                        Comparação completa
+                      </Button>
+                    </Stack>
+                    <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr 1fr', md: `220px repeat(${cs.length}, 1fr)` }, gap: 2, alignItems: 'start' }}>
+                      <Box sx={{ display: { xs: 'none', md: 'block' } }} />
+                      {cs.map((c) => (
+                        <Stack key={c.sq} spacing={1} component={RouterLink} to={`/candidato/${c.sq}`} sx={{ textDecoration: 'none', color: 'inherit', alignItems: 'center', textAlign: 'center' }}>
+                          <CandidatePhoto src={c.foto} alt={`Foto de ${nomeProprio(c.nome_urna)}`} width={110} />
+                          <Typography variant="h6">{nomeProprio(c.nome_urna)}</Typography>
+                          <Typography sx={{ fontFamily: 'monospace', fontWeight: 700, fontSize: '1.4rem' }}>{c.numero}</Typography>
+                        </Stack>
+                      ))}
+                      {[{ label: 'Votos no 1º turno', value: (c: CandidatoDetalhe) => votos1(d, c) }, ...LINHAS].map((l) => [
+                        <Typography key={`${l.label}-h`} variant="body2" color="text.secondary" sx={{ gridColumn: { xs: '1 / -1', md: 'auto' }, pt: 1, borderTop: 1, borderColor: 'divider' }}>
+                          {l.label}
+                        </Typography>,
+                        ...cs.map((c) => (
+                          <Typography key={`${l.label}-${c.sq}`} variant="body2" sx={{ textAlign: 'center', pt: { md: 1 }, borderTop: { md: 1 }, borderColor: { md: 'divider' }, fontWeight: 500 }}>
+                            {l.value(c)}
+                          </Typography>
+                        )),
+                      ])}
+                    </Box>
+                    <Box sx={{ mt: 3 }}>
+                      <Typography variant="subtitle2" sx={{ mb: 1 }}>
+                        Patrimônio declarado
+                      </Typography>
+                      <BarList data={cs.map((c) => ({ label: nomeProprio(c.nome_urna), value: c.bens_total }))} format={moneyCompact} />
+                    </Box>
+                  </CardContent>
+                </Card>
+              );
+            })}
+            <SourceNote keys={['tse_resultados', 'tse_candidatos', 'tse_bens', 'tse_prestacao', 'tse_historico']} note="finalistas: situação “2º turno” publicada pelo TSE" />
           </Stack>
         )}
       </Stack>

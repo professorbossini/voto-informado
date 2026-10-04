@@ -28,6 +28,7 @@ import {
 } from '@mui/material';
 import { useColorScheme } from '@mui/material/styles';
 import CloseRounded from '@mui/icons-material/CloseRounded';
+import CompareArrowsRounded from '@mui/icons-material/CompareArrowsRounded';
 import FilterListRounded from '@mui/icons-material/FilterListRounded';
 import MyLocationRounded from '@mui/icons-material/MyLocationRounded';
 import OpenInNewRounded from '@mui/icons-material/OpenInNewRounded';
@@ -45,6 +46,7 @@ import { BrazilMap } from '@/components/election/UfTileMap';
 import {
   CARGO_APURACAO_LABEL,
   cargoEstadual,
+  finalistasDe,
   isCargoApuracao,
   isProporcional,
   temSegundoTurno,
@@ -735,6 +737,39 @@ export function ApuracaoAoVivo({ headingLevel = 'h2' }: { headingLevel?: 'h1' | 
                     </Stack>
                     <LinearProgress variant="determinate" value={ap.secoes.pct} sx={{ height: 8, borderRadius: 4 }} aria-label="Seções totalizadas" />
                   </Box>
+
+                  {(() => {
+                    // Finalistas: confirmados pelo TSE no 1º turno, ou os dois do próprio 2º turno.
+                    const fins = r.turnoExibido === 1 ? finalistasDe(ap) : temSegundoTurno(cargo) ? [...ap.candidatos].sort((a, b) => a.nomeUrna.localeCompare(b.nomeUrna, 'pt-BR')) : [];
+                    if (fins.length < 2) return null;
+                    const nomes = fins.map((c) => `${nomeProprio(c.nomeUrna)} (${c.numero})`);
+                    return (
+                      <Alert
+                        severity="warning"
+                        icon={<CompareArrowsRounded />}
+                        action={
+                          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={0.5}>
+                            <Button component={RouterLink} to={`/comparar?c=${fins.map((c) => c.sq).join(',')}`} color="inherit" size="small" sx={{ whiteSpace: 'nowrap' }}>
+                              Comparar
+                            </Button>
+                            <Button component={RouterLink} to={`/segundo-turno#st-${ap.uf}-${cargo}`} color="inherit" size="small" sx={{ whiteSpace: 'nowrap' }}>
+                              Ver o 2º turno
+                            </Button>
+                          </Stack>
+                        }
+                      >
+                        {r.turnoExibido === 1 ? (
+                          <>
+                            <b>Vão ao 2º turno</b> (confirmado pelo TSE): {nomes.join(' e ')}.
+                          </>
+                        ) : (
+                          <>
+                            <b>2º turno</b>: {nomes.join(' × ')}.
+                          </>
+                        )}
+                      </Alert>
+                    );
+                  })()}
 
                   {candDestaque && (
                     <Typography variant="body2" sx={{ fontWeight: 600 }} aria-live="polite">
