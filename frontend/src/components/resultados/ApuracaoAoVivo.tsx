@@ -46,7 +46,9 @@ import { BrazilMap } from '@/components/election/UfTileMap';
 import {
   CARGO_APURACAO_LABEL,
   cargoEstadual,
+  eleitosDe,
   finalistasDe,
+  foiEleito,
   isCargoApuracao,
   isProporcional,
   temSegundoTurno,
@@ -68,6 +70,7 @@ import {
   type Acompanhado,
   type StatusLocal,
 } from './hooks';
+import { CartaoEleitos } from './CartaoEleitos';
 
 // ── Formatação ────────────────────────────────────────────────────────────────
 
@@ -172,6 +175,7 @@ function LinhaMajoritaria({ c, destaque, seguindo, onSeguir }: { c: CandidatoApu
         borderColor: 'divider',
         borderRadius: destaque ? 3 : 0,
         scrollMarginTop: 120,
+        ...(foiEleito(c) && { boxShadow: `inset 4px 0 0 ${theme.vars.palette.success.main}`, bgcolor: theme.alpha(theme.vars.palette.success.main, 0.07) }),
         ...(destaque && { outline: `2px solid ${theme.vars.palette.primary.main}`, bgcolor: theme.alpha(theme.vars.palette.primary.main, 0.06), borderColor: 'transparent' }),
       })}
     >
@@ -228,6 +232,7 @@ function LinhaProporcional({ c, destaque, seguindo, onSeguir }: { c: CandidatoAp
         borderColor: 'divider',
         scrollMarginTop: 120,
         borderRadius: destaque ? 2 : 0,
+        ...(foiEleito(c) && { boxShadow: `inset 4px 0 0 ${theme.vars.palette.success.main}`, bgcolor: theme.alpha(theme.vars.palette.success.main, 0.06) }),
         ...(destaque && { outline: `2px solid ${theme.vars.palette.primary.main}`, bgcolor: theme.alpha(theme.vars.palette.primary.main, 0.06) }),
       })}
     >
@@ -299,7 +304,18 @@ function CartaoAcompanhado({ a, turno, onAbrir, onRemover }: { a: Acompanhado; t
   const c = r.data?.candidatos.find((x) => x.sq === a.sq);
   return (
     <Box
-      sx={{ position: 'relative', minWidth: 210, maxWidth: 260, flexShrink: 0, border: 1, borderColor: 'divider', borderRadius: 3, bgcolor: 'background.paper', scrollSnapAlign: 'start' }}
+      sx={(theme) => ({
+        position: 'relative',
+        minWidth: 210,
+        maxWidth: 260,
+        flexShrink: 0,
+        border: 1,
+        borderColor: 'divider',
+        borderRadius: 3,
+        bgcolor: 'background.paper',
+        scrollSnapAlign: 'start',
+        ...(c && foiEleito(c) && { border: `2px solid ${theme.vars.palette.success.main}`, bgcolor: theme.alpha(theme.vars.palette.success.main, 0.08) }),
+      })}
     >
       <Box component="button" onClick={onAbrir} sx={{ all: 'unset', cursor: 'pointer', display: 'flex', gap: 1, p: 1.25, pr: 4, width: '100%', boxSizing: 'border-box', borderRadius: 3, '&:hover': { bgcolor: 'action.hover' }, '&:focus-visible': { outline: 2, outlineColor: 'primary.main' } }}>
         <CandidatePhoto src={`/fotos/${a.sq}.jpg`} alt="" width={40} rounded={8} />
@@ -315,7 +331,15 @@ function CartaoAcompanhado({ a, turno, onAbrir, onRemover }: { a: Acompanhado; t
           ) : c ? (
             <Typography variant="caption" component="div" sx={{ fontWeight: 700, fontVariantNumeric: 'tabular-nums' }}>
               {c.posicao}º · {pct(c.pct)} · {votos(c.votos)} votos
-              {c.situacao ? ` · ${c.situacao}` : ''}
+              {c.situacao ? (
+                <Box component="span" sx={{ color: foiEleito(c) ? 'success.main' : 'inherit', fontWeight: 800 }}>
+                  {' '}
+                  · {foiEleito(c) ? '✓ ' : ''}
+                  {c.situacao}
+                </Box>
+              ) : (
+                ''
+              )}
             </Typography>
           ) : (
             <Typography variant="caption" color="text.secondary" component="div">
@@ -738,10 +762,33 @@ export function ApuracaoAoVivo({ headingLevel = 'h2' }: { headingLevel?: 'h1' | 
                     <LinearProgress variant="determinate" value={ap.secoes.pct} sx={{ height: 8, borderRadius: 4 }} aria-label="Seções totalizadas" />
                   </Box>
 
+                  {/* Quem o TSE já declarou eleito */}
+                  {!prop && (
+                    <CartaoEleitos eleitos={eleitosDe(ap)} cargo={cargo} turno={r.turnoExibido} local={cargo === 'presidente' ? (ap.uf === 'BR' ? null : `voto em ${nomeUf(ap.uf)}`) : nomeUf(ap.uf)} />
+                  )}
+                  {prop && eleitosDe(ap).length > 0 && (
+                    <Alert
+                      severity="success"
+                      icon={<VerifiedRounded />}
+                      action={
+                        !soEleitos && (
+                          <Button color="inherit" size="small" onClick={() => setSoEleitos(true)} sx={{ whiteSpace: 'nowrap' }}>
+                            Ver só os eleitos
+                          </Button>
+                        )
+                      }
+                    >
+                      <b>
+                        {eleitosDe(ap).length} de {ap.vagas} vagas
+                      </b>{' '}
+                      já com eleitos(as) declarados pelo TSE{ap.final ? ' (totalização final)' : ''}. Eleitos aparecem com a faixa verde na lista.
+                    </Alert>
+                  )}
+
                   {(() => {
                     // Finalistas: confirmados pelo TSE no 1º turno, ou os dois do próprio 2º turno.
                     const fins = r.turnoExibido === 1 ? finalistasDe(ap) : temSegundoTurno(cargo) ? [...ap.candidatos].sort((a, b) => a.nomeUrna.localeCompare(b.nomeUrna, 'pt-BR')) : [];
-                    if (fins.length < 2) return null;
+                    if (fins.length < 2 || (r.turnoExibido === 2 && eleitosDe(ap).length)) return null;
                     const nomes = fins.map((c) => `${nomeProprio(c.nomeUrna)} (${c.numero})`);
                     return (
                       <Alert

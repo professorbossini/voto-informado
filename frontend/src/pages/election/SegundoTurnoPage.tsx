@@ -14,6 +14,9 @@ import CompareArrowsRounded from '@mui/icons-material/CompareArrowsRounded';
 import BarChartRounded from '@mui/icons-material/BarChartRounded';
 import { Link as RouterLink, useLocation } from 'react-router';
 import { useFinalistas, useUfUsuario, type DisputaFinal } from '@/components/resultados/hooks';
+import { CartaoEleitos } from '@/components/resultados/CartaoEleitos';
+import { eleitosDe } from '@/data/apuracao';
+import VerifiedRounded from '@mui/icons-material/VerifiedRounded';
 import { BarList } from '@/components/charts/charts';
 import { CandidatePhoto } from '@/components/election/CandidatePhoto';
 import { SourceNote } from '@/components/election/SourceNote';
@@ -67,6 +70,11 @@ export function SegundoTurnoPage() {
     if (v) return `${pctBr(v.pct)} (${v.votos.toLocaleString('pt-BR')} votos)`;
     const r = c.resultados.find((x) => x.turno === 1);
     return r?.pct != null ? `${pctBr(r.pct)} (${(r.votos ?? 0).toLocaleString('pt-BR')} votos)` : 'Aguardando dados do TSE';
+  };
+
+  const votos2 = (d: DisputaFinal, c: CandidatoDetalhe) => {
+    const v = d.turno2?.candidatos.find((x) => x.sq === c.sq);
+    return v ? `${pctBr(v.pct)} (${v.votos.toLocaleString('pt-BR')} votos)` : '—';
   };
 
   return (
@@ -152,6 +160,12 @@ export function SegundoTurnoPage() {
             {disputas.map((d) => {
               const cs = d.sqs.map((sq) => porSq.get(sq)).filter((c): c is CandidatoDetalhe => Boolean(c));
               if (!cs.length) return null;
+              const eleitos = eleitosDe(d.turno2);
+              const linhas = [
+                ...(d.turno2 ? [{ label: d.turno2.final ? 'Votos no 2º turno' : 'Votos no 2º turno (parcial)', value: (c: CandidatoDetalhe) => votos2(d, c) }] : []),
+                { label: 'Votos no 1º turno', value: (c: CandidatoDetalhe) => votos1(d, c) },
+                ...LINHAS,
+              ];
               return (
                 <Card key={`${d.uf}-${d.cargo}`} id={`st-${d.uf}-${d.cargo}`} sx={{ scrollMarginTop: 88 }}>
                   <CardContent sx={{ p: { xs: 2, md: 3 } }}>
@@ -169,6 +183,7 @@ export function SegundoTurnoPage() {
                         Comparação completa
                       </Button>
                     </Stack>
+                    {eleitos.length > 0 && <CartaoEleitos eleitos={eleitos} cargo={d.cargo} turno={2} local={d.cargo === 'presidente' ? null : nomeUf(d.uf)} compacto sx={{ mb: 2 }} />}
                     <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr 1fr', md: `220px repeat(${cs.length}, 1fr)` }, gap: 2, alignItems: 'start' }}>
                       <Box sx={{ display: { xs: 'none', md: 'block' } }} />
                       {cs.map((c) => (
@@ -176,9 +191,12 @@ export function SegundoTurnoPage() {
                           <CandidatePhoto src={c.foto} alt={`Foto de ${nomeProprio(c.nome_urna)}`} width={110} />
                           <Typography variant="h6">{nomeProprio(c.nome_urna)}</Typography>
                           <Typography sx={{ fontFamily: 'monospace', fontWeight: 700, fontSize: '1.4rem' }}>{c.numero}</Typography>
+                          {eleitos.some((e) => e.sq === c.sq) && (
+                            <Chip size="small" color="success" icon={<VerifiedRounded />} label={c.genero?.toUpperCase().startsWith('FEM') ? 'Eleita' : 'Eleito'} sx={{ fontWeight: 800 }} />
+                          )}
                         </Stack>
                       ))}
-                      {[{ label: 'Votos no 1º turno', value: (c: CandidatoDetalhe) => votos1(d, c) }, ...LINHAS].map((l) => [
+                      {linhas.map((l) => [
                         <Typography key={`${l.label}-h`} variant="body2" color="text.secondary" sx={{ gridColumn: { xs: '1 / -1', md: 'auto' }, pt: 1, borderTop: 1, borderColor: 'divider' }}>
                           {l.label}
                         </Typography>,

@@ -35,7 +35,10 @@ import BarChartRounded from '@mui/icons-material/BarChartRounded';
 import { env } from '@/config/env';
 import { Link as RouterLink, useNavigate, useSearchParams } from 'react-router';
 import { ApuracaoAoVivo } from '@/components/resultados/ApuracaoAoVivo';
-import { useFinalistas, useUfUsuario, type DisputaFinal } from '@/components/resultados/hooks';
+import { useFinalistas, useUfUsuario, useVencedores, type DisputaFinal } from '@/components/resultados/hooks';
+import { CartaoEleitos } from '@/components/resultados/CartaoEleitos';
+import { eleitosDe } from '@/data/apuracao';
+import VerifiedRounded from '@mui/icons-material/VerifiedRounded';
 import { noiteDeApuracao, proximaVotacao } from '@/data/calendario';
 import { SERIES } from '@/components/charts/palette';
 import { CandidatePhoto } from '@/components/election/CandidatePhoto';
@@ -157,7 +160,7 @@ function DuelRow({ m, a, b }: { m: Metrica; a: CandidatoDetalhe; b: CandidatoDet
   );
 }
 
-function Lado({ c, lista, onChange, align, travado }: { c: CandidatoDetalhe; lista: Candidato[]; onChange: (sq: string) => void; align: 'left' | 'right'; travado?: boolean }) {
+function Lado({ c, lista, onChange, align, travado, eleito }: { c: CandidatoDetalhe; lista: Candidato[]; onChange: (sq: string) => void; align: 'left' | 'right'; travado?: boolean; eleito?: boolean }) {
   return (
     <Stack spacing={1} sx={{ alignItems: align === 'left' ? 'flex-start' : 'flex-end', textAlign: align, flex: 1, minWidth: 0 }}>
       <ButtonBase component={RouterLink} to={`/candidato/${c.sq}`} sx={{ borderRadius: 3 }} aria-label={`Ver perfil de ${nomeProprio(c.nome_urna)}`}>
@@ -173,6 +176,15 @@ function Lado({ c, lista, onChange, align, travado }: { c: CandidatoDetalhe; lis
           </Box>{' '}
           · {c.partido}
         </Typography>
+        {eleito && (
+          <Chip
+            size="small"
+            color="success"
+            icon={<VerifiedRounded />}
+            label={c.genero?.toUpperCase().startsWith('FEM') ? 'Eleita' : 'Eleito'}
+            sx={{ mt: 0.5, fontWeight: 800 }}
+          />
+        )}
       </Box>
       {!travado && (
         <FormControl size="small" sx={{ width: '100%', maxWidth: 220 }}>
@@ -196,6 +208,10 @@ interface DueloFinal {
   sqs: [string, string];
   /** % dos votos válidos no 1º turno, por SQ (apuração do TSE). */
   pct1?: Record<string, number>;
+  /** % dos votos válidos no 2º turno, por SQ, quando já divulgado. */
+  pct2?: Record<string, number>;
+  /** SQ de quem o TSE declarou eleito(a) no 2º turno. */
+  eleito?: string | null;
 }
 
 function DueloDeDados({ lista, final }: { lista: Candidato[]; final?: DueloFinal }) {
@@ -239,13 +255,20 @@ function DueloDeDados({ lista, final }: { lista: Candidato[]; final?: DueloFinal
         ) : (
           <>
             <Stack direction="row" spacing={{ xs: 1, sm: 3 }} sx={{ alignItems: 'flex-start', mb: 2 }}>
-              <Lado c={a} lista={lista.filter((x) => x.sq !== b.sq)} onChange={(sq) => setPar([sq, b.sq])} align="left" travado={Boolean(final)} />
+              <Lado c={a} lista={lista.filter((x) => x.sq !== b.sq)} onChange={(sq) => setPar([sq, b.sq])} align="left" travado={Boolean(final)} eleito={final?.eleito === a.sq} />
               <Typography sx={{ alignSelf: 'center', fontWeight: 800, fontSize: { xs: '1.2rem', sm: '1.6rem' }, color: 'text.disabled', px: { xs: 0, sm: 1 } }} aria-hidden>
                 ×
               </Typography>
-              <Lado c={b} lista={lista.filter((x) => x.sq !== a.sq)} onChange={(sq) => setPar([a.sq, sq])} align="right" travado={Boolean(final)} />
+              <Lado c={b} lista={lista.filter((x) => x.sq !== a.sq)} onChange={(sq) => setPar([a.sq, sq])} align="right" travado={Boolean(final)} eleito={final?.eleito === b.sq} />
             </Stack>
             <Box sx={{ borderTop: 1, borderColor: 'divider', pt: 1 }}>
+              {final?.pct2 && Object.keys(final.pct2).length > 0 && (
+                <DuelRow
+                  m={{ label: 'Votos válidos no 2º turno', hint: 'Percentual publicado pelo TSE na apuração do 2º turno', value: (c) => final.pct2?.[c.sq] ?? null, format: (v) => `${v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}%` }}
+                  a={a}
+                  b={b}
+                />
+              )}
               {final?.pct1 && (
                 <DuelRow
                   m={{ label: 'Votos válidos no 1º turno', hint: 'Percentual publicado pelo TSE na apuração do 1º turno', value: (c) => final.pct1?.[c.sq] ?? null, format: (v) => `${v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}%` }}
@@ -505,6 +528,10 @@ function Candidaturas() {
   const { uf: ufUsuario } = useUfUsuario({ detectarSozinho: false });
   const finGov = fin.governador(ufUsuario);
   const pct1 = (d: DisputaFinal) => Object.fromEntries(Object.entries(d.votos1).map(([sq, v]) => [sq, v.pct]));
+  const pct2 = (d: DisputaFinal) => Object.fromEntries((d.turno2?.candidatos ?? []).map((c) => [c.sq, c.pct]));
+  const eleito2 = (d: DisputaFinal) => eleitosDe(d.turno2)[0]?.sq ?? null;
+  // Quem já ganhou (Presidente e Governador do estado do eleitor), destacado no topo.
+  const venc = useVencedores(ufUsuario);
   // Contagem para a próxima abertura de urnas (1º turno; depois, o 2º turno onde houver).
   const [prox] = useState(() => proximaVotacao());
   const segundo = prox?.turno === 2;
@@ -515,6 +542,22 @@ function Candidaturas() {
 
   return (
     <Stack spacing={{ xs: 4, md: 6 }}>
+      {/* Quem já ganhou: destaque no topo, mesmo formato para qualquer pessoa eleita */}
+      {(venc.presidente.eleitos.length > 0 || venc.governador.eleitos.length > 0) && (
+        <Grid container spacing={2}>
+          {venc.presidente.eleitos.length > 0 && (
+            <Grid size={{ xs: 12, md: venc.governador.eleitos.length ? 6 : 12 }}>
+              <CartaoEleitos eleitos={venc.presidente.eleitos} cargo="presidente" turno={venc.presidente.turno} local={null} />
+            </Grid>
+          )}
+          {venc.governador.eleitos.length > 0 && ufUsuario && (
+            <Grid size={{ xs: 12, md: venc.presidente.eleitos.length ? 6 : 12 }}>
+              <CartaoEleitos eleitos={venc.governador.eleitos} cargo="governador" turno={venc.governador.turno} local={names[ufUsuario] ?? ufUsuario} />
+            </Grid>
+          )}
+        </Grid>
+      )}
+
       {/* Comparação primeiro; contagem, ordem dos votos e busca ao lado (telas grandes) ou abaixo */}
       <Grid container spacing={3} sx={{ alignItems: 'flex-start' }}>
         <Grid size={{ xs: 12, lg: 8 }}>
@@ -525,7 +568,7 @@ function Candidaturas() {
               <DueloDeDados
                 key={`final-${fin.presidente.sqs.join(',')}`}
                 lista={naUrna}
-                final={{ overline: '2º turno · Presidência', titulo: 'Os dois finalistas, lado a lado', sqs: fin.presidente.sqs as [string, string], pct1: pct1(fin.presidente) }}
+                final={{ overline: '2º turno · Presidência', titulo: 'Os dois finalistas, lado a lado', sqs: fin.presidente.sqs as [string, string], pct1: pct1(fin.presidente), pct2: pct2(fin.presidente), eleito: eleito2(fin.presidente) }}
               />
             ) : (
               naUrna.length >= 2 && <DueloDeDados lista={naUrna} />
@@ -534,7 +577,7 @@ function Candidaturas() {
               <DueloDeDados
                 key={`final-gov-${finGov.sqs.join(',')}`}
                 lista={[]}
-                final={{ overline: `2º turno · Governo · ${names[finGov.uf] ?? finGov.uf}`, titulo: 'Finalistas no seu estado', sqs: finGov.sqs as [string, string], pct1: pct1(finGov) }}
+                final={{ overline: `2º turno · Governo · ${names[finGov.uf] ?? finGov.uf}`, titulo: 'Finalistas no seu estado', sqs: finGov.sqs as [string, string], pct1: pct1(finGov), pct2: pct2(finGov), eleito: eleito2(finGov) }}
               />
             )}
             {fin.disputas.some((d) => d.cargo === 'governador') && <EstadosComSegundoTurno disputas={fin.disputas} nomes={names} />}

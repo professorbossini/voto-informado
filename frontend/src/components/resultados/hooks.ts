@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { buscarApuracao, finalistasDe, temSegundoTurno, urlApuracao, type Apuracao, type CandidatoApurado, type CargoApuracao, type Turno } from '@/data/apuracao';
+import { buscarApuracao, eleitosDe, finalistasDe, temSegundoTurno, urlApuracao, type Apuracao, type CandidatoApurado, type CargoApuracao, type Turno } from '@/data/apuracao';
 import { data as api } from '@/data/api';
 import { inicioDivulgacao } from '@/data/calendario';
 import { useAsync } from '@/hooks/useAsync';
@@ -249,6 +249,8 @@ export interface DisputaFinal {
   votos1: Record<string, Pick<CandidatoApurado, 'votos' | 'pct' | 'posicao'>>;
   /** 'tse' = lido agora do TSE; 'site' = do arquivo publicado pelo site (segundo-turno.json). */
   origem: 'tse' | 'site';
+  /** Apuração do 2º turno desta disputa (a partir das 17h de 25/10), para votos e vencedor. */
+  turno2: Apuracao | null;
 }
 
 /**
@@ -259,15 +261,20 @@ export interface DisputaFinal {
 export function useFinalistas(ligado = true) {
   // Momento da montagem (estável entre renderizações).
   const [divulgando] = useState(() => Date.now() >= inicioDivulgacao(1).getTime());
+  const [divulgando2] = useState(() => Date.now() >= inicioDivulgacao(2).getTime());
   const ativo = ligado && divulgando;
+  const ativo2 = ligado && divulgando2;
   const pres = useApuracao(1, 'presidente', ativo ? 'BR' : null);
   const gov = useMapaApuracao(1, 'governador', ativo);
+  const pres2 = useApuracao(2, 'presidente', ativo2 ? 'BR' : null);
+  const gov2 = useMapaApuracao(2, 'governador', ativo2);
+  const t2 = (uf: string) => (uf === 'BR' ? pres2.data : gov2[uf]) ?? null;
   const publicado = useAsync(() => (ligado ? api.segundoTurno().catch(() => null) : Promise.resolve(null)), [ligado]);
 
   const disputas: DisputaFinal[] = [];
   const add = (uf: string, cargo: DisputaFinal['cargo'], ap: Apuracao | null | undefined) => {
     const f = finalistasDe(ap);
-    if (f.length >= 2) disputas.push({ uf, cargo, sqs: f.map((c) => c.sq), votos1: Object.fromEntries(f.map((c) => [c.sq, { votos: c.votos, pct: c.pct, posicao: c.posicao }])), origem: 'tse' });
+    if (f.length >= 2) disputas.push({ uf, cargo, sqs: f.map((c) => c.sq), votos1: Object.fromEntries(f.map((c) => [c.sq, { votos: c.votos, pct: c.pct, posicao: c.posicao }])), origem: 'tse', turno2: t2(uf) });
   };
   add('BR', 'presidente', pres.data);
   for (const uf of UFS) add(uf, 'governador', gov[uf]);
@@ -275,7 +282,7 @@ export function useFinalistas(ligado = true) {
   for (const d of publicado.data?.disputas ?? []) {
     if ((d.cargo === 'presidente' || d.cargo === 'governador') && !disputas.some((x) => x.uf === d.uf && x.cargo === d.cargo)) {
       const cands = [...d.candidatos].sort((a, b) => a.nome_urna.localeCompare(b.nome_urna, 'pt-BR'));
-      disputas.push({ uf: d.uf, cargo: d.cargo, sqs: cands.map((c) => c.sq), votos1: {}, origem: 'site' });
+      disputas.push({ uf: d.uf, cargo: d.cargo, sqs: cands.map((c) => c.sq), votos1: {}, origem: 'site', turno2: t2(d.uf) });
     }
   }
   disputas.sort((a, b) => Number(a.cargo !== 'presidente') - Number(b.cargo !== 'presidente') || a.uf.localeCompare(b.uf));
@@ -285,6 +292,20 @@ export function useFinalistas(ligado = true) {
     presidente: disputas.find((d) => d.cargo === 'presidente') ?? null,
     governador: (uf: string | null | undefined) => (uf ? (disputas.find((d) => d.cargo === 'governador' && d.uf === uf) ?? null) : null),
     carregando: (ativo && pres.loading) || publicado.loading,
+  };
+}
+
+/**
+ * Quem já ganhou, para destacar fora da apuração: Presidente e Governador do estado do
+ * eleitor, no turno mais recente já divulgado (cai para o 1º quando não houve 2º).
+ */
+export function useVencedores(ufEleitor: string | null) {
+  const [turno] = useState<Turno | null>(() => (Date.now() >= inicioDivulgacao(2).getTime() ? 2 : Date.now() >= inicioDivulgacao(1).getTime() ? 1 : null));
+  const pres = useApuracaoDoTurno(turno ?? 1, 'presidente', turno ? 'BR' : null);
+  const gov = useApuracaoDoTurno(turno ?? 1, 'governador', turno && ufEleitor ? ufEleitor : null);
+  return {
+    presidente: { eleitos: eleitosDe(pres.data), turno: pres.turnoExibido },
+    governador: { eleitos: eleitosDe(gov.data), turno: gov.turnoExibido },
   };
 }
 

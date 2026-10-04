@@ -266,3 +266,16 @@ export function finalistasDe(ap: Apuracao | null | undefined): CandidatoApurado[
   if (!ap || ap.turno !== 1) return [];
   return ap.candidatos.filter((c) => vaiAo2Turno(c.situacao)).sort((a, b) => a.nomeUrna.localeCompare(b.nomeUrna, 'pt-BR'));
 }
+
+/**
+ * Eleito(a) segundo o TSE: marca "e" = s ou situação "Eleito", "Eleito por QP", "Eleito por média".
+ * ("Não eleito" e "Suplente" não contam.)
+ */
+export function foiEleito(c: Pick<CandidatoApurado, 'eleito' | 'situacao'>): boolean {
+  return c.eleito || /^eleit[oa]/i.test(c.situacao ?? '');
+}
+
+/** Quem já foi declarado eleito nesta disputa, na ordem dos votos. */
+export function eleitosDe(ap: Apuracao | null | undefined): CandidatoApurado[] {
+  return ap ? ap.candidatos.filter(foiEleito) : [];
+}
