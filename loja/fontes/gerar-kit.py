@@ -43,21 +43,21 @@ conteudo = tabela([
     ("Classificação do conteúdo: categoria", "Referência, notícias ou educação", ""),
     ("Classificação: violência, sexo, linguagem imprópria, drogas, jogos de azar, terror", "Não, para todas", ""),
     ("Classificação: usuários interagem ou trocam conteúdo entre si?", "Não", "O app só exibe dados públicos; “Compartilhar” usa a tela do próprio sistema."),
-    ("Classificação: compartilha a localização do usuário?", "Não", ""),
+    ("Classificação: compartilha a localização do usuário?", "Não", "O app pode pedir a localização aproximada só para descobrir o estado na apuração; ela vira UF no próprio aparelho e não é enviada a ninguém."),
     ("Classificação: permite comprar produtos digitais?", "Não", ""),
     ("Classificação: é um navegador ou mecanismo de pesquisa?", "Não", "Links externos abrem no navegador do sistema."),
     ("Resultado esperado", "Livre (ClassInd L) · PEGI 3 · Everyone", ""),
     ("Público-alvo: faixas etárias", "16 a 17 anos e 18 anos ou mais", "Voto facultativo a partir dos 16. Não marque faixas abaixo de 13 (isso aciona o programa Famílias)."),
     ("O app pode atrair crianças sem querer?", "Não", ""),
     ("App de notícias?", "Não", "Ele exibe dados oficiais estruturados, não publica notícias."),
-    ("ID de publicidade: o app usa?", "Não", "Conferido no manifesto final: a única permissão é INTERNET."),
+    ("ID de publicidade: o app usa?", "Não", "Conferido no manifesto final: permissões INTERNET e localização (aproximada; a precisa só até o Android 11). Nenhuma de publicidade."),
     ("Apps governamentais: desenvolvido por um governo ou em nome dele?", "Não", "O aviso de “não oficial” já está na descrição e no rodapé do app, como pede a política de Declarações enganosas."),
     ("Recursos financeiros, saúde, VPN", "Nenhum / não se aplica", ""),
 ])
 
 seguranca = tabela([
     ("O app coleta ou compartilha algum dos tipos de dados do usuário exigidos?", "Não",
-     "Gera o selo “Nenhum dado coletado”. O que o app guarda (cola, comparação, tema) fica só no aparelho e nunca é enviado; pela definição do Google, isso não é coleta."),
+     "Gera o selo “Nenhum dado coletado”. O que o app guarda (cola, comparação, tema, estado) fica só no aparelho e nunca é enviado; a localização, quando permitida, é convertida em UF no aparelho e descartada. Pela definição do Google, dado processado só no aparelho não é coleta."),
     ("Todos os dados são criptografados em trânsito?", "(só aparece se a resposta acima for Sim)", "Se aparecer: Sim, toda a comunicação é HTTPS."),
     ("O app permite criar conta?", "Não", "Por isso não é preciso informar URL de exclusão de conta."),
 ])

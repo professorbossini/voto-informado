@@ -74,8 +74,18 @@ app Resultados do TSE usa; CORS liberado) a cada minuto (`frontend/src/data/apur
 - A posição de cada candidatura vem dos votos: o campo `seq` do TSE repete a ordem nacional nos arquivos por UF.
 - O horário exibido é `dg/hg` (Brasília); `dt/ht` vêm no fuso local de cada UF.
 
-Depois da totalização final, `make apuracao` grava o resultado no banco (só arquivos com `tf = s`) para a
-página de 2º turno e os perfis; aí `make publicar`.
+O resultado **final** (arquivos com `tf = s`) também vai para o banco, para a página de 2º turno e os perfis.
+Isso é automático: `make apuracao-agendar` liga um timer do systemd (do usuário) que a cada 15 min roda
+`scripts/apuracao-auto.sh`, que consulta o TSE e, se surgiu resultado final novo, republica o site (no máximo
+uma vez por hora, pois cada publicação envia ~770 MB). O timer se desliga sozinho em 01/11/2026.
+
+```bash
+make apuracao-agendar                          # liga (já ligado em 04/10/2026)
+systemctl --user list-timers tanaurna-apuracao.timer
+journalctl --user -u tanaurna-apuracao -f      # acompanhar
+make apuracao-auto                             # uma passada à mão
+make apuracao-desagendar                       # desliga
+```
 
 ## Publicando como site estático
 
@@ -89,7 +99,9 @@ gera `frontend/dist` (~600 MB); configure fallback de SPA (rota → `index.html`
 
 ## App Android (e iOS)
 
-O mesmo frontend vira app nativo com Capacitor (`frontend/android/`), lendo os dados do site público. Política de
+O mesmo frontend vira app nativo com Capacitor (`frontend/android/`), lendo os dados do site público. Permissões:
+internet e localização aproximada (opcional, só para achar o estado na apuração; a precisa é declarada apenas até o
+Android 11, que não oferece a aproximada). Política de
 Privacidade e Termos em `/privacidade` e `/termos`. Gerar o pacote: `make app-release`. Guia de publicação na
 Google Play (e caminho para a App Store) em [loja/README.md](loja/README.md), com kit de preenchimento em
 `loja/kit-google-play.html`.

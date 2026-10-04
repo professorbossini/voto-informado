@@ -6,7 +6,7 @@ API_PORT ?= 8077
 # Domínio próprio do site (GitHub Pages). Vazio = professorbossini.dev/voto-informado.
 SITE_DOMAIN ?= www.tanaurna.com.br
 
-.PHONY: help setup dados api web dev apuracao exportar build testes publicar nuvem neon api-pg app app-release app-loja
+.PHONY: help setup dados api web dev apuracao apuracao-auto apuracao-agendar apuracao-desagendar exportar build testes publicar nuvem neon api-pg app app-release app-loja
 
 help:
 	@echo "make setup     instala dependências (venv Python + npm)"
@@ -15,6 +15,9 @@ help:
 	@echo "make web       sobe o site em http://localhost:5173 (precisa da API)"
 	@echo "make dev       API + site juntos"
 	@echo "make apuracao  consulta a apuração do TSE a cada 5 min (dia da eleição)"
+	@echo "make apuracao-auto       uma passada: grava o resultado FINAL do TSE e republica se mudou"
+	@echo "make apuracao-agendar    liga o timer (systemd) que faz o apuracao-auto a cada 15 min"
+	@echo "make apuracao-desagendar desliga o timer"
 	@echo "make exportar  gera o site estático completo em frontend/dist"
 	@echo "make testes    testes do backend e do frontend"
 	@echo "make publicar  publica no GitHub Pages (branch gh-pages)"
@@ -44,6 +47,15 @@ dev:
 
 apuracao:
 	while true; do (cd $(BACK) && .venv/bin/python -m etl.resultados && .venv/bin/python -m etl.derivados >/dev/null); sleep 300; done
+
+apuracao-auto:
+	scripts/apuracao-auto.sh
+
+apuracao-agendar:
+	scripts/apuracao-agendar.sh
+
+apuracao-desagendar:
+	scripts/apuracao-agendar.sh --remover
 
 exportar:
 	cd $(FRONT) && npm run build

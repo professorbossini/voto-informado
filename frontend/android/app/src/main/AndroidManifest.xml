@@ -32,4 +32,10 @@
     <!-- Permissions -->
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Apuração: descobrir o estado de quem usa. A posição vira UF no próprio aparelho
+         (frontend/src/data/localizacao.ts) e não é enviada. Android 12+: só aproximada.
+         Até o Android 11 não existe "aproximada" no pedido, por isso a precisa vai só até a API 30. -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" android:maxSdkVersion="30" />
+    <uses-feature android:name="android.hardware.location" android:required="false" />
 </manifest>

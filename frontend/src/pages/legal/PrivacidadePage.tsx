@@ -84,9 +84,11 @@ export function PrivacidadePage() {
 
       <Secao n={6} title="Aplicativo: permissões">
         <P>
-          O aplicativo pede apenas acesso à internet, necessário para baixar os dados oficiais. Não pede acesso a
-          localização, contatos, câmera, microfone, armazenamento de arquivos nem notificações. No aplicativo, o estado da
-          apuração é escolhido na lista.
+          O aplicativo usa acesso à internet, necessário para baixar os dados oficiais. Não pede acesso a
+          contatos, câmera, microfone, armazenamento de arquivos nem notificações. A única outra permissão é a de
+          localização aproximada, opcional, pedida pelo Android na primeira vez que você abre a apuração, só para
+          descobrir o seu estado, do jeito descrito no item 3 (no aparelho, sem enviar a posição). Se você negar, é só
+          escolher o estado na lista; dá para mudar a decisão em Configurações → Apps → Tá na Urna → Permissões.
         </P>
         <P>
           Ao tocar em “Compartilhar”, o aplicativo abre a tela de compartilhamento do próprio sistema: o conteúdo vai só

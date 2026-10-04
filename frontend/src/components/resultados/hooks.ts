@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { buscarApuracao, temSegundoTurno, urlApuracao, type Apuracao, type CargoApuracao, type Turno } from '@/data/apuracao';
 import { useCola, useLocalState } from '@/data/localStore';
 import { ufDoPonto } from '@/data/localizacao';
+import { isNativeApp } from '@/native/platform';
 
 /** De quanto em quanto tempo a apuração é consultada de novo (o CDN do TSE segura ~1 min). */
 export const INTERVALO_MS = 60_000;
@@ -148,7 +149,10 @@ export function useUfUsuario({ detectarSozinho }: { detectarSozinho: boolean }) 
   useEffect(() => {
     if (!detectarSozinho || atual || jaPediu) return;
     let cancel = false;
-    const perm: Promise<PermissionStatus | null> = navigator.permissions?.query?.({ name: 'geolocation' as PermissionName }) ?? Promise.resolve(null);
+    // No app, quem pergunta é o próprio Android (o WebView não informa o estado da permissão).
+    const perm: Promise<PermissionStatus | null> = isNativeApp
+      ? Promise.resolve(null)
+      : (navigator.permissions?.query?.({ name: 'geolocation' as PermissionName }) ?? Promise.resolve(null));
     perm.then(
       (p) => {
         if (cancel) return;
