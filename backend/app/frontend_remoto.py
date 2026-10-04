@@ -1,0 +1,64 @@
+"""Atualiza só a interface (build do Vite) no site já publicado, sem banco (GitHub Actions).
+
+O site publicado tem ~22 mil páginas por rota, cada uma = index.html com título, descrição e
+prévia de link próprios (app.export._page). Aqui cada página é remontada com o index.html NOVO,
+reaproveitando título, descrição, URL e imagem que ela já tinha; os arquivos de assets/ novos
+entram ao lado dos antigos (quem estiver com a página aberta não quebra).
+
+Uso: python -m app.frontend_remoto <site (checkout da gh-pages)> <frontend/dist recém-buildado>
+"""
+
+from __future__ import annotations
+
+import html
+import re
+import shutil
+import sys
+from pathlib import Path
+
+from .export import _page
+
+# Pastas do site que não são do build do frontend.
+DADOS = {"api", "fotos", "propostas", ".git"}
+
+
+def _attr(page: str, pattern: str) -> str | None:
+    m = re.search(pattern, page, flags=re.S)
+    return html.unescape(m.group(1)) if m else None
+
+
+def remontar(site: Path, dist: Path) -> int:
+    template = (dist / "index.html").read_text(encoding="utf-8")
+
+    # 1. Arquivos do build (assets novos somam aos antigos; o resto é substituído).
+    for item in dist.iterdir():
+        if item.name in DADOS or item.is_dir() and (site / item.name / "index.html").exists() and item.name != "assets":
+            continue  # pastas de rota do dist (não existem num build puro do Vite)
+        destino = site / item.name
+        if item.is_dir():
+            shutil.copytree(item, destino, dirs_exist_ok=True)
+        else:
+            shutil.copy2(item, destino)
+    shutil.copy2(dist / "index.html", site / "404.html")
+
+    # 2. Páginas por rota com o template novo.
+    n = 0
+    for page_path in site.rglob("index.html"):
+        rel = page_path.parent.relative_to(site)
+        if rel == Path(".") or rel.parts[0] in DADOS:
+            continue
+        antiga = page_path.read_text(encoding="utf-8")
+        title = _attr(antiga, r"<title>(.*?)</title>")
+        desc = _attr(antiga, r'<meta\s+name="description"\s+content="([^"]*)"')
+        url = _attr(antiga, r'<meta property="og:url" content="([^"]*)"')
+        image = _attr(antiga, r'<meta property="og:image" content="([^"]*)"')
+        if not (title and desc and url):
+            continue  # não foi gerada por app.export._page
+        _page(template, site, str(rel), title, desc, url, image)
+        n += 1
+    return n
+
+
+if __name__ == "__main__":
+    site, dist = Path(sys.argv[1]), Path(sys.argv[2])
+    print(f"interface atualizada: {remontar(site, dist)} páginas por rota remontadas")

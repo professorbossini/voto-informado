@@ -91,6 +91,53 @@ def fetch(session: requests.Session, target):
         return target, url, None
 
 
+def coletar() -> tuple[list[dict], int]:
+    """Consulta todos os arquivos do TSE e devolve só as disputas com totalização FINAL.
+
+    Cada disputa: {turno, uf, cargo, url, pct_secoes, atualizado, linhas}, com `linhas` no formato
+    da tabela `resultados`. Parciais são só contados: o site estático é publicado de tempos em
+    tempos, e um parcial gravado ficaria congelado nas páginas de perfil (o parcial é mostrado ao
+    vivo pelo navegador, direto do TSE). Usado por run() (banco local) e por etl.apuracao_remota.
+    """
+    session = requests.Session()
+    session.headers["User-Agent"] = USER_AGENT
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        results = list(pool.map(lambda t: fetch(session, t), list(_targets())))
+
+    finais: list[dict] = []
+    parciais = 0
+    for (turno, _eleicao, uf, cargo), url, data in results:
+        if not data:
+            continue
+        if str(data.get("tf", "")).lower() != "s":
+            parciais += 1
+            continue
+        uf_up = uf.upper()
+        linhas = []
+        # Posição pelos votos: o "seq" do TSE repete a ordem nacional nos arquivos por UF.
+        cands = sorted(candidatos(data), key=lambda c: (-(_num(c.get("vap")) or 0), int(c.get("seq") or 0)))
+        for pos, c in enumerate(cands, 1):
+            situacao = c.get("st") or None
+            linhas.append(
+                (
+                    turno, uf_up, cargo, str(c.get("sqcand") or ""), str(c.get("n") or ""), c.get("nm"),
+                    _num(c.get("vap")), _num(c.get("pvap")), situacao,
+                    1 if str(c.get("e", "")).lower() == "s" or (situacao or "").lower().startswith("eleito") else 0,
+                    pos,
+                )
+            )
+        finais.append({
+            "turno": turno, "uf": uf_up, "cargo": cargo, "url": url,
+            "pct_secoes": _num((data.get("s") or {}).get("pst")),
+            # dg/hg: horário de Brasília (dt/ht vêm no fuso local de cada UF)
+            "atualizado": f"{data.get('dg', '')} {data.get('hg', '')}".strip(),
+            "linhas": linhas,
+            "partidos": {str(c.get("sqcand") or ""): c.get("_partido") for c in cands},
+            "nomes_urna": {str(c.get("sqcand") or ""): c.get("nmu") for c in cands},
+        })
+    return finais, parciais
+
+
 def run() -> None:
     conn = common.connect()
     conn.executescript(
@@ -105,43 +152,14 @@ def run() -> None:
         );
         """
     )
-    session = requests.Session()
-    session.headers["User-Agent"] = USER_AGENT
-    with ThreadPoolExecutor(max_workers=8) as pool:
-        results = list(pool.map(lambda t: fetch(session, t), list(_targets())))
-
-    found = parciais = 0
-    for (turno, _eleicao, uf, cargo), url, data in results:
-        if not data:
-            continue
-        # Só grava a totalização FINAL: o site estático é publicado de tempos em tempos, e um
-        # parcial gravado aqui ficaria congelado nas páginas de perfil. O parcial é mostrado
-        # ao vivo pelo navegador, direto do TSE.
-        if str(data.get("tf", "")).lower() != "s":
-            parciais += 1
-            continue
-        found += 1
-        uf_up = uf.upper()
-        conn.execute("DELETE FROM resultados WHERE turno=? AND uf=? AND cargo=?", (turno, uf_up, cargo))
-        rows = []
-        # Posição pelos votos: o "seq" do TSE repete a ordem nacional nos arquivos por UF.
-        cands = sorted(candidatos(data), key=lambda c: (-(_num(c.get("vap")) or 0), int(c.get("seq") or 0)))
-        for pos, c in enumerate(cands, 1):
-            situacao = c.get("st") or None
-            rows.append(
-                (
-                    turno, uf_up, cargo, str(c.get("sqcand") or ""), str(c.get("n") or ""), c.get("nm"),
-                    _num(c.get("vap")), _num(c.get("pvap")), situacao,
-                    1 if str(c.get("e", "")).lower() == "s" or (situacao or "").lower().startswith("eleito") else 0,
-                    pos,
-                )
-            )
-        conn.executemany("INSERT INTO resultados VALUES (?,?,?,?,?,?,?,?,?,?,?)", rows)
-        # dg/hg: horário de Brasília (dt/ht vêm no fuso local de cada UF)
-        atualizado = f"{data.get('dg', '')} {data.get('hg', '')}".strip()
+    finais, parciais = coletar()
+    found = len(finais)
+    for d in finais:
+        conn.execute("DELETE FROM resultados WHERE turno=? AND uf=? AND cargo=?", (d["turno"], d["uf"], d["cargo"]))
+        conn.executemany("INSERT INTO resultados VALUES (?,?,?,?,?,?,?,?,?,?,?)", d["linhas"])
         conn.execute(
             "INSERT OR REPLACE INTO resultados_status VALUES (?,?,?,?,?,?)",
-            (turno, uf_up, cargo, _num((data.get("s") or {}).get("pst")), atualizado, url),
+            (d["turno"], d["uf"], d["cargo"], d["pct_secoes"], d["atualizado"], d["url"]),
         )
 
     common.register_source(

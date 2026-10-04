@@ -74,18 +74,17 @@ app Resultados do TSE usa; CORS liberado) a cada minuto (`frontend/src/data/apur
 - A posição de cada candidatura vem dos votos: o campo `seq` do TSE repete a ordem nacional nos arquivos por UF.
 - O horário exibido é `dg/hg` (Brasília); `dt/ht` vêm no fuso local de cada UF.
 
-O resultado **final** (arquivos com `tf = s`) também vai para o banco, para a página de 2º turno e os perfis.
-Isso é automático: `make apuracao-agendar` liga um timer do systemd (do usuário) que a cada 15 min roda
-`scripts/apuracao-auto.sh`, que consulta o TSE e, se surgiu resultado final novo, republica o site (no máximo
-uma vez por hora, pois cada publicação envia ~770 MB). O timer se desliga sozinho em 01/11/2026.
+O resultado **final** (arquivos com `tf = s`) vai sozinho para o site, **no GitHub Actions**, sem depender de
+nenhum computador: `.github/workflows/apuracao.yml` roda a cada 10 min, consulta o TSE e, se surgiu resultado final
+novo, reescreve só os JSON que dependem dele (perfis, `resultados.json`, `segundo-turno.json`, `meta.json`) direto na
+branch `gh-pages` (`backend/etl/apuracao_remota.py`, testado contra o caminho do banco). Desliga sozinho em
+01/11/2026. Para rodar na hora: `make apuracao-remota` (ou "Run workflow" na aba Actions).
 
-```bash
-make apuracao-agendar                          # liga (já ligado em 04/10/2026)
-systemctl --user list-timers tanaurna-apuracao.timer
-journalctl --user -u tanaurna-apuracao -f      # acompanhar
-make apuracao-auto                             # uma passada à mão
-make apuracao-desagendar                       # desliga
-```
+### Interface publicada sozinha
+
+`.github/workflows/site.yml`: a cada push na `main` que mexe no frontend, roda os testes, faz o build e troca só a
+interface no site publicado (assets e as ~22 mil páginas por rota, remontadas com o `index.html` novo por
+`backend/app/frontend_remoto.py`). Dados novos do TSE/Câmara/Senado (`make dados`) ainda pedem `make publicar`.
 
 ## Publicando como site estático
 

@@ -63,21 +63,28 @@ def _meta(conn: sqlite3.Connection) -> dict[str, str]:
     return {r["chave"]: r["valor"] for r in conn.execute("SELECT chave, valor FROM meta")}
 
 
-def fase(conn: sqlite3.Connection, hoje: date | None = None) -> str:
-    """Which moment of the election the site should emphasize."""
-    hoje = hoje or date.today()
-    tem_2turno = bool(_has(conn, "candidatos") and conn.execute(
-        "SELECT 1 FROM candidatos WHERE lower(resultado) LIKE '2%turno' LIMIT 1").fetchone())
-    if _has(conn, "resultados"):
-        tem_2turno = tem_2turno or bool(conn.execute(
-            "SELECT 1 FROM resultados WHERE turno=1 AND lower(situacao) LIKE '2%turno' LIMIT 1").fetchone())
-        if conn.execute("SELECT 1 FROM resultados WHERE turno=2 LIMIT 1").fetchone():
-            return "apuracao-2turno" if hoje <= DATA_2TURNO else "encerrada"
+def fase_de(hoje: date, tem_2turno: bool, tem_resultado_2turno: bool) -> str:
+    """Regra da fase, sem banco (também usada por etl.apuracao_remota)."""
+    if tem_resultado_2turno:
+        return "apuracao-2turno" if hoje <= DATA_2TURNO else "encerrada"
     if hoje < DATA_ELEICAO:
         return "pre-1turno"
     if tem_2turno:
         return "pre-2turno" if hoje < DATA_2TURNO else "apuracao-2turno"
     return "apuracao-1turno"
+
+
+def fase(conn: sqlite3.Connection, hoje: date | None = None) -> str:
+    """Which moment of the election the site should emphasize."""
+    hoje = hoje or date.today()
+    tem_2turno = bool(_has(conn, "candidatos") and conn.execute(
+        "SELECT 1 FROM candidatos WHERE lower(resultado) LIKE '2%turno' LIMIT 1").fetchone())
+    tem_t2 = False
+    if _has(conn, "resultados"):
+        tem_2turno = tem_2turno or bool(conn.execute(
+            "SELECT 1 FROM resultados WHERE turno=1 AND lower(situacao) LIKE '2%turno' LIMIT 1").fetchone())
+        tem_t2 = bool(conn.execute("SELECT 1 FROM resultados WHERE turno=2 LIMIT 1").fetchone())
+    return fase_de(hoje, tem_2turno, tem_t2)
 
 
 # ── Cards ─────────────────────────────────────────────────────────────────────

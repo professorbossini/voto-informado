@@ -1,0 +1,95 @@
+# Interface → site, sem depender de nenhum computador.
+#
+# A cada push na main que mexe no frontend: testa, faz o build do Vite e troca só a interface
+# no site publicado (gh-pages): assets novos, index/404 e as ~22 mil páginas por rota remontadas
+# com o index novo (backend/app/frontend_remoto.py). Dados, fotos e PDFs ficam como estão.
+# Dados novos (make dados) continuam exigindo `make publicar`.
+name: Interface → site
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "frontend/src/**"
+      - "frontend/public/**"
+      - "frontend/index.html"
+      - "frontend/package.json"
+      - "frontend/package-lock.json"
+      - "frontend/vite.config.ts"
+      - "backend/app/frontend_remoto.py"
+      - "backend/app/export.py"
+      - ".github/workflows/site.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: gh-pages
+  cancel-in-progress: false
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: frontend/.nvmrc
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Testes e build
+        working-directory: frontend
+        # Mesmos valores (públicos) do frontend/.env usado por `make publicar`.
+        env:
+          VITE_APP_NAME: Tá na Urna
+          VITE_SHOW_POWERED_BY: "false"
+          VITE_ENABLE_PESQUISAS: "false"
+          VITE_ENABLE_LOGIN: "false"
+          VITE_AUTH_PROVIDER: mock
+          VITE_BASE_PATH: /
+          VITE_DATA_URL: ""
+          VITE_ASSETS_URL: ""
+        run: |
+          npm ci
+          npx tsc -b --noEmit
+          npx eslint .
+          npx vitest run
+          npx vite build
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Site publicado (sem dados, fotos e PDFs)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          pip install -q "requests>=2.32"
+          git clone -q --depth 1 --filter=blob:none --no-checkout --branch gh-pages \
+            "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" site
+          git -C site sparse-checkout set --no-cone '/*' '!/api/' '!/fotos/' '!/propostas/'
+          git -C site checkout -q gh-pages
+
+      - name: Trocar a interface
+        working-directory: backend
+        run: python -m app.frontend_remoto ../site ../frontend/dist
+
+      - name: Publicar
+        working-directory: site
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          find . -name "*.map" -not -path "./.git/*" -delete
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then echo "Nada mudou."; exit 0; fi
+          git commit -q -m "Interface: ${GITHUB_SHA::10}"
+          git push -q origin gh-pages
+          gh api -X POST "repos/${{ github.repository }}/pages/builds" >/dev/null || true
+          echo "✓ interface publicada (${GITHUB_SHA::10})" >> "$GITHUB_STEP_SUMMARY"
