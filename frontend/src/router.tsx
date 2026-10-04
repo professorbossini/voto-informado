@@ -50,6 +50,7 @@ export const router = createBrowserRouter([
       // Pesquisas: pendente de conferência no PesqEle; rota só existe com VITE_ENABLE_PESQUISAS=true.
       ...(env.enablePesquisas ? [{ path: '/pesquisas', ...page(() => import('@/pages/election/PesquisasPage'), 'PesquisasPage') }] : []),
       { path: '/simulador', ...page(() => import('@/pages/election/SimuladorPage'), 'SimuladorPage') },
+      { path: '/resultados', ...page(() => import('@/pages/election/ResultadosPage'), 'ResultadosPage') },
       { path: '/segundo-turno', ...page(() => import('@/pages/election/SegundoTurnoPage'), 'SegundoTurnoPage') },
       { path: '/gastos', ...page(() => import('@/pages/election/GastosPage'), 'GastosPage') },
       { path: '/parlamentar/:id', ...page(() => import('@/pages/election/ParlamentarPage'), 'ParlamentarPage') },

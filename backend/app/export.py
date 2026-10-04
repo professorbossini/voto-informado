@@ -112,6 +112,7 @@ def write_pages(dest: Path, site_url: str) -> None:
         "comparar": "Comparar candidaturas",
         "cola": "Minha cola para a urna",
         "simulador": "Simulador de urna (educativo)",
+        "resultados": "Resultados ao vivo das Eleições 2026 (TSE)",
         "segundo-turno": "2º turno",
         "gastos": "Gastos de mandato (cota parlamentar)",
         "numeros": "A eleição em números",

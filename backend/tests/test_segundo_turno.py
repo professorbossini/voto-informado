@@ -33,6 +33,7 @@ def _presidentes(conn, n=3):
 
 def test_sem_apuracao_fase_pre_eleicao(mem):
     mem.execute("DELETE FROM resultados")
+    mem.execute("DELETE FROM resultados_status")
     assert q.fase(mem, hoje=date(2026, 10, 1)) == "pre-1turno"
     assert q.segundo_turno(mem)["disputas"] == []
 
@@ -40,6 +41,7 @@ def test_sem_apuracao_fase_pre_eleicao(mem):
 def test_finalistas_aparecem_quando_tse_publica(mem):
     a, b, c = _presidentes(mem)
     mem.execute("DELETE FROM resultados")
+    mem.execute("DELETE FROM resultados_status")
     mem.executemany(
         "INSERT INTO resultados VALUES (?,?,?,?,?,?,?,?,?,?,?)",
         [

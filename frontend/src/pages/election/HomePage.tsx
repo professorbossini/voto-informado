@@ -12,6 +12,8 @@ import {
   Select,
   Skeleton,
   Stack,
+  Tab,
+  Tabs,
   ToggleButton,
   ToggleButtonGroup,
   Tooltip,
@@ -27,8 +29,12 @@ import PollRounded from '@mui/icons-material/PollRounded';
 import ReceiptLongRounded from '@mui/icons-material/ReceiptLongRounded';
 import TouchAppRounded from '@mui/icons-material/TouchAppRounded';
 import InsightsRounded from '@mui/icons-material/InsightsRounded';
+import HowToVoteRounded from '@mui/icons-material/HowToVoteRounded';
+import BarChartRounded from '@mui/icons-material/BarChartRounded';
 import { env } from '@/config/env';
-import { Link as RouterLink, useNavigate } from 'react-router';
+import { Link as RouterLink, useNavigate, useSearchParams } from 'react-router';
+import { ApuracaoAoVivo } from '@/components/resultados/ApuracaoAoVivo';
+import { noiteDeApuracao, proximaVotacao } from '@/data/calendario';
 import { SERIES } from '@/components/charts/palette';
 import { CandidatePhoto } from '@/components/election/CandidatePhoto';
 import { CandidateSearch } from '@/components/election/CandidateSearch';
@@ -388,12 +394,63 @@ const VOTOS: { cargo: Cargo; label: string }[] = [
   { cargo: 'presidente', label: 'Presidência' },
 ];
 
+type Aba = 'resultados' | 'candidaturas';
+
+/**
+ * Início. Nas noites de apuração (dia de votação, a partir das 17h de Brasília) abre
+ * nos resultados ao vivo; nos outros dias, nas candidaturas. As abas trocam a qualquer
+ * momento e ficam no link (?aba=).
+ */
 export function HomePage() {
+  const [params, setParams] = useSearchParams();
+  const [padrao] = useState<Aba>(() => (noiteDeApuracao() ? 'resultados' : 'candidaturas'));
+  const p = params.get('aba');
+  const aba: Aba = p === 'resultados' || p === 'candidaturas' ? p : padrao;
+  const trocar = (v: Aba) =>
+    setParams(
+      (prev) => {
+        // Ao trocar de aba, o estado da apuração (cargo, UF, candidatura) é preservado no link.
+        const n = new URLSearchParams(prev);
+        n.set('aba', v);
+        return n;
+      },
+      { replace: true, preventScrollReset: true },
+    );
+
+  return (
+    <Stack spacing={{ xs: 2.5, md: 3 }}>
+      <Tabs
+        value={aba}
+        onChange={(_, v: Aba) => trocar(v)}
+        aria-label="O que ver"
+        variant="fullWidth"
+        sx={(theme) => ({
+          maxWidth: 560,
+          borderRadius: 999,
+          p: 0.5,
+          minHeight: 0,
+          bgcolor: 'background.subtle',
+          border: `1px solid ${theme.vars.palette.divider}`,
+          '& .MuiTabs-indicator': { height: '100%', borderRadius: 999, zIndex: 0, bgcolor: 'background.paper', boxShadow: `0 2px 8px -2px ${theme.alpha('#140E26', 0.25)}` },
+          '& .MuiTab-root': { zIndex: 1, minHeight: 44, borderRadius: 999, fontWeight: 800, textTransform: 'none', fontSize: '0.95rem' },
+        })}
+      >
+        <Tab value="resultados" icon={<BarChartRounded />} iconPosition="start" label="Resultados" />
+        <Tab value="candidaturas" icon={<HowToVoteRounded />} iconPosition="start" label="Candidaturas" />
+      </Tabs>
+      {aba === 'resultados' ? <ApuracaoAoVivo headingLevel="h1" /> : <Candidaturas />}
+    </Stack>
+  );
+}
+
+function Candidaturas() {
   const { meta } = useMeta();
   const navigate = useNavigate();
   const presidente = useAsync(() => data.presidente(), []);
-  const segundo = meta?.eleicao.fase === 'pre-2turno' || meta?.eleicao.fase === 'apuracao-2turno';
-  const alvo = new Date(`${segundo ? meta?.eleicao.data_2turno : '2026-10-04'}T08:00:00-03:00`);
+  // Contagem para a próxima abertura de urnas (1º turno; depois, o 2º turno onde houver).
+  const [prox] = useState(() => proximaVotacao());
+  const segundo = prox?.turno === 2;
+  const alvo = prox?.abertura ?? new Date(0);
   const cd = useCountdown(alvo);
   const naUrna = (presidente.data?.candidatos ?? []).filter((c) => c.na_urna);
   const names = Object.fromEntries((meta?.ufs ?? []).map((u) => [u.uf, u.nome]));
@@ -417,13 +474,19 @@ export function HomePage() {
             <Stack spacing={2} sx={{ alignItems: 'center', textAlign: 'center' }}>
               <Box>
                 <Typography variant="overline" color="primary">
-                  {segundo ? `2º turno · ${dateLong(meta!.eleicao.data_2turno)}` : 'Eleições 2026 · 1º turno em 4 de outubro'}
+                  {!prox ? 'Eleições 2026 · votação encerrada' : segundo ? `2º turno · ${dateLong(prox.data)}` : 'Eleições 2026 · 1º turno em 4 de outubro'}
                 </Typography>
                 <Typography variant="subtitle2" color="text.secondary">
-                  {cd.done ? 'A votação já começou ou terminou' : 'Faltam para a abertura das urnas (8h de Brasília)'}
+                  {!prox
+                    ? 'Veja os resultados oficiais na aba Resultados'
+                    : cd.done
+                      ? 'Votação em andamento, até as 17h de Brasília'
+                      : segundo
+                        ? 'Faltam para a abertura das urnas onde houver 2º turno (8h de Brasília)'
+                        : 'Faltam para a abertura das urnas (8h de Brasília)'}
                 </Typography>
               </Box>
-              {!cd.done && (
+              {prox && !cd.done && (
                 <Stack direction="row" spacing={{ xs: 0.75, sm: 1 }} role="timer" aria-label={`Faltam ${cd.dias} dias, ${cd.horas} horas e ${cd.minutos} minutos`}>
                   <CountUnit value={cd.dias} label={cd.dias === 1 ? 'dia' : 'dias'} />
                   <CountUnit value={cd.horas} label="horas" />

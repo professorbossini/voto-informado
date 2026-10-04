@@ -33,19 +33,38 @@ export interface BrazilMapProps {
   width?: number | string;
   /** Legacy prop from the tile version: tile size → map width ≈ size × 9. */
   size?: number;
+  /** Categorical fill per UF (CSS color), e.g. who leads there. Overrides `values`. */
+  fills?: Record<string, string>;
+  /** Custom accessible/hover text per UF. */
+  labels?: Record<string, string>;
+  /** Text under the map when nothing is hovered. */
+  hint?: string;
+  /** Hide the IBGE credit line (when the page cites it elsewhere). */
+  compact?: boolean;
+}
+
+/** White or ink label on top of a fill, by relative luminance. */
+function inkOn(hex: string): string {
+  const m = /^#([0-9a-f]{6})$/i.exec(hex);
+  if (!m) return '#fff';
+  const [r, g, b] = [0, 2, 4].map((i) => {
+    const c = parseInt(m[1].slice(i, i + 2), 16) / 255;
+    return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+  });
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b > 0.3 ? '#140E26' : '#fff';
 }
 
 /**
  * Map of Brazil drawn from the official IBGE state boundaries. Click (or Tab + Enter) a state to
  * select it. Every state has the same visual weight; color only encodes a value the user asked for.
  */
-export function BrazilMap({ selected, onSelect, values, format, names, width, size }: BrazilMapProps) {
+export function BrazilMap({ selected, onSelect, values, format, names, width, size, fills, labels, hint, compact }: BrazilMapProps) {
   const [hover, setHover] = useState<string | null>(null);
   const nums = values ? Object.values(values) : [];
   const min = nums.length ? Math.min(...nums) : 0;
   const max = nums.length ? Math.max(...nums) : 1;
   const step = (v: number) => Math.min(RAMP.length - 1, Math.floor(((v - min) / (max - min || 1)) * RAMP.length));
-  const label = (uf: string) => `${names?.[uf] ?? uf}${values?.[uf] != null && format ? `: ${format(values[uf])}` : ''}`;
+  const label = (uf: string) => labels?.[uf] ?? `${names?.[uf] ?? uf}${values?.[uf] != null && format ? `: ${format(values[uf])}` : ''}`;
   const active = hover ?? selected ?? null;
 
   return (
@@ -89,16 +108,17 @@ export function BrazilMap({ selected, onSelect, values, format, names, width, si
                   stroke: theme.vars.palette.background.paper,
                   transition: 'fill 150ms',
                   outline: 'none',
-                  fill:
-                    s != null
+                  fill: fills?.[uf]
+                    ? fills[uf]
+                    : s != null
                       ? RAMP[s]
                       : isSel
                         ? theme.vars.palette.primary.main
                         : hover === uf
                           ? theme.alpha(theme.vars.palette.primary.main, 0.35)
                           : theme.alpha(theme.vars.palette.primary.main, 0.13),
-                  ...(s != null && hover === uf && { filter: 'brightness(0.9)' }),
-                  ...(s != null && isSel && { stroke: theme.vars.palette.text.primary }),
+                  ...((s != null || fills?.[uf]) && hover === uf && { filter: 'brightness(0.88)' }),
+                  ...((s != null || fills?.[uf]) && isSel && { stroke: theme.vars.palette.text.primary, strokeWidth: 3 }),
                   '&:focus-visible': { stroke: theme.vars.palette.text.primary, strokeWidth: 2.5 },
                 })}
               >
@@ -111,7 +131,8 @@ export function BrazilMap({ selected, onSelect, values, format, names, width, si
           const callout = CALLOUT[uf];
           const v = values?.[uf];
           const s = v != null ? step(v) : null;
-          const onFill = selected === uf || (s != null && s >= 3);
+          const fill = fills?.[uf];
+          const onFill = !fill && (selected === uf || (s != null && s >= 3));
           const [lx, ly] = callout ?? NUDGE[uf] ?? [cx, cy];
           return (
             <g key={uf} pointerEvents="none">
@@ -126,7 +147,7 @@ export function BrazilMap({ selected, onSelect, values, format, names, width, si
                   fontSize: uf === 'DF' ? 0.8 : 1.15,
                   fontWeight: active === uf ? 800 : 700,
                   fontFamily: theme.typography.fontFamily,
-                  fill: !callout && onFill ? '#fff' : theme.vars.palette.text.primary,
+                  fill: !callout && fill ? inkOn(fill) : !callout && onFill ? '#fff' : theme.vars.palette.text.primary,
                   letterSpacing: '0.02em',
                 })}
               >
@@ -137,9 +158,9 @@ export function BrazilMap({ selected, onSelect, values, format, names, width, si
         })}
       </Box>
       <Typography variant="caption" color="text.secondary" sx={{ display: 'block', textAlign: 'center', minHeight: '1.4em', mt: 0.5 }} aria-live="polite">
-        {active ? label(active) : onSelect ? 'Toque ou clique em um estado' : ''}
+        {active ? label(active) : (hint ?? (onSelect ? 'Toque ou clique em um estado' : ''))}
       </Typography>
-      {values && format && (
+      {values && format && !fills && (
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1, mt: 0.5 }}>
           <Typography variant="caption" color="text.secondary">
             {format(min)}
@@ -154,9 +175,11 @@ export function BrazilMap({ selected, onSelect, values, format, names, width, si
           </Typography>
         </Box>
       )}
-      <Typography variant="caption" color="text.disabled" sx={{ display: 'block', textAlign: 'center', fontSize: '0.65rem', mt: 0.5 }}>
-        Contornos: malha oficial do IBGE
-      </Typography>
+      {!compact && (
+        <Typography variant="caption" color="text.disabled" sx={{ display: 'block', textAlign: 'center', fontSize: '0.65rem', mt: 0.5 }}>
+          Contornos: malha oficial do IBGE
+        </Typography>
+      )}
     </Box>
   );
 }

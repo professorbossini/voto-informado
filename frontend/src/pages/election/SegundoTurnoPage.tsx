@@ -1,16 +1,14 @@
 import {
-  Alert,
   Box,
   Button,
   Card,
   CardContent,
-  Grid,
-  LinearProgress,
   Skeleton,
   Stack,
   Typography,
 } from '@mui/material';
 import CompareArrowsRounded from '@mui/icons-material/CompareArrowsRounded';
+import BarChartRounded from '@mui/icons-material/BarChartRounded';
 import { Link as RouterLink } from 'react-router';
 import { BarList } from '@/components/charts/charts';
 import { CandidatePhoto } from '@/components/election/CandidatePhoto';
@@ -18,7 +16,7 @@ import { SourceNote } from '@/components/election/SourceNote';
 import { data } from '@/data/api';
 import { CARGO_LABEL, dateLong, money, moneyCompact, nomeProprio, NAO_INFORMADO, percent, variation } from '@/data/format';
 import { useMeta } from '@/data/MetaContext';
-import type { CandidatoDetalhe, Resultados } from '@/data/types';
+import type { CandidatoDetalhe } from '@/data/types';
 import { useAsync } from '@/hooks/useAsync';
 import { PageHeader } from '@/pages/PageHeader';
 
@@ -35,45 +33,9 @@ const LINHAS: { label: string; value: (c: CandidatoDetalhe) => string }[] = [
   { label: 'Candidaturas anteriores (histórico do TSE)', value: (c) => `${c.historico.length} (${c.historico.filter((h) => h.eleito).length} com vitória registrada)` },
 ];
 
-function Apuracao({ res }: { res: Resultados }) {
-  const t1 = res.disputas.filter((d) => d.turno === 1);
-  if (!t1.length) return null;
-  return (
-    <Stack spacing={2}>
-      <Typography variant="h4" component="h2">
-        Apuração oficial do 1º turno
-      </Typography>
-      <Grid container spacing={2}>
-        {t1.map((d) => (
-          <Grid key={`${d.uf}-${d.cargo}`} size={{ xs: 12, md: 6 }}>
-            <Card sx={{ height: '100%' }}>
-              <CardContent>
-                <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
-                  {CARGO_LABEL[d.cargo]} · {d.uf === 'BR' ? 'Brasil' : d.uf}
-                </Typography>
-                <Typography variant="caption" color="text.secondary">
-                  {d.pct_secoes != null ? `${d.pct_secoes.toLocaleString('pt-BR')}% das seções totalizadas` : ''} · atualizado em {d.atualizado}
-                </Typography>
-                <LinearProgress variant="determinate" value={d.pct_secoes ?? 0} sx={{ my: 1.5 }} />
-                <BarList
-                  data={d.candidatos.slice(0, 8).map((c) => ({ label: `${nomeProprio(c.nome_urna ?? c.nome)} (${c.partido ?? ''})`, value: c.pct ?? 0, display: `${(c.pct ?? 0).toLocaleString('pt-BR', { maximumFractionDigits: 2 })}%${c.situacao ? ` · ${c.situacao}` : ''}` }))}
-                  format={(v) => `${v}%`}
-                  max={100}
-                />
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
-      <SourceNote keys={res.fontes} note="percentuais sobre votos válidos, como publicados pelo TSE" />
-    </Stack>
-  );
-}
-
 export function SegundoTurnoPage() {
   const { meta } = useMeta();
   const st = useAsync(() => data.segundoTurno(), []);
-  const res = useAsync(() => data.resultados(), []);
   const data2 = meta ? dateLong(meta.eleicao.data_2turno) : '25 de outubro de 2026';
 
   return (
@@ -97,17 +59,26 @@ export function SegundoTurnoPage() {
           </CardContent>
         </Card>
 
-        {(st.loading || res.loading) && <Skeleton variant="rounded" height={240} />}
+        {st.loading && <Skeleton variant="rounded" height={240} />}
 
-        {res.data && res.data.disputas.length === 0 && (
-          <Alert severity="info">
-            A apuração ainda não começou. O TSE divulga os resultados após o encerramento da votação, às 17h (horário de
-            Brasília) de 4 de outubro. Assim que os arquivos oficiais forem publicados, os resultados e os finalistas
-            aparecem aqui.
-          </Alert>
-        )}
-
-        {res.data && <Apuracao res={res.data} />}
+        <Card sx={(theme) => ({ borderColor: 'primary.light', background: `linear-gradient(135deg, ${theme.alpha(theme.vars.palette.primary.main, 0.08)}, transparent 60%), ${theme.vars.palette.background.paper}` })}>
+          <CardContent sx={{ p: { xs: 2.5, md: 3 } }}>
+            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ alignItems: { sm: 'center' }, justifyContent: 'space-between' }}>
+              <Box>
+                <Typography variant="h5" component="h2">
+                  Apuração ao vivo, 1º e 2º turnos
+                </Typography>
+                <Typography color="text.secondary">
+                  Resultados lidos direto do TSE, com mapa por estado, todos os cargos e busca pela sua candidatura. A divulgação começa às 17h
+                  (Brasília) do dia da votação.
+                </Typography>
+              </Box>
+              <Button component={RouterLink} to="/resultados" variant="contained" endIcon={<BarChartRounded />} sx={{ flexShrink: 0 }}>
+                Ver resultados
+              </Button>
+            </Stack>
+          </CardContent>
+        </Card>
 
         {st.data && st.data.disputas.length > 0 && (
           <Stack spacing={3}>

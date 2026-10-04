@@ -8,12 +8,14 @@ import TouchAppRounded from '@mui/icons-material/TouchAppRounded';
 import InfoRounded from '@mui/icons-material/InfoRounded';
 import SyncAltRounded from '@mui/icons-material/SyncAltRounded';
 import PollRounded from '@mui/icons-material/PollRounded';
+import BarChartRounded from '@mui/icons-material/BarChartRounded';
 import { env } from '@/config/env';
 
 /** Main navigation. `mobile: true` items go to the bottom bar; the rest live in "Mais". */
 export const NAV_ITEMS = [
   { to: '/', label: 'Início', icon: HomeRounded, mobile: true },
   { to: '/eleicao', label: 'Candidatos', icon: HowToVoteRounded, mobile: true },
+  { to: '/resultados', label: 'Resultados', icon: BarChartRounded, mobile: false },
   { to: '/comparar', label: 'Comparar', icon: CompareArrowsRounded, mobile: true },
   { to: '/cola', label: 'Minha cola', short: 'Cola', icon: ListAltRounded, mobile: true },
   // Pesquisas: pendente (ver env.enablePesquisas).

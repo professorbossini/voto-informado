@@ -12,7 +12,7 @@ from fastapi.testclient import TestClient
 from app import queries as q
 from app.main import app
 from etl.common import DB_PATH
-from etl.resultados import _num, url_for
+from etl.resultados import _num, candidatos, url_for
 
 pytestmark = pytest.mark.skipif(not DB_PATH.exists(), reason="banco não gerado")
 
@@ -93,7 +93,20 @@ def test_resultados_parse():
     assert _num("48,43") == pytest.approx(48.43)
     assert _num("60345999") == 60345999
     assert _num("") is None
-    assert url_for("6257", "br", "presidente").endswith("/6257/dados-simplificados/br/br-c0001-e006257-r.json")
+    assert url_for("6257", "br", "presidente").endswith("/6257/dados/br/br-c0001-e006257-u.json")
+    assert url_for("6259", "df", "deputado-distrital").endswith("/6259/dados/df/df-c0008-e006259-u.json")
+
+
+def test_resultados_unificado_ordem_por_votos():
+    """O 'seq' do TSE repete a ordem nacional nos arquivos por UF; a posição vem dos votos."""
+    data = {"carg": [{"agr": [
+        {"par": [{"sg": "AA", "cand": [{"sqcand": "1", "n": "11", "nm": "A", "seq": "1", "vap": "100", "pvap": "30,0"}]}]},
+        {"par": [{"sg": "BB", "cand": [{"sqcand": "2", "n": "22", "nm": "B", "seq": "2", "vap": "250", "pvap": "70,0"}]}]},
+    ]}]}
+    cands = candidatos(data)
+    assert [c["_partido"] for c in cands] == ["AA", "BB"]
+    ordem = sorted(cands, key=lambda c: (-(_num(c.get("vap")) or 0), int(c.get("seq") or 0)))
+    assert ordem[0]["sqcand"] == "2"
 
 
 def test_export_paths_match_routes(client):

@@ -5,7 +5,7 @@ import { data } from '@/data/api';
 import { CARGO_LABEL, nomeProprio, normalize } from '@/data/format';
 import type { BuscaItem, Cargo } from '@/data/types';
 
-interface Option {
+export interface OpcaoBusca {
   sq: string;
   nomeUrna: string;
   nome: string;
@@ -28,14 +28,14 @@ export function CandidateSearch({
   sx,
   autoFocus,
 }: {
-  onPick: (sq: string, item: Option) => void;
+  onPick: (sq: string, item: OpcaoBusca) => void;
   placeholder?: string;
-  filter?: (item: Option) => boolean;
+  filter?: (item: OpcaoBusca) => boolean;
   size?: 'small' | 'medium';
   sx?: SxProps<Theme>;
   autoFocus?: boolean;
 }) {
-  const [items, setItems] = useState<Option[] | null>(null);
+  const [items, setItems] = useState<OpcaoBusca[] | null>(null);
   const [loading, setLoading] = useState(false);
   const [input, setInput] = useState('');
 
@@ -59,7 +59,7 @@ export function CandidateSearch({
     const q = normalize(input);
     if (!items || q.length < 2) return [];
     const terms = q.split(/\s+/);
-    const out: Option[] = [];
+    const out: OpcaoBusca[] = [];
     for (const it of items) {
       if (filter && !filter(it)) continue;
       if (terms.every((t) => it.key.includes(t))) {
@@ -71,7 +71,7 @@ export function CandidateSearch({
   }, [items, input, filter]);
 
   return (
-    <Autocomplete<Option>
+    <Autocomplete<OpcaoBusca>
       sx={sx}
       size={size}
       options={options}

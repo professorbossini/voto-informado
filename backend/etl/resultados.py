@@ -1,9 +1,12 @@
 """Apuração oficial do TSE (1º e 2º turnos de 2026).
 
-Lê os arquivos "dados simplificados" publicados pelo TSE em
-https://resultados.tse.jus.br/oficial/ele2026/<eleicao>/dados-simplificados/<uf>/...
-Antes da eleição esses arquivos não existem (HTTP 404): o módulo apenas registra
-isso e o site continua mostrando "apuração ainda não iniciada".
+Lê o arquivo "unificado" publicado pelo TSE (o mesmo que o app Resultados usa) em
+https://resultados.tse.jus.br/oficial/ele2026/<eleicao>/dados/<uf>/<uf>-c<cargo>-e<eleicao>-u.json
+(em 2026 o TSE deixou de publicar os antigos "dados-simplificados"). Antes da eleição
+esses arquivos não existem (HTTP 404): o módulo apenas registra isso.
+
+O site mostra a apuração ao vivo lendo esses mesmos arquivos direto no navegador
+(frontend/src/data/apuracao.ts); esta cópia no banco serve à página de 2º turno.
 
 Uso: .venv/bin/python -m etl.resultados
 """
@@ -50,7 +53,18 @@ def _targets():
 
 
 def url_for(eleicao: str, uf: str, cargo: str) -> str:
-    return f"{BASE}/{eleicao}/dados-simplificados/{uf}/{uf}-c{CARGO_CODIGO[cargo]:04d}-e{int(eleicao):06d}-r.json"
+    return f"{BASE}/{eleicao}/dados/{uf}/{uf}-c{CARGO_CODIGO[cargo]:04d}-e{int(eleicao):06d}-u.json"
+
+
+def candidatos(data: dict) -> list[dict]:
+    """Candidaturas do arquivo unificado (agremiação → partido → candidato), com a sigla do partido."""
+    out = []
+    for carg in data.get("carg", [])[:1]:
+        for agr in carg.get("agr", []):
+            for par in agr.get("par", []):
+                for c in par.get("cand", []):
+                    out.append({**c, "_partido": par.get("sg")})
+    return out
 
 
 def _num(value) -> float | None:
@@ -96,29 +110,38 @@ def run() -> None:
     with ThreadPoolExecutor(max_workers=8) as pool:
         results = list(pool.map(lambda t: fetch(session, t), list(_targets())))
 
-    found = 0
+    found = parciais = 0
     for (turno, _eleicao, uf, cargo), url, data in results:
         if not data:
+            continue
+        # Só grava a totalização FINAL: o site estático é publicado de tempos em tempos, e um
+        # parcial gravado aqui ficaria congelado nas páginas de perfil. O parcial é mostrado
+        # ao vivo pelo navegador, direto do TSE.
+        if str(data.get("tf", "")).lower() != "s":
+            parciais += 1
             continue
         found += 1
         uf_up = uf.upper()
         conn.execute("DELETE FROM resultados WHERE turno=? AND uf=? AND cargo=?", (turno, uf_up, cargo))
         rows = []
-        for c in data.get("cand", []):
+        # Posição pelos votos: o "seq" do TSE repete a ordem nacional nos arquivos por UF.
+        cands = sorted(candidatos(data), key=lambda c: (-(_num(c.get("vap")) or 0), int(c.get("seq") or 0)))
+        for pos, c in enumerate(cands, 1):
             situacao = c.get("st") or None
             rows.append(
                 (
                     turno, uf_up, cargo, str(c.get("sqcand") or ""), str(c.get("n") or ""), c.get("nm"),
                     _num(c.get("vap")), _num(c.get("pvap")), situacao,
                     1 if str(c.get("e", "")).lower() == "s" or (situacao or "").lower().startswith("eleito") else 0,
-                    int(c.get("seq") or 0),
+                    pos,
                 )
             )
         conn.executemany("INSERT INTO resultados VALUES (?,?,?,?,?,?,?,?,?,?,?)", rows)
+        # dg/hg: horário de Brasília (dt/ht vêm no fuso local de cada UF)
         atualizado = f"{data.get('dg', '')} {data.get('hg', '')}".strip()
         conn.execute(
             "INSERT OR REPLACE INTO resultados_status VALUES (?,?,?,?,?,?)",
-            (turno, uf_up, cargo, _num(data.get("pst")), atualizado, url),
+            (turno, uf_up, cargo, _num((data.get("s") or {}).get("pst")), atualizado, url),
         )
 
     common.register_source(
@@ -128,13 +151,14 @@ def run() -> None:
         orgao="Tribunal Superior Eleitoral (TSE) · Divulgação de Resultados",
         url=f"{BASE}/",
         pagina="https://resultados.tse.jus.br/",
-        descricao="Votos por candidato publicados pelo TSE durante e após a apuração (arquivos 'dados simplificados').",
+        descricao="Votos por candidato publicados pelo TSE durante e após a apuração (arquivo unificado de divulgação).",
     )
     common.set_meta(conn, "resultados_consultado_em", datetime.now().astimezone().isoformat(timespec="seconds"))
     common.set_meta(conn, "resultados_arquivos", str(found))
+    common.set_meta(conn, "resultados_parciais", str(parciais))
     conn.commit()
     conn.close()
-    print(f"resultados: {found} arquivos publicados encontrados")
+    print(f"resultados: {found} arquivos com totalização final gravados; {parciais} ainda parciais (ignorados)")
 
 
 if __name__ == "__main__":

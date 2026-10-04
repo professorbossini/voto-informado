@@ -10,7 +10,8 @@ deputados federais e senadores. Não produz opinião, não exibe pesquisas e nã
 
 | Página | Rota | Conteúdo |
 |---|---|---|
-| Início | `/` | Contagem regressiva, seletor de estado, presidenciáveis, ordem dos votos na urna |
+| Início | `/` | Abas **Resultados** e **Candidaturas**. Nas noites de apuração (dia de votação, das 17h de Brasília à madrugada) abre em Resultados; nos outros dias, em Candidaturas (contagem regressiva, presidenciáveis, mapa) |
+| Resultados | `/resultados` | Apuração ao vivo do TSE: mapa interativo por estado, 1º e 2º turnos, Presidente (padrão), Governador, Senado e deputados, UF do eleitor pela localização, busca por nome ou número e candidaturas "acompanhadas" |
 | Candidatos | `/eleicao/:uf/:cargo` | Presidente, governador, Senado e deputados de todas as UFs, com filtros |
 | Perfil | `/candidato/:sq` | Perfil, situação do registro, patrimônio (2026 × 2022), campanha, trajetória, mandato, plano de governo |
 | Comparar | `/comparar` | Até 4 candidaturas lado a lado (link compartilhável `?c=sq1,sq2`) |
@@ -39,7 +40,7 @@ backend/   Python: ETL (TSE + Câmara + Senado) → SQLite → API FastAPI somen
   etl/tse.py            candidaturas, bens, histórico, redes, vagas, prestação de contas, fotos, planos
   etl/parlamentares.py  cota parlamentar da Câmara e do Senado (2023–2026)
   etl/derivados.py      vínculo parlamentar↔candidatura, bancadas, fontes e avisos
-  etl/resultados.py     apuração oficial (resultados.tse.jus.br), 1º e 2º turnos
+  etl/resultados.py     apuração oficial (resultados.tse.jus.br), só totalização final (para o 2º turno e os perfis)
   app/queries.py        formato público da API (uma função por endpoint)
   app/main.py           FastAPI (GET /api/*.json, /fotos, /propostas)
   app/export.py         grava a mesma API como arquivos estáticos
@@ -60,7 +61,21 @@ make dev       # API em :8077 + site em http://localhost:5173
 make testes    # pytest (privacidade, fontes, ordem, 2º turno) + typecheck + vitest
 ```
 
-No dia da eleição, `make apuracao` consulta o feed oficial do TSE a cada 5 minutos.
+### Apuração ao vivo
+
+A apuração **não depende de republicar o site**: o navegador lê o arquivo oficial do TSE
+(`resultados.tse.jus.br/oficial/ele2026/<eleição>/dados/<uf>/<uf>-c<cargo>-e<eleição>-u.json`, o mesmo que o
+app Resultados do TSE usa; CORS liberado) a cada minuto (`frontend/src/data/apuracao.ts`). Códigos: 6257/6259
+(1º turno, federal/estadual), 6258/6260 (2º turno). O calendário (17h de Brasília) fica em
+`frontend/src/data/calendario.ts`.
+
+- A UF do eleitor vem da geolocalização do navegador, convertida em UF **no aparelho** com a malha do IBGE
+  (`frontend/src/data/localizacao.ts`). Nada é enviado; só a sigla fica no `localStorage`.
+- A posição de cada candidatura vem dos votos: o campo `seq` do TSE repete a ordem nacional nos arquivos por UF.
+- O horário exibido é `dg/hg` (Brasília); `dt/ht` vêm no fuso local de cada UF.
+
+Depois da totalização final, `make apuracao` grava o resultado no banco (só arquivos com `tf = s`) para a
+página de 2º turno e os perfis; aí `make publicar`.
 
 ## Publicando como site estático
 
