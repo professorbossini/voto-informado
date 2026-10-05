@@ -156,3 +156,21 @@ def test_fotos_copiadas_para_o_site_e_servidor_fora_do_ar_nao_trava(tmp_path, mo
     assert all(m["foto"].startswith("https://www.camara.leg.br/") for m in casas["camara"]["membros"])
     assert sum("camara" in u for u in chamadas) < 15
 
+
+
+def test_logo_do_site_do_partido_tem_prioridade(site, monkeypatch, tmp_path):
+    pasta = tmp_path / "logos"
+    pasta.mkdir()
+    (pasta / "mdb.png").write_bytes(b"\x89PNG" + b"0" * 200)
+    (pasta / "fontes.json").write_text(
+        json.dumps([{"sigla": "MDB", "arquivo": "mdb.png", "site_oficial": "https://mdb.org.br/", "fundo": "#2b2b2b"}, {"sigla": "PL", "arquivo": None}]),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(P, "LOGOS_CURADOS", pasta)
+    _fontes(monkeypatch)
+    P.montar(site)
+    d = json.loads((site / "api" / "plenario.json").read_text(encoding="utf-8"))
+    mdb = d["partidos"]["MDB"]
+    assert mdb["logo"] == "plenario/logos/mdb-partido.png"
+    assert (site / "api" / mdb["logo"]).read_bytes().startswith(b"\x89PNG")
+    assert (mdb["fundo"], mdb["fonte_logo"]) == ("#2b2b2b", "https://mdb.org.br/")

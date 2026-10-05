@@ -66,7 +66,7 @@ function quando(iso: string | null) {
   return Number.isNaN(d.getTime()) ? null : d.toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short', timeZone: 'America/Sao_Paulo' });
 }
 
-/** Símbolo do partido (arquivo oficial publicado pela Câmara), ou a sigla quando não há. */
+/** Símbolo do partido (do site oficial do partido ou da Câmara), ou a sigla quando não há. */
 function Simbolo({ sigla, partidos, size = 36 }: { sigla: string; partidos: Plenario['partidos']; size?: number }) {
   const logo = partidos[sigla]?.logo;
   return (
@@ -76,7 +76,7 @@ function Simbolo({ sigla, partidos, size = 36 }: { sigla: string; partidos: Plen
         height: size,
         flexShrink: 0,
         borderRadius: '50%',
-        bgcolor: '#fff',
+        bgcolor: partidos[sigla]?.fundo ?? '#fff',
         border: `1px solid ${theme.vars.palette.divider}`,
         display: 'grid',
         placeItems: 'center',
@@ -230,7 +230,7 @@ function Desenho({
           const logo = partidos[s]?.logo;
           return (
             <pattern key={s} id={idPadrao(s)} patternContentUnits="objectBoundingBox" width="1" height="1">
-              <rect width="1" height="1" fill={logo ? '#fff' : cinza(s)} />
+              <rect width="1" height="1" fill={logo ? (partidos[s]?.fundo ?? '#fff') : cinza(s)} />
               {logo && <image href={dataFileUrl(logo)} x="0.12" y="0.12" width="0.76" height="0.76" preserveAspectRatio="xMidYMid meet" />}
             </pattern>
           );

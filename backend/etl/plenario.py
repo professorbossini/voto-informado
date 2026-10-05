@@ -225,6 +225,20 @@ def _reserva(api: Path, casa: str) -> dict | None:
     return {"legislatura": None, "membros": sorted(membros, key=lambda m: m["nome"]), "presidente": None, "coletado_em": None} if membros else None
 
 
+LOGOS_CURADOS = Path(__file__).resolve().parent.parent / "curadoria" / "logos_partidos"
+
+
+def _logos_curados() -> dict[str, dict]:
+    """sigla -> {arquivo, fundo, site} dos logos tirados do site oficial de cada partido
+    (curadoria/logos_partidos/fontes.json; site oficial conferido no cadastro do TSE)."""
+    fontes = _ler(LOGOS_CURADOS / "fontes.json") or []
+    return {
+        f["sigla"]: {"arquivo": LOGOS_CURADOS / f["arquivo"], "fundo": f.get("fundo"), "site": f.get("site_oficial")}
+        for f in fontes
+        if f.get("arquivo") and (LOGOS_CURADOS / f["arquivo"]).exists()
+    }
+
+
 def _baixar_logo(url: str, destino_sem_ext: Path) -> Path | None:
     try:
         r = requests.get(url, headers={"User-Agent": HEADERS["User-Agent"]}, timeout=(10, 60))
@@ -314,12 +328,24 @@ def montar(site: Path) -> bool:
     siglas = sorted({m["partido"] for c in casas.values() for m in c["membros"]} | {c["presidente"]["partido"] for c in casas.values() if c.get("presidente")})
     # Nome do partido no TSE (já publicado pelo site), se a Câmara não informar.
     tse = {p["partido"].upper(): p.get("partido_nome") for p in (_ler(api / "partidos.json") or [])}
+    curados = _logos_curados()
     for sigla in siglas:
         atual = partidos.get(sigla, {"nome": None, "logo": None})
         atual["nome"] = atual.get("nome") or tse.get(sigla.upper())
         info = oficiais.get(sigla)
         if info:
             atual["nome"] = info["nome"] or atual.get("nome")
+        # 1º: logo do site oficial do partido (curadoria); 2º: arquivo oficial da Câmara.
+        if sigla in curados:
+            c = curados[sigla]
+            destino = api / "plenario" / "logos" / f"{slug(sigla)}-partido{c['arquivo'].suffix}"
+            destino.parent.mkdir(parents=True, exist_ok=True)
+            if not destino.exists() or destino.read_bytes() != c["arquivo"].read_bytes():
+                destino.write_bytes(c["arquivo"].read_bytes())
+            atual["logo"] = str(destino.relative_to(api)).replace(os.sep, "/")
+            atual["fundo"] = c["fundo"]
+            atual["fonte_logo"] = c["site"]
+        elif info:
             if info["url_logo"]:
                 p = _baixar_logo(info["url_logo"], api / "plenario" / "logos" / slug(sigla))
                 if p:

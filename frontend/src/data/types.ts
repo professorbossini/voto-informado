@@ -361,5 +361,6 @@ export interface Plenario {
   camara: CasaPlenario | null;
   senado: CasaPlenario | null;
   /** Sigla → nome e símbolo oficial (caminho dentro de api/). */
-  partidos: Record<string, { nome: string | null; logo: string | null }>;
+  /** fundo: cor atrás do logo (logos brancos); fonte_logo: site oficial de onde veio o logo. */
+  partidos: Record<string, { nome: string | null; logo: string | null; fundo?: string | null; fonte_logo?: string | null }>;
 }

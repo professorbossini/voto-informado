@@ -1,0 +1,180 @@
+[
+  {
+    "sigla": "AVANTE",
+    "arquivo": "avante.png",
+    "site_oficial": "https://avante70.org.br/",
+    "url_logo": "https://avante70.org.br/wp-content/uploads/2023/07/avante-70-logo-principal.png",
+    "coletado_em": "2026-10-04T23:23:11-03:00",
+    "observacao": "Site oficial conforme cadastro do TSE (www.avante70.org.br). Versão em resolução original do logo do cabeçalho (o cabeçalho usa avante-70-logo-principal-short.png, 400x186). Atenção: avante.org.br é de outra entidade (organização de educação), não do partido. Reduzido para 512x238 (original 1757x817) para exibição no site."
+  },
+  {
+    "sigla": "CIDADANIA",
+    "arquivo": "cidadania.png",
+    "site_oficial": "https://rede23.org/",
+    "url_logo": "https://rede23.org/wp-content/uploads/2026/02/logo-cidadania.png",
+    "coletado_em": "2026-10-04T23:23:11-03:00",
+    "observacao": "O TSE indica https://rede23.org/ como endereço do partido (cidadania23.org.br redireciona para lá). 'Rede 23' é o espaço digital do Cidadania; o logo do cabeçalho é o da plataforma Rede23, por isso foi usado o logo do partido exibido na página de filiação (https://rede23.org/filiacaoonline/). Reduzido para 512x98 (original 1280x245) para exibição no site."
+  },
+  {
+    "sigla": "DC",
+    "arquivo": "dc.png",
+    "site_oficial": "https://www.democraciacrista.org.br/",
+    "url_logo": "https://www.democraciacrista.org.br/wp-content/themes/dcjovem2026/assets/logo-azul-slogan.png",
+    "coletado_em": "2026-10-04T23:20:20-03:00",
+    "observacao": "Logo do cabeçalho (também og:image). Inclui o slogan 'Fé no Brasil!'; o site não oferece versão sem slogan (há só um ícone 'DC' 180x180). Reduzido para 512x313 (original 2824x1728) para exibição no site."
+  },
+  {
+    "sigla": "MDB",
+    "arquivo": "mdb.png",
+    "site_oficial": "https://www.mdb.org.br/",
+    "url_logo": "https://www.mdb.org.br/wp-content/uploads/2024/03/logo-mdb-1.png",
+    "coletado_em": "2026-10-04T23:20:21-03:00",
+    "observacao": "Original em alta resolução do logo usado no cabeçalho (logo-mdb-1024x734.png). Reduzido para 512x367 (original 3500x2508) para exibição no site."
+  },
+  {
+    "sigla": "MISSÃO",
+    "arquivo": "missao.svg",
+    "site_oficial": "https://missao.org.br/",
+    "url_logo": "https://framerusercontent.com/images/K5kHScSNSRSu3QX9zBzxfyjmh4.svg",
+    "coletado_em": "2026-10-04T23:20:21-03:00",
+    "observacao": "Site oficial conforme TSE (https://missao.org.br). O site é hospedado no Framer e serve os arquivos pelo CDN framerusercontent.com; este é o logotipo 'missão' do cabeçalho/rodapé. ATENÇÃO: o desenho é todo branco (fill #FFF) sobre fundo transparente; exibir sobre fundo escuro. Logo branco: exibido sobre fundo escuro neutro.",
+    "fundo": "#2b2b2b"
+  },
+  {
+    "sigla": "NOVO",
+    "arquivo": "novo.png",
+    "site_oficial": "https://novo.org.br/",
+    "url_logo": "https://novo.org.br/wp-content/uploads/2024/03/logo.webp",
+    "coletado_em": "2026-10-04T23:20:22-03:00",
+    "observacao": "Original do logo do cabeçalho (logo-300x66.webp). Na coleta, a home redirecionava para https://novo.org.br/candidatos-2026/. Reduzido para 512x113 (original 1294x286) para exibição no site."
+  },
+  {
+    "sigla": "PCdoB",
+    "arquivo": "pcdob.png",
+    "site_oficial": "https://pcdob.org.br/",
+    "url_logo": "https://pcdob.org.br/wp-content/uploads/2022/08/logo-pcdob-partido-comunista-do-brasil.jpg",
+    "coletado_em": "2026-10-04T23:23:15-03:00",
+    "observacao": "og:image da home: logo sobre faixa vermelha (JPG, sem transparência). O logo do cabeçalho (cropped-marca_completa_h-versao-com-numero-1-removebg-preview.png) tem só 219x79 e é claro sobre transparente. Reduzido para 512x215 (original 1200x504) para exibição no site."
+  },
+  {
+    "sigla": "PDT",
+    "arquivo": "pdt.png",
+    "site_oficial": "https://pdt.org.br/",
+    "url_logo": "https://pdt.org.br/wp-content/uploads/2026/05/Logomarca-scaled.png",
+    "coletado_em": "2026-10-04T23:23:12-03:00",
+    "observacao": "Logomarca completa (símbolo + PDT 12) da biblioteca de mídia do site oficial. O cabeçalho da home usa só o símbolo (https://pdt.org.br/wp-content/uploads/2026/04/nova_logo_PDT.png, 191x168). Reduzido para 512x159 (original 2560x794) para exibição no site."
+  },
+  {
+    "sigla": "PL",
+    "arquivo": null,
+    "site_oficial": "https://partidoliberal.org.br/",
+    "url_logo": null,
+    "coletado_em": "2026-10-04T23:27:42-03:00",
+    "observacao": "O endereço oficial informado ao TSE (partidoliberal.org.br, também com www) exibia apenas a tela de instalação do WordPress (/wp-admin/install.php) na coleta; não há logo publicado. Nenhum outro domínio oficial foi encontrado. Não foi usado logo de terceiros."
+  },
+  {
+    "sigla": "PODE",
+    "arquivo": "pode.png",
+    "site_oficial": "https://podemos.org.br/",
+    "url_logo": "https://podemos.org.br/__l5e/assets-v1/58d38adc-fd17-4eeb-b20e-0596b3a0b495/podemos-logo.png",
+    "coletado_em": "2026-10-04T23:20:23-03:00",
+    "observacao": "Logo do cabeçalho (alt 'Podemos 20 — Mudar o Brasil'). Reduzido para 512x223 (original 3708x1615) para exibição no site."
+  },
+  {
+    "sigla": "PP",
+    "arquivo": "pp.png",
+    "site_oficial": "https://progressistas.org.br/",
+    "url_logo": "https://progressistas.org.br/website2020/wp-content/uploads/2026/03/Logo-Progressistas-novo-slogan-01.png",
+    "coletado_em": "2026-10-04T23:24:16-03:00",
+    "observacao": "pp.org.br (endereço no TSE) redireciona para progressistas.org.br. Versão colorida atual (2026) do logo exibido na home; inclui o slogan 'Brasil do futuro é Brasil mais seguro'. Existe versão sem slogan de 2024: https://progressistas.org.br/website2020/wp-content/uploads/2024/07/LOGO-PROGRESSISTAS-AZUL.png. Reduzido para 512x315 (original 1010x621) para exibição no site."
+  },
+  {
+    "sigla": "PRD",
+    "arquivo": "prd.svg",
+    "site_oficial": "https://prd25.org.br/",
+    "url_logo": "https://prd25.org.br/wp-content/uploads/2024/05/LOGO-PRD-Color.svg",
+    "coletado_em": "2026-10-04T23:20:24-03:00",
+    "observacao": "A home referencia o mesmo arquivo em https://25prd.org.br/wp-content/uploads/2024/05/LOGO-PRD-Color.svg (conteúdo idêntico, mesmo MD5). SVG sem script; contém imagens PNG embutidas em base64 (data URI)."
+  },
+  {
+    "sigla": "PSB",
+    "arquivo": null,
+    "site_oficial": "https://psb40.org.br/",
+    "url_logo": null,
+    "coletado_em": "2026-10-04T23:27:42-03:00",
+    "observacao": "O site (endereço do TSE: www.psb40.org.br) é protegido por desafio anti-robô do Cloudflare e recusa download automatizado (HTTP 403). Logo do cabeçalho identificado no navegador: https://psb40.org.br/wp-content/uploads/2023/03/logo_psb-2.png (108x61). Pode ser baixado manualmente num navegador."
+  },
+  {
+    "sigla": "PSD",
+    "arquivo": "psd.png",
+    "site_oficial": "https://psd.org.br/",
+    "url_logo": "https://psd.org.br/wp-content/themes/psd_2022/assets/images/logotipo-partido-social-democratico-800.png",
+    "coletado_em": "2026-10-04T23:20:24-03:00",
+    "observacao": "Logo do cabeçalho na maior resolução do srcset. Reduzido para 512x243 (original 800x379) para exibição no site."
+  },
+  {
+    "sigla": "PSDB",
+    "arquivo": "psdb.png",
+    "site_oficial": "https://www.psdb.org.br/",
+    "url_logo": "https://www.psdb.org.br/wp-content/uploads/2024/06/LOGO_PSDB.png",
+    "coletado_em": "2026-10-04T23:26:42-03:00",
+    "observacao": "Logo colorido completo (tucano + PSDB) da biblioteca de mídia do site oficial. O cabeçalho usa versão branca de 200x44 (dist/images/logo-psdb.png) e o ícone do site é só o tucano (cropped-favicon_site.png, 512x512). Reduzido para 512x304 (original 3116x1850) para exibição no site."
+  },
+  {
+    "sigla": "PSOL",
+    "arquivo": "psol.png",
+    "site_oficial": "https://psol50.org.br/",
+    "url_logo": "https://psol50.org.br/wp-content/uploads/2021/06/PSOL_logo-header@4x.png",
+    "coletado_em": "2026-10-04T23:23:12-03:00",
+    "observacao": "Versão @4x do logo do cabeçalho (a home usa PSOL_logo-header.png / @3x). Reduzido para 512x102 (original 706x140) para exibição no site."
+  },
+  {
+    "sigla": "PT",
+    "arquivo": "pt.svg",
+    "site_oficial": "https://pt.org.br/",
+    "url_logo": "https://pt.org.br/wp-content/themes/pt_2026/assets/images/logo-pt-red.svg",
+    "coletado_em": "2026-10-04T23:24:52-03:00",
+    "observacao": "Logo do cabeçalho (estrela do PT). O site bloqueia curl (GoCache 'Acesso Bloqueado'); arquivo obtido com Chrome headless (--dump-dom), que serializa o SVG; conferido visualmente e sem script."
+  },
+  {
+    "sigla": "PV",
+    "arquivo": null,
+    "site_oficial": "https://pv.org.br/",
+    "url_logo": null,
+    "coletado_em": "2026-10-04T23:27:42-03:00",
+    "observacao": "O site (endereço do TSE: www.pv.org.br) é protegido por desafio anti-robô do Cloudflare e recusa download automatizado (HTTP 403). Logo do cabeçalho identificado no navegador: https://pv.org.br/wp-content/uploads/2022/07/logo-v2-1.png (393x97, 7711 bytes, SHA-256 06c6c00ffd4f3c97d18d46720a9cdd5bad57418c75f9b3ac37749cea98f5068d). Pode ser baixado manualmente num navegador."
+  },
+  {
+    "sigla": "REDE",
+    "arquivo": "rede.svg",
+    "site_oficial": "https://redesustentabilidade.org.br/",
+    "url_logo": "https://redesustentabilidade.org.br/wp-content/uploads/2020/04/Ativo-1Header-SVG-Logo.svg",
+    "coletado_em": "2026-10-04T23:20:25-03:00",
+    "observacao": "Logo do cabeçalho (símbolo + REDE 18 Sustentabilidade)."
+  },
+  {
+    "sigla": "REPUBLICANOS",
+    "arquivo": "republicanos.webp",
+    "site_oficial": "https://republicanos10.org.br/",
+    "url_logo": "https://republicanos10.org.br/img/logo-claro.webp",
+    "coletado_em": "2026-10-04T23:20:25-03:00",
+    "observacao": "Logo do cabeçalho, versão para tema claro (há também /img/logo-escuro.webp, branca). Maior versão disponível na home: 318x110."
+  },
+  {
+    "sigla": "SOLIDARIEDADE",
+    "arquivo": "solidariedade.svg",
+    "site_oficial": "https://solidariedade.org.br/",
+    "url_logo": "https://solidariedade.org.br/media/2021/05/solidariedade-branco.svg",
+    "coletado_em": "2026-10-04T23:23:25-03:00",
+    "observacao": "Única versão vetorial no site. ATENÇÃO: desenho todo branco sobre fundo transparente; exibir sobre fundo escuro. A versão colorida do cabeçalho é pequena (https://solidariedade.org.br/media/2024/02/logo.png, 108x74). Logo branco: exibido sobre fundo escuro neutro.",
+    "fundo": "#2b2b2b"
+  },
+  {
+    "sigla": "UNIÃO",
+    "arquivo": "uniao.png",
+    "site_oficial": "https://uniaobrasil.org.br/",
+    "url_logo": "https://uniaobrasil.org.br/wp-content/uploads/2024/08/Grupo-5.png",
+    "coletado_em": "2026-10-04T23:20:26-03:00",
+    "observacao": "Logo colorido do cabeçalho (wordmark horizontal, 316x41). As outras versões do site são brancas (logo-rodape.png, 2025/05/LOGO.png) ou recortes/fotos."
+  }
+]
