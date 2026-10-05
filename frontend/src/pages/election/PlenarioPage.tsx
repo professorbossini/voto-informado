@@ -31,12 +31,16 @@ import { slugPartido } from '@/components/partidos/partidos';
 import { useUfUsuario } from '@/components/resultados/hooks';
 import { nomeProprio } from '@/data/format';
 import HighlightAltRounded from '@mui/icons-material/HighlightAltRounded';
+import FaceRounded from '@mui/icons-material/FaceRounded';
+import FlagRounded from '@mui/icons-material/FlagRounded';
+import { useLocalState } from '@/data/localStore';
 import { data, dataFileUrl } from '@/data/api';
 import type { CasaPlenario, MembroPlenario, Plenario } from '@/data/types';
 import { useAsync } from '@/hooks/useAsync';
 import { PageHeader } from '@/pages/PageHeader';
 
 type CasaKey = 'camara' | 'senado' | 'assembleia' | 'municipal';
+type ModoCadeira = 'rosto' | 'partido';
 type CasaFederal = 'camara' | 'senado';
 interface InfoCasa {
   nome: string;
@@ -141,6 +145,7 @@ function Desenho({
   destaque,
   selecionado,
   onSelecionar,
+  modo = 'rosto',
 }: {
   casa: CasaPlenario;
   info: InfoCasa;
@@ -149,6 +154,8 @@ function Desenho({
   destaque: string | null;
   selecionado: MembroPlenario | null;
   onSelecionar: (m: MembroPlenario) => void;
+  /** "rosto": só a foto (sem foto, o partido); "partido": só o símbolo do partido. */
+  modo?: ModoCadeira;
 }) {
   const theme = useTheme();
   const navigate = useNavigate();
@@ -191,14 +198,11 @@ function Desenho({
   /** Foto oficial: cópia publicada pelo site (api/...) ou o endereço original da Casa. */
   const fotoDe = (m: MembroPlenario) => (m.foto ? (/^https?:\/\//.test(m.foto) ? m.foto : dataFileUrl(m.foto)) : null);
   /**
-   * Cadeira com foto: a foto recortada no círculo e, no canto inferior direito, um selo menor com o
-   * símbolo do partido sobrepondo a foto. Sem foto, o círculo mostra o partido (como antes).
+   * Cadeira: no modo "rosto", só a foto recortada no círculo (sem foto, o partido); no modo
+   * "partido", só o símbolo do partido.
    */
   const assento = (m: MembroPlenario, x: number, y: number, r: number, borda: string, larguraBorda: number, titulo: string) => {
-    const foto = fotoDe(m);
-    const rb = Math.max(r * 0.44, 4);
-    const bx = x + r * 0.74;
-    const by = y + r * 0.64;
+    const foto = modo === 'rosto' ? fotoDe(m) : null;
     return (
       <g>
         <circle cx={x} cy={y} r={r} fill={`url(#${idPadrao(m.partido)})`} />
@@ -208,16 +212,6 @@ function Desenho({
         <circle className="anel" cx={x} cy={y} r={r} fill="transparent" stroke={borda} strokeWidth={larguraBorda} style={{ cursor: 'pointer' }}>
           <title>{titulo}</title>
         </circle>
-        {foto && (
-          <g pointerEvents="none">
-            <circle cx={bx} cy={by} r={rb} fill={`url(#${idPadrao(m.partido)})`} stroke="#fff" strokeWidth={Math.max(rb * 0.16, 0.8)} />
-            {!temLogo(m.partido) && rb >= 9 && (
-              <text x={bx} y={by} textAnchor="middle" dominantBaseline="central" fontSize={rb * 0.62} fontWeight={800} fill="#222">
-                {m.partido === SEM_PARTIDO ? 'S/P' : m.partido.slice(0, 4)}
-              </text>
-            )}
-          </g>
-        )}
       </g>
     );
   };
@@ -290,7 +284,7 @@ function Desenho({
       {r0 >= 16 &&
         geo.assentos.map((a, i) => {
           const m = ocupantes[i];
-          if (!m || temLogo(m.partido) || fotoDe(m)) return null;
+          if (!m || temLogo(m.partido) || (modo === 'rosto' && fotoDe(m))) return null;
           return (
             <text key={`t-${m.id}`} x={a.x} y={a.y} textAnchor="middle" dominantBaseline="central" fontSize={a.r * 0.5} fontWeight={800} fill="#222" pointerEvents="none" opacity={destaque != null && destaque !== m.partido ? 0.2 : 1}>
               {m.partido === SEM_PARTIDO ? 'S/P' : m.partido.slice(0, 5)}
@@ -668,6 +662,8 @@ export function PlenarioPage() {
   const q = useAsync(() => data.plenario(), []);
   const [destaque, setDestaque] = useState<string | null>(null);
   const [selecionado, setSelecionado] = useState<MembroPlenario | null>(null);
+  // Rostos ou símbolos dos partidos nas cadeiras (fica salvo no aparelho).
+  const [modo, setModo] = useLocalState<ModoCadeira>('vi:plenario-modo', 'rosto');
 
   const info = CASAS[federal];
   const casa = q.data?.[federal] ?? null;
@@ -716,10 +712,20 @@ export function PlenarioPage() {
                 {info.nome}
               </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                {casa.membros.length} cadeiras, cada bolinha com o símbolo do partido de quem a ocupa. Partidos em ordem alfabética, da esquerda para a
-                direita: a posição no desenho não indica orientação política. Toque numa cadeira para abrir a página do parlamentar.
+                {casa.membros.length} cadeiras, cada bolinha com a foto ou o símbolo do partido de quem a ocupa (escolha abaixo). Partidos em ordem
+                alfabética, da esquerda para a direita: a posição no desenho não indica orientação política. Toque numa cadeira para abrir a página do
+                parlamentar.
               </Typography>
+              <ToggleButtonGroup exclusive size="small" value={modo} onChange={(_, v: ModoCadeira | null) => v && setModo(v)} aria-label="O que mostrar em cada cadeira" sx={{ mb: 2 }}>
+                <ToggleButton value="rosto" aria-label="Rostos dos parlamentares">
+                  <FaceRounded fontSize="small" sx={{ mr: 0.75 }} /> Rostos
+                </ToggleButton>
+                <ToggleButton value="partido" aria-label="Símbolos dos partidos">
+                  <FlagRounded fontSize="small" sx={{ mr: 0.75 }} /> Partidos
+                </ToggleButton>
+              </ToggleButtonGroup>
               <Desenho
+                modo={modo}
                 casa={casa}
                 info={info}
                 partidos={partidos}
