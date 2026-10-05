@@ -101,13 +101,28 @@ export function UrnaScreen({
   resolution,
   notice,
   fim = false,
+  mensagem,
 }: {
   office: Office | null;
   digits: string;
   resolution: Resolution;
   notice: string | null;
   fim?: boolean;
+  /** Tela sem votação (p.ex. estado sem 2º turno): título em destaque e explicação. */
+  mensagem?: { titulo: string; linhas: string[] };
 }) {
+  if (mensagem) {
+    return (
+      <Box sx={{ ...screenSx, alignItems: 'center', justifyContent: 'center', textAlign: 'center', p: { xs: 2, sm: 3 }, gap: 2 }} role="region" aria-label="Tela da urna">
+        <Typography sx={{ fontFamily: FONT, fontWeight: 700, fontSize: { xs: '1.5rem', sm: '2rem' }, lineHeight: 1.15 }}>{mensagem.titulo}</Typography>
+        {mensagem.linhas.map((l) => (
+          <Typography key={l} sx={{ fontFamily: FONT, fontSize: { xs: '0.875rem', sm: '1rem' }, lineHeight: 1.35 }}>
+            {l}
+          </Typography>
+        ))}
+      </Box>
+    );
+  }
   if (fim || !office) {
     return (
       <Box sx={{ ...screenSx, alignItems: 'center', justifyContent: 'center' }} role="region" aria-label="Tela da urna">

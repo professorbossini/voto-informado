@@ -204,6 +204,19 @@ function Resumo({ votos, ufNome, onRestart }: { votos: Voto[]; ufNome: string; o
 
 /* ------------------------------------------------------------------ machine */
 
+const corpoUrnaSx = {
+  bgcolor: '#d9d6cc',
+  backgroundImage: 'linear-gradient(180deg, #e4e1d8 0%, #cfccc2 100%)',
+  borderRadius: { xs: '16px', sm: '22px' },
+  p: { xs: 1.25, sm: 2.5 },
+  boxShadow: '0 1px 0 #fff inset, 0 18px 40px -18px rgba(0,0,0,0.45), 0 2px 6px rgba(0,0,0,0.15)',
+  border: '1px solid #b9b5aa',
+  display: 'grid',
+  gridTemplateColumns: { xs: 'minmax(0, 1fr)', md: 'minmax(0, 1.45fr) minmax(260px, 1fr)' },
+  gap: { xs: 1.5, sm: 2.5 },
+  maxWidth: 920,
+} as const;
+
 function Urna({
   ballot,
   offices,
@@ -413,20 +426,7 @@ function Urna({
         }}
       >
         {/* The machine body */}
-        <Box
-          sx={{
-            bgcolor: '#d9d6cc',
-            backgroundImage: 'linear-gradient(180deg, #e4e1d8 0%, #cfccc2 100%)',
-            borderRadius: { xs: '16px', sm: '22px' },
-            p: { xs: 1.25, sm: 2.5 },
-            boxShadow: '0 1px 0 #fff inset, 0 18px 40px -18px rgba(0,0,0,0.45), 0 2px 6px rgba(0,0,0,0.15)',
-            border: '1px solid #b9b5aa',
-            display: 'grid',
-            gridTemplateColumns: { xs: 'minmax(0, 1fr)', md: 'minmax(0, 1.45fr) minmax(260px, 1fr)' },
-            gap: { xs: 1.5, sm: 2.5 },
-            maxWidth: 920,
-          }}
-        >
+        <Box sx={corpoUrnaSx}>
           <UrnaScreen office={office} digits={digits} resolution={resolution} notice={notice} fim={done} />
           <UrnaKeypad onKey={press} pressed={pressed} disabled={done} />
         </Box>
@@ -463,12 +463,40 @@ function situacao2Turno(temFinalistas: boolean, ap1: Apuracao | null): { tipo: '
 }
 
 /**
- * Avisos do 2º turno: deixa claro quando um cargo NÃO tem 2º turno (decidido no 1º) e quando
- * o TSE ainda não confirmou. Sem nenhum cargo na urna, explica por que ela não aparece.
+ * Avisos acima da urna quando só um cargo tem 2º turno: diz se o outro NÃO tem 2º turno
+ * (decidido no 1º) ou se o TSE ainda não confirmou.
  */
-function Avisos2Turno({ uf, nomeUf, temGov, temPres, vazia }: { uf: string; nomeUf: string; temGov: boolean; temPres: boolean; vazia: boolean }) {
+function useSituacao2Turno(uf: string, temGov: boolean, temPres: boolean) {
   const gov = situacao2Turno(temGov, useApuracao(1, 'governador', temGov ? null : uf).data);
   const pres = situacao2Turno(temPres, useApuracao(1, 'presidente', temPres ? null : 'BR').data);
+  return { gov, pres, semSegundo: gov.tipo === 'decidido' && pres.tipo === 'decidido' };
+}
+
+/** Estado sem nada para votar no 2º turno (ainda ou de vez): a urna aparece, com o aviso na própria tela. */
+function UrnaSem2Turno({ uf }: { uf: string }) {
+  const { gov, pres, semSegundo } = useSituacao2Turno(uf, false, false);
+  const linha = (cargo: string, st: ReturnType<typeof situacao2Turno>) =>
+    st.tipo === 'decidido'
+      ? `${cargo}: não há 2º turno${st.eleitos ? ` (${st.eleitos}, eleito(a) no 1º turno)` : ''}.`
+      : `${cargo}: 2º turno ainda não confirmado pelo TSE.`;
+  const mensagem = {
+    titulo: semSegundo ? 'NÃO HÁ 2º TURNO NESTE ESTADO' : 'URNA DO 2º TURNO AINDA SEM CANDIDATOS',
+    linhas: [
+      linha('Governador', gov),
+      linha('Presidente', pres),
+      semSegundo ? 'Em 25/10 não há votação aqui.' : 'Assim que o TSE confirmar os finalistas, eles aparecem nesta urna sozinhos.',
+    ],
+  };
+  return (
+    <Box sx={corpoUrnaSx}>
+      <UrnaScreen office={null} digits="" resolution={{ kind: 'vazio' }} notice={null} mensagem={mensagem} />
+      <UrnaKeypad onKey={() => undefined} pressed={null} disabled />
+    </Box>
+  );
+}
+
+function Avisos2Turno({ uf, nomeUf, temGov, temPres }: { uf: string; nomeUf: string; temGov: boolean; temPres: boolean }) {
+  const { gov, pres } = useSituacao2Turno(uf, temGov, temPres);
   const linha = (cargo: string, st: ReturnType<typeof situacao2Turno>) =>
     st.tipo === 'decidido'
       ? `${cargo}: não há 2º turno.${st.eleitos ? ` ${st.eleitos} foi eleito(a) no 1º turno, segundo o TSE.` : ' A disputa foi decidida no 1º turno, segundo o TSE.'}`
@@ -477,20 +505,14 @@ function Avisos2Turno({ uf, nomeUf, temGov, temPres, vazia }: { uf: string; nome
         : null;
   const linhas = [linha(`Governador (${nomeUf})`, gov), linha('Presidente', pres)].filter(Boolean);
   if (!linhas.length) return null;
-  const semSegundo = gov.tipo === 'decidido' && pres.tipo === 'decidido';
   return (
-    <Alert severity={semSegundo ? 'success' : 'info'} sx={{ mb: 2 }}>
-      {vazia && (
-        <Typography variant="body2" sx={{ fontWeight: 700, mb: 0.5 }}>
-          {semSegundo ? `Não há 2º turno neste estado (${nomeUf}): em 25/10 ninguém vota aqui.` : `Ainda não há urna do 2º turno para este estado (${nomeUf}).`}
-        </Typography>
-      )}
-      {!vazia && gov.tipo === 'decidido' && (
+    <Alert severity="info" sx={{ mb: 2 }}>
+      {gov.tipo === 'decidido' && (
         <Typography variant="body2" sx={{ fontWeight: 700, mb: 0.5 }}>
           Neste estado, no dia 25/10 o voto é só para Presidente.
         </Typography>
       )}
-      {!vazia && pres.tipo === 'decidido' && (
+      {pres.tipo === 'decidido' && (
         <Typography variant="body2" sx={{ fontWeight: 700, mb: 0.5 }}>
           Neste estado, no dia 25/10 o voto é só para Governador.
         </Typography>
@@ -616,7 +638,7 @@ export function SimuladorPage() {
           ) : !ballot || (turno === 2 && finalistas.carregando && offices.length === 0) ? (
             <UrnaSkeleton />
           ) : turno === 2 && offices.length === 0 ? (
-            <Avisos2Turno uf={ballot.uf} nomeUf={ballot.nomeUf} temGov={false} temPres={false} vazia />
+            <UrnaSem2Turno uf={ballot.uf} />
           ) : (
             <>
               {turno === 2 && offices.length < 2 && (
@@ -625,7 +647,6 @@ export function SimuladorPage() {
                   nomeUf={ballot.nomeUf}
                   temGov={offices.some((o) => o.cargo === 'governador')}
                   temPres={offices.some((o) => o.cargo === 'presidente')}
-                  vazia={false}
                 />
               )}
               <Urna
