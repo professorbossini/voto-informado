@@ -41,8 +41,9 @@ import { UfPicker } from '@/components/urna/UfPicker';
 import { useBallot } from '@/components/urna/useBallot';
 import { UrnaKeypad, type UrnaKey } from '@/components/urna/UrnaKeypad';
 import { UrnaScreen } from '@/components/urna/UrnaScreen';
-import { useFinalistas } from '@/components/resultados/hooks';
-import type { Turno } from '@/data/apuracao';
+import { useApuracao, useFinalistas } from '@/components/resultados/hooks';
+import { eleitosDe, type Apuracao, type Turno } from '@/data/apuracao';
+import { nomeProprio } from '@/data/format';
 import { inicioDivulgacao } from '@/data/calendario';
 import { useCola, useLocalState } from '@/data/localStore';
 import { PageHeader } from '@/pages/PageHeader';
@@ -453,6 +454,56 @@ function Urna({
 
 /* ------------------------------------------------------------------ page */
 
+/** Situação do 2º turno de um cargo: com finalistas, decidido no 1º turno, ou ainda sem definição do TSE. */
+function situacao2Turno(temFinalistas: boolean, ap1: Apuracao | null): { tipo: 'finalistas' | 'decidido' | 'aguardando'; eleitos: string } {
+  if (temFinalistas) return { tipo: 'finalistas', eleitos: '' };
+  const eleitos = eleitosDe(ap1).map((c) => nomeProprio(c.nomeUrna));
+  if (eleitos.length || ap1?.final) return { tipo: 'decidido', eleitos: eleitos.join(' e ') };
+  return { tipo: 'aguardando', eleitos: '' };
+}
+
+/**
+ * Avisos do 2º turno: deixa claro quando um cargo NÃO tem 2º turno (decidido no 1º) e quando
+ * o TSE ainda não confirmou. Sem nenhum cargo na urna, explica por que ela não aparece.
+ */
+function Avisos2Turno({ uf, nomeUf, temGov, temPres, vazia }: { uf: string; nomeUf: string; temGov: boolean; temPres: boolean; vazia: boolean }) {
+  const gov = situacao2Turno(temGov, useApuracao(1, 'governador', temGov ? null : uf).data);
+  const pres = situacao2Turno(temPres, useApuracao(1, 'presidente', temPres ? null : 'BR').data);
+  const linha = (cargo: string, st: ReturnType<typeof situacao2Turno>) =>
+    st.tipo === 'decidido'
+      ? `${cargo}: não há 2º turno.${st.eleitos ? ` ${st.eleitos} foi eleito(a) no 1º turno, segundo o TSE.` : ' A disputa foi decidida no 1º turno, segundo o TSE.'}`
+      : st.tipo === 'aguardando'
+        ? `${cargo}: o TSE ainda não confirmou se haverá 2º turno. Assim que confirmar, a urna se atualiza sozinha.`
+        : null;
+  const linhas = [linha(`Governador (${nomeUf})`, gov), linha('Presidente', pres)].filter(Boolean);
+  if (!linhas.length) return null;
+  const semSegundo = gov.tipo === 'decidido' && pres.tipo === 'decidido';
+  return (
+    <Alert severity={semSegundo ? 'success' : 'info'} sx={{ mb: 2 }}>
+      {vazia && (
+        <Typography variant="body2" sx={{ fontWeight: 700, mb: 0.5 }}>
+          {semSegundo ? `Não há 2º turno neste estado (${nomeUf}): em 25/10 ninguém vota aqui.` : `Ainda não há urna do 2º turno para este estado (${nomeUf}).`}
+        </Typography>
+      )}
+      {!vazia && gov.tipo === 'decidido' && (
+        <Typography variant="body2" sx={{ fontWeight: 700, mb: 0.5 }}>
+          Neste estado, no dia 25/10 o voto é só para Presidente.
+        </Typography>
+      )}
+      {!vazia && pres.tipo === 'decidido' && (
+        <Typography variant="body2" sx={{ fontWeight: 700, mb: 0.5 }}>
+          Neste estado, no dia 25/10 o voto é só para Governador.
+        </Typography>
+      )}
+      {linhas.map((l) => (
+        <Typography key={l} variant="body2">
+          {l}
+        </Typography>
+      ))}
+    </Alert>
+  );
+}
+
 /** Depois do fim da votação do 1º turno, a urna abre no 2º turno (dá para voltar ao 1º). */
 function turnoPadrao(): Turno {
   return Date.now() >= inicioDivulgacao(1).getTime() ? 2 : 1;
@@ -565,18 +616,17 @@ export function SimuladorPage() {
           ) : !ballot || (turno === 2 && finalistas.carregando && offices.length === 0) ? (
             <UrnaSkeleton />
           ) : turno === 2 && offices.length === 0 ? (
-            <Alert severity="info">
-              O TSE ainda não confirmou quem vai ao 2º turno para Presidente nem para Governador de {ballot.nomeUf}. Assim que confirmar, a
-              urna do 2º turno aparece aqui sozinha, só com os finalistas.
-            </Alert>
+            <Avisos2Turno uf={ballot.uf} nomeUf={ballot.nomeUf} temGov={false} temPres={false} vazia />
           ) : (
             <>
               {turno === 2 && offices.length < 2 && (
-                <Alert severity="info" sx={{ mb: 2 }}>
-                  {offices[0].cargo === 'presidente'
-                    ? `Até agora o TSE não confirmou 2º turno para Governador de ${ballot.nomeUf}: nesse caso, no dia 25/10 o voto é só para Presidente.`
-                    : 'O TSE ainda não confirmou os finalistas para Presidente. Assim que confirmar, eles entram na urna sozinhos.'}
-                </Alert>
+                <Avisos2Turno
+                  uf={ballot.uf}
+                  nomeUf={ballot.nomeUf}
+                  temGov={offices.some((o) => o.cargo === 'governador')}
+                  temPres={offices.some((o) => o.cargo === 'presidente')}
+                  vazia={false}
+                />
               )}
               <Urna
                 key={`${ballot.uf}-${turno}-${sqsGov}-${sqsPres}-${run}`}
