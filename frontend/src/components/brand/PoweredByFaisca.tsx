@@ -6,17 +6,20 @@ import { BossiniMark } from './BossiniMark';
 import { FaiscaMark } from './FaiscaMark';
 
 /**
- * Botão flutuante (FAB) do Faísca no canto inferior direito: o logo do template, com link
- * para o repositório. Ao passar o mouse ou focar, abre em "feito com Faísca" + marca Bossini.
- * VITE_SHOW_POWERED_BY=false esconde, mas a LICENSE então exige um crédito visível
- * equivalente em outro lugar (p.ex. o rodapé).
+ * "feito com Faísca" badge pinned to a bottom corner: a reminder that this app
+ * was born from the Faísca template, with the Faísca and Bossini marks side by side.
+ * VITE_SHOW_POWERED_BY=false hides it, but the LICENSE then requires an equivalent
+ * visible credit elsewhere (e.g. a footer or an "About" page).
  */
 export function PoweredByFaisca({ sx }: { sx?: SxProps<Theme> }) {
   const [hover, setHover] = useState(false);
   if (!brand.showPoweredBy) return null;
 
   return (
-    <Tooltip title="Feito com Faísca, template de Rodrigo Bossini. Ver no GitHub" placement="left">
+    <Tooltip
+      title="Este app nasceu do template Faísca, de Rodrigo Bossini. Ver no GitHub"
+      placement="top-end"
+    >
       <Link
         href={FAISCA_REPO_URL}
         target="_blank"
@@ -30,76 +33,84 @@ export function PoweredByFaisca({ sx }: { sx?: SxProps<Theme> }) {
         sx={[
           (theme) => ({
             position: 'fixed',
-            right: { xs: 16, md: 24 },
-            bottom: { xs: 16, md: 24 },
+            right: 16,
+            bottom: 16,
             zIndex: theme.zIndex.speedDial,
             display: 'inline-flex',
             alignItems: 'center',
-            height: 56,
-            minWidth: 56,
-            px: '13px',
+            gap: 1,
+            height: 36,
+            pl: 0.625,
+            // Compact (spark only) on phones so it doesn't cover content.
+            pr: { xs: 0.625, sm: 1.5 },
             borderRadius: 99,
             overflow: 'hidden',
             color: 'text.secondary',
-            bgcolor: 'background.paper',
-            border: `1px solid ${theme.alpha('#C6EF34', 0.55)}`,
-            boxShadow: `0 8px 24px -8px ${theme.alpha('#140E26', 0.45)}, 0 2px 6px -2px ${theme.alpha('#140E26', 0.25)}`,
-            animation: `faisca-fab-in ${duration.long2}ms ${easing.emphasizedDecelerate} 600ms backwards`,
+            bgcolor: theme.alpha(theme.vars.palette.background.paper, 0.72),
+            backdropFilter: 'saturate(180%) blur(12px)',
+            border: `1px solid ${theme.vars.palette.divider}`,
+            boxShadow: `0 6px 20px -10px ${theme.alpha('#140E26', 0.35)}`,
+            animation: `faisca-badge-in ${duration.long2}ms ${easing.emphasizedDecelerate} 600ms backwards`,
             transition: [
               `transform ${duration.medium2}ms ${easing.springFast}`,
               `box-shadow ${duration.medium1}ms ${easing.standard}`,
               `border-color ${duration.medium1}ms ${easing.standard}`,
             ].join(', '),
-            '@keyframes faisca-fab-in': {
-              from: { opacity: 0, transform: 'translateY(16px) scale(0.85)' },
+            '@keyframes faisca-badge-in': {
+              from: { opacity: 0, transform: 'translateY(12px) scale(0.96)' },
               to: { opacity: 1, transform: 'none' },
+            },
+            // Light sweep across the pill on hover.
+            '&::after': {
+              content: '""',
+              position: 'absolute',
+              inset: 0,
+              background: `linear-gradient(105deg, transparent 35%, ${theme.alpha('#C6EF34', 0.35)} 50%, transparent 65%)`,
+              transform: 'translateX(-120%)',
+              pointerEvents: 'none',
             },
             '&:hover, &:focus-visible': {
               transform: 'translateY(-2px)',
-              borderColor: theme.alpha('#C6EF34', 0.9),
-              boxShadow: `0 12px 30px -8px ${theme.alpha('#C6EF34', 0.6)}`,
+              borderColor: theme.alpha('#C6EF34', 0.7),
+              boxShadow: `0 10px 28px -8px ${theme.alpha('#C6EF34', 0.55)}`,
             },
-            '&:focus-visible': { outline: `2px solid ${theme.vars.palette.primary.main}`, outlineOffset: 3 },
-            '@media (prefers-reduced-motion: reduce)': { animation: 'none', transition: 'none' },
+            '&:hover::after, &:focus-visible::after': {
+              transition: `transform ${duration.long4 * 1.5}ms ${easing.standard}`,
+              transform: 'translateX(120%)',
+            },
           }),
           ...(Array.isArray(sx) ? sx : [sx]),
         ]}
       >
-        <FaiscaMark size={30} animated={hover} />
-        {/* Extensão do FAB: só abre no hover/foco, e só em telas maiores. */}
-        <Box
+        <FaiscaMark size={26} animated={hover} />
+        <Typography
+          component="span"
           sx={{
-            display: { xs: 'none', sm: 'inline-flex' },
-            alignItems: 'center',
-            gap: 1,
-            maxWidth: hover ? 220 : 0,
-            opacity: hover ? 1 : 0,
-            ml: hover ? 1 : 0,
+            display: { xs: 'none', sm: 'inline' },
+            fontSize: '0.8125rem',
+            fontWeight: 500,
             whiteSpace: 'nowrap',
-            transition: `max-width ${duration.medium4}ms ${easing.emphasized}, opacity ${duration.medium2}ms ${easing.standard}, margin ${duration.medium4}ms ${easing.emphasized}`,
           }}
         >
-          <Typography component="span" sx={{ fontSize: '0.875rem', fontWeight: 500 }}>
-            feito com{' '}
-            <Box
-              component="strong"
-              sx={(theme) => ({
-                fontWeight: 700,
-                fontVariationSettings: "'ROND' 100",
-                backgroundImage: `linear-gradient(90deg, ${theme.vars.palette.primary.main}, #7649CF)`,
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                color: 'transparent',
-                ...theme.applyStyles('dark', {
-                  backgroundImage: 'linear-gradient(90deg, #D4F45E, #BBA4EE)',
-                }),
-              })}
-            >
-              Faísca
-            </Box>
-          </Typography>
-          <BossiniMark size={22} />
-        </Box>
+          feito com{' '}
+          <Box
+            component="strong"
+            sx={(theme) => ({
+              fontWeight: 700,
+              fontVariationSettings: "'ROND' 100",
+              backgroundImage: `linear-gradient(90deg, ${theme.vars.palette.primary.main}, #7649CF)`,
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              color: 'transparent',
+              ...theme.applyStyles('dark', {
+                backgroundImage: 'linear-gradient(90deg, #D4F45E, #BBA4EE)',
+              }),
+            })}
+          >
+            Faísca
+          </Box>
+        </Typography>
+        <BossiniMark size={22} />
       </Link>
     </Tooltip>
   );

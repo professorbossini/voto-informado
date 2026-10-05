@@ -47,7 +47,7 @@ jobs:
         # Mesmos valores (públicos) do frontend/.env usado por `make publicar`.
         env:
           VITE_APP_NAME: Tá na Urna
-          VITE_SHOW_POWERED_BY: "true"
+          VITE_SHOW_POWERED_BY: "false"
           VITE_ENABLE_PESQUISAS: "false"
           VITE_ENABLE_LOGIN: "false"
           VITE_AUTH_PROVIDER: mock
