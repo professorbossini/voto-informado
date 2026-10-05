@@ -32,7 +32,7 @@ import { FaiscaCredito } from '@/components/brand/FaiscaCredito';
 import { ShareButton } from '@/components/share/ShareButton';
 import { ContaPerfil } from '@/components/conta/ContaPerfil';
 import { BrandLogo } from '@/components/brand/BrandLogo';
-import { ColorModeToggle } from '@/components/ColorModeToggle';
+import { AparenciaMenu } from '@/components/AparenciaMenu';
 import { CandidateSearch } from '@/components/election/CandidateSearch';
 import { PageTransition } from '@/components/PageTransition';
 import { env } from '@/config/env';
@@ -164,7 +164,7 @@ export function PublicLayout() {
                 <SearchRounded />
               </IconButton>
             </Tooltip>
-            <ColorModeToggle />
+            <AparenciaMenu />
             {env.enableLogin && <ContaPerfil />}
           </Stack>
         </Toolbar>

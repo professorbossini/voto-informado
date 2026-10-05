@@ -6,11 +6,14 @@ import { NotificationsProvider } from '@/components/feedback/NotificationsProvid
 import { MetaProvider } from '@/data/MetaProvider';
 import { NativeBridge } from '@/native/NativeBridge';
 import { router } from '@/router';
-import { theme } from '@/theme';
+import { useLocalState } from '@/data/localStore';
+import { criarTema, TEMA_PADRAO } from '@/theme/temas';
 
 export function App({ adapter }: { adapter: AuthAdapter }) {
+  // Tema escolhido no menu Aparência (fica no aparelho; com login, sincronizado).
+  const [tema] = useLocalState<string>('vi:tema', TEMA_PADRAO);
   return (
-    <ThemeProvider theme={theme} defaultMode="system">
+    <ThemeProvider theme={criarTema(tema)} defaultMode="system">
       <CssBaseline enableColorScheme />
       <NativeBridge />
       <AuthProvider adapter={adapter}>

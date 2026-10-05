@@ -1,4 +1,4 @@
-import { createTheme, type Theme } from '@mui/material/styles';
+import { createTheme, type Theme, type ThemeOptions } from '@mui/material/styles';
 import type {} from './augment.d.ts';
 import { duration, easing, stateLayer, transition } from './motion';
 import { amber, ink, lime, red, violet } from './tokens';
@@ -19,7 +19,8 @@ const focusRing = (theme: Theme) => ({
   outlineOffset: 2,
 });
 
-export const theme = createTheme({
+/** Opções do tema padrão (Faísca, violeta). Os demais temas (theme/temas.ts) partem daqui. */
+export const opcoesBase: ThemeOptions = {
   cssVariables: { colorSchemeSelector: 'data', cssVarPrefix: 'faisca' },
   colorSchemes: {
     light: {
@@ -714,4 +715,6 @@ export const theme = createTheme({
       },
     },
   },
-});
+};
+
+export const theme = createTheme(opcoesBase);
