@@ -243,6 +243,49 @@ def _baixar_logo(url: str, destino_sem_ext: Path) -> Path | None:
         return None
 
 
+def _espelhar_fotos(api: Path, casas: dict[str, dict]) -> None:
+    """Guarda no site uma cópia de cada foto oficial (api/plenario/fotos/<id>.jpg), baixada uma vez,
+    para o desenho não depender do servidor da Casa estar no ar. Sem cópia, mantém o endereço original."""
+    from concurrent.futures import ThreadPoolExecutor
+    from urllib.parse import urlparse
+
+    pasta = api / "plenario" / "fotos"
+    falhas: dict[str, int] = {}
+    pessoas = [m for c in casas.values() for m in [*c.get("membros", []), *([c["presidente"]] if c.get("presidente") else [])]]
+
+    def local(m: dict) -> str | None:
+        foto = m.get("foto") or ""
+        destino = pasta / f"{slug(m['id'])}.jpg"
+        rel = str(destino.relative_to(api)).replace(os.sep, "/")
+        if destino.exists():
+            return rel
+        if not foto.startswith("http"):
+            return None
+        host = urlparse(foto).netloc
+        if falhas.get(host, 0) >= 3:  # servidor fora do ar: tenta de novo na próxima passada
+            return None
+        try:
+            r = requests.get(foto, headers={"User-Agent": HEADERS["User-Agent"]}, timeout=(8, 20))
+            r.raise_for_status()
+            if not r.headers.get("content-type", "").startswith("image/") or len(r.content) < 1000:
+                raise ValueError("não é uma foto")
+            destino.parent.mkdir(parents=True, exist_ok=True)
+            destino.write_bytes(r.content)
+            return rel
+        except Exception:  # noqa: BLE001
+            falhas[host] = falhas.get(host, 0) + 1
+            return None
+
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        rels = list(pool.map(local, pessoas))
+    copiadas = 0
+    for m, rel in zip(pessoas, rels):
+        if rel:
+            m["foto"] = rel
+            copiadas += 1
+    print(f"fotos: {copiadas} de {len(pessoas)} com cópia no site" + (f"; servidores com falha: {', '.join(falhas)}" if falhas else ""))
+
+
 def montar(site: Path) -> bool:
     api = site / "api"
     anterior = _ler(api / "plenario.json") or {}
@@ -283,6 +326,8 @@ def montar(site: Path) -> bool:
                     atual["logo"] = str(p.relative_to(api)).replace(os.sep, "/")
         partidos[sigla] = atual
     partidos = {s: partidos[s] for s in siglas}
+
+    _espelhar_fotos(api, casas)
 
     # Perfil de gastos no site (para o clique na cadeira levar até ele).
     pub = _ler(api / "parlamentares.json") or {}

@@ -166,6 +166,39 @@ function Desenho({
   // Sem símbolo publicado: dois cinzas neutros alternados entre partidos vizinhos (nunca cor de partido).
   const cinza = (s: string) => (siglas.indexOf(s) % 2 === 0 ? '#e3e3e3' : '#a8a8a8');
   const temLogo = (s: string) => Boolean(partidos[s]?.logo);
+  /** Foto oficial: cópia publicada pelo site (api/...) ou o endereço original da Casa. */
+  const fotoDe = (m: MembroPlenario) => (m.foto ? (/^https?:\/\//.test(m.foto) ? m.foto : dataFileUrl(m.foto)) : null);
+  /**
+   * Cadeira com foto: a foto recortada no círculo e, no canto inferior direito, um selo menor com o
+   * símbolo do partido sobrepondo a foto. Sem foto, o círculo mostra o partido (como antes).
+   */
+  const assento = (m: MembroPlenario, x: number, y: number, r: number, borda: string, larguraBorda: number, titulo: string) => {
+    const foto = fotoDe(m);
+    const rb = Math.max(r * 0.44, 4);
+    const bx = x + r * 0.74;
+    const by = y + r * 0.64;
+    return (
+      <g>
+        <circle cx={x} cy={y} r={r} fill={`url(#${idPadrao(m.partido)})`} />
+        {foto && (
+          <image href={foto} x={x - r} y={y - r} width={r * 2} height={r * 2} preserveAspectRatio="xMidYMin slice" clipPath="url(#recorte-cadeira)" />
+        )}
+        <circle className="anel" cx={x} cy={y} r={r} fill="transparent" stroke={borda} strokeWidth={larguraBorda} style={{ cursor: 'pointer' }}>
+          <title>{titulo}</title>
+        </circle>
+        {foto && (
+          <g pointerEvents="none">
+            <circle cx={bx} cy={by} r={rb} fill={`url(#${idPadrao(m.partido)})`} stroke="#fff" strokeWidth={Math.max(rb * 0.16, 0.8)} />
+            {!temLogo(m.partido) && rb >= 9 && (
+              <text x={bx} y={by} textAnchor="middle" dominantBaseline="central" fontSize={rb * 0.62} fontWeight={800} fill="#222">
+                {m.partido === SEM_PARTIDO ? 'S/P' : m.partido.slice(0, 4)}
+              </text>
+            )}
+          </g>
+        )}
+      </g>
+    );
+  };
   const { cx, cy } = geo;
   // No celular o texto do SVG ficaria minúsculo: o nome vai para fora do desenho (PresidenciaTexto).
   const compacto = useMediaQuery(theme.breakpoints.down('sm'));
@@ -189,7 +222,7 @@ function Desenho({
         display: 'block',
         userSelect: 'none',
         '& a': { outline: 'none' },
-        '& a:focus-visible circle, & a:hover circle': { stroke: theme.vars.palette.primary.main, strokeWidth: 3 },
+        '& a:focus-visible .anel, & a:hover .anel': { stroke: theme.vars.palette.primary.main, strokeWidth: 3 },
       }}
     >
       <defs>
@@ -202,6 +235,10 @@ function Desenho({
             </pattern>
           );
         })}
+        {/* Recorte circular das fotos (um só, relativo à própria imagem). */}
+        <clipPath id="recorte-cadeira" clipPathUnits="objectBoundingBox">
+          <circle cx="0.5" cy="0.5" r="0.5" />
+        </clipPath>
         <linearGradient id="mesa-madeira" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#a1887f" />
           <stop offset="1" stopColor="#6d4c41" />
@@ -222,25 +259,16 @@ function Desenho({
         const sel = selecionado?.id === m.id;
         return cadeira(
           m,
-          <circle
-            cx={a.x}
-            cy={a.y}
-            r={a.r}
-            fill={`url(#${idPadrao(m.partido)})`}
-            stroke={sel ? theme.vars.palette.primary.main : linha}
-            strokeWidth={sel ? 3 : 1}
-            opacity={apagado ? 0.18 : 1}
-            style={{ cursor: 'pointer', transition: 'opacity .2s' }}
-          >
-            <title>{rotulo(m)}</title>
-          </circle>,
+          <g opacity={apagado ? 0.18 : 1} style={{ transition: 'opacity .2s' }}>
+            {assento(m, a.x, a.y, a.r, sel ? theme.vars.palette.primary.main : linha, sel ? 3 : 1, rotulo(m))}
+          </g>,
         );
       })}
       {/* sigla dentro da bolinha quando não há símbolo e ela é grande o bastante */}
       {r0 >= 16 &&
         geo.assentos.map((a, i) => {
           const m = ocupantes[i];
-          if (!m || temLogo(m.partido)) return null;
+          if (!m || temLogo(m.partido) || fotoDe(m)) return null;
           return (
             <text key={`t-${m.id}`} x={a.x} y={a.y} textAnchor="middle" dominantBaseline="central" fontSize={a.r * 0.5} fontWeight={800} fill="#222" pointerEvents="none" opacity={destaque != null && destaque !== m.partido ? 0.2 : 1}>
               {m.partido === SEM_PARTIDO ? 'S/P' : m.partido.slice(0, 5)}
@@ -259,17 +287,7 @@ function Desenho({
         {pres ? (
           cadeira(
             pres,
-            <circle
-              cx={cx}
-              cy={cy - 70 - cadeiraR - 6}
-              r={cadeiraR}
-              fill={`url(#${idPadrao(pres.partido)})`}
-              stroke={selecionado?.id === pres.id ? theme.vars.palette.primary.main : '#5d4037'}
-              strokeWidth={3}
-              style={{ cursor: 'pointer' }}
-            >
-              <title>{`${info.presidencia}: ${rotulo(pres)}`}</title>
-            </circle>,
+            assento(pres, cx, cy - 70 - cadeiraR - 6, cadeiraR, selecionado?.id === pres.id ? theme.vars.palette.primary.main : '#5d4037', 3, `${info.presidencia}: ${rotulo(pres)}`),
             `${info.presidencia}, `,
           )
         ) : (

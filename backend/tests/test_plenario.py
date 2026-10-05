@@ -44,6 +44,7 @@ def site(tmp_path):
 
 
 def _fontes(monkeypatch, camara_no_ar=True):
+    monkeypatch.setattr(P, "_espelhar_fotos", lambda api, casas: None)  # sem rede nos testes
     def fake_get(url, params=None, **_):
         if "camara" in url and not camara_no_ar:
             raise RuntimeError("fora do ar")
@@ -123,3 +124,35 @@ def test_lista_incompleta_nao_substitui(site, monkeypatch):
     P.montar(site)
     d = json.loads((site / "api" / "plenario.json").read_text(encoding="utf-8"))
     assert len(d["camara"]["membros"]) == 513
+
+
+def test_fotos_copiadas_para_o_site_e_servidor_fora_do_ar_nao_trava(tmp_path, monkeypatch):
+    class Resp:
+        def __init__(self, ok):
+            self.ok = ok
+            self.headers = {"content-type": "image/jpeg"}
+            self.content = b"\xff\xd8" + b"0" * 2000
+
+        def raise_for_status(self):
+            if not self.ok:
+                raise RuntimeError("503")
+
+    chamadas = []
+
+    def fake(url, **_):
+        chamadas.append(url)
+        return Resp("senado" in url)
+
+    monkeypatch.setattr(P.requests, "get", fake)
+    api = tmp_path / "api"
+    casas = {
+        "senado": {"membros": [{"id": "senado-1", "foto": "https://www.senado.leg.br/f/1.jpg"}], "presidente": None},
+        "camara": {"membros": [{"id": f"camara-{i}", "foto": f"https://www.camara.leg.br/f/{i}.jpg"} for i in range(50)], "presidente": None},
+    }
+    P._espelhar_fotos(api, casas)
+    assert casas["senado"]["membros"][0]["foto"] == "plenario/fotos/senado-1.jpg"
+    assert (api / "plenario" / "fotos" / "senado-1.jpg").exists()
+    # Câmara fora do ar: mantém o endereço original e desiste do servidor depois de poucas falhas.
+    assert all(m["foto"].startswith("https://www.camara.leg.br/") for m in casas["camara"]["membros"])
+    assert sum("camara" in u for u in chamadas) < 15
+
