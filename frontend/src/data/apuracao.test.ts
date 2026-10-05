@@ -1,7 +1,7 @@
 import presidente from './__fixtures__/apuracao-presidente-br.json';
 import depfed from './__fixtures__/apuracao-depfed-sp.json';
 import presidenteBa from './__fixtures__/apuracao-presidente-ba.json';
-import { cargoEstadual, desfechoDe, eleitosDe, finalistasDe, foiEleito, num, parseApuracao, temSegundoTurno, urlApuracao, vaiAo2Turno, type RawUnificado } from './apuracao';
+import { cargoEstadual, desfechoDe, eleitosDe, finalistasComOrigem, finalistasDe, foiEleito, num, parseApuracao, temSegundoTurno, urlApuracao, vaiAo2Turno, type RawUnificado } from './apuracao';
 import { diaDeVotacao, emPeriodoEleitoral, emPeriodoSegundoTurno, noiteDeApuracao, proximaVotacao, turnoMaisRecente } from './calendario';
 import { ufDoPonto } from './localizacao';
 
@@ -69,6 +69,22 @@ describe('apuração do TSE', () => {
     expect(f.map((c) => c.sq).sort()).toEqual([x.sq, y.sq].sort());
     expect(f.map((c) => c.nomeUrna)).toEqual([...f.map((c) => c.nomeUrna)].sort((p, q) => p.localeCompare(q, 'pt-BR')));
     expect(finalistasDe({ ...conf, turno: 2 })).toEqual([]);
+  });
+
+  it('sem a marcação do TSE, infere os finalistas só com 100% das seções e ninguém acima de 50%', () => {
+    const a = parseApuracao(presidente as unknown as RawUnificado, 'presidente', 'x');
+    const [x, y, ...resto] = a.candidatos;
+    const base = { ...a, candidatos: [{ ...x, pct: 47.03, situacao: null }, { ...y, pct: 45.16, situacao: null }, ...resto.map((c) => ({ ...c, situacao: null }))] };
+    expect(finalistasComOrigem({ ...base, secoes: { ...a.secoes, pct: 99.9 } }).candidatos).toEqual([]); // ainda apurando
+    const r = finalistasComOrigem({ ...base, secoes: { ...a.secoes, pct: 100 } });
+    expect(r.oficial).toBe(false);
+    expect(r.candidatos.map((c) => c.sq).sort()).toEqual([x.sq, y.sq].sort());
+    // alguém com mais de 50%: não há 2º turno
+    expect(finalistasComOrigem({ ...base, secoes: { ...a.secoes, pct: 100 }, candidatos: [{ ...x, pct: 50.5, situacao: null }, { ...y, pct: 40, situacao: null }] }).candidatos).toEqual([]);
+    // Senado nunca tem 2º turno
+    expect(finalistasComOrigem({ ...base, cargo: 'senador', secoes: { ...a.secoes, pct: 100 } }).candidatos).toEqual([]);
+    // com a marcação oficial, vale ela
+    expect(finalistasComOrigem({ ...base, candidatos: base.candidatos.map((c, i) => (i < 2 ? { ...c, situacao: '2º turno' } : c)) }).oficial).toBe(true);
   });
 
   it('reconhece quem o TSE já declarou eleito', () => {

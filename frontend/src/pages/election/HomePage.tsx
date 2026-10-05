@@ -214,6 +214,8 @@ interface DueloFinal {
   pct2?: Record<string, number>;
   /** SQ de quem o TSE declarou eleito(a) no 2º turno. */
   eleito?: string | null;
+  /** false = finalistas pela totalização de 100% (aguardando a proclamação do TSE). */
+  oficial?: boolean;
 }
 
 function DueloDeDados({ lista, final }: { lista: Candidato[]; final?: DueloFinal }) {
@@ -241,7 +243,9 @@ function DueloDeDados({ lista, final }: { lista: Candidato[]; final?: DueloFinal
             </Typography>
             <Typography variant="body2" color="text.secondary">
               {final
-                ? 'Finalistas confirmados pelo TSE na apuração do 1º turno, em ordem alfabética.'
+                ? final.oficial === false
+                  ? 'Finalistas em ordem alfabética: pela totalização de 100% das seções do 1º turno ninguém passou de 50% dos votos válidos, então os dois mais votados vão ao 2º turno (Constituição, art. 77); aguardando a proclamação oficial do TSE.'
+                  : 'Finalistas confirmados pelo TSE na apuração do 1º turno, em ordem alfabética.'
                 : `Dupla sorteada ao acaso entre as ${lista.length} candidaturas na urna. Troque os nomes como quiser.`}
             </Typography>
           </Box>
@@ -328,7 +332,7 @@ function ColHeader({ active, onClick, children }: { active: boolean; onClick: ()
   );
 }
 
-function VisaoGeral({ lista }: { lista: Candidato[] }) {
+function VisaoGeral({ lista, segundoTurno = false }: { lista: Candidato[]; segundoTurno?: boolean }) {
   const [ordem, setOrdem] = useState<Ordem>('nome');
   // No celular, uma métrica por vez (sem rolagem lateral).
   const compacto = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
@@ -348,7 +352,7 @@ function VisaoGeral({ lista }: { lista: Candidato[] }) {
           Todos de uma vez
         </Typography>
         <Typography variant="h4" component="h2">
-          As {lista.length} candidaturas à Presidência
+          {segundoTurno ? `Os ${lista.length} finalistas à Presidência no 2º turno` : `As ${lista.length} candidaturas à Presidência`}
         </Typography>
         <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
           Em ordem alfabética. Toque no título de uma coluna para ordenar por ela; toque num nome para ver o perfil.
@@ -466,6 +470,12 @@ const ATALHOS = [
   { to: '/gastos', icon: ReceiptLongRounded, title: 'Gastos de mandato', text: 'Cota de deputados e senadores desde 2023.' },
 ];
 
+/** 2º turno: só Governador (nos estados com 2º turno) e Presidente, nessa ordem na urna. */
+const VOTOS_2T: { cargo: Cargo; label: string }[] = [
+  { cargo: 'governador', label: 'Governo (onde houver)' },
+  { cargo: 'presidente', label: 'Presidência' },
+];
+
 const VOTOS: { cargo: Cargo; label: string }[] = [
   { cargo: 'deputado-federal', label: 'Dep. federal' },
   { cargo: 'deputado-estadual', label: 'Dep. estadual' },
@@ -575,7 +585,7 @@ function Candidaturas() {
               <DueloDeDados
                 key={`final-${fin.presidente.sqs.join(',')}`}
                 lista={naUrna}
-                final={{ overline: '2º turno · Presidência', titulo: 'Os dois finalistas, lado a lado', sqs: fin.presidente.sqs as [string, string], pct1: pct1(fin.presidente), pct2: pct2(fin.presidente), eleito: eleito2(fin.presidente) }}
+                final={{ overline: '2º turno · Presidência', titulo: 'Os dois finalistas, lado a lado', sqs: fin.presidente.sqs as [string, string], pct1: pct1(fin.presidente), pct2: pct2(fin.presidente), eleito: eleito2(fin.presidente), oficial: fin.presidente.oficial }}
               />
             ) : (
               naUrna.length >= 2 && <DueloDeDados lista={naUrna} />
@@ -584,7 +594,7 @@ function Candidaturas() {
               <DueloDeDados
                 key={`final-gov-${finGov.sqs.join(',')}`}
                 lista={[]}
-                final={{ overline: `2º turno · Governo · ${names[finGov.uf] ?? finGov.uf}`, titulo: 'Finalistas no seu estado', sqs: finGov.sqs as [string, string], pct1: pct1(finGov), pct2: pct2(finGov), eleito: eleito2(finGov) }}
+                final={{ overline: `2º turno · Governo · ${names[finGov.uf] ?? finGov.uf}`, titulo: 'Finalistas no seu estado', sqs: finGov.sqs as [string, string], pct1: pct1(finGov), pct2: pct2(finGov), eleito: eleito2(finGov), oficial: finGov.oficial }}
               />
             )}
             {fin.disputas.some((d) => d.cargo === 'governador') && <EstadosComSegundoTurno disputas={fin.disputas} nomes={names} />}
@@ -625,10 +635,10 @@ function Candidaturas() {
               {periodo.eleicao && (
               <Box sx={{ width: '100%' }}>
                 <Typography variant="caption" color="text.secondary" component="div" sx={{ mb: 0.75, fontWeight: 600 }}>
-                  A ordem dos 6 votos na urna
+                  {segundo ? 'A ordem dos votos na urna no 2º turno' : 'A ordem dos 6 votos na urna'}
                 </Typography>
                 <Stack direction="row" useFlexGap sx={{ flexWrap: 'wrap', justifyContent: 'center', gap: 0.75 }} aria-label="Ordem dos seis votos na urna">
-                  {VOTOS.map((v, i) => (
+                  {(segundo ? VOTOS_2T : VOTOS).map((v, i) => (
                     <Box key={v.label} sx={{ px: 1, py: 0.5, borderRadius: 2, bgcolor: 'background.subtle', border: 1, borderColor: 'divider' }}>
                       <Typography variant="caption" sx={{ fontWeight: 700 }}>
                         {i + 1}. {v.label}
@@ -641,7 +651,7 @@ function Candidaturas() {
                   ))}
                 </Stack>
                 <Typography variant="caption" color="text.secondary" component="div" sx={{ mt: 0.75 }}>
-                  Os dois votos para o Senado devem ir para pessoas diferentes.
+                  {segundo ? 'No 2º turno não há votos para Senado nem para deputados.' : 'Os dois votos para o Senado devem ir para pessoas diferentes.'}
                 </Typography>
               </Box>
               )}
@@ -687,7 +697,8 @@ function Candidaturas() {
       </Card>
 
       {/* Visão geral */}
-      {naUrna.length > 0 && <VisaoGeral lista={naUrna} />}
+      {/* No 2º turno, só os finalistas à Presidência (quando já se sabe quem são). */}
+      {naUrna.length > 0 && (fin.presidente ? <VisaoGeral lista={naUrna.filter((c) => fin.presidente!.sqs.includes(c.sq))} segundoTurno /> : <VisaoGeral lista={naUrna} />)}
 
       {/* Atalhos */}
       <Grid container spacing={2}>

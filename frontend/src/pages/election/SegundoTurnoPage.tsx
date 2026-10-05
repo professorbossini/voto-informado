@@ -176,7 +176,7 @@ export function SegundoTurnoPage() {
                           {d.uf === ufUsuario && <Chip size="small" color="primary" label="Seu estado" sx={{ ml: 1, verticalAlign: 'middle' }} />}
                         </Typography>
                         <Typography variant="caption" color="text.secondary">
-                          {d.origem === 'tse' ? 'Finalistas confirmados pelo TSE na apuração do 1º turno.' : 'Finalistas conforme os dados oficiais publicados pelo site.'}
+                          {d.origem !== 'tse' ? 'Finalistas conforme os dados oficiais publicados pelo site.' : d.oficial ? 'Finalistas confirmados pelo TSE na apuração do 1º turno.' : 'Finalistas: pela totalização de 100% das seções do 1º turno ninguém passou de 50% dos votos válidos, então os dois mais votados vão ao 2º turno (Constituição, art. 77); aguardando a proclamação oficial do TSE.'}
                         </Typography>
                       </Box>
                       <Button component={RouterLink} to={`/comparar?c=${d.sqs.join(',')}`} startIcon={<CompareArrowsRounded />} variant="tonal" size="small">

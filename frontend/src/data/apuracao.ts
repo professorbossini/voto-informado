@@ -259,12 +259,27 @@ export function vaiAo2Turno(situacao: string | null | undefined): boolean {
 }
 
 /**
- * Finalistas confirmados pelo TSE numa disputa do 1º turno, em ordem alfabética do nome
- * na urna (ordem neutra, a mesma das listas do site). Vazio enquanto não há confirmação.
+ * Finalistas do 2º turno numa disputa do 1º turno, em ordem alfabética do nome na urna (neutra).
+ * 1º: a marcação oficial do TSE (situação "2º turno"). 2º: sem a marcação, mas com 100% das seções
+ * totalizadas e ninguém acima de 50% dos votos válidos, os dois mais votados vão ao 2º turno
+ * (Constituição, art. 77, § 3º, e art. 28). Vazio enquanto não se sabe.
  */
 export function finalistasDe(ap: Apuracao | null | undefined): CandidatoApurado[] {
-  if (!ap || ap.turno !== 1) return [];
-  return ap.candidatos.filter((c) => vaiAo2Turno(c.situacao)).sort((a, b) => a.nomeUrna.localeCompare(b.nomeUrna, 'pt-BR'));
+  return finalistasComOrigem(ap).candidatos;
+}
+
+export function finalistasComOrigem(ap: Apuracao | null | undefined): { candidatos: CandidatoApurado[]; oficial: boolean } {
+  const vazio = { candidatos: [], oficial: false };
+  if (!ap || ap.turno !== 1 || !temSegundoTurno(ap.cargo)) return vazio;
+  const alfa = (l: CandidatoApurado[]) => [...l].sort((a, b) => a.nomeUrna.localeCompare(b.nomeUrna, 'pt-BR'));
+  const marcados = ap.candidatos.filter((c) => vaiAo2Turno(c.situacao));
+  if (marcados.length >= 2) return { candidatos: alfa(marcados), oficial: true };
+  const validos = ap.candidatos.filter((c) => /^válido/i.test(c.destinacao) && c.votos > 0);
+  const totalizado = ap.final || ap.secoes.pct >= 100;
+  if (totalizado && validos.length >= 2 && !ap.candidatos.some((c) => c.eleito || /^eleit/i.test(c.situacao ?? '')) && validos[0].pct <= 50) {
+    return { candidatos: alfa(validos.slice(0, 2)), oficial: false };
+  }
+  return vazio;
 }
 
 /**

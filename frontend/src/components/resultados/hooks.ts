@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { buscarApuracao, desfechoDe, eleitosDe, finalistasDe, temSegundoTurno, urlApuracao, type Apuracao, type CandidatoApurado, type CargoApuracao, type Desfecho, type Turno } from '@/data/apuracao';
+import { buscarApuracao, desfechoDe, eleitosDe, finalistasComOrigem, temSegundoTurno, urlApuracao, type Apuracao, type CandidatoApurado, type CargoApuracao, type Desfecho, type Turno } from '@/data/apuracao';
 import { data as api } from '@/data/api';
 import { inicioDivulgacao } from '@/data/calendario';
 import { useAsync } from '@/hooks/useAsync';
@@ -251,6 +251,8 @@ export interface DisputaFinal {
   origem: 'tse' | 'site';
   /** Apuração do 2º turno desta disputa (a partir das 17h de 25/10), para votos e vencedor. */
   turno2: Apuracao | null;
+  /** true = marcação oficial do TSE; false = pela totalização de 100% das seções (aguardando proclamação). */
+  oficial: boolean;
 }
 
 /**
@@ -273,8 +275,8 @@ export function useFinalistas(ligado = true) {
 
   const disputas: DisputaFinal[] = [];
   const add = (uf: string, cargo: DisputaFinal['cargo'], ap: Apuracao | null | undefined) => {
-    const f = finalistasDe(ap);
-    if (f.length >= 2) disputas.push({ uf, cargo, sqs: f.map((c) => c.sq), votos1: Object.fromEntries(f.map((c) => [c.sq, { votos: c.votos, pct: c.pct, posicao: c.posicao }])), origem: 'tse', turno2: t2(uf) });
+    const { candidatos: f, oficial } = finalistasComOrigem(ap);
+    if (f.length >= 2) disputas.push({ uf, cargo, sqs: f.map((c) => c.sq), votos1: Object.fromEntries(f.map((c) => [c.sq, { votos: c.votos, pct: c.pct, posicao: c.posicao }])), origem: 'tse', turno2: t2(uf), oficial });
   };
   add('BR', 'presidente', pres.data);
   for (const uf of UFS) add(uf, 'governador', gov[uf]);
@@ -282,7 +284,7 @@ export function useFinalistas(ligado = true) {
   for (const d of publicado.data?.disputas ?? []) {
     if ((d.cargo === 'presidente' || d.cargo === 'governador') && !disputas.some((x) => x.uf === d.uf && x.cargo === d.cargo)) {
       const cands = [...d.candidatos].sort((a, b) => a.nome_urna.localeCompare(b.nome_urna, 'pt-BR'));
-      disputas.push({ uf: d.uf, cargo: d.cargo, sqs: cands.map((c) => c.sq), votos1: {}, origem: 'site', turno2: t2(d.uf) });
+      disputas.push({ uf: d.uf, cargo: d.cargo, sqs: cands.map((c) => c.sq), votos1: {}, origem: 'site', turno2: t2(d.uf), oficial: true });
     }
   }
   disputas.sort((a, b) => Number(a.cargo !== 'presidente') - Number(b.cargo !== 'presidente') || a.uf.localeCompare(b.uf));

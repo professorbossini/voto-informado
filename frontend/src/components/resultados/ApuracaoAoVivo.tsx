@@ -47,7 +47,7 @@ import {
   CARGO_APURACAO_LABEL,
   cargoEstadual,
   eleitosDe,
-  finalistasDe,
+  finalistasComOrigem,
   foiEleito,
   isCargoApuracao,
   isProporcional,
@@ -787,7 +787,8 @@ export function ApuracaoAoVivo({ headingLevel = 'h2' }: { headingLevel?: 'h1' | 
 
                   {(() => {
                     // Finalistas: confirmados pelo TSE no 1º turno, ou os dois do próprio 2º turno.
-                    const fins = r.turnoExibido === 1 ? finalistasDe(ap) : temSegundoTurno(cargo) ? [...ap.candidatos].sort((a, b) => a.nomeUrna.localeCompare(b.nomeUrna, 'pt-BR')) : [];
+                    const origem = r.turnoExibido === 1 ? finalistasComOrigem(ap) : null;
+                    const fins = origem ? origem.candidatos : temSegundoTurno(cargo) ? [...ap.candidatos].sort((a, b) => a.nomeUrna.localeCompare(b.nomeUrna, 'pt-BR')) : [];
                     if (fins.length < 2 || (r.turnoExibido === 2 && eleitosDe(ap).length)) return null;
                     const nomes = fins.map((c) => `${nomeProprio(c.nomeUrna)} (${c.numero})`);
                     return (
@@ -807,7 +808,7 @@ export function ApuracaoAoVivo({ headingLevel = 'h2' }: { headingLevel?: 'h1' | 
                       >
                         {r.turnoExibido === 1 ? (
                           <>
-                            <b>Vão ao 2º turno</b> (confirmado pelo TSE): {nomes.join(' e ')}.
+                            <b>Vão ao 2º turno</b> {origem?.oficial === false ? '(pela totalização de 100% das seções; aguardando a proclamação do TSE)' : '(confirmado pelo TSE)'}: {nomes.join(' e ')}.
                           </>
                         ) : (
                           <>
