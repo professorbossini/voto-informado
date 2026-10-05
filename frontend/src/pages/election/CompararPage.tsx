@@ -24,6 +24,7 @@ import { Link as RouterLink, useSearchParams } from 'react-router';
 import { BarList } from '@/components/charts/charts';
 import { useNotify } from '@/components/feedback/notificationsContext';
 import { publicUrl, shareContent } from '@/native/platform';
+import { setShareOverride } from '@/components/share/shareOverride';
 import { CandidatePhoto } from '@/components/election/CandidatePhoto';
 import { CandidateSearch } from '@/components/election/CandidateSearch';
 import { useFinalistas, useUfUsuario, type DisputaFinal } from '@/components/resultados/hooks';
@@ -143,6 +144,11 @@ export function CompararPage() {
   const mesmaLista = (sqs: string[]) => sqs.length === lista.length && sqs.every((sq) => lista.includes(sq));
 
   const key = lista.join(',');
+  // O botão de compartilhar do cabeçalho leva a comparação atual (a lista fica no aparelho, não na URL).
+  useEffect(() => {
+    setShareOverride(key ? `comparar?c=${key}` : null);
+    return () => setShareOverride(null);
+  }, [key]);
   const res = useAsync(() => Promise.all(lista.map((sq) => data.candidato(sq).catch(() => null))), [key]);
   const cands = (res.data ?? []).filter((c): c is CandidatoDetalhe => Boolean(c));
 

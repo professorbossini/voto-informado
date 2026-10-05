@@ -32,6 +32,7 @@ import LoginRounded from '@mui/icons-material/LoginRounded';
 import { Link as RouterLink, NavLink, Outlet, useLocation, useNavigate } from 'react-router';
 import { useAuth } from '@/auth';
 import { FaiscaCredito } from '@/components/brand/FaiscaCredito';
+import { ShareButton } from '@/components/share/ShareButton';
 import { BrandLogo } from '@/components/brand/BrandLogo';
 import { ColorModeToggle } from '@/components/ColorModeToggle';
 import { CandidateSearch } from '@/components/election/CandidateSearch';
@@ -160,6 +161,7 @@ export function PublicLayout() {
             {!wide && <Tab value="mais" label="Mais" icon={<MoreHorizRounded />} iconPosition="end" onClick={(e) => setMoreAnchor(e.currentTarget)} />}
           </Tabs>
           <Stack direction="row" spacing={0.5} sx={{ ml: 'auto', alignItems: 'center' }}>
+            <ShareButton />
             <Tooltip title="Buscar candidato">
               <IconButton aria-label="Buscar candidato" onClick={() => setSearchOpen(true)}>
                 <SearchRounded />
