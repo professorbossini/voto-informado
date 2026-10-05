@@ -1,0 +1,2 @@
+import{m as e}from"./react-DWX0PShv.js";import{t}from"./ApuracaoAoVivo-C9twNqAu.js";var n=e();function r(){return(0,n.jsx)(t,{headingLevel:`h1`})}export{r as ResultadosPage};
+//# sourceMappingURL=ResultadosPage-Bp5SOXAT.js.map
