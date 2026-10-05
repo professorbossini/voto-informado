@@ -407,3 +407,26 @@ export interface FeedNoticiasDados {
   fonte: string;
   itens: Noticia[];
 }
+
+/** Eleitos para Assembleias (2022) e Câmaras Municipais (2024), de api/legislativos/ (TSE). */
+export interface EleitoLegislativo {
+  id: string;
+  nome: string;
+  partido: string;
+  uf: string;
+  numero: string;
+  situacao: string;
+}
+export interface LegislativosEstaduais {
+  eleicao: number;
+  mandato: string;
+  fonte: string;
+  casas: Record<string, { nome: string; membros: EleitoLegislativo[] }>;
+}
+export interface VereadoresUf {
+  uf: string;
+  eleicao: number;
+  mandato: string;
+  fonte: string;
+  municipios: Record<string, { nome: string; membros: EleitoLegislativo[] }>;
+}

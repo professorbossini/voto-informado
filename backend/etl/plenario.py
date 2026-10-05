@@ -354,6 +354,18 @@ def montar(site: Path) -> bool:
     partidos = {s: partidos[s] for s in siglas}
 
     _espelhar_fotos(api, casas)
+    # Assembleias (eleitos 2022) e Câmaras Municipais (eleitos 2024), gerados por etl.legislativos.
+    leg = LOGOS_CURADOS.parent / "legislativos"
+    mudou_leg = False
+    for origem in sorted(leg.rglob("*.json")) if leg.exists() else []:
+        destino = api / "legislativos" / origem.relative_to(leg)
+        if not destino.exists() or destino.read_bytes() != origem.read_bytes():
+            destino.parent.mkdir(parents=True, exist_ok=True)
+            destino.write_bytes(origem.read_bytes())
+            mudou_leg = True
+    if mudou_leg:
+        print("legislativos: atualizados no site")
+
     # Executivo 2023–2026 (curadoria/executivos.json, gerado por etl.executivos) para as páginas de partido.
     execs = LOGOS_CURADOS.parent / "executivos.json"
     if execs.exists() and (not (api / "executivos.json").exists() or (api / "executivos.json").read_bytes() != execs.read_bytes()):
@@ -380,7 +392,7 @@ def montar(site: Path) -> bool:
     # Só o conteúdo decide se publica (a hora da coleta muda a cada execução).
     sem_hora = lambda d: json.dumps({k: ({**v, "coletado_em": None} if isinstance(v, dict) and "coletado_em" in v else v) for k, v in d.items()}, sort_keys=True, ensure_ascii=False)  # noqa: E731
     mudou = not anterior or sem_hora(dados) != sem_hora({k: anterior.get(k) for k in dados})
-    mudou = mudou or mudou_exec
+    mudou = mudou or mudou_exec or mudou_leg
     if mudou:
         _gravar(api / "plenario.json", dados)
         _fontes(api, casas)

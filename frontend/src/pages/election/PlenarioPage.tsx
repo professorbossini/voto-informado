@@ -17,20 +17,38 @@ import {
   useTheme,
   IconButton,
   Tooltip,
+  Autocomplete,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
 } from '@mui/material';
 import { Link as RouterLink, useHref, useNavigate, useSearchParams } from 'react-router';
 import { SourceNote } from '@/components/election/SourceNote';
 import { gruposPorAssento, hemiciclo } from '@/components/plenario/hemiciclo';
 import { slugPartido } from '@/components/partidos/partidos';
+import { useUfUsuario } from '@/components/resultados/hooks';
+import { nomeProprio } from '@/data/format';
 import HighlightAltRounded from '@mui/icons-material/HighlightAltRounded';
 import { data, dataFileUrl } from '@/data/api';
 import type { CasaPlenario, MembroPlenario, Plenario } from '@/data/types';
 import { useAsync } from '@/hooks/useAsync';
 import { PageHeader } from '@/pages/PageHeader';
 
-type CasaKey = 'camara' | 'senado';
+type CasaKey = 'camara' | 'senado' | 'assembleia' | 'municipal';
+type CasaFederal = 'camara' | 'senado';
+interface InfoCasa {
+  nome: string;
+  aba: string;
+  presidencia: string;
+  membro: string;
+  fonte: string;
+  /** Texto da mesa quando não há presidência conhecida. */
+  semPresidencia?: string;
+}
 
-const CASAS: Record<CasaKey, { nome: string; aba: string; presidencia: string; membro: string; fonte: string }> = {
+const CASAS: Record<CasaFederal, InfoCasa> = {
   camara: { nome: 'Câmara dos Deputados', aba: 'Câmara', presidencia: 'Presidente da Câmara dos Deputados', membro: 'deputados', fonte: 'camara_plenario' },
   senado: { nome: 'Senado Federal', aba: 'Senado', presidencia: 'Presidente do Senado Federal', membro: 'senadores', fonte: 'senado_plenario' },
 };
@@ -125,7 +143,7 @@ function Desenho({
   onSelecionar,
 }: {
   casa: CasaPlenario;
-  info: (typeof CASAS)[CasaKey];
+  info: InfoCasa;
   partidos: Plenario['partidos'];
   lista: Grupo[];
   destaque: string | null;
@@ -301,7 +319,7 @@ function Desenho({
       {!compacto && (
         <>
           <text x={cx} y={cy + 36} textAnchor="middle" fontSize={26} fontWeight={800} fill={texto}>
-            {pres ? `${pres.nome} (${pres.partido}${pres.uf ? `-${pres.uf}` : ''})` : 'Presidência: dado indisponível no momento'}
+            {pres ? `${pres.nome} (${pres.partido}${pres.uf ? `-${pres.uf}` : ''})` : (info.semPresidencia ?? 'Presidência: dado indisponível no momento')}
           </text>
           <text x={cx} y={cy + 66} textAnchor="middle" fontSize={18} fill={texto2}>
             {info.presidencia}
@@ -316,7 +334,7 @@ function Desenho({
 /* ------------------------------------------------------------------ partes */
 
 /** Nome de quem preside, em texto normal logo abaixo da mesa (só no celular). */
-function PresidenciaTexto({ casa, info, partidos }: { casa: CasaPlenario; info: (typeof CASAS)[CasaKey]; partidos: Plenario['partidos'] }) {
+function PresidenciaTexto({ casa, info, partidos }: { casa: CasaPlenario; info: InfoCasa; partidos: Plenario['partidos'] }) {
   const p = casa.presidente;
   return (
     <Stack direction="row" spacing={1.5} sx={{ display: { xs: 'flex', sm: 'none' }, alignItems: 'center', justifyContent: 'center', textAlign: 'center', mt: 1 }}>
@@ -333,7 +351,7 @@ function PresidenciaTexto({ casa, info, partidos }: { casa: CasaPlenario; info: 
               `${p.nome} (${p.partido}${p.uf ? `-${p.uf}` : ''})`
             )
           ) : (
-            'Presidência: dado indisponível no momento'
+            (info.semPresidencia ?? 'Presidência: dado indisponível no momento')
           )}
         </Typography>
         <Typography variant="caption" color="text.secondary">
@@ -458,7 +476,7 @@ function TabelaPartidos({
   );
 }
 
-function ListaNomes({ lista, partidos, info }: { lista: Grupo[]; partidos: Plenario['partidos']; info: (typeof CASAS)[CasaKey] }) {
+function ListaNomes({ lista, partidos, info }: { lista: Grupo[]; partidos: Plenario['partidos']; info: InfoCasa }) {
   const [aberta, setAberta] = useState(false);
   return (
     <Card>
@@ -504,15 +522,155 @@ function ListaNomes({ lista, partidos, info }: { lista: Grupo[]; partidos: Plena
 
 /* ------------------------------------------------------------------ página */
 
+/* ------------------------------------------------------------------ estaduais e municipais */
+
+const UFS_NOMES: Record<string, string> = {
+  AC: 'Acre', AL: 'Alagoas', AM: 'Amazonas', AP: 'Amapá', BA: 'Bahia', CE: 'Ceará', DF: 'Distrito Federal', ES: 'Espírito Santo', GO: 'Goiás',
+  MA: 'Maranhão', MG: 'Minas Gerais', MS: 'Mato Grosso do Sul', MT: 'Mato Grosso', PA: 'Pará', PB: 'Paraíba', PE: 'Pernambuco', PI: 'Piauí',
+  PR: 'Paraná', RJ: 'Rio de Janeiro', RN: 'Rio Grande do Norte', RO: 'Rondônia', RR: 'Roraima', RS: 'Rio Grande do Sul', SC: 'Santa Catarina',
+  SE: 'Sergipe', SP: 'São Paulo', TO: 'Tocantins',
+};
+
+/**
+ * Assembleias Legislativas (eleitos em 2022) e Câmaras Municipais (eleitos em 2024), por estado.
+ * Fonte: TSE. Não há base oficial unificada da composição ATUAL dessas Casas; o texto diz isso.
+ */
+function PlenarioLocal({ tipo, partidos }: { tipo: 'assembleia' | 'municipal'; partidos: Plenario['partidos'] }) {
+  const [params, setParams] = useSearchParams();
+  const { uf: ufUsuario } = useUfUsuario({ detectarSozinho: false });
+  const uf = (params.get('uf') ?? (tipo === 'assembleia' || params.get('mun') == null ? ufUsuario : null) ?? '').toUpperCase() || null;
+  const mun = params.get('mun');
+  const est = useAsync(() => (tipo === 'assembleia' ? data.estaduais() : Promise.resolve(null)), [tipo]);
+  const ver = useAsync(() => (tipo === 'municipal' && uf ? data.vereadores(uf) : Promise.resolve(null)), [tipo, uf]);
+  const [destaque, setDestaque] = useState<string | null>(null);
+  const [selecionado, setSelecionado] = useState<MembroPlenario | null>(null);
+
+  const set = (patch: Record<string, string | null>) =>
+    setParams(
+      (p) => {
+        for (const [k, v] of Object.entries(patch)) {
+          if (v == null) p.delete(k);
+          else p.set(k, v);
+        }
+        return p;
+      },
+      { replace: true, preventScrollReset: true },
+    );
+
+  const municipios = useMemo(() => Object.entries(ver.data?.municipios ?? {}).map(([codigo, m]) => ({ codigo, nome: nomeProprio(m.nome) })), [ver.data]);
+  const fonte = tipo === 'assembleia' ? (uf ? est.data?.casas[uf] : undefined) : mun ? ver.data?.municipios[mun] : undefined;
+  const casa = useMemo<CasaPlenario | null>(
+    () =>
+      fonte
+        ? {
+            legislatura: null,
+            coletado_em: null,
+            presidente: null,
+            membros: fonte.membros.map((m) => ({ id: m.id, nome: nomeProprio(m.nome), partido: m.partido, uf: m.uf, foto: null, perfil: false })),
+          }
+        : null,
+    [fonte],
+  );
+  const lista = useMemo(() => (casa ? grupos(casa) : []), [casa]);
+  const nomeCasa = tipo === 'assembleia' ? (fonte && 'nome' in fonte ? fonte.nome : 'Assembleia Legislativa') : `Câmara Municipal de ${fonte ? nomeProprio(fonte.nome) : ''}`;
+  const info: InfoCasa = {
+    nome: nomeCasa,
+    aba: tipo === 'assembleia' ? 'Assembleias' : 'Câmaras municipais',
+    presidencia: tipo === 'assembleia' ? 'Eleita pelos deputados a cada dois anos' : 'Eleita pelos vereadores',
+    membro: tipo === 'assembleia' ? (uf === 'DF' ? 'deputados distritais' : 'deputados estaduais') : 'vereadores',
+    fonte: '',
+    semPresidencia: 'Presidência: sem base oficial unificada',
+  };
+  const carregando = tipo === 'assembleia' ? est.loading : ver.loading;
+  const meta = tipo === 'assembleia' ? est.data : ver.data;
+
+  return (
+    <Stack spacing={3}>
+      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+        <FormControl size="small" sx={{ minWidth: 220 }}>
+          <InputLabel id="plen-uf">Estado</InputLabel>
+          <Select labelId="plen-uf" label="Estado" value={uf ?? ''} onChange={(e) => set({ uf: e.target.value, mun: null })}>
+            {Object.entries(UFS_NOMES)
+              .sort((a, b) => a[1].localeCompare(b[1], 'pt-BR'))
+              .map(([sigla, nome]) => (
+                <MenuItem key={sigla} value={sigla}>
+                  {nome} ({sigla})
+                </MenuItem>
+              ))}
+          </Select>
+        </FormControl>
+        {tipo === 'municipal' && uf && (
+          <Autocomplete
+            size="small"
+            sx={{ minWidth: 280, flex: 1, maxWidth: 420 }}
+            options={municipios}
+            loading={ver.loading}
+            value={municipios.find((m) => m.codigo === mun) ?? null}
+            onChange={(_, v) => set({ mun: v?.codigo ?? null, uf })}
+            getOptionLabel={(o) => o.nome}
+            isOptionEqualToValue={(a, b) => a.codigo === b.codigo}
+            renderInput={(p) => <TextField {...p} label="Município" placeholder="Digite o nome do município" />}
+            noOptionsText="Nenhum município"
+          />
+        )}
+      </Stack>
+
+      {!uf ? (
+        <Alert severity="info">Escolha um estado para ver {tipo === 'assembleia' ? 'a Assembleia Legislativa' : 'as Câmaras Municipais'}.</Alert>
+      ) : carregando ? (
+        <Skeleton variant="rounded" height={420} />
+      ) : !meta ? (
+        <Alert severity="info">Os dados ainda não foram publicados no site. Eles são atualizados automaticamente.</Alert>
+      ) : tipo === 'municipal' && !mun ? (
+        <Alert severity="info">Escolha o município ({municipios.length} em {UFS_NOMES[uf]}).</Alert>
+      ) : !casa ? (
+        <Alert severity="info">Não encontramos eleitos para esta Casa nos dados do TSE.</Alert>
+      ) : (
+        <>
+          <Card>
+            <CardContent sx={{ p: { xs: 1.5, md: 3 } }}>
+              <Typography variant="h5" component="h2" sx={{ mb: 0.5 }}>
+                {nomeCasa}
+              </Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                {casa.membros.length} {info.membro} eleitos em {meta.eleicao} (mandato {meta.mandato}), cada bolinha com o símbolo do partido pelo qual se
+                elegeram. Partidos em ordem alfabética, da esquerda para a direita: a posição no desenho não indica orientação política. Toque numa cadeira
+                para ver quem é.
+              </Typography>
+              <Desenho casa={casa} info={info} partidos={partidos} lista={lista} destaque={destaque} selecionado={selecionado} onSelecionar={setSelecionado} />
+              {selecionado && (
+                <Box sx={{ mt: 2 }}>
+                  <Selecionado m={selecionado} partidos={partidos} presidencia={null} />
+                </Box>
+              )}
+              <Alert severity="info" sx={{ mt: 2 }}>
+                São os eleitos segundo o TSE, com o partido da eleição. A composição de hoje pode ser outra (suplentes que assumiram, trocas de partido,
+                licenças e cassações): não há base oficial unificada da composição atual das {tipo === 'assembleia' ? 'Assembleias' : 'Câmaras Municipais'}.
+              </Alert>
+              <Typography variant="caption" color="text.secondary" component="p" sx={{ mt: 1.5, mb: 0 }}>
+                Fonte oficial: {meta.fonte}.
+              </Typography>
+            </CardContent>
+          </Card>
+          <TabelaPartidos lista={lista} total={casa.membros.length} partidos={partidos} destaque={destaque} onDestaque={setDestaque} />
+          <ListaNomes lista={lista} partidos={partidos} info={info} />
+        </>
+      )}
+    </Stack>
+  );
+}
+
 export function PlenarioPage() {
   const [params, setParams] = useSearchParams();
-  const casaKey: CasaKey = params.get('casa') === 'senado' ? 'senado' : 'camara';
+  const pc = params.get('casa');
+  const casaKey: CasaKey = pc === 'senado' || pc === 'assembleia' || pc === 'municipal' ? pc : 'camara';
+  const federal: CasaFederal = casaKey === 'senado' ? 'senado' : 'camara';
   const q = useAsync(() => data.plenario(), []);
   const [destaque, setDestaque] = useState<string | null>(null);
   const [selecionado, setSelecionado] = useState<MembroPlenario | null>(null);
 
-  const info = CASAS[casaKey];
-  const casa = q.data?.[casaKey] ?? null;
+  const info = CASAS[federal];
+  const casa = q.data?.[federal] ?? null;
   const partidos = q.data?.partidos ?? {};
   const lista = useMemo(() => (casa ? grupos(casa) : []), [casa]);
 
@@ -523,6 +681,7 @@ export function PlenarioPage() {
       (p) => {
         if (c === 'camara') p.delete('casa');
         else p.set('casa', c);
+        p.delete('mun');
         return p;
       },
       { replace: true },
@@ -533,15 +692,19 @@ export function PlenarioPage() {
     <>
       <PageHeader
         title="Plenário"
-        subtitle="Quem ocupa hoje cada cadeira da Câmara dos Deputados e do Senado Federal, o símbolo do partido de cada parlamentar e quem preside cada Casa. Atualizado todos os dias com os dados oficiais."
+        subtitle="Quem ocupa cada cadeira da Câmara dos Deputados e do Senado Federal (atualizado todos os dias), e os eleitos para as Assembleias Legislativas e as Câmaras Municipais de cada estado, com o símbolo do partido de cada um."
       />
-      <Tabs value={casaKey} onChange={(_, v: CasaKey) => trocar(v)} sx={{ mb: 3, borderBottom: 1, borderColor: 'divider' }}>
-        {(Object.keys(CASAS) as CasaKey[]).map((k) => (
+      <Tabs value={casaKey} onChange={(_, v: CasaKey) => trocar(v)} variant="scrollable" allowScrollButtonsMobile sx={{ mb: 3, borderBottom: 1, borderColor: 'divider' }}>
+        {(Object.keys(CASAS) as CasaFederal[]).map((k) => (
           <Tab key={k} value={k} label={`${CASAS[k].aba}${q.data?.[k] ? ` (${q.data[k].membros.length})` : ''}`} />
         ))}
+        <Tab value="assembleia" label="Assembleias" />
+        <Tab value="municipal" label="Câmaras municipais" />
       </Tabs>
 
-      {q.loading ? (
+      {casaKey === 'assembleia' || casaKey === 'municipal' ? (
+        <PlenarioLocal tipo={casaKey} partidos={q.data?.partidos ?? {}} />
+      ) : q.loading ? (
         <Skeleton variant="rounded" height={420} />
       ) : q.error || !casa ? (
         <Alert severity="info">A composição do {info.nome} ainda não foi publicada no site. Ela é atualizada automaticamente todos os dias.</Alert>
