@@ -33,6 +33,7 @@ import { ShareButton } from '@/components/share/ShareButton';
 import { ContaPerfil } from '@/components/conta/ContaPerfil';
 import { BrandLogo } from '@/components/brand/BrandLogo';
 import { AparenciaMenu } from '@/components/AparenciaMenu';
+import { AplicarIdioma, AvisoTraducao, IdiomaMenu } from '@/components/IdiomaMenu';
 import { CandidateSearch } from '@/components/election/CandidateSearch';
 import { PageTransition } from '@/components/PageTransition';
 import { env } from '@/config/env';
@@ -117,6 +118,7 @@ function Footer() {
         <Box sx={{ mt: 4, pt: 3, borderTop: 1, borderColor: 'divider', display: 'flex', justifyContent: 'center' }}>
           <FaiscaCredito />
         </Box>
+        <AvisoTraducao />
       </Container>
     </Box>
   );
@@ -164,6 +166,7 @@ export function PublicLayout() {
                 <SearchRounded />
               </IconButton>
             </Tooltip>
+            <IdiomaMenu />
             <AparenciaMenu />
             {env.enableLogin && <ContaPerfil />}
           </Stack>
@@ -171,6 +174,7 @@ export function PublicLayout() {
       </AppBar>
       <TrustBar />
 
+      <AplicarIdioma />
       {/* Página nova abre no topo; "voltar" devolve a posição anterior. */}
       <ScrollRestoration />
       <Container component="main" maxWidth="lg" sx={{ pt: { xs: 3, md: 4 }, pb: 6, flex: 1 }}>
