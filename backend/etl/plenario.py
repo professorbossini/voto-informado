@@ -293,7 +293,11 @@ def montar(site: Path) -> bool:
         if c.get("presidente"):
             c["presidente"]["perfil"] = c["presidente"]["id"] in com_perfil
 
-    dados = {"camara": casas.get("camara"), "senado": casas.get("senado"), "partidos": partidos}
+    # Completo = as duas Casas lidas ao vivo nesta execução e com a Presidência identificada. Enquanto
+    # não estiver, o plenario.yml tenta de hora em hora (em vez de a cada 6 horas).
+    completo = no_ar == {"camara", "senado"} and all((casas.get(c) or {}).get("presidente") for c in ("camara", "senado"))
+    print(f"completo={int(completo)}")
+    dados = {"camara": casas.get("camara"), "senado": casas.get("senado"), "partidos": partidos, "completo": completo}
     # Só o conteúdo decide se publica (a hora da coleta muda a cada execução).
     sem_hora = lambda d: json.dumps({k: ({**v, "coletado_em": None} if isinstance(v, dict) and "coletado_em" in v else v) for k, v in d.items()}, sort_keys=True, ensure_ascii=False)  # noqa: E731
     mudou = not anterior or sem_hora(dados) != sem_hora({k: anterior.get(k) for k in dados})

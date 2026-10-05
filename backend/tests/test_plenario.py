@@ -96,10 +96,15 @@ def test_composicao_e_presidencia(site, monkeypatch):
 def test_camara_fora_do_ar_mantem_ultimo_dado(site, monkeypatch):
     _fontes(monkeypatch)
     P.montar(site)
+    assert json.loads((site / "api" / "plenario.json").read_text(encoding="utf-8"))["completo"] is True
     _fontes(monkeypatch, camara_no_ar=False)
-    assert P.montar(site) is False
+    # Só o sinal "completo" muda (é ele que faz o plenario.yml tentar de hora em hora)...
+    assert P.montar(site) is True
     d = json.loads((site / "api" / "plenario.json").read_text(encoding="utf-8"))
     assert len(d["camara"]["membros"]) == 513 and d["camara"]["presidente"]["nome"] == "Deputado 001"
+    assert d["completo"] is False
+    # ... e, com a Câmara ainda fora, nada mais a publicar.
+    assert P.montar(site) is False
 
 
 def test_primeira_vez_sem_camara_usa_parlamentares_publicados(site, monkeypatch):
@@ -108,6 +113,7 @@ def test_primeira_vez_sem_camara_usa_parlamentares_publicados(site, monkeypatch)
     d = json.loads((site / "api" / "plenario.json").read_text(encoding="utf-8"))
     assert [m["nome"] for m in d["camara"]["membros"]] == ["Deputado 001"]
     assert d["camara"]["presidente"] is None
+    assert d["completo"] is False
 
 
 def test_lista_incompleta_nao_substitui(site, monkeypatch):

@@ -2,12 +2,15 @@
 #
 # A cada 6 horas consulta a Câmara e o Senado (composição em exercício, Presidente de cada Casa e
 # símbolos dos partidos) e, se algo mudou, grava api/plenario.json no site publicado (gh-pages).
-# Fonte fora do ar: mantém o último dado bom. Lógica em backend/etl/plenario.py.
+# Fonte fora do ar: mantém o último dado bom e, enquanto o dado publicado estiver incompleto
+# ("completo": false), tenta de hora em hora. Lógica em backend/etl/plenario.py.
 name: Plenário → site
 
 on:
   schedule:
-    - cron: "47 2,8,14,20 * * *" # 23h47, 05h47, 11h47 e 17h47 em Brasília (só publica se mudar)
+    # De hora em hora; fora de 23h47, 05h47, 11h47 e 17h47 (Brasília) a passada só segue se o
+    # plenário publicado estiver incompleto (ex.: API da Câmara fora do ar). Só publica se mudar.
+    - cron: "47 * * * *"
   push:
     branches: [main]
     paths:
@@ -29,18 +32,36 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
+      - name: Precisa consultar agora?
+        id: gate
+        run: |
+          hora=$(date -u +%H)
+          if [[ "${{ github.event_name }}" != "schedule" || " 02 08 14 20 " == *" $hora "* ]]; then
+            echo "Passada regular."; echo "seguir=1" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          completo=$(curl -fsS "https://www.tanaurna.com.br/api/plenario.json?t=$(date +%s)" | python3 -c "import json,sys; print(int(bool(json.load(sys.stdin).get('completo'))))" || echo 0)
+          if [[ "$completo" == 1 ]]; then
+            echo "Plenário publicado está completo: fica para a próxima passada regular."; echo "seguir=0" >> "$GITHUB_OUTPUT"
+          else
+            echo "Plenário publicado incompleto: tentando de novo."; echo "seguir=1" >> "$GITHUB_OUTPUT"
+          fi
+
       - uses: actions/checkout@v4
+        if: steps.gate.outputs.seguir == '1'
         with:
           sparse-checkout: backend
 
       - uses: actions/setup-python@v5
+        if: steps.gate.outputs.seguir == '1'
         with:
           python-version: "3.12"
 
       - name: Dependências
+        if: steps.gate.outputs.seguir == '1'
         run: pip install -q "requests>=2.32"
 
       - name: Site publicado (só o que o plenário usa)
+        if: steps.gate.outputs.seguir == '1'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -50,12 +71,13 @@ jobs:
           git -C site checkout -q gh-pages
 
       - name: Consultar Câmara e Senado
+        if: steps.gate.outputs.seguir == '1'
         id: plenario
         working-directory: backend
         run: python -m etl.plenario ../site
 
       - name: Publicar
-        if: steps.plenario.outputs.mudou == '1'
+        if: steps.gate.outputs.seguir == '1' && steps.plenario.outputs.mudou == '1'
         working-directory: site
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
