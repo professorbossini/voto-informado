@@ -269,13 +269,38 @@ export function finalistasDe(ap: Apuracao | null | undefined): CandidatoApurado[
 
 /**
  * Eleito(a) segundo o TSE: marca "e" = s ou situação "Eleito", "Eleito por QP", "Eleito por média".
- * ("Não eleito" e "Suplente" não contam.)
+ * ("Não eleito" e "Suplente" não contam. Atenção: o TSE também marca "e" = s em quem vai ao
+ * 2º turno, então a situação "2º turno" prevalece sobre a marca.)
  */
 export function foiEleito(c: Pick<CandidatoApurado, 'eleito' | 'situacao'>): boolean {
+  if (vaiAo2Turno(c.situacao)) return false;
   return c.eleito || /^eleit[oa]/i.test(c.situacao ?? '');
 }
 
 /** Quem já foi declarado eleito nesta disputa, na ordem dos votos. */
 export function eleitosDe(ap: Apuracao | null | undefined): CandidatoApurado[] {
   return ap ? ap.candidatos.filter(foiEleito) : [];
+}
+
+/** Como a candidatura terminou (ou vai terminando) na apuração, segundo a situação publicada pelo TSE. */
+export interface Desfecho {
+  tipo: 'eleito' | 'segundo-turno';
+  /** Turno em que foi eleito(a); para 2º turno, sempre 1 (turno em que se classificou). */
+  turno: Turno;
+  /** Foi ao 2º turno e o TSE já declarou o resultado dele sem esta candidatura eleita. */
+  encerrado?: boolean;
+}
+
+/**
+ * Desfecho a partir das situações oficiais de cada turno (do arquivo do TSE ao vivo ou do
+ * campo "resultados" publicado no perfil). `null` enquanto o TSE não definiu nada.
+ */
+export function desfechoDe(rs: { turno: number; situacao: string | null; eleito: boolean | number }[] | null | undefined): Desfecho | null {
+  const t1 = rs?.find((r) => r.turno === 1);
+  const t2 = rs?.find((r) => r.turno === 2);
+  const eleito = (r: typeof t1) => Boolean(r && foiEleito({ eleito: Boolean(r.eleito), situacao: r.situacao }));
+  if (eleito(t2)) return { tipo: 'eleito', turno: 2 };
+  if (eleito(t1)) return { tipo: 'eleito', turno: 1 };
+  if (t1 && vaiAo2Turno(t1.situacao)) return { tipo: 'segundo-turno', turno: 1, encerrado: Boolean(t2?.situacao?.trim()) };
+  return null;
 }

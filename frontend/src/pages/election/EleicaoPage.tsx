@@ -29,6 +29,9 @@ import InfoOutlined from '@mui/icons-material/InfoOutlined';
 import { Link as RouterLink, useNavigate, useParams, useSearchParams } from 'react-router';
 import { CandidateCard, CompareToggle } from '@/components/election/CandidateCard';
 import { CandidatePhoto } from '@/components/election/CandidatePhoto';
+import { DesfechoChip } from '@/components/election/DesfechoChip';
+import { useDesfechos } from '@/components/resultados/hooks';
+import type { Desfecho } from '@/data/apuracao';
 import { SourceNote } from '@/components/election/SourceNote';
 import { StatusChip } from '@/components/election/StatusChip';
 import { UfTileMap } from '@/components/election/UfTileMap';
@@ -58,7 +61,8 @@ function CriterioInfo() {
   );
 }
 
-function Majoritarios({ cargo, lista, vagas, fontes }: { cargo: TabKey; lista: Candidato[]; vagas?: number; fontes: string[] }) {
+function Majoritarios({ cargo, uf, lista, vagas, fontes }: { cargo: TabKey; uf: string; lista: Candidato[]; vagas?: number; fontes: string[] }) {
+  const desfechos = useDesfechos(cargo, uf);
   const [params, setParams] = useSearchParams();
   // Padrão: todas as candidaturas na urna. O recorte por bancada é opcional (?criterio=congresso5).
   const modo = params.get('criterio') === 'congresso5' ? 'criterio' : 'todos';
@@ -124,7 +128,7 @@ function Majoritarios({ cargo, lista, vagas, fontes }: { cargo: TabKey; lista: C
       <Grid container spacing={2}>
         {visible.map((c) => (
           <Grid key={c.sq} size={{ xs: 12, sm: 6, lg: 4 }}>
-            <CandidateCard c={c} />
+            <CandidateCard c={c} desfecho={desfechos.get(c.sq)} />
           </Grid>
         ))}
         {visible.length === 0 && (
@@ -149,7 +153,7 @@ const DEP_SORTS = {
   idade: { label: 'Idade (mais jovem primeiro)', fn: (a: DeputadoResumo, b: DeputadoResumo) => (a.idade ?? 999) - (b.idade ?? 999) },
 } as const;
 
-function DeputadoRow({ d }: { d: DeputadoResumo }) {
+function DeputadoRow({ d, desfecho }: { d: DeputadoResumo; desfecho?: Desfecho | null }) {
   const nome = nomeProprio(d.nome_urna);
   return (
     <Card sx={{ '&:hover': { borderColor: 'primary.light' } }}>
@@ -169,6 +173,7 @@ function DeputadoRow({ d }: { d: DeputadoResumo }) {
             {[d.idade != null ? `${d.idade} anos` : null, d.genero, d.instrucao, d.ocupacao].filter(Boolean).join(' · ')}
           </Typography>
           <Stack direction="row" spacing={0.75} useFlexGap sx={{ mt: 0.75, flexWrap: 'wrap', gap: 0.75 }}>
+            <DesfechoChip d={desfecho} genero={d.genero} />
             <StatusChip situacao={d.situacao} naUrna={d.na_urna} />
             {d.mandato_atual && <Chip size="small" variant="outlined" sx={WRAP_CHIP} label={`Mandato atual no Congresso: ${d.mandato_atual}`} />}
             {d.eleito_ultima && <Chip size="small" variant="outlined" sx={WRAP_CHIP} label={`Eleito(a): ${d.eleito_ultima}`} />}
@@ -198,6 +203,7 @@ function DeputadoRow({ d }: { d: DeputadoResumo }) {
 
 function Deputados({ uf, cargo }: { uf: string; cargo: Cargo }) {
   const res = useAsync(() => data.deputados(uf), [uf]);
+  const desfechos = useDesfechos(cargo === 'deputado-federal' || cargo === 'deputado-estadual' || cargo === 'deputado-distrital' ? cargo : null, uf);
   const [busca, setBusca] = useState('');
   const [partido, setPartido] = useState('');
   const [genero, setGenero] = useState('');
@@ -282,7 +288,7 @@ function Deputados({ uf, cargo }: { uf: string; cargo: Cargo }) {
       </Typography>
       <Stack spacing={1}>
         {filtrados.slice(0, limit).map((d) => (
-          <DeputadoRow key={d.sq} d={d} />
+          <DeputadoRow key={d.sq} d={d} desfecho={desfechos.get(d.sq)} />
         ))}
       </Stack>
       {filtrados.length > limit && (
@@ -379,7 +385,7 @@ export function EleicaoPage() {
             ))}
           </Grid>
         ) : presidente.data ? (
-          <Majoritarios cargo="presidente" lista={presidente.data.candidatos} vagas={1} fontes={presidente.data.fontes} />
+          <Majoritarios cargo="presidente" uf="BR" lista={presidente.data.candidatos} vagas={1} fontes={presidente.data.fontes} />
         ) : (
           <Alert severity="error">Não foi possível carregar os dados.</Alert>
         ))}
@@ -395,7 +401,7 @@ export function EleicaoPage() {
             ))}
           </Grid>
         ) : maj.data ? (
-          <Majoritarios cargo={cargo} lista={maj.data[cargo]} vagas={maj.data.vagas[cargo]} fontes={maj.data.fontes} />
+          <Majoritarios cargo={cargo} uf={uf} lista={maj.data[cargo]} vagas={maj.data.vagas[cargo]} fontes={maj.data.fontes} />
         ) : (
           <Alert severity="error">Não foi possível carregar os dados.</Alert>
         ))}

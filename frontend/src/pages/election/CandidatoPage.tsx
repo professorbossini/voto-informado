@@ -28,6 +28,7 @@ import { useNotify } from '@/components/feedback/notificationsContext';
 import { publicUrl, shareContent } from '@/native/platform';
 import { CandidatePhoto } from '@/components/election/CandidatePhoto';
 import { SourceNote } from '@/components/election/SourceNote';
+import { DesfechoDaCandidatura } from '@/components/election/DesfechoChip';
 import { StatusChip } from '@/components/election/StatusChip';
 import { assetUrl, data, DataError } from '@/data/api';
 import { CARGO_LABEL, money, moneyCompact, nomeProprio, NAO_INFORMADO, percent, variation } from '@/data/format';
@@ -435,6 +436,7 @@ export function CandidatoPage() {
                 </Box>
               </Stack>
               <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: 'wrap', gap: 1 }}>
+                <DesfechoDaCandidatura c={c} size="medium" />
                 <StatusChip situacao={c.situacao} naUrna={c.na_urna} size="medium" />
                 {c.mandato_atual && <Chip variant="outlined" sx={WRAP_CHIP} label={`Mandato atual no Congresso: ${c.mandato_atual}`} />}
                 {c.eleito_ultima && <Chip variant="outlined" sx={WRAP_CHIP} label={`Eleito(a): ${c.eleito_ultima}`} />}

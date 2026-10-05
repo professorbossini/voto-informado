@@ -26,6 +26,8 @@ import { Link as RouterLink, useParams } from 'react-router';
 import { BarList, ColumnChart, StatTile } from '@/components/charts/charts';
 import { CandidateCard } from '@/components/election/CandidateCard';
 import { CandidatePhoto } from '@/components/election/CandidatePhoto';
+import { useDesfechos } from '@/components/resultados/hooks';
+import { cargoDaBusca } from '@/data/apuracao';
 import { SourceNote } from '@/components/election/SourceNote';
 import { AvisosAlerts } from '@/components/gastos/AvisosAlerts';
 import {
@@ -89,6 +91,7 @@ export function ParlamentarPage() {
   const { id = '' } = useParams();
   const { data: d, error, loading, reload } = useAsync(() => data.parlamentar(id), [id]);
   const [anoTab, setAnoTab] = useState<number | null>(null);
+  const desfechos = useDesfechos(d?.candidato ? cargoDaBusca(d.candidato.cargo) : null, d?.candidato?.uf ?? null);
 
   const anos = useMemo(() => {
     if (!d) return [];
@@ -215,7 +218,7 @@ export function ParlamentarPage() {
                 Candidatura em 2026
               </Typography>
               <Box>
-                <CandidateCard c={d.candidato} />
+                <CandidateCard c={d.candidato} desfecho={desfechos.get(d.candidato.sq)} />
               </Box>
               <SourceNote keys={['tse_candidatos']} sx={{ mt: 1 }} />
             </Grid>

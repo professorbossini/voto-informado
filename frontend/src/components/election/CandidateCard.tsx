@@ -5,8 +5,10 @@ import { Link as RouterLink } from 'react-router';
 import { useNotify } from '@/components/feedback/notificationsContext';
 import { CARGO_LABEL, moneyCompact, nomeProprio, NAO_INFORMADO } from '@/data/format';
 import { MAX_COMPARAR, useComparar } from '@/data/localStore';
+import type { Desfecho } from '@/data/apuracao';
 import type { Candidato } from '@/data/types';
 import { CandidatePhoto } from './CandidatePhoto';
+import { DesfechoChip } from './DesfechoChip';
 import { StatusChip } from './StatusChip';
 
 const WRAP_CHIP = { height: 'auto', maxWidth: '100%', '& .MuiChip-label': { whiteSpace: 'normal', py: 0.25 } } as const;
@@ -60,7 +62,7 @@ function Fact({ label, value }: { label: string; value: string | number | null |
  * Same layout, same fields, same order for every candidate. Nothing is highlighted
  * or hidden based on who the person is.
  */
-export function CandidateCard({ c }: { c: Candidato }) {
+export function CandidateCard({ c, desfecho }: { c: Candidato; desfecho?: Desfecho | null }) {
   const nome = nomeProprio(c.nome_urna);
   const companheiros = (c.companheiros ?? []).filter((x) => x.na_urna === c.na_urna);
   return (
@@ -83,9 +85,10 @@ export function CandidateCard({ c }: { c: Candidato }) {
                 {c.partido}
               </Typography>
             </Stack>
-            <Box>
+            <Stack direction="row" useFlexGap sx={{ flexWrap: 'wrap', gap: 0.75 }}>
+              <DesfechoChip d={desfecho} genero={c.genero} />
               <StatusChip situacao={c.situacao} naUrna={c.na_urna} />
-            </Box>
+            </Stack>
           </Stack>
         </Stack>
         {companheiros.length > 0 && (

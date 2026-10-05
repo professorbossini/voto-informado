@@ -76,3 +76,14 @@ def test_remoto_igual_ao_banco(mem, tmp_path):
 
     # Reaplicar o mesmo resultado não muda nada além da hora da consulta.
     assert aplicar(site, finais, parciais=0, agora=agora) == 0
+
+
+def test_finalista_do_2turno_nao_conta_como_eleito():
+    # O TSE publica e = "s" também para quem vai ao 2º turno (AC, DF, ES, TO em 04/10/2026).
+    from etl.resultados import _eleito
+
+    assert _eleito("s", "2º turno") == 0
+    assert _eleito("s", "Eleito") == 1
+    assert _eleito("n", "Eleito por QP") == 1
+    assert _eleito("n", "Não eleito") == 0
+    assert _eleito("s", None) == 1

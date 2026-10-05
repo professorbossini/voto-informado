@@ -1,7 +1,7 @@
 import presidente from './__fixtures__/apuracao-presidente-br.json';
 import depfed from './__fixtures__/apuracao-depfed-sp.json';
 import presidenteBa from './__fixtures__/apuracao-presidente-ba.json';
-import { cargoEstadual, eleitosDe, finalistasDe, foiEleito, num, parseApuracao, temSegundoTurno, urlApuracao, vaiAo2Turno, type RawUnificado } from './apuracao';
+import { cargoEstadual, desfechoDe, eleitosDe, finalistasDe, foiEleito, num, parseApuracao, temSegundoTurno, urlApuracao, vaiAo2Turno, type RawUnificado } from './apuracao';
 import { diaDeVotacao, noiteDeApuracao, proximaVotacao, turnoMaisRecente } from './calendario';
 import { ufDoPonto } from './localizacao';
 
@@ -79,6 +79,8 @@ describe('apuração do TSE', () => {
     expect(foiEleito({ eleito: false, situacao: 'Não eleito' })).toBe(false);
     expect(foiEleito({ eleito: false, situacao: 'Suplente' })).toBe(false);
     expect(foiEleito({ eleito: false, situacao: '2º turno' })).toBe(false);
+    // O TSE publica e = s também para quem vai ao 2º turno (AC, DF, ES, TO em 04/10/2026).
+    expect(foiEleito({ eleito: true, situacao: '2º turno' })).toBe(false);
     const a = parseApuracao(presidenteBa as unknown as RawUnificado, 'presidente', 'x');
     expect(eleitosDe(a)).toEqual([]);
     expect(eleitosDe({ ...a, candidatos: a.candidatos.map((c, i) => (i === 0 ? { ...c, eleito: true } : c)) }).map((c) => c.sq)).toEqual([a.candidatos[0].sq]);
@@ -146,5 +148,25 @@ describe('UF pela posição (malha do IBGE, no aparelho)', () => {
   it('fora do Brasil não chuta UF', () => {
     expect(ufDoPonto(38.7223, -9.1393)).toBeNull(); // Lisboa
     expect(ufDoPonto(-34.6037, -58.3816)).toBeNull(); // Buenos Aires
+  });
+});
+
+describe('desfecho da candidatura (rótulos Eleito / 2º turno)', () => {
+  it('nada definido: sem rótulo', () => {
+    expect(desfechoDe([])).toBeNull();
+    expect(desfechoDe([{ turno: 1, situacao: null, eleito: false }])).toBeNull();
+    expect(desfechoDe([{ turno: 1, situacao: 'Suplente', eleito: 0 }])).toBeNull();
+    expect(desfechoDe([{ turno: 1, situacao: 'Não eleito', eleito: 0 }])).toBeNull();
+  });
+  it('eleito no 1º turno (inclusive por QP/média)', () => {
+    expect(desfechoDe([{ turno: 1, situacao: 'Eleito', eleito: true }])).toEqual({ tipo: 'eleito', turno: 1 });
+    expect(desfechoDe([{ turno: 1, situacao: 'Eleito por QP', eleito: 0 }])).toEqual({ tipo: 'eleito', turno: 1 });
+  });
+  it('vai ao 2º turno, e depois eleito ou não no 2º turno', () => {
+    const t1 = { turno: 1, situacao: '2º turno', eleito: true };
+    expect(desfechoDe([t1])).toEqual({ tipo: 'segundo-turno', turno: 1, encerrado: false });
+    expect(desfechoDe([t1, { turno: 2, situacao: null, eleito: false }])).toEqual({ tipo: 'segundo-turno', turno: 1, encerrado: false });
+    expect(desfechoDe([t1, { turno: 2, situacao: 'Eleito', eleito: true }])).toEqual({ tipo: 'eleito', turno: 2 });
+    expect(desfechoDe([t1, { turno: 2, situacao: 'Não eleito', eleito: false }])).toEqual({ tipo: 'segundo-turno', turno: 1, encerrado: true });
   });
 });

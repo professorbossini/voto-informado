@@ -111,7 +111,7 @@ interface Legenda {
 function SituacaoChip({ c }: { c: CandidatoApurado }) {
   const chips: ReactNode[] = [];
   if (c.situacao) {
-    const eleito = c.eleito || /^eleit/i.test(c.situacao);
+    const eleito = foiEleito(c);
     chips.push(
       <Chip
         key="st"

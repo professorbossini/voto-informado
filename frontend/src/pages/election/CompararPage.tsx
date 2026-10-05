@@ -28,6 +28,7 @@ import { CandidatePhoto } from '@/components/election/CandidatePhoto';
 import { CandidateSearch } from '@/components/election/CandidateSearch';
 import { useFinalistas, useUfUsuario, type DisputaFinal } from '@/components/resultados/hooks';
 import { SourceNote } from '@/components/election/SourceNote';
+import { DesfechoDaCandidatura } from '@/components/election/DesfechoChip';
 import { StatusChip } from '@/components/election/StatusChip';
 import { data } from '@/data/api';
 import { CARGO_LABEL, money, moneyCompact, nomeProprio, NAO_INFORMADO, percent, variation } from '@/data/format';
@@ -53,6 +54,7 @@ const ROWS: { group: string; rows: Row[] }[] = [
     rows: [
       { label: 'Cargo', render: (c) => `${CARGO_LABEL[c.cargo]} · ${c.uf === 'BR' ? 'Brasil' : c.uf}` },
       { label: 'Partido', render: (c) => `${c.partido}${c.federacao_nome ? ` (${nomeProprio(c.federacao_nome)})` : ''}` },
+      { label: 'Resultado (TSE)', render: (c) => <DesfechoDaCandidatura c={c} vazio="—" /> },
       { label: 'Situação do registro', render: (c) => <StatusChip situacao={c.situacao} naUrna={c.na_urna} /> },
       { label: 'Vice / suplentes', render: (c) => (c.companheiros ?? []).filter((x) => x.na_urna === c.na_urna).map((x) => `${nomeProprio(x.nome_urna)} (${x.partido})`).join(', ') || '—' },
     ],

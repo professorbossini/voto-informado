@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { buscarApuracao, eleitosDe, finalistasDe, temSegundoTurno, urlApuracao, type Apuracao, type CandidatoApurado, type CargoApuracao, type Turno } from '@/data/apuracao';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { buscarApuracao, desfechoDe, eleitosDe, finalistasDe, temSegundoTurno, urlApuracao, type Apuracao, type CandidatoApurado, type CargoApuracao, type Desfecho, type Turno } from '@/data/apuracao';
 import { data as api } from '@/data/api';
 import { inicioDivulgacao } from '@/data/calendario';
 import { useAsync } from '@/hooks/useAsync';
@@ -309,3 +309,29 @@ export function useVencedores(ufEleitor: string | null) {
   };
 }
 
+
+/**
+ * Desfecho de cada candidatura de uma disputa (sq → eleito / 2º turno), lido ao vivo do TSE
+ * a partir das 17h do dia da votação. `cargo` ou `uf` nulos = desligado.
+ */
+export function useDesfechos(cargo: CargoApuracao | null, uf: string | null): Map<string, Desfecho> {
+  const [divulgando] = useState(() => Date.now() >= inicioDivulgacao(1).getTime());
+  const [divulgando2] = useState(() => Date.now() >= inicioDivulgacao(2).getTime());
+  const c = cargo ?? 'presidente';
+  const t1 = useApuracao(1, c, cargo && divulgando ? uf : null);
+  const t2 = useApuracao(2, c, cargo && divulgando2 && temSegundoTurno(c) ? uf : null);
+  const d1 = t1.data;
+  const d2 = t2.data;
+  return useMemo(() => {
+    const linhas = new Map<string, { turno: number; situacao: string | null; eleito: boolean }[]>();
+    for (const ap of [d1, d2]) {
+      for (const x of ap?.candidatos ?? []) linhas.set(x.sq, [...(linhas.get(x.sq) ?? []), { turno: ap!.turno, situacao: x.situacao, eleito: x.eleito }]);
+    }
+    const mapa = new Map<string, Desfecho>();
+    for (const [sq, rs] of linhas) {
+      const d = desfechoDe(rs);
+      if (d) mapa.set(sq, d);
+    }
+    return mapa;
+  }, [d1, d2]);
+}

@@ -40,6 +40,15 @@ CARGO_CODIGO = {
 }
 
 
+
+def _eleito(e, situacao: str | None) -> int:
+    """1 se o TSE declarou eleito(a). O TSE também marca e = "s" em quem vai ao 2º turno,
+    então a situação "2º turno" prevalece sobre a marca."""
+    st = (situacao or "").strip().lower()
+    if st.startswith("2") and st.endswith("turno"):
+        return 0
+    return 1 if str(e or "").lower() == "s" or st.startswith("eleit") else 0
+
 def _targets():
     """(turno, eleicao, uf, cargo) de cada arquivo de resultado a consultar."""
     for turno, federal, estadual in ((1, ELEICAO_FEDERAL_T1, ELEICAO_ESTADUAL_T1), (2, ELEICAO_FEDERAL_T2, ELEICAO_ESTADUAL_T2)):
@@ -122,7 +131,7 @@ def coletar() -> tuple[list[dict], int]:
                 (
                     turno, uf_up, cargo, str(c.get("sqcand") or ""), str(c.get("n") or ""), c.get("nm"),
                     _num(c.get("vap")), _num(c.get("pvap")), situacao,
-                    1 if str(c.get("e", "")).lower() == "s" or (situacao or "").lower().startswith("eleito") else 0,
+                    _eleito(c.get("e"), situacao),
                     pos,
                 )
             )
