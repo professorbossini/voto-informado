@@ -29,7 +29,7 @@ import SearchRounded from '@mui/icons-material/SearchRounded';
 import MoreHorizRounded from '@mui/icons-material/MoreHorizRounded';
 import VerifiedRounded from '@mui/icons-material/VerifiedRounded';
 import LoginRounded from '@mui/icons-material/LoginRounded';
-import { Link as RouterLink, NavLink, Outlet, useLocation, useNavigate } from 'react-router';
+import { Link as RouterLink, NavLink, Outlet, useLocation, useNavigate, ScrollRestoration } from 'react-router';
 import { useAuth } from '@/auth';
 import { FaiscaCredito } from '@/components/brand/FaiscaCredito';
 import { ShareButton } from '@/components/share/ShareButton';
@@ -182,6 +182,8 @@ export function PublicLayout() {
       </AppBar>
       <TrustBar />
 
+      {/* Página nova abre no topo; "voltar" devolve a posição anterior. */}
+      <ScrollRestoration />
       <Container component="main" maxWidth="lg" sx={{ pt: { xs: 3, md: 4 }, pb: 6, flex: 1 }}>
         <PageTransition>
           <Outlet />
