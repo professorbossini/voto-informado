@@ -1,4 +1,4 @@
-import { useMemo, useState, type ReactElement } from 'react';
+import { useCallback, useEffect, useMemo, useState, type ReactElement } from 'react';
 import {
   Alert,
   Box,
@@ -33,6 +33,9 @@ import { nomeProprio } from '@/data/format';
 import HighlightAltRounded from '@mui/icons-material/HighlightAltRounded';
 import FaceRounded from '@mui/icons-material/FaceRounded';
 import FlagRounded from '@mui/icons-material/FlagRounded';
+import MyLocationRounded from '@mui/icons-material/MyLocationRounded';
+import { municipioDoPonto, ufDoPonto } from '@/data/localizacao';
+import { isNativeApp } from '@/native/platform';
 import { useLocalState } from '@/data/localStore';
 import { data, dataFileUrl } from '@/data/api';
 import type { CasaPlenario, MembroPlenario, Plenario } from '@/data/types';
@@ -529,11 +532,82 @@ const UFS_NOMES: Record<string, string> = {
  * Assembleias Legislativas (eleitos em 2022) e Câmaras Municipais (eleitos em 2024), por estado.
  * Fonte: TSE. Não há base oficial unificada da composição ATUAL dessas Casas; o texto diz isso.
  */
+/** Sem município escolhido nem localização: São Paulo (código do município no TSE). */
+const MUN_PADRAO = { uf: 'SP', mun: '71072' };
+
+type StatusMunicipio = 'ocioso' | 'buscando' | 'negado' | 'indisponivel' | 'fora' | 'df';
+
+/**
+ * Município da pessoa pela localização, para abrir a Câmara Municipal dela. Como a UF na
+ * apuração, o cálculo é feito no aparelho (malha municipal do IBGE publicada no site): a posição
+ * não sai dele. Fica guardado só o código do município.
+ */
+function useMunicipioUsuario(ativo: boolean) {
+  const [salvo, setSalvo] = useLocalState<{ uf: string; mun: string } | null>('vi:municipio', null);
+  const [pediu, setPediu] = useLocalState<boolean>('vi:municipio-pediu', false);
+  const [status, setStatus] = useState<StatusMunicipio>('ocioso');
+
+  const detectar = useCallback(
+    (aoAchar?: () => void) => {
+      if (!('geolocation' in navigator)) {
+        setStatus('indisponivel');
+        return;
+      }
+      setStatus('buscando');
+      setPediu(true);
+      navigator.geolocation.getCurrentPosition(
+        async ({ coords }) => {
+          const uf = ufDoPonto(coords.latitude, coords.longitude);
+          if (!uf) return setStatus('fora');
+          if (uf === 'DF') return setStatus('df');
+          try {
+            const mun = municipioDoPonto(coords.latitude, coords.longitude, await data.malhaMunicipal(uf));
+            if (!mun) return setStatus('fora');
+            setSalvo({ uf, mun });
+            setStatus('ocioso');
+            aoAchar?.();
+          } catch {
+            setStatus('indisponivel');
+          }
+        },
+        (err) => setStatus(err.code === err.PERMISSION_DENIED ? 'negado' : 'indisponivel'),
+        { enableHighAccuracy: false, timeout: 15_000, maximumAge: 3_600_000 },
+      );
+    },
+    [setSalvo, setPediu],
+  );
+
+  // Ao abrir as Câmaras municipais: com a permissão já dada, confere de novo (a pessoa pode ter
+  // mudado de cidade); sem ela, pergunta uma vez só e não insiste se já foi negada.
+  useEffect(() => {
+    if (!ativo) return;
+    let cancel = false;
+    const perm: Promise<PermissionStatus | null> = isNativeApp
+      ? Promise.resolve(null)
+      : (navigator.permissions?.query?.({ name: 'geolocation' as PermissionName }) ?? Promise.resolve(null));
+    perm.then(
+      (p) => {
+        if (cancel) return;
+        if (p?.state === 'denied') setStatus('negado');
+        else if (p?.state === 'granted' || (!salvo && !pediu)) detectar();
+      },
+      () => !cancel && !salvo && !pediu && detectar(),
+    );
+    return () => void (cancel = true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ativo]);
+
+  return { salvo, status, detectar };
+}
+
 function PlenarioLocal({ tipo, partidos }: { tipo: 'assembleia' | 'municipal'; partidos: Plenario['partidos'] }) {
   const [params, setParams] = useSearchParams();
   const { uf: ufUsuario } = useUfUsuario({ detectarSozinho: false });
-  const uf = (params.get('uf') ?? (tipo === 'assembleia' || params.get('mun') == null ? ufUsuario : null) ?? '').toUpperCase() || null;
-  const mun = params.get('mun');
+  const local = useMunicipioUsuario(tipo === 'municipal');
+  // Câmaras municipais sem escolha na URL: o município da localização ou, sem ela, São Paulo.
+  const padrao = tipo === 'municipal' && !params.get('uf') && !params.get('mun') ? (local.salvo ?? MUN_PADRAO) : null;
+  const uf = padrao?.uf ?? ((params.get('uf') ?? (tipo === 'assembleia' ? ufUsuario : null) ?? '').toUpperCase() || null);
+  const mun = padrao?.mun ?? params.get('mun');
   const est = useAsync(() => (tipo === 'assembleia' ? data.estaduais() : Promise.resolve(null)), [tipo]);
   const ver = useAsync(() => (tipo === 'municipal' && uf ? data.vereadores(uf) : Promise.resolve(null)), [tipo, uf]);
   const [destaque, setDestaque] = useState<string | null>(null);
@@ -551,7 +625,30 @@ function PlenarioLocal({ tipo, partidos }: { tipo: 'assembleia' | 'municipal'; p
       { replace: true, preventScrollReset: true },
     );
 
-  const municipios = useMemo(() => Object.entries(ver.data?.municipios ?? {}).map(([codigo, m]) => ({ codigo, nome: nomeProprio(m.nome) })), [ver.data]);
+  // São Paulo primeiro; o restante em ordem alfabética.
+  const municipios = useMemo(
+    () =>
+      Object.entries(ver.data?.municipios ?? {})
+        .map(([codigo, m]) => ({ codigo, nome: nomeProprio(m.nome) }))
+        .sort((a, b) => Number(b.codigo === MUN_PADRAO.mun) - Number(a.codigo === MUN_PADRAO.mun) || a.nome.localeCompare(b.nome, 'pt-BR')),
+    [ver.data],
+  );
+  const avisoLocal =
+    local.status === 'buscando'
+      ? 'Procurando o seu município…'
+      : !padrao
+        ? null
+        : local.salvo
+          ? 'Município pela sua localização, calculado no seu aparelho (a posição não sai dele).'
+          : local.status === 'df'
+            ? 'No Distrito Federal não há Câmara Municipal: os deputados distritais estão na aba Assembleias. Mostrando São Paulo.'
+            : local.status === 'negado'
+              ? 'Sem acesso à localização: mostrando São Paulo. Escolha o seu município na lista.'
+              : local.status === 'fora'
+                ? 'Não identificamos um município brasileiro na sua localização: mostrando São Paulo.'
+                : local.status === 'indisponivel'
+                  ? 'Localização indisponível agora: mostrando São Paulo.'
+                  : 'Mostrando São Paulo. Use a sua localização para ver a Câmara do seu município.';
   const fonte = tipo === 'assembleia' ? (uf ? est.data?.casas[uf] : undefined) : mun ? ver.data?.municipios[mun] : undefined;
   const casa = useMemo<CasaPlenario | null>(
     () =>
@@ -607,7 +704,23 @@ function PlenarioLocal({ tipo, partidos }: { tipo: 'assembleia' | 'municipal'; p
             noOptionsText="Nenhum município"
           />
         )}
+        {tipo === 'municipal' && (
+          <Button
+            size="small"
+            startIcon={<MyLocationRounded />}
+            disabled={local.status === 'buscando'}
+            onClick={() => local.detectar(() => set({ uf: null, mun: null }))}
+            sx={{ alignSelf: { sm: 'center' }, flexShrink: 0 }}
+          >
+            Usar minha localização
+          </Button>
+        )}
       </Stack>
+      {tipo === 'municipal' && avisoLocal && (
+        <Typography variant="caption" color="text.secondary" sx={{ mt: -1.5 }}>
+          {avisoLocal}
+        </Typography>
+      )}
 
       {!uf ? (
         <Alert severity="info">Escolha um estado para ver {tipo === 'assembleia' ? 'a Assembleia Legislativa' : 'as Câmaras Municipais'}.</Alert>

@@ -15,6 +15,7 @@ on:
     branches: [main]
     paths:
       - "backend/etl/plenario.py"
+      - "backend/curadoria/legislativos/**"
       - ".github/workflows/plenario.yml"
   workflow_dispatch:
 

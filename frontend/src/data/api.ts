@@ -1,4 +1,5 @@
 import { env } from '@/config/env';
+import type { MalhaMunicipal } from '@/data/localizacao';
 import type {
   BuscaItem,
   CandidatoDetalhe,
@@ -75,6 +76,7 @@ export const data = {
   executivos: () => get<Executivos>('executivos.json'),
   estaduais: () => get<LegislativosEstaduais>('legislativos/estaduais.json'),
   vereadores: (uf: string) => get<VereadoresUf>(`legislativos/vereadores/${uf.toUpperCase()}.json`),
+  malhaMunicipal: (uf: string) => get<MalhaMunicipal>(`legislativos/malhas/${uf.toUpperCase()}.json`),
   noticias: (tipo: 'parlamentar' | 'partido', id: string) => get<FeedNoticiasDados>(`noticias/${tipo}/${encodeURIComponent(id)}.json`),
   estatisticas: () => get<Estatisticas>('estatisticas.json'),
   parlamentares: () => get<ListaParlamentares>('parlamentares.json'),

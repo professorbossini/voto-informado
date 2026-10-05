@@ -12,7 +12,7 @@ export function PrivacidadePage() {
           ferramentas de análise de audiência. O que você anota (como a sua cola) fica no seu aparelho. Se você quiser,
           pode entrar com o Google para guardar suas escolhas: elas são criptografadas no seu aparelho com uma frase que
           só você conhece, e ninguém mais consegue lê-las. A localização, se você permitir, serve só para achar o seu
-          estado e não sai do aparelho.
+          estado e o seu município, e não sai do aparelho.
         </>
       }
       outro={{ to: '/termos', label: 'Termos de Uso' }}
@@ -29,7 +29,7 @@ export function PrivacidadePage() {
         <P>Não pedimos nem recebemos:</P>
         <ul>
           <li>telefone, CPF, título de eleitor ou qualquer cadastro (o login com Google é opcional; veja o item 4);</li>
-          <li>sua localização (veja abaixo como o site descobre o seu estado sem recebê-la), contatos, fotos, câmera, microfone ou arquivos do aparelho;</li>
+          <li>sua localização (veja abaixo como o site descobre o seu estado e o seu município sem recebê-la), contatos, fotos, câmera, microfone ou arquivos do aparelho;</li>
           <li>identificadores de publicidade ou de dispositivo;</li>
           <li>dados de navegação para estatística, perfil ou publicidade: não usamos Google Analytics, Firebase Analytics, pixels, cookies de rastreamento nem ferramentas parecidas.</li>
         </ul>
@@ -39,7 +39,7 @@ export function PrivacidadePage() {
         </P>
       </Secao>
 
-      <Secao n={3} title="Localização: só para descobrir o seu estado, no próprio aparelho">
+      <Secao n={3} title="Localização: só para descobrir o seu estado e o seu município, no próprio aparelho">
         <P>
           Na apuração, o site pode perguntar se você permite o uso da localização, para já mostrar os resultados do seu
           estado. Se você permitir, o navegador informa a posição à própria página, que descobre a UF comparando-a com o
@@ -47,6 +47,12 @@ export function PrivacidadePage() {
           nem para nenhum serviço de mapas, e é descartada em seguida. Fica guardada só a sigla do estado (por exemplo,
           “SP”). Se você não permitir, basta escolher o estado na lista. Você pode revogar a permissão nas configurações
           do navegador quando quiser.
+        </P>
+        <P>
+          Do mesmo jeito, no plenário das Câmaras Municipais, o site pode usar a localização para abrir a Câmara do seu
+          município: compara a posição com a malha municipal oficial do IBGE, publicada no próprio site, e o cálculo
+          também acontece no seu aparelho. Fica guardado só o código do município. Sem localização, aparece São Paulo
+          e você escolhe o seu na lista.
         </P>
       </Secao>
 
