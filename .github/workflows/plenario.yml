@@ -1,0 +1,78 @@
+# Plenário → site, sem depender de nenhum computador e sem data para acabar.
+#
+# Todo dia consulta a Câmara e o Senado (composição em exercício, Presidente de cada Casa e
+# símbolos dos partidos) e, se algo mudou, grava api/plenario.json no site publicado (gh-pages).
+# Fonte fora do ar: mantém o último dado bom. Lógica em backend/etl/plenario.py.
+name: Plenário → site
+
+on:
+  schedule:
+    - cron: "47 8 * * *" # 05h47 em Brasília
+  push:
+    branches: [main]
+    paths:
+      - "backend/etl/plenario.py"
+      - ".github/workflows/plenario.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  actions: write
+
+concurrency:
+  group: gh-pages
+  cancel-in-progress: false
+
+jobs:
+  plenario:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: backend
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Dependências
+        run: pip install -q "requests>=2.32"
+
+      - name: Site publicado (só o que o plenário usa)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git clone -q --depth 1 --filter=blob:none --no-checkout --branch gh-pages \
+            "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" site
+          git -C site sparse-checkout set --no-cone /index.html /plenario/ /api/plenario.json /api/plenario/ /api/parlamentares.json /api/partidos.json /api/meta.json
+          git -C site checkout -q gh-pages
+
+      - name: Consultar Câmara e Senado
+        id: plenario
+        working-directory: backend
+        run: python -m etl.plenario ../site
+
+      - name: Publicar
+        if: steps.plenario.outputs.mudou == '1'
+        working-directory: site
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then echo "Nada mudou."; exit 0; fi
+          git commit -q -m "Plenário: composição e presidência da Câmara e do Senado"
+          git push -q origin gh-pages
+          gh api -X POST "repos/${{ github.repository }}/pages/builds" >/dev/null || true
+          echo "✓ plenário publicado" >> "$GITHUB_STEP_SUMMARY"
+
+      # O GitHub desliga agendamentos de repositórios sem atividade por 60 dias; reativar
+      # este workflow a cada execução mantém a atualização diária ligada indefinidamente.
+      - name: Manter o agendamento ligado
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh api -X PUT "repos/${{ github.repository }}/actions/workflows/plenario.yml/enable" >/dev/null || true

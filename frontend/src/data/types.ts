@@ -337,3 +337,29 @@ export interface SegundoTurno {
   disputas: { uf: string; nome_uf: string; cargo: Cargo; candidatos: CandidatoDetalhe[] }[];
   fontes: string[];
 }
+
+/** Composição atual de cada Casa e presidência (api/plenario.json, atualizado todo dia). */
+export interface MembroPlenario {
+  id: string;
+  nome: string;
+  partido: string;
+  uf: string | null;
+  foto: string | null;
+  /** Há página de gastos de mandato deste parlamentar no site. */
+  perfil: boolean;
+}
+
+export interface CasaPlenario {
+  legislatura: number | null;
+  membros: MembroPlenario[];
+  /** desde/ate: vigência do mandato na presidência, como publicada pela Casa (ate só se publicado). */
+  presidente: (MembroPlenario & { desde: string | null; ate?: string | null }) | null;
+  coletado_em: string | null;
+}
+
+export interface Plenario {
+  camara: CasaPlenario | null;
+  senado: CasaPlenario | null;
+  /** Sigla → nome e símbolo oficial (caminho dentro de api/). */
+  partidos: Record<string, { nome: string | null; logo: string | null }>;
+}

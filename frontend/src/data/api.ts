@@ -11,6 +11,7 @@ import type {
   Meta,
   ParlamentarDetalhe,
   Partido,
+  Plenario,
   Resultados,
   SegundoTurno,
 } from './types';
@@ -26,6 +27,11 @@ const cache = new Map<string, Promise<unknown>>();
 export function assetUrl(path: string | null | undefined): string | null {
   if (!path) return null;
   return /^https?:\/\//.test(path) ? path : `${env.assetsUrl}${path}`;
+}
+
+/** URL de um arquivo publicado junto com os dados (dentro de api/). */
+export function dataFileUrl(path: string): string {
+  return `${env.dataUrl}/api/${path}`;
 }
 
 export class DataError extends Error {
@@ -61,6 +67,7 @@ export const data = {
   candidato: (sq: string) => get<CandidatoDetalhe>(`candidato/${encodeURIComponent(sq)}.json`),
   busca: () => get<BuscaItem[]>('busca.json'),
   partidos: () => get<Partido[]>('partidos.json'),
+  plenario: () => get<Plenario>('plenario.json'),
   estatisticas: () => get<Estatisticas>('estatisticas.json'),
   parlamentares: () => get<ListaParlamentares>('parlamentares.json'),
   parlamentar: (id: string) => get<ParlamentarDetalhe>(`parlamentar/${encodeURIComponent(id)}.json`),

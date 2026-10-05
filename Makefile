@@ -6,7 +6,7 @@ API_PORT ?= 8077
 # Domínio próprio do site (GitHub Pages). Vazio = professorbossini.dev/voto-informado.
 SITE_DOMAIN ?= www.tanaurna.com.br
 
-.PHONY: help setup dados api web dev apuracao apuracao-remota site-remoto exportar build testes publicar nuvem neon api-pg app app-release app-loja
+.PHONY: help setup dados api web dev apuracao apuracao-remota site-remoto plenario-remoto exportar build testes publicar nuvem neon api-pg app app-release app-loja
 
 help:
 	@echo "make setup     instala dependências (venv Python + npm)"
@@ -17,6 +17,7 @@ help:
 	@echo "make apuracao  consulta a apuração do TSE a cada 5 min (dia da eleição)"
 	@echo "make apuracao-remota  roda agora, no GitHub Actions, a passada da apuração final (normalmente a cada 10 min)"
 	@echo "make site-remoto      republica agora, no GitHub Actions, só a interface (normalmente a cada push na main)"
+	@echo "make plenario-remoto  atualiza agora, no GitHub Actions, a composição da Câmara e do Senado (normalmente todo dia)"
 	@echo "make exportar  gera o site estático completo em frontend/dist"
 	@echo "make testes    testes do backend e do frontend"
 	@echo "make publicar  publica no GitHub Pages (branch gh-pages)"
@@ -52,6 +53,9 @@ apuracao-remota:
 
 site-remoto:
 	gh workflow run site.yml && sleep 3 && gh run list --workflow site.yml --limit 1
+
+plenario-remoto:
+	gh workflow run plenario.yml && sleep 3 && gh run list --workflow plenario.yml --limit 1
 
 exportar:
 	cd $(FRONT) && npm run build
