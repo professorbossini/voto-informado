@@ -252,7 +252,7 @@ export function PublicLayout() {
         </DialogContent>
       </Dialog>
 
-      <PoweredByFaisca sx={{ bottom: { xs: 88, md: 16 } }} />
+      <PoweredByFaisca sx={{ bottom: { xs: 88, md: 24 } }} />
     </Box>
   );
 }
