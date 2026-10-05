@@ -31,10 +31,8 @@ import VerifiedRounded from '@mui/icons-material/VerifiedRounded';
 import LoginRounded from '@mui/icons-material/LoginRounded';
 import { Link as RouterLink, NavLink, Outlet, useLocation, useNavigate } from 'react-router';
 import { useAuth } from '@/auth';
+import { FaiscaCredito } from '@/components/brand/FaiscaCredito';
 import { BrandLogo } from '@/components/brand/BrandLogo';
-import { BossiniMark } from '@/components/brand/BossiniMark';
-import { FaiscaMark } from '@/components/brand/FaiscaMark';
-import { FAISCA_REPO_URL } from '@/config/brand';
 import { ColorModeToggle } from '@/components/ColorModeToggle';
 import { CandidateSearch } from '@/components/election/CandidateSearch';
 import { PageTransition } from '@/components/PageTransition';
@@ -117,22 +115,9 @@ function Footer() {
             </Link>
           </Stack>
         </Stack>
-        {/* Crédito do template Faísca (exigido pela licença): centralizado, no fim da página. */}
+        {/* Crédito do template Faísca: centralizado, no fim da página. */}
         <Box sx={{ mt: 4, pt: 3, borderTop: 1, borderColor: 'divider', display: 'flex', justifyContent: 'center' }}>
-          <Link
-            href={FAISCA_REPO_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            underline="hover"
-            sx={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap', gap: 1, color: 'text.secondary', fontWeight: 500, textAlign: 'center' }}
-            aria-label="Interface feita com Faísca, de Rodrigo Bossini (abre o repositório no GitHub)"
-          >
-            <FaiscaMark size={22} />
-            <Typography variant="caption" component="span">
-              Interface feita com <strong>Faísca</strong>, template de Rodrigo Bossini
-            </Typography>
-            <BossiniMark size={18} />
-          </Link>
+          <FaiscaCredito />
         </Box>
       </Container>
     </Box>

@@ -6,6 +6,7 @@ import { FAISCA_REPO_URL } from '@/config/brand';
 import { theme } from '@/theme';
 import { BrandLogo } from './BrandLogo';
 import { PoweredByFaisca } from './PoweredByFaisca';
+import { FaiscaCredito } from './FaiscaCredito';
 
 const renderThemed = (ui: React.ReactElement) =>
   render(<ThemeProvider theme={theme}>{ui}</ThemeProvider>);
@@ -36,5 +37,14 @@ describe('brand placeholders', () => {
     renderThemed(<PoweredByFaisca />);
     const link = screen.getByRole('link', { name: /feito com faísca/i });
     expect(link.querySelector('[data-marca="bossini"]')).not.toBeNull();
+  });
+
+  it('credits Faísca in the footer as "Powered by" + logo + name, linking to the template', () => {
+    renderThemed(<FaiscaCredito />);
+    const link = screen.getByRole('link', { name: /powered by faísca/i });
+    expect(link).toHaveAttribute('href', FAISCA_REPO_URL);
+    expect(link).toHaveAttribute('target', '_blank');
+    expect(link).toHaveTextContent('Powered by');
+    expect(link).toHaveTextContent('Faísca');
   });
 });
