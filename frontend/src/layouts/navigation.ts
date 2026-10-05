@@ -10,6 +10,7 @@ import SyncAltRounded from '@mui/icons-material/SyncAltRounded';
 import PollRounded from '@mui/icons-material/PollRounded';
 import BarChartRounded from '@mui/icons-material/BarChartRounded';
 import AccountBalanceRounded from '@mui/icons-material/AccountBalanceRounded';
+import GroupsRounded from '@mui/icons-material/GroupsRounded';
 import { env } from '@/config/env';
 import { usePeriodoEleitoral } from '@/data/usePeriodoEleitoral';
 
@@ -25,6 +26,7 @@ export const NAV_ITEMS = [
   { to: '/simulador', label: 'Simulador de urna', icon: TouchAppRounded, mobile: false, periodo: 'eleicao' },
   { to: '/segundo-turno', label: '2º turno', icon: SyncAltRounded, mobile: false, periodo: 'segundo-turno' },
   { to: '/plenario', label: 'Plenário', icon: AccountBalanceRounded, mobile: false },
+  { to: '/partidos', label: 'Partidos', icon: GroupsRounded, mobile: false },
   { to: '/gastos', label: 'Gastos de mandato', icon: ReceiptLongRounded, mobile: false },
   { to: '/numeros', label: 'Em números', icon: InsightsRounded, mobile: false },
   { to: '/sobre', label: 'Fontes e método', icon: InfoRounded, mobile: false },
@@ -46,7 +48,7 @@ export function useNavItems(): NavVisivel[] {
 }
 
 export function activeNavItem(pathname: string) {
-  const alias: Record<string, string> = { '/candidato': '/eleicao', '/parlamentar': '/gastos' };
+  const alias: Record<string, string> = { '/candidato': '/eleicao', '/parlamentar': '/gastos', '/partido/': '/partidos' };
   const path = Object.entries(alias).reduce((p, [from, to]) => (p.startsWith(from) ? to : p), pathname);
   const match = [...NAV_ITEMS]
     .sort((a, b) => b.to.length - a.to.length)

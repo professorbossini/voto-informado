@@ -15,10 +15,14 @@ import {
   Typography,
   useMediaQuery,
   useTheme,
+  IconButton,
+  Tooltip,
 } from '@mui/material';
 import { Link as RouterLink, useHref, useNavigate, useSearchParams } from 'react-router';
 import { SourceNote } from '@/components/election/SourceNote';
 import { gruposPorAssento, hemiciclo } from '@/components/plenario/hemiciclo';
+import { slugPartido } from '@/components/partidos/partidos';
+import HighlightAltRounded from '@mui/icons-material/HighlightAltRounded';
 import { data, dataFileUrl } from '@/data/api';
 import type { CasaPlenario, MembroPlenario, Plenario } from '@/data/types';
 import { useAsync } from '@/hooks/useAsync';
@@ -386,7 +390,7 @@ function TabelaPartidos({
               Cadeiras por partido
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Percentual sobre as {total} cadeiras. Toque num partido para destacá-lo no desenho.
+              Percentual sobre as {total} cadeiras. Toque num partido para ver a página dele; use o botão ao lado para destacá-lo no desenho.
             </Typography>
           </Box>
           <ToggleButtonGroup exclusive size="small" value={ordem} onChange={(_, v) => v && setOrdem(v)} aria-label="Ordem da tabela">
@@ -400,20 +404,11 @@ function TabelaPartidos({
             return (
               <Box
                 key={g.sigla}
-                component="button"
-                type="button"
-                onClick={() => onDestaque(ativo ? null : g.sigla)}
-                aria-pressed={ativo}
                 sx={(theme) => ({
                   display: 'grid',
-                  gridTemplateColumns: '40px minmax(0, 1fr) auto',
-                  gap: 1.5,
+                  gridTemplateColumns: 'minmax(0, 1fr) auto auto',
+                  gap: 1,
                   alignItems: 'center',
-                  width: '100%',
-                  textAlign: 'left',
-                  font: 'inherit',
-                  color: 'inherit',
-                  cursor: 'pointer',
                   border: `1px solid ${ativo ? theme.vars.palette.primary.main : 'transparent'}`,
                   bgcolor: ativo ? 'action.selected' : 'transparent',
                   borderRadius: 2,
@@ -421,19 +416,27 @@ function TabelaPartidos({
                   '&:hover': { bgcolor: 'action.hover' },
                 })}
               >
-                <Simbolo sigla={g.sigla} partidos={partidos} size={40} />
-                <Box sx={{ minWidth: 0 }}>
-                  <Typography variant="body2" sx={{ fontWeight: 700 }} noWrap>
-                    {g.sigla === SEM_PARTIDO ? 'Sem partido' : g.sigla}{' '}
-                    <Box component="span" sx={{ fontWeight: 400, color: 'text.secondary' }}>
-                      {g.sigla !== SEM_PARTIDO && nomePartido(g.sigla, partidos) !== g.sigla ? nomePartido(g.sigla, partidos) : ''}
+                {/* Partido → página do partido no site */}
+                <Box
+                  component={RouterLink}
+                  to={`/partido/${slugPartido(g.sigla)}`}
+                  aria-label={`Página do partido ${g.sigla === SEM_PARTIDO ? 'sem partido' : g.sigla}`}
+                  sx={{ display: 'grid', gridTemplateColumns: '40px minmax(0, 1fr)', gap: 1.5, alignItems: 'center', color: 'inherit', textDecoration: 'none', minWidth: 0, '&:hover .nome-partido': { textDecoration: 'underline' } }}
+                >
+                  <Simbolo sigla={g.sigla} partidos={partidos} size={40} />
+                  <Box sx={{ minWidth: 0 }}>
+                    <Typography className="nome-partido" variant="body2" sx={{ fontWeight: 700 }} noWrap>
+                      {g.sigla === SEM_PARTIDO ? 'Sem partido' : g.sigla}{' '}
+                      <Box component="span" sx={{ fontWeight: 400, color: 'text.secondary' }}>
+                        {g.sigla !== SEM_PARTIDO && nomePartido(g.sigla, partidos) !== g.sigla ? nomePartido(g.sigla, partidos) : ''}
+                      </Box>
+                    </Typography>
+                    <Box sx={{ mt: 0.5, height: 8, borderRadius: 4, bgcolor: 'action.hover', overflow: 'hidden' }}>
+                      <Box sx={{ width: `${(g.total / max) * 100}%`, height: '100%', bgcolor: 'primary.main', borderRadius: 4 }} />
                     </Box>
-                  </Typography>
-                  <Box sx={{ mt: 0.5, height: 8, borderRadius: 4, bgcolor: 'action.hover', overflow: 'hidden' }}>
-                    <Box sx={{ width: `${(g.total / max) * 100}%`, height: '100%', bgcolor: 'primary.main', borderRadius: 4 }} />
                   </Box>
                 </Box>
-                <Box sx={{ textAlign: 'right', fontVariantNumeric: 'tabular-nums', minWidth: 92 }}>
+                <Box sx={{ textAlign: 'right', fontVariantNumeric: 'tabular-nums', minWidth: 84 }}>
                   <Typography variant="body2" sx={{ fontWeight: 800 }}>
                     {pctFmt.format((g.total / total) * 100)}%
                   </Typography>
@@ -441,6 +444,11 @@ function TabelaPartidos({
                     {g.total} {g.total === 1 ? 'cadeira' : 'cadeiras'}
                   </Typography>
                 </Box>
+                <Tooltip title={ativo ? 'Tirar o destaque' : 'Destacar no desenho'}>
+                  <IconButton size="small" onClick={() => onDestaque(ativo ? null : g.sigla)} aria-pressed={ativo} aria-label={`Destacar ${g.sigla} no desenho`} color={ativo ? 'primary' : 'default'}>
+                    <HighlightAltRounded fontSize="small" />
+                  </IconButton>
+                </Tooltip>
               </Box>
             );
           })}

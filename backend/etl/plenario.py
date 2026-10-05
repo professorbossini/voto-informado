@@ -354,6 +354,14 @@ def montar(site: Path) -> bool:
     partidos = {s: partidos[s] for s in siglas}
 
     _espelhar_fotos(api, casas)
+    # Executivo 2023–2026 (curadoria/executivos.json, gerado por etl.executivos) para as páginas de partido.
+    execs = LOGOS_CURADOS.parent / "executivos.json"
+    if execs.exists() and (not (api / "executivos.json").exists() or (api / "executivos.json").read_bytes() != execs.read_bytes()):
+        (api / "executivos.json").write_bytes(execs.read_bytes())
+        print("executivos: atualizado no site")
+        mudou_exec = True
+    else:
+        mudou_exec = False
 
     # Perfil de gastos no site (para o clique na cadeira levar até ele).
     pub = _ler(api / "parlamentares.json") or {}
@@ -372,6 +380,7 @@ def montar(site: Path) -> bool:
     # Só o conteúdo decide se publica (a hora da coleta muda a cada execução).
     sem_hora = lambda d: json.dumps({k: ({**v, "coletado_em": None} if isinstance(v, dict) and "coletado_em" in v else v) for k, v in d.items()}, sort_keys=True, ensure_ascii=False)  # noqa: E731
     mudou = not anterior or sem_hora(dados) != sem_hora({k: anterior.get(k) for k in dados})
+    mudou = mudou or mudou_exec
     if mudou:
         _gravar(api / "plenario.json", dados)
         _fontes(api, casas)
@@ -384,7 +393,30 @@ def montar(site: Path) -> bool:
         resumo = "Dados oficiais da Câmara e do Senado. Sem opinião e sem recomendação de voto."
         _page((site / "index.html").read_text(encoding="utf-8"), site, "plenario", "Plenário da Câmara e do Senado · Tá na Urna", resumo, f"{SITE_URL}/plenario")
         mudou = True
+    # Páginas de partido (/partidos e /partido/<slug>): título, descrição e logo na prévia do link.
+    if (site / "index.html").exists():
+        from app.export import _page
+
+        modelo = (site / "index.html").read_text(encoding="utf-8")
+        resumo = "Políticos com mandato do partido: Presidência, governos estaduais, Senado e Câmara. Dados oficiais."
+        paginas = {"partidos": ("Partidos · Tá na Urna", "Cada partido com seus políticos em mandato. Dados oficiais da Câmara, do Senado e do TSE.", None)}
+        for sigla, info in partidos.items():
+            nome = "Sem partido" if sigla == SEM_PARTIDO else f"{sigla} · {(info.get('nome') or sigla).title()}"
+            img = f"{SITE_URL}/api/{info['logo']}" if info.get("logo") else None
+            paginas[f"partido/{slug_partido(sigla)}"] = (f"{nome} · Tá na Urna", resumo, img)
+        for rel, (titulo, desc, img) in paginas.items():
+            if not (site / rel / "index.html").exists():
+                _page(modelo, site, rel, titulo, desc, f"{SITE_URL}/{rel}", img)
+                mudou = True
     return mudou
+
+
+def slug_partido(sigla: str) -> str:
+    """Mesmo endereço que o frontend usa (components/partidos/partidos.ts: slugPartido)."""
+    if sigla == SEM_PARTIDO:
+        return "sem-partido"
+    sem_acento = unicodedata.normalize("NFD", sigla).encode("ascii", "ignore").decode()
+    return re.sub(r"[^a-z0-9]+", "-", sem_acento.lower()).strip("-")
 
 
 def _fontes(api: Path, casas: dict) -> None:

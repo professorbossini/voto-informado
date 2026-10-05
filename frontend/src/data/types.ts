@@ -364,3 +364,30 @@ export interface Plenario {
   /** fundo: cor atrás do logo (logos brancos); fonte_logo: site oficial de onde veio o logo. */
   partidos: Record<string, { nome: string | null; logo: string | null; fundo?: string | null; fonte_logo?: string | null }>;
 }
+
+/** Executivo com mandato 2023–2026 (eleitos em 2022), de api/executivos.json. */
+export interface ExecutivoEleito {
+  cargo: 'presidente' | 'vice-presidente' | 'governador' | 'vice-governador';
+  /** "BR" para Presidente/Vice. */
+  uf: string;
+  nome_urna: string;
+  partido_2022: string;
+  partido_2026: string | null;
+  /** Partido para agrupar (o de 2026, se concorre de novo; senão o de 2022). */
+  partido: string;
+  partido_origem: string;
+  sq_2022: string;
+  sq_2026: string | null;
+  candidatura_2026: string | null;
+  foto: string | null;
+  /** Concorre a outro cargo em 2026: deixou o mandato (Constituição, art. 14, § 6º). */
+  deixou_cargo: boolean;
+}
+
+export interface Executivos {
+  mandato: string;
+  fonte: string;
+  aviso: string;
+  gerado_em: string;
+  eleitos: ExecutivoEleito[];
+}
