@@ -23,9 +23,10 @@ import { useNotify } from '@/components/feedback/notificationsContext';
 import { PageTransition } from '@/components/PageTransition';
 import { brand } from '@/config/brand';
 import { AccountMenu } from './AccountMenu';
-import { activeNavItem, NAV_ITEMS } from './navigation';
+import { activeNavItem, useNavItems } from './navigation';
 
 export function AppLayout() {
+  const NAV_ITEMS = useNavItems();
   const { pathname } = useLocation();
   const notify = useNotify();
   const current = activeNavItem(pathname);

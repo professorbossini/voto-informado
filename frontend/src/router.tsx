@@ -6,10 +6,25 @@ import { PublicLayout } from '@/layouts/PublicLayout';
 import { AccountPage } from '@/pages/AccountPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
 import { SplashScreen } from '@/components/SplashScreen';
+import { SomenteNoPeriodo } from '@/components/SomenteNoPeriodo';
 
 /** Lazy route helper: each page is its own chunk. */
 const page = (load: () => Promise<Record<string, React.ComponentType>>, name: string) => ({
   lazy: async () => ({ Component: (await load())[name] }),
+});
+
+/** Página que só existe no período eleitoral (simulador, cola, 2º turno): fora dele, um aviso. */
+const pageEleitoral = (load: () => Promise<Record<string, React.ComponentType>>, name: string, periodo: 'eleicao' | 'segundo-turno', nome: string) => ({
+  lazy: async () => {
+    const Page = (await load())[name];
+    return {
+      Component: () => (
+        <SomenteNoPeriodo periodo={periodo} nome={nome}>
+          <Page />
+        </SomenteNoPeriodo>
+      ),
+    };
+  },
 });
 
 /**
@@ -46,12 +61,12 @@ export const router = createBrowserRouter([
       { path: '/eleicao/:uf/:cargo', ...page(() => import('@/pages/election/EleicaoPage'), 'EleicaoPage') },
       { path: '/candidato/:sq', ...page(() => import('@/pages/election/CandidatoPage'), 'CandidatoPage') },
       { path: '/comparar', ...page(() => import('@/pages/election/CompararPage'), 'CompararPage') },
-      { path: '/cola', ...page(() => import('@/pages/election/ColaPage'), 'ColaPage') },
+      { path: '/cola', ...pageEleitoral(() => import('@/pages/election/ColaPage'), 'ColaPage', 'eleicao', 'A cola') },
       // Pesquisas: pendente de conferência no PesqEle; rota só existe com VITE_ENABLE_PESQUISAS=true.
       ...(env.enablePesquisas ? [{ path: '/pesquisas', ...page(() => import('@/pages/election/PesquisasPage'), 'PesquisasPage') }] : []),
-      { path: '/simulador', ...page(() => import('@/pages/election/SimuladorPage'), 'SimuladorPage') },
+      { path: '/simulador', ...pageEleitoral(() => import('@/pages/election/SimuladorPage'), 'SimuladorPage', 'eleicao', 'O simulador de urna') },
       { path: '/resultados', ...page(() => import('@/pages/election/ResultadosPage'), 'ResultadosPage') },
-      { path: '/segundo-turno', ...page(() => import('@/pages/election/SegundoTurnoPage'), 'SegundoTurnoPage') },
+      { path: '/segundo-turno', ...pageEleitoral(() => import('@/pages/election/SegundoTurnoPage'), 'SegundoTurnoPage', 'segundo-turno', 'O 2º turno') },
       { path: '/gastos', ...page(() => import('@/pages/election/GastosPage'), 'GastosPage') },
       { path: '/parlamentar/:id', ...page(() => import('@/pages/election/ParlamentarPage'), 'ParlamentarPage') },
       { path: '/plenario', ...page(() => import('@/pages/election/PlenarioPage'), 'PlenarioPage') },

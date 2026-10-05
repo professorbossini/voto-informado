@@ -41,7 +41,7 @@ import { env } from '@/config/env';
 import { useMeta } from '@/data/MetaContext';
 import { dateTime } from '@/data/format';
 import { AccountMenu } from './AccountMenu';
-import { activeNavItem, NAV_ITEMS } from './navigation';
+import { activeNavItem, useNavItems } from './navigation';
 
 function TrustBar() {
   const { meta } = useMeta();
@@ -132,6 +132,7 @@ export function PublicLayout() {
   const current = activeNavItem(pathname);
   const [searchOpen, setSearchOpen] = useState(false);
   const [moreAnchor, setMoreAnchor] = useState<HTMLElement | null>(null);
+  const NAV_ITEMS = useNavItems();
   const mobileItems = NAV_ITEMS.filter((i) => i.mobile);
   const moreItems = NAV_ITEMS.filter((i) => !i.mobile);
   const mobileValue = mobileItems.some((i) => i.to === current) ? current : 'mais';

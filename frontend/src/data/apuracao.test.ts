@@ -2,7 +2,7 @@ import presidente from './__fixtures__/apuracao-presidente-br.json';
 import depfed from './__fixtures__/apuracao-depfed-sp.json';
 import presidenteBa from './__fixtures__/apuracao-presidente-ba.json';
 import { cargoEstadual, desfechoDe, eleitosDe, finalistasDe, foiEleito, num, parseApuracao, temSegundoTurno, urlApuracao, vaiAo2Turno, type RawUnificado } from './apuracao';
-import { diaDeVotacao, noiteDeApuracao, proximaVotacao, turnoMaisRecente } from './calendario';
+import { diaDeVotacao, emPeriodoEleitoral, emPeriodoSegundoTurno, noiteDeApuracao, proximaVotacao, turnoMaisRecente } from './calendario';
 import { ufDoPonto } from './localizacao';
 
 const at = (iso: string) => new Date(iso);
@@ -127,6 +127,26 @@ describe('calendário da divulgação', () => {
     expect(diaDeVotacao(at('2026-10-04T09:00:00-03:00'))).toBe(1);
     expect(diaDeVotacao(at('2026-10-05T01:00:00Z'))).toBe(1); // 22h do dia 4 em Brasília
     expect(diaDeVotacao(at('2026-10-06T12:00:00-03:00'))).toBeNull();
+  });
+});
+
+describe('período eleitoral', () => {
+  it('simulador e cola só aparecem da campanha até 2 dias depois do último turno', () => {
+    expect(emPeriodoEleitoral(at('2026-06-01T12:00:00-03:00'))).toBe(false);
+    expect(emPeriodoEleitoral(at('2026-08-16T12:00:00-03:00'))).toBe(true);
+    expect(emPeriodoEleitoral(at('2026-10-04T12:00:00-03:00'))).toBe(true);
+    expect(emPeriodoEleitoral(at('2026-10-27T20:00:00-03:00'))).toBe(true);
+    expect(emPeriodoEleitoral(at('2026-10-28T12:00:00-03:00'))).toBe(false);
+    expect(emPeriodoEleitoral(at('2027-03-01T12:00:00-03:00'))).toBe(false);
+    // próxima eleição carregada pelo site: reativa sozinho
+    const t2028 = [{ turno: 1 as const, data: '2028-10-01' }, { turno: 2 as const, data: '2028-10-29' }];
+    expect(emPeriodoEleitoral(at('2028-09-01T12:00:00-03:00'), t2028)).toBe(true);
+  });
+
+  it('a página do 2º turno aparece a partir da divulgação do 1º turno', () => {
+    expect(emPeriodoSegundoTurno(at('2026-10-04T16:00:00-03:00'))).toBe(false);
+    expect(emPeriodoSegundoTurno(at('2026-10-04T17:30:00-03:00'))).toBe(true);
+    expect(emPeriodoSegundoTurno(at('2026-11-15T12:00:00-03:00'))).toBe(false);
   });
 });
 

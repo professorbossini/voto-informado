@@ -32,6 +32,8 @@ import TouchAppRounded from '@mui/icons-material/TouchAppRounded';
 import InsightsRounded from '@mui/icons-material/InsightsRounded';
 import HowToVoteRounded from '@mui/icons-material/HowToVoteRounded';
 import BarChartRounded from '@mui/icons-material/BarChartRounded';
+import AccountBalanceRounded from '@mui/icons-material/AccountBalanceRounded';
+import { usePeriodoEleitoral } from '@/data/usePeriodoEleitoral';
 import { env } from '@/config/env';
 import { Link as RouterLink, useNavigate, useSearchParams } from 'react-router';
 import { ApuracaoAoVivo } from '@/components/resultados/ApuracaoAoVivo';
@@ -456,8 +458,11 @@ const ATALHOS = [
   env.enablePesquisas
     ? { to: '/pesquisas', icon: PollRounded, title: 'Pesquisas registradas', text: 'Resultados de pesquisas com registro no TSE.' }
     : { to: '/numeros', icon: InsightsRounded, title: 'A eleição em números', text: 'Gênero, idade, instrução e financiamento das candidaturas.' },
-  { to: '/cola', icon: ListAltRounded, title: 'Monte sua cola', text: 'Seus números na ordem da urna, para imprimir.' },
-  { to: '/simulador', icon: TouchAppRounded, title: 'Treine na urna', text: 'Simulador com as fotos e números reais.' },
+  { to: '/cola', icon: ListAltRounded, title: 'Monte sua cola', text: 'Seus números na ordem da urna, para imprimir.', eleitoral: true },
+  { to: '/simulador', icon: TouchAppRounded, title: 'Treine na urna', text: 'Simulador com as fotos e números reais.', eleitoral: true },
+  // Fora do período eleitoral, ocupam o lugar da cola e do simulador.
+  { to: '/plenario', icon: AccountBalanceRounded, title: 'Plenário', text: 'Quem ocupa cada cadeira da Câmara e do Senado.', foraDoPeriodo: true },
+  { to: '/resultados', icon: BarChartRounded, title: 'Resultados', text: 'Apuração oficial do TSE, com mapa por estado.', foraDoPeriodo: true },
   { to: '/gastos', icon: ReceiptLongRounded, title: 'Gastos de mandato', text: 'Cota de deputados e senadores desde 2023.' },
 ];
 
@@ -532,6 +537,8 @@ function Candidaturas() {
   const eleito2 = (d: DisputaFinal) => eleitosDe(d.turno2)[0]?.sq ?? null;
   // Quem já ganhou (Presidente e Governador do estado do eleitor), destacado no topo.
   const venc = useVencedores(ufUsuario);
+  // Simulador, cola e ordem dos votos só no período eleitoral.
+  const periodo = usePeriodoEleitoral();
   // Contagem para a próxima abertura de urnas (1º turno; depois, o 2º turno onde houver).
   const [prox] = useState(() => proximaVotacao());
   const segundo = prox?.turno === 2;
@@ -615,6 +622,7 @@ function Candidaturas() {
                   <CountUnit value={cd.segundos} label="seg" />
                 </Stack>
               )}
+              {periodo.eleicao && (
               <Box sx={{ width: '100%' }}>
                 <Typography variant="caption" color="text.secondary" component="div" sx={{ mb: 0.75, fontWeight: 600 }}>
                   A ordem dos 6 votos na urna
@@ -636,6 +644,7 @@ function Candidaturas() {
                   Os dois votos para o Senado devem ir para pessoas diferentes.
                 </Typography>
               </Box>
+              )}
               <Box sx={{ width: '100%', textAlign: 'left' }}>
                 <Typography variant="body2" color="text.secondary" sx={{ mb: 1, textAlign: 'center' }}>
                   Patrimônio, campanha e trajetória de todas as candidaturas, com dados oficiais. Sem opinião e sem
@@ -682,7 +691,7 @@ function Candidaturas() {
 
       {/* Atalhos */}
       <Grid container spacing={2}>
-        {ATALHOS.map((f) => (
+        {ATALHOS.filter((f) => ('eleitoral' in f ? periodo.eleicao : 'foraDoPeriodo' in f ? !periodo.eleicao : true)).map((f) => (
           <Grid key={f.to} size={{ xs: 12, sm: 6, md: 3 }}>
             <Card sx={{ height: '100%', borderRadius: 4, '&:hover': { borderColor: 'primary.light' } }}>
               <CardActionArea component={RouterLink} to={f.to} sx={{ height: '100%', alignItems: 'flex-start' }}>

@@ -62,3 +62,33 @@ export function diaDeVotacao(agora: Date = new Date()): Turno | null {
   const hoje = agora.toLocaleDateString('en-CA', { timeZone: 'America/Sao_Paulo' });
   return TURNOS.find((t) => t.data === hoje)?.turno ?? null;
 }
+
+// ── Período eleitoral (opções que só fazem sentido durante a eleição) ─────────
+
+/** Campanha começa em 16/08 (≈ 50 dias antes do 1º turno); a eleição "acaba" 2 dias após o último turno. */
+const DIAS_ANTES = 50;
+const DIAS_DEPOIS = 2;
+
+function datasDe(turnos: { turno: Turno; data: string }[]) {
+  const d1 = turnos.find((t) => t.turno === 1)?.data ?? TURNOS[0].data;
+  const d2 = turnos.find((t) => t.turno === 2)?.data ?? d1;
+  return { d1, d2 };
+}
+
+/**
+ * Durante a eleição (da campanha até 2 dias depois do último turno)? Simulador de urna e cola
+ * só aparecem nesse período; somem depois e voltam sozinhos quando o site recebe a próxima
+ * eleição (as datas vêm do meta.json; sem ele, do calendário de 2026).
+ */
+export function emPeriodoEleitoral(agora: Date = new Date(), turnos = TURNOS): boolean {
+  const { d1, d2 } = datasDe(turnos);
+  const ini = new Date(`${d1}T00:00:00-03:00`).getTime() - DIAS_ANTES * 86_400_000;
+  const fim = new Date(`${d2}T23:59:59-03:00`).getTime() + DIAS_DEPOIS * 86_400_000;
+  return agora.getTime() >= ini && agora.getTime() <= fim;
+}
+
+/** Página do 2º turno: da divulgação do 1º turno até o fim do período eleitoral. */
+export function emPeriodoSegundoTurno(agora: Date = new Date(), turnos = TURNOS): boolean {
+  const { d1 } = datasDe(turnos);
+  return agora.getTime() >= new Date(`${d1}T${String(HORA_DIVULGACAO).padStart(2, '0')}:00:00-03:00`).getTime() && emPeriodoEleitoral(agora, turnos);
+}
