@@ -31,6 +31,9 @@ from .plenario import SEM_PARTIDO, slug_partido
 
 BRT = ZoneInfo("America/Sao_Paulo")
 RSS = "https://news.google.com/rss/search?q={q}&hl=pt-BR&gl=BR&ceid=BR:pt-419"
+# Reserva: o Google Notícias costuma recusar servidores de nuvem (como os do GitHub Actions).
+BING = "https://www.bing.com/news/search?q={q}&format=rss&setlang=pt-BR&cc=BR"
+DIAS = 30
 UA = {"User-Agent": "Mozilla/5.0 (compatible; tanaurna/1.0; +https://www.tanaurna.com.br)"}
 MAX = 5
 PAUSA = 1.2  # segundos entre consultas (gentileza com o servidor)
@@ -92,14 +95,76 @@ def itens(xml: bytes) -> list[dict]:
     return out[:MAX]
 
 
-def buscar(session: requests.Session, consulta: str) -> list[dict] | None:
-    try:
-        r = session.get(RSS.format(q=quote_plus(consulta)), headers=UA, timeout=(10, 30))
-        if r.status_code != 200:
+def itens_bing(xml: bytes, agora: datetime | None = None) -> list[dict]:
+    """RSS de notícias do Bing → mesmo formato; link direto para o veículo; só os últimos DIAS dias."""
+    from urllib.parse import parse_qs, urlparse
+
+    agora = agora or datetime.now(BRT)
+    raiz = ET.fromstring(xml)
+    out, vistos = [], set()
+    for it in raiz.findall("./channel/item"):
+        titulo = (it.findtext("title") or "").strip()
+        fonte = next(((c.text or "").strip() for c in it if c.tag.endswith("}Source")), "") or None
+        link = (it.findtext("link") or "").strip()
+        alvo = parse_qs(urlparse(link).query).get("url", [None])[0]
+        try:
+            # O Bing marca "GMT", mas os horários batem com o fuso do Pacífico (EUA): converte supondo
+            # isso e o site mostra só o DIA dessas notícias, para não exibir uma hora possivelmente errada.
+            bruto = parsedate_to_datetime(it.findtext("pubDate") or "").replace(tzinfo=ZoneInfo("America/Los_Angeles"))
+            data = bruto.astimezone(BRT)
+        except (TypeError, ValueError):
+            continue
+        chave = re.sub(r"\W+", " ", titulo.lower()).strip()
+        if not titulo or chave in vistos or (agora - data).days > DIAS:
+            continue
+        vistos.add(chave)
+        site = f"{urlparse(alvo).scheme}://{urlparse(alvo).netloc}" if alvo else None
+        out.append({"titulo": titulo, "fonte": fonte, "fonte_url": site, "link": alvo or link, "data": data.isoformat(timespec="minutes"), "so_dia": True})
+    out.sort(key=lambda x: x["data"], reverse=True)
+    return out[:MAX]
+
+
+class Buscador:
+    """Google Notícias primeiro; se recusar (3 vezes), passa direto ao Bing pelo resto da passada."""
+
+    def __init__(self) -> None:
+        self.session = requests.Session()
+        self.google_falhas = 0
+        self.erros: dict[str, int] = {}
+        self.origens: dict[str, int] = {}
+
+    def _get(self, url: str) -> bytes | None:
+        try:
+            r = self.session.get(url, headers=UA, timeout=(10, 30))
+        except requests.RequestException as exc:
+            self.erros[type(exc).__name__] = self.erros.get(type(exc).__name__, 0) + 1
             return None
-        return itens(r.content)
-    except (requests.RequestException, ET.ParseError):
-        return None
+        if r.status_code != 200:
+            self.erros[f"HTTP {r.status_code}"] = self.erros.get(f"HTTP {r.status_code}", 0) + 1
+            return None
+        return r.content
+
+    def __call__(self, consulta: str) -> tuple[list[dict], str] | None:
+        if self.google_falhas < 3:
+            corpo = self._get(RSS.format(q=quote_plus(consulta)))
+            try:
+                if corpo is not None:
+                    achados = itens(corpo)
+                    self.origens["Google Notícias"] = self.origens.get("Google Notícias", 0) + 1
+                    return achados, "Google Notícias (busca pública)"
+            except ET.ParseError:
+                self.erros["Google: resposta não é RSS"] = self.erros.get("Google: resposta não é RSS", 0) + 1
+            self.google_falhas += 1
+        corpo = self._get(BING.format(q=quote_plus(consulta.replace(" when:30d", ""))))
+        if corpo is None:
+            return None
+        try:
+            achados = itens_bing(corpo)
+        except ET.ParseError:
+            self.erros["Bing: resposta não é RSS"] = self.erros.get("Bing: resposta não é RSS", 0) + 1
+            return None
+        self.origens["Bing Notícias"] = self.origens.get("Bing Notícias", 0) + 1
+        return achados, "Bing Notícias (busca pública)"
 
 
 def alvos(api: Path) -> list[tuple[str, str]]:
@@ -118,25 +183,26 @@ def alvos(api: Path) -> list[tuple[str, str]]:
 def run(site: Path, limite: int | None = None) -> int:
     api = site / "api"
     lista = alvos(api)[:limite] if limite else alvos(api)
-    session = requests.Session()
+    buscar = Buscador()
     agora = datetime.now(BRT).isoformat(timespec="minutes")
     mudados = falhas = 0
     for i, (rel, consulta) in enumerate(lista):
         if i:
             time.sleep(PAUSA)
-        achados = buscar(session, consulta)
-        if achados is None:
+        r = buscar(consulta)
+        if r is None:
             falhas += 1
             if falhas >= 15 and falhas > i // 2:  # serviço recusando: para e mantém o que havia
                 print(f"noticias: muitas falhas seguidas ({falhas}); parando nesta passada")
                 break
             continue
+        achados, origem = r
         destino = api / "noticias" / rel
         anterior = _ler(destino) or {}
         if anterior.get("itens") == achados:
             continue  # nada novo: não regrava (a data da consulta não conta)
-        mudados += _gravar(destino, {"consulta": consulta, "atualizado_em": agora, "fonte": "Google Notícias (busca pública)", "itens": achados})
-    print(f"noticias: {len(lista)} consultas, {mudados} arquivos atualizados, {falhas} falhas")
+        mudados += _gravar(destino, {"consulta": consulta, "atualizado_em": agora, "fonte": origem, "itens": achados})
+    print(f"noticias: {len(lista)} consultas, {mudados} arquivos atualizados, {falhas} falhas; respostas: {buscar.origens}; erros: {buscar.erros}")
     if os.environ.get("GITHUB_OUTPUT"):
         with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as f:
             f.write(f"mudou={int(mudados > 0)}\n")

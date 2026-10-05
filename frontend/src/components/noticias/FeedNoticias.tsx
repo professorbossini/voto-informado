@@ -24,7 +24,7 @@ export function FeedNoticias({ tipo, id, nome }: { tipo: 'parlamentar' | 'partid
           </Typography>
         </Stack>
         <Typography variant="caption" color="text.secondary" component="p" sx={{ mt: 0, mb: 2 }}>
-          As 5 mais recentes dos últimos 30 dias que citam {nome}, por ordem de data. Seleção automática feita pela busca do Google Notícias e atualizada todos os dias.
+          As 5 mais recentes dos últimos 30 dias que citam {nome}, por ordem de data. Seleção automática feita por busca pública de notícias (Google Notícias ou Bing Notícias) e atualizada todos os dias.
           Não são dados oficiais: o Tá na Urna não escolhe, edita nem endossa as notícias; cada uma é de responsabilidade do veículo indicado.
         </Typography>
         {r.loading && <Skeleton variant="rounded" height={160} />}
@@ -46,7 +46,7 @@ export function FeedNoticias({ tipo, id, nome }: { tipo: 'parlamentar' | 'partid
                 ) : (
                   (n.fonte ?? 'não informada')
                 )}{' '}
-                · {dataBr(n.data)}
+                · {n.so_dia ? new Date(n.data).toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo' }) : dataBr(n.data)}
               </Typography>
             </Box>
           ))}

@@ -399,6 +399,8 @@ export interface Noticia {
   fonte_url: string | null;
   link: string;
   data: string;
+  /** Hora da fonte incerta (Bing): mostrar só o dia. */
+  so_dia?: boolean;
 }
 
 export interface FeedNoticiasDados {
