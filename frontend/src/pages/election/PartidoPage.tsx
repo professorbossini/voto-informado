@@ -8,6 +8,7 @@ import { SimboloPartido } from '@/components/partidos/SimboloPartido';
 import { fotoParlamentar, SEM_PARTIDO, usePartidos } from '@/components/partidos/partidos';
 import { nomeProprio } from '@/data/format';
 import type { ExecutivoEleito, MembroPlenario } from '@/data/types';
+import { FeedNoticias } from '@/components/noticias/FeedNoticias';
 
 const CARGO_EXEC: Record<ExecutivoEleito['cargo'], string> = {
   presidente: 'Presidente da República',
@@ -166,6 +167,8 @@ export function PartidoPage() {
           <Grade>{p.deixaram.map(executivo)}</Grade>
         </Secao>
       )}
+
+      {p.sigla !== SEM_PARTIDO && <FeedNoticias tipo="partido" id={p.slug} nome={p.nome ? nomeProprio(p.nome) : p.sigla} />}
 
       <Stack spacing={0.5} sx={{ mt: 4, pt: 2, borderTop: 1, borderColor: 'divider' }}>
         <Typography variant="caption" color="text.secondary">

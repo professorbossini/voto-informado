@@ -391,3 +391,19 @@ export interface Executivos {
   gerado_em: string;
   eleitos: ExecutivoEleito[];
 }
+
+/** Notícias recentes na imprensa (api/noticias/...; coleta diária, não são dados oficiais). */
+export interface Noticia {
+  titulo: string;
+  fonte: string | null;
+  fonte_url: string | null;
+  link: string;
+  data: string;
+}
+
+export interface FeedNoticiasDados {
+  consulta: string;
+  atualizado_em: string;
+  fonte: string;
+  itens: Noticia[];
+}
