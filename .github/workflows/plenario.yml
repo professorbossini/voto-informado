@@ -1,13 +1,13 @@
 # Plenário → site, sem depender de nenhum computador e sem data para acabar.
 #
-# Todo dia consulta a Câmara e o Senado (composição em exercício, Presidente de cada Casa e
+# A cada 6 horas consulta a Câmara e o Senado (composição em exercício, Presidente de cada Casa e
 # símbolos dos partidos) e, se algo mudou, grava api/plenario.json no site publicado (gh-pages).
 # Fonte fora do ar: mantém o último dado bom. Lógica em backend/etl/plenario.py.
 name: Plenário → site
 
 on:
   schedule:
-    - cron: "47 8 * * *" # 05h47 em Brasília
+    - cron: "47 2,8,14,20 * * *" # 23h47, 05h47, 11h47 e 17h47 em Brasília (só publica se mudar)
   push:
     branches: [main]
     paths:
