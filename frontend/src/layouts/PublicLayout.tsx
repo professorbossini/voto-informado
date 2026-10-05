@@ -4,7 +4,6 @@ import {
   BottomNavigation,
   BottomNavigationAction,
   Box,
-  Button,
   Container,
   Dialog,
   GlobalStyles,
@@ -28,11 +27,10 @@ import {
 import SearchRounded from '@mui/icons-material/SearchRounded';
 import MoreHorizRounded from '@mui/icons-material/MoreHorizRounded';
 import VerifiedRounded from '@mui/icons-material/VerifiedRounded';
-import LoginRounded from '@mui/icons-material/LoginRounded';
 import { Link as RouterLink, NavLink, Outlet, useLocation, useNavigate, ScrollRestoration } from 'react-router';
-import { useAuth } from '@/auth';
 import { FaiscaCredito } from '@/components/brand/FaiscaCredito';
 import { ShareButton } from '@/components/share/ShareButton';
+import { ContaPerfil } from '@/components/conta/ContaPerfil';
 import { BrandLogo } from '@/components/brand/BrandLogo';
 import { ColorModeToggle } from '@/components/ColorModeToggle';
 import { CandidateSearch } from '@/components/election/CandidateSearch';
@@ -40,7 +38,6 @@ import { PageTransition } from '@/components/PageTransition';
 import { env } from '@/config/env';
 import { useMeta } from '@/data/MetaContext';
 import { dateTime } from '@/data/format';
-import { AccountMenu } from './AccountMenu';
 import { activeNavItem, useNavItems } from './navigation';
 
 function TrustBar() {
@@ -128,7 +125,6 @@ function Footer() {
 export function PublicLayout() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const { status } = useAuth();
   const current = activeNavItem(pathname);
   const [searchOpen, setSearchOpen] = useState(false);
   const [moreAnchor, setMoreAnchor] = useState<HTMLElement | null>(null);
@@ -169,14 +165,7 @@ export function PublicLayout() {
               </IconButton>
             </Tooltip>
             <ColorModeToggle />
-            {env.enableLogin &&
-              (status === 'authenticated' ? (
-                <AccountMenu />
-              ) : (
-                <Button component={RouterLink} to="/login" startIcon={<LoginRounded />} variant="tonal" size="small">
-                  Entrar
-                </Button>
-              ))}
+            {env.enableLogin && <ContaPerfil />}
           </Stack>
         </Toolbar>
       </AppBar>

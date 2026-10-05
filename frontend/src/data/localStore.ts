@@ -2,8 +2,9 @@ import { useCallback, useSyncExternalStore } from 'react';
 
 /**
  * Tiny localStorage-backed store for per-viewer conveniences (comparison list,
- * "cola" de votação). Nothing here ever leaves the device. Every access is wrapped
- * in try/catch: private windows or blocked storage just fall back to memory.
+ * "cola" de votação). Without login nothing here leaves the device; with the optional
+ * login, data/sync sends an END-TO-END ENCRYPTED copy (see data/sync). Every access is
+ * wrapped in try/catch: private windows or blocked storage just fall back to memory.
  */
 const memory = new Map<string, string>();
 const listeners = new Map<string, Set<() => void>>();
@@ -24,6 +25,27 @@ function write(key: string, value: string) {
     /* storage unavailable: memory copy is enough for this session */
   }
   listeners.get(key)?.forEach((l) => l());
+  if (!aplicandoRemoto) escritas.forEach((l) => l(key));
+}
+
+/** Avisos de escrita (qualquer chave), para a sincronização do perfil. */
+const escritas = new Set<(key: string) => void>();
+let aplicandoRemoto = false;
+export function aoEscrever(cb: (key: string) => void): () => void {
+  escritas.add(cb);
+  return () => escritas.delete(cb);
+}
+export function lerBruto(key: string): string | null {
+  return read(key);
+}
+/** Aplica valores vindos do perfil sincronizado (sem disparar novo envio). */
+export function aplicarRemoto(valores: Record<string, string>): void {
+  aplicandoRemoto = true;
+  try {
+    for (const [k, v] of Object.entries(valores)) if (read(k) !== v) write(k, v);
+  } finally {
+    aplicandoRemoto = false;
+  }
 }
 
 export function useLocalState<T>(key: string, fallback: T): [T, (next: T | ((prev: T) => T)) => void] {

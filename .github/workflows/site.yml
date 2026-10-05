@@ -49,8 +49,15 @@ jobs:
           VITE_APP_NAME: Tá na Urna
           VITE_SHOW_POWERED_BY: "false"
           VITE_ENABLE_PESQUISAS: "false"
-          VITE_ENABLE_LOGIN: "false"
-          VITE_AUTH_PROVIDER: mock
+          # Login opcional com Google (Firebase; a chave web é pública por natureza, quem protege os
+          # dados são as regras em firebase/firestore.rules).
+          VITE_ENABLE_LOGIN: "true"
+          VITE_AUTH_PROVIDER: firebase
+          VITE_ENABLE_EMAIL_PASSWORD: "false"
+          VITE_FIREBASE_API_KEY: AIzaSyD0xmGWaxdYo80WLsp1gQj7IKPKxDpzF7Q
+          VITE_FIREBASE_AUTH_DOMAIN: controle-politicos.firebaseapp.com
+          VITE_FIREBASE_PROJECT_ID: controle-politicos
+          VITE_FIREBASE_APP_ID: "1:468861115646:web:84e77847baecbfe03059af"
           VITE_BASE_PATH: /
           VITE_DATA_URL: ""
           VITE_ASSETS_URL: ""

@@ -1,0 +1,20 @@
+rules_version = '2';
+// Tá na Urna · perfis do login opcional (frontend/src/data/sync).
+// Cada conta só lê/grava o PRÓPRIO documento, e o documento só aceita os campos cifrados
+// (nenhum dado legível): { cifra, iv, sal, versao, atualizado_em, consentimento_em }.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /perfis/{uid} {
+      allow read, delete: if request.auth != null && request.auth.uid == uid;
+      allow create, update: if request.auth != null && request.auth.uid == uid
+        && request.resource.data.keys().hasOnly(['cifra', 'iv', 'sal', 'versao', 'atualizado_em', 'consentimento_em'])
+        && request.resource.data.cifra is string && request.resource.data.cifra.size() < 300000
+        && request.resource.data.iv is string && request.resource.data.iv.size() < 64
+        && request.resource.data.sal is string && request.resource.data.sal.size() < 64;
+    }
+    // Todo o resto é proibido.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
