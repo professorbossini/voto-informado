@@ -10,6 +10,8 @@ import {
   IconButton,
   Skeleton,
   Stack,
+  ToggleButton,
+  ToggleButtonGroup,
   Tooltip,
   Typography,
 } from '@mui/material';
@@ -26,6 +28,7 @@ import {
   colaEntries,
   officesFor,
   resolve,
+  segundoTurno,
   type Ballot,
   type BallotCandidate,
   type ColaEntry,
@@ -38,6 +41,9 @@ import { UfPicker } from '@/components/urna/UfPicker';
 import { useBallot } from '@/components/urna/useBallot';
 import { UrnaKeypad, type UrnaKey } from '@/components/urna/UrnaKeypad';
 import { UrnaScreen } from '@/components/urna/UrnaScreen';
+import { useFinalistas } from '@/components/resultados/hooks';
+import type { Turno } from '@/data/apuracao';
+import { inicioDivulgacao } from '@/data/calendario';
 import { useCola, useLocalState } from '@/data/localStore';
 import { PageHeader } from '@/pages/PageHeader';
 
@@ -447,17 +453,41 @@ function Urna({
 
 /* ------------------------------------------------------------------ page */
 
+/** Depois do fim da votação do 1º turno, a urna abre no 2º turno (dá para voltar ao 1º). */
+function turnoPadrao(): Turno {
+  return Date.now() >= inicioDivulgacao(1).getTime() ? 2 : 1;
+}
+
 export function SimuladorPage() {
-  const [params] = useSearchParams();
+  const [params, setParams] = useSearchParams();
   const colaMode = params.get('cola') === '1';
+  const [padrao] = useState(turnoPadrao);
+  const turno: Turno = params.get('turno') === '1' ? 1 : params.get('turno') === '2' ? 2 : padrao;
+  const setTurno = (t: Turno) =>
+    setParams(
+      (p) => {
+        p.set('turno', String(t));
+        return p;
+      },
+      { replace: true },
+    );
   const { cola } = useCola();
   const [uf, setUf] = useState<string | null>(() => (colaMode && cola.uf && cola.uf !== 'BR' ? cola.uf : null));
   const [muted, setMuted] = useLocalState<boolean>('vi:urna-mudo', false);
   const [run, setRun] = useState(0);
   const q = useBallot(uf);
-  const ballot = q.data && q.data.uf === uf ? q.data : null;
+  const ballot1 = q.data && q.data.uf === uf ? q.data : null;
 
-  const offices = useMemo(() => (ballot ? officesFor(ballot.uf, ballot.vagas) : []), [ballot]);
+  // 2º turno: só os finalistas confirmados pelo TSE (lidos ao vivo); a urna se atualiza sozinha quando o TSE confirmar.
+  const finalistas = useFinalistas(turno === 2);
+  const sqsGov = (uf && finalistas.governador(uf)?.sqs.join(',')) || '';
+  const sqsPres = finalistas.presidente?.sqs.join(',') ?? '';
+  const urna2 = useMemo(
+    () => (ballot1 && turno === 2 ? segundoTurno(ballot1, { governador: sqsGov.split(',').filter(Boolean), presidente: sqsPres.split(',').filter(Boolean) }) : null),
+    [ballot1, turno, sqsGov, sqsPres],
+  );
+  const ballot = urna2 ? urna2.ballot : ballot1;
+  const offices = useMemo(() => (urna2 ? urna2.offices : ballot1 ? officesFor(ballot1.uf, ballot1.vagas) : []), [urna2, ballot1]);
   const entries = useMemo(() => {
     if (!ballot || !colaMode || cola.uf !== ballot.uf) return null;
     const list = colaEntries(ballot, offices, cola.escolhas);
@@ -468,7 +498,11 @@ export function SimuladorPage() {
     <Box>
       <PageHeader
         title="Simulador de urna"
-        subtitle="Treine a ordem dos votos antes do dia 4 de outubro: deputados, senado (duas vagas), governo e Presidência."
+        subtitle={
+          turno === 2
+            ? 'Treine o voto do 2º turno (25 de outubro): Governador, onde houver disputa, e Presidente, só com os finalistas confirmados pelo TSE.'
+            : 'Treine a ordem dos votos do 1º turno: deputados, senado (duas vagas), governo e Presidência.'
+        }
         actions={
           <Tooltip title={muted ? 'Ativar sons' : 'Desativar sons'}>
             <IconButton
@@ -483,6 +517,11 @@ export function SimuladorPage() {
         }
       />
       <Disclaimer />
+
+      <ToggleButtonGroup exclusive size="small" value={turno} onChange={(_, v: Turno | null) => v && setTurno(v)} aria-label="Turno da simulação" sx={{ mb: 2 }}>
+        <ToggleButton value={1}>1º turno (4/10)</ToggleButton>
+        <ToggleButton value={2}>2º turno (25/10)</ToggleButton>
+      </ToggleButtonGroup>
 
       {!uf ? (
         <Card>
@@ -523,20 +562,38 @@ export function SimuladorPage() {
             >
               Não foi possível carregar as candidaturas deste estado agora.
             </Alert>
-          ) : !ballot ? (
+          ) : !ballot || (turno === 2 && finalistas.carregando && offices.length === 0) ? (
             <UrnaSkeleton />
+          ) : turno === 2 && offices.length === 0 ? (
+            <Alert severity="info">
+              O TSE ainda não confirmou quem vai ao 2º turno para Presidente nem para Governador de {ballot.nomeUf}. Assim que confirmar, a
+              urna do 2º turno aparece aqui sozinha, só com os finalistas.
+            </Alert>
           ) : (
-            <Urna
-              key={`${ballot.uf}-${run}`}
-              ballot={ballot}
-              offices={offices}
-              muted={muted}
-              colaEntriesList={entries}
-              showCola={colaMode}
-            />
+            <>
+              {turno === 2 && offices.length < 2 && (
+                <Alert severity="info" sx={{ mb: 2 }}>
+                  {offices[0].cargo === 'presidente'
+                    ? `Até agora o TSE não confirmou 2º turno para Governador de ${ballot.nomeUf}: nesse caso, no dia 25/10 o voto é só para Presidente.`
+                    : 'O TSE ainda não confirmou os finalistas para Presidente. Assim que confirmar, eles entram na urna sozinhos.'}
+                </Alert>
+              )}
+              <Urna
+                key={`${ballot.uf}-${turno}-${sqsGov}-${sqsPres}-${run}`}
+                ballot={ballot}
+                offices={offices}
+                muted={muted}
+                colaEntriesList={entries}
+                showCola={colaMode}
+              />
+            </>
           )}
 
-          <SourceNote keys={['tse_candidatos', 'tse_complementar', 'tse_fotos']} sx={{ mt: 2 }} />
+          <SourceNote
+            keys={turno === 2 ? ['tse_candidatos', 'tse_fotos', 'tse_resultados'] : ['tse_candidatos', 'tse_complementar', 'tse_fotos']}
+            note={turno === 2 ? 'finalistas: situação “2º turno” publicada pelo TSE' : undefined}
+            sx={{ mt: 2 }}
+          />
         </>
       )}
     </Box>

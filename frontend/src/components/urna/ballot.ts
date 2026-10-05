@@ -193,6 +193,25 @@ export function buildBallot(
   return ballot;
 }
 
+/**
+ * Urna do 2º turno: só Governador (se o estado tiver 2º turno) e Presidente, nesta ordem
+ * (a mesma da urna oficial), e só com os finalistas confirmados pelo TSE. Cargo sem
+ * finalistas confirmados fica de fora.
+ */
+export function segundoTurno(ballot: Ballot, finalistas: { governador: string[]; presidente: string[] }): { ballot: Ballot; offices: Office[] } {
+  const cargos = { governador: new Set(finalistas.governador), presidente: new Set(finalistas.presidente) };
+  const out: Ballot = { ...ballot, byNumber: {}, lists: {}, parties: {} };
+  for (const cargo of ['governador', 'presidente'] as const) {
+    const sqs = cargos[cargo];
+    const map = ballot.byNumber[cargo];
+    if (!map || sqs.size < 2) continue;
+    out.byNumber[cargo] = new Map([...map].filter(([, c]) => sqs.has(c.sq)));
+    out.lists[cargo] = (ballot.lists[cargo] ?? []).filter((c) => sqs.has(c.sq));
+  }
+  const offices = officesFor(ballot.uf, ballot.vagas).filter((o) => (o.key === 'governador' || o.key === 'presidente') && (out.byNumber[o.cargo]?.size ?? 0) >= 2);
+  return { ballot: out, offices };
+}
+
 /** Parties with candidates for this deputy office, alphabetical by abbreviation. */
 export function partiesFor(ballot: Ballot, cargo: Cargo): Party[] {
   return [...(ballot.parties[cargo]?.values() ?? [])].sort((a, b) => a.sigla.localeCompare(b.sigla, 'pt-BR'));
