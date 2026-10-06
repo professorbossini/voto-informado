@@ -41,8 +41,9 @@ import { data, dataFileUrl } from '@/data/api';
 import type { CasaPlenario, MembroPlenario, Plenario } from '@/data/types';
 import { useAsync } from '@/hooks/useAsync';
 import { PageHeader } from '@/pages/PageHeader';
+import { PlenarioStf } from '@/components/stf/PlenarioStf';
 
-type CasaKey = 'camara' | 'senado' | 'assembleia' | 'municipal';
+type CasaKey = 'camara' | 'senado' | 'stf' | 'assembleia' | 'municipal';
 type ModoCadeira = 'rosto' | 'partido';
 type CasaFederal = 'camara' | 'senado';
 interface InfoCasa {
@@ -770,7 +771,7 @@ function PlenarioLocal({ tipo, partidos }: { tipo: 'assembleia' | 'municipal'; p
 export function PlenarioPage() {
   const [params, setParams] = useSearchParams();
   const pc = params.get('casa');
-  const casaKey: CasaKey = pc === 'senado' || pc === 'assembleia' || pc === 'municipal' ? pc : 'camara';
+  const casaKey: CasaKey = pc === 'senado' || pc === 'stf' || pc === 'assembleia' || pc === 'municipal' ? pc : 'camara';
   const federal: CasaFederal = casaKey === 'senado' ? 'senado' : 'camara';
   const q = useAsync(() => data.plenario(), []);
   const [destaque, setDestaque] = useState<string | null>(null);
@@ -801,17 +802,20 @@ export function PlenarioPage() {
     <>
       <PageHeader
         title="Plenário"
-        subtitle="Quem ocupa cada cadeira da Câmara dos Deputados e do Senado Federal (atualizado todos os dias), e os eleitos para as Assembleias Legislativas e as Câmaras Municipais de cada estado, com o símbolo do partido de cada um."
+        subtitle="Quem ocupa cada cadeira da Câmara dos Deputados, do Senado Federal e do Supremo Tribunal Federal (atualizado todos os dias), e os eleitos para as Assembleias Legislativas e as Câmaras Municipais de cada estado, com o símbolo do partido de cada um."
       />
       <Tabs value={casaKey} onChange={(_, v: CasaKey) => trocar(v)} variant="scrollable" allowScrollButtonsMobile sx={{ mb: 3, borderBottom: 1, borderColor: 'divider' }}>
         {(Object.keys(CASAS) as CasaFederal[]).map((k) => (
           <Tab key={k} value={k} label={`${CASAS[k].aba}${q.data?.[k] ? ` (${q.data[k].membros.length})` : ''}`} />
         ))}
+        <Tab value="stf" label="STF" />
         <Tab value="assembleia" label="Assembleias" />
         <Tab value="municipal" label="Câmaras municipais" />
       </Tabs>
 
-      {casaKey === 'assembleia' || casaKey === 'municipal' ? (
+      {casaKey === 'stf' ? (
+        <PlenarioStf />
+      ) : casaKey === 'assembleia' || casaKey === 'municipal' ? (
         <PlenarioLocal tipo={casaKey} partidos={q.data?.partidos ?? {}} />
       ) : q.loading ? (
         <Skeleton variant="rounded" height={420} />

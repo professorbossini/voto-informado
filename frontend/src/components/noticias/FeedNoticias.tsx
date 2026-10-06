@@ -11,7 +11,7 @@ const dataBr = (iso: string) =>
  * As 5 notícias mais recentes na imprensa sobre um parlamentar ou partido (coleta diária, ordem
  * por data). Sempre com o veículo e a data; não são dados oficiais, e o aviso diz isso.
  */
-export function FeedNoticias({ tipo, id, nome }: { tipo: 'parlamentar' | 'partido'; id: string; nome: string }) {
+export function FeedNoticias({ tipo, id, nome }: { tipo: 'parlamentar' | 'partido' | 'ministro'; id: string; nome: string }) {
   const r = useAsync(() => data.noticias(tipo, id).catch(() => null), [tipo, id]);
   const itens = r.data?.itens ?? [];
   return (

@@ -49,8 +49,8 @@ function TrustBar() {
         <Typography variant="caption" sx={{ fontWeight: 600 }}>
           <VerifiedRounded sx={{ fontSize: 15, verticalAlign: 'text-bottom', mr: 0.5 }} />
           {env.enablePesquisas
-            ? 'Dados oficiais (TSE, Câmara e Senado) e pesquisas registradas no TSE · sem opinião, sem recomendação de voto'
-            : 'Somente dados oficiais (TSE, Câmara e Senado) · sem opinião, sem recomendação de voto'}
+            ? 'Só dados públicos oficiais (TSE, Câmara, Senado e STF) e pesquisas registradas no TSE · sem opinião, sem recomendação de voto'
+            : 'Só dados públicos oficiais (TSE, Câmara, Senado e STF) · sem opinião, sem recomendação de voto'}
         </Typography>
         {meta?.atualizacao.tse_gerado_em && (
           <Typography variant="caption" sx={{ display: { xs: 'none', sm: 'inline' } }}>
@@ -77,13 +77,18 @@ function Footer() {
               apoia candidatos ou partidos e não recomenda votos.{env.enablePesquisas ? ' Pesquisas aparecem só quando registradas no TSE, com a fonte.' : ''} Todos os candidatos são
               apresentados com os mesmos campos, na mesma ordem (alfabética) e com o mesmo destaque.
             </Typography>
+            <Typography variant="body2" sx={{ fontWeight: 700 }}>
+              Só usamos dados públicos: tudo o que aparece aqui foi publicado pelos próprios órgãos oficiais (TSE, Câmara dos Deputados, Senado
+              Federal, Supremo Tribunal Federal e IBGE), em cumprimento à Lei de Acesso à Informação (Lei 12.527/2011). Não usamos dado sigiloso,
+              não publicamos CPF e sempre citamos a fonte.
+            </Typography>
             <Typography variant="caption" color="text.secondary">
               Encontrou divergência com a fonte oficial? A fonte oficial sempre prevalece. Cada bloco de dados indica o
               arquivo de origem e a data da coleta.
             </Typography>
             <Typography variant="caption" color="text.secondary">
               <strong>Serviço não oficial:</strong> o Tá na Urna não tem vínculo com o TSE, a Justiça Eleitoral, a
-              Câmara, o Senado ou qualquer órgão de governo, partido ou candidatura.
+              Câmara, o Senado, o STF ou qualquer órgão de governo, partido ou candidatura.
             </Typography>
           </Stack>
           <Stack spacing={0.75}>
@@ -99,6 +104,9 @@ function Footer() {
             </Link>
             <Link href="https://www12.senado.leg.br/dados-abertos" target="_blank" rel="noopener noreferrer" variant="body2">
               Dados Abertos do Senado Federal
+            </Link>
+            <Link href="https://portal.stf.jus.br/transparencia/" target="_blank" rel="noopener noreferrer" variant="body2">
+              Transparência do Supremo Tribunal Federal
             </Link>
             <Link component={RouterLink} to="/sobre" variant="body2">
               Metodologia completa

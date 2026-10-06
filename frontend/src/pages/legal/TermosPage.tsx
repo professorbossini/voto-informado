@@ -30,13 +30,18 @@ export function TermosPage() {
       <Secao n={2} title="O que é o serviço">
         <P>
           Uma ferramenta gratuita de transparência que reúne, organiza e exibe dados públicos publicados pelo Tribunal
-          Superior Eleitoral (TSE), pela Câmara dos Deputados e pelo Senado Federal sobre as eleições de 2026 e sobre
-          gastos de mandato.
+          Superior Eleitoral (TSE), pela Câmara dos Deputados, pelo Senado Federal e pelo Supremo Tribunal Federal (STF)
+          sobre as eleições de 2026, gastos de mandato, a composição dos Poderes e a remuneração, as diárias e as
+          passagens dos ministros do STF.
         </P>
         <P>
           <strong>
             O {LEGAL.projeto} não é um serviço oficial e não tem nenhum vínculo com o TSE, com a Justiça Eleitoral, com a
-            Câmara, com o Senado, com qualquer órgão de governo, partido, coligação, federação ou candidatura.
+            Câmara, com o Senado, com o STF, com qualquer órgão de governo, partido, coligação, federação ou candidatura.
+          </strong>{' '}
+          <strong>
+            Só usamos dados públicos, publicados pelos próprios órgãos em cumprimento à Lei de Acesso à Informação
+            (Lei 12.527/2011); não usamos dado sigiloso nem publicamos CPF.
           </strong>{' '}
           Os sites oficiais estão indicados em cada bloco de informação e na página{' '}
           <Link component={RouterLink} to="/sobre">

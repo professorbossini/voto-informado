@@ -41,7 +41,7 @@ jobs:
         run: |
           git clone -q --depth 1 --filter=blob:none --no-checkout --branch gh-pages \
             "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" site
-          git -C site sparse-checkout set --no-cone /api/plenario.json /api/noticias/
+          git -C site sparse-checkout set --no-cone /api/plenario.json /api/stf.json /api/noticias/
           git -C site checkout -q gh-pages
 
       - name: Buscar notícias

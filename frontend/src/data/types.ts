@@ -432,3 +432,110 @@ export interface VereadoresUf {
   fonte: string;
   municipios: Record<string, { nome: string; membros: EleitoLegislativo[] }>;
 }
+
+/* ------------------------------------------------------------------ STF (api/stf.json) */
+
+export interface MinistroStf {
+  id: string;
+  nome: string;
+  nome_completo: string;
+  /** "Ministro" ou "Ministra", como o STF identifica na pasta. */
+  tratamento?: 'Ministro' | 'Ministra';
+  cargo: 'Presidente' | 'Vice-Presidente' | null;
+  /** 0 = quem preside; depois, do mais antigo ao mais novo na Corte. */
+  antiguidade: number;
+  nascimento: string | null;
+  naturalidade: string | null;
+  datas: { indicacao?: string; nomeacao?: string; posse?: string; posse_vice?: string; posse_presidencia?: string };
+  /** Presidente da República que assinou a nomeação (chave de `presidentes`). */
+  nomeado_por: string | null;
+  pasta: string;
+  foto: string | null;
+  remuneracao: { ref: string; bruto: number | null; liquido: number | null; subsidio: number | null; funcao: string | null } | null;
+  viagens: {
+    anos: Record<string, ResumoViagensAno>;
+    passagens: number;
+    diarias: number;
+  };
+}
+
+export interface ResumoViagensAno {
+  passagens: number;
+  passagens_valor: number;
+  diarias: number;
+  diarias_brl: number;
+  diarias_usd: number;
+}
+
+export interface PresidenteRepublica {
+  nome: string;
+  mandatos: { inicio: string; fim: string }[];
+  foto: string | null;
+  foto_credito?: string | null;
+  foto_licenca?: string | null;
+  foto_pagina?: string | null;
+}
+
+export interface FonteStf {
+  nome: string;
+  orgao: string;
+  url: string;
+}
+
+export interface Stf {
+  cadeiras: number;
+  desde: string | null;
+  /** Observação oficial da composição (ex.: aposentadoria que abriu a vaga). */
+  nota: string | null;
+  pgr: { nome: string; desde: string | null } | null;
+  fonte_composicao: string | null;
+  ministros: MinistroStf[];
+  presidentes: Record<string, PresidenteRepublica>;
+  remuneracao_ok: boolean;
+  viagens_atualizado_em: string | null;
+  fontes: Record<'composicao' | 'pastas' | 'remuneracao' | 'viagens' | 'nomeacao', FonteStf>;
+  coletado_em: string | null;
+}
+
+export interface FolhaStf {
+  ref: string;
+  folha: string;
+  funcao: string | null;
+  bruto: number | null;
+  liquido: number | null;
+  /** Parcelas (A) a (S) da Resolução CNJ 215/2015, como o STF publica. */
+  parcelas: Record<string, number>;
+}
+
+export interface PassagemStf {
+  id: string;
+  motivo: string | null;
+  ida: string | null;
+  volta: string | null;
+  tipo: string;
+  trecho: string | null;
+  bilhete: number | null;
+  reembolso: number | null;
+  custo: number | null;
+  mes: string | null;
+}
+
+export interface DiariaStf {
+  id: string;
+  motivo: string | null;
+  tipo: string;
+  moeda: 'BRL' | 'USD';
+  ida: string | null;
+  volta: string | null;
+  destino: string | null;
+  valor: number | null;
+  quantidade: number | null;
+  mes: string | null;
+}
+
+export interface MinistroStfDetalhe {
+  id: string;
+  remuneracao: FolhaStf[];
+  viagens: { passagens: PassagemStf[]; diarias: DiariaStf[] };
+  resumo_viagens: Record<string, ResumoViagensAno>;
+}

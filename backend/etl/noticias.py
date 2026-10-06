@@ -4,9 +4,10 @@ Fonte: busca do Google Notícias (RSS público), uma consulta por pessoa/partido
 30 dias; guarda as 5 mais RECENTES (ordem por data, não por "relevância"), cada uma com título,
 veículo, data e link. NÃO são dados oficiais: o site exibe com esse aviso e sempre cita o veículo.
 
-Lê do site publicado (gh-pages) api/plenario.json e grava:
+Lê do site publicado (gh-pages) api/plenario.json e api/stf.json e grava:
   api/noticias/parlamentar/<id>.json   (id = o mesmo de /parlamentar/<id>)
   api/noticias/partido/<slug>.json      (slug = o mesmo de /partido/<slug>)
+  api/noticias/ministro/<id>.json       (id = o mesmo de /stf/<id>)
 
 Uso: python -m etl.noticias <site> [--limite N]
 """
@@ -174,6 +175,9 @@ def alvos(api: Path) -> list[tuple[str, str]]:
     for casa in ("senado", "camara"):
         for m in (pl.get(casa) or {}).get("membros", []):
             out.append((f"parlamentar/{m['id']}.json", consulta_parlamentar(m["nome"], casa)))
+    # Ministros do STF (api/stf.json, publicado pelo stf.yml).
+    for m in (_ler(api / "stf.json") or {}).get("ministros", []):
+        out.append((f"ministro/{m['id']}.json", f'"{m["nome"]}" STF when:30d'))
     for sigla, info in sorted((pl.get("partidos") or {}).items()):
         if sigla != SEM_PARTIDO:
             out.append((f"partido/{slug_partido(sigla)}.json", consulta_partido(sigla, info.get("nome"))))

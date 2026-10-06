@@ -71,6 +71,7 @@ export const router = createBrowserRouter([
       { path: '/parlamentar/:id', ...page(() => import('@/pages/election/ParlamentarPage'), 'ParlamentarPage') },
       { path: '/partidos', ...page(() => import('@/pages/election/PartidosPage'), 'PartidosPage') },
       { path: '/partido/:slug', ...page(() => import('@/pages/election/PartidoPage'), 'PartidoPage') },
+      { path: '/stf/:id', ...page(() => import('@/pages/election/MinistroStfPage'), 'MinistroStfPage') },
       { path: '/plenario', ...page(() => import('@/pages/election/PlenarioPage'), 'PlenarioPage') },
       { path: '/numeros', ...page(() => import('@/pages/election/NumerosPage'), 'NumerosPage') },
       { path: '/sobre', ...page(() => import('@/pages/election/SobrePage'), 'SobrePage') },
