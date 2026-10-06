@@ -174,14 +174,24 @@ def _vigencia_senado(cod: str) -> dict:
     return {"desde": (pres[0].get("DataInicio") or "")[:10] or None, "ate": (pres[0].get("DataFim") or "")[:10] or None}
 
 
+def em_exercicio(parlamentar: dict) -> bool:
+    """A lista "atual" do Senado às vezes ainda traz quem acabou de sair (ex.: suplente no dia do
+    retorno do titular): está em exercício quem tem um período de exercício sem data de fim."""
+    exercicios = _lista(((parlamentar.get("Mandato") or {}).get("Exercicios") or {}).get("Exercicio"))
+    return not exercicios or any(not e.get("DataFim") for e in exercicios)
+
+
 def senado() -> dict:
     j = _get(f"{SENADO_API}/senador/lista/atual.json")
     lista = _lista(j["ListaParlamentarEmExercicio"]["Parlamentares"]["Parlamentar"])
     membros = []
     for s in lista:
+        if not em_exercicio(s):
+            continue
         i = s["IdentificacaoParlamentar"]
         cod = i["CodigoParlamentar"]
-        membros.append({"id": f"senado-{cod}", "nome": i["NomeParlamentar"], "partido": i.get("SiglaPartidoParlamentar") or SEM_PARTIDO, "uf": i.get("UfParlamentar"), "foto": SENADO_FOTO.format(cod=cod)})
+        uf = i.get("UfParlamentar") or (s.get("Mandato") or {}).get("UfParlamentar")
+        membros.append({"id": f"senado-{cod}", "nome": i["NomeParlamentar"], "partido": i.get("SiglaPartidoParlamentar") or SEM_PARTIDO, "uf": uf, "foto": SENADO_FOTO.format(cod=cod)})
     if len(membros) < 70:
         raise RuntimeError(f"lista de senadores incompleta ({len(membros)})")
     membros.sort(key=lambda m: m["nome"])
@@ -375,6 +385,15 @@ def montar(site: Path) -> bool:
     else:
         mudou_exec = False
 
+    # Eleitos para a próxima legislatura (etl.eleitos), para o plenário mostrar quem toma posse.
+    try:
+        from . import eleitos
+
+        mudou_eleitos = eleitos.montar(site)
+    except Exception as exc:  # noqa: BLE001
+        print(f"eleitos: falhou ({exc}); mantendo o publicado")
+        mudou_eleitos = False
+
     # Perfil de gastos no site (para o clique na cadeira levar até ele).
     pub = _ler(api / "parlamentares.json") or {}
     com_perfil = {p["id"] for p in pub.get("parlamentares", [])}
@@ -392,7 +411,7 @@ def montar(site: Path) -> bool:
     # Só o conteúdo decide se publica (a hora da coleta muda a cada execução).
     sem_hora = lambda d: json.dumps({k: ({**v, "coletado_em": None} if isinstance(v, dict) and "coletado_em" in v else v) for k, v in d.items()}, sort_keys=True, ensure_ascii=False)  # noqa: E731
     mudou = not anterior or sem_hora(dados) != sem_hora({k: anterior.get(k) for k in dados})
-    mudou = mudou or mudou_exec or mudou_leg
+    mudou = mudou or mudou_exec or mudou_leg or mudou_eleitos
     if mudou:
         _gravar(api / "plenario.json", dados)
         _fontes(api, casas)

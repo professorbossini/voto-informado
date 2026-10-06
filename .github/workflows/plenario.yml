@@ -15,6 +15,7 @@ on:
     branches: [main]
     paths:
       - "backend/etl/plenario.py"
+      - "backend/etl/eleitos.py"
       - "backend/curadoria/legislativos/**"
       - ".github/workflows/plenario.yml"
   workflow_dispatch:
@@ -68,7 +69,7 @@ jobs:
         run: |
           git clone -q --depth 1 --filter=blob:none --no-checkout --branch gh-pages \
             "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" site
-          git -C site sparse-checkout set --no-cone /index.html /plenario/ /api/plenario.json /api/plenario/ /api/executivos.json /api/legislativos/ /partidos/ /partido/ /api/parlamentares.json /api/partidos.json /api/meta.json
+          git -C site sparse-checkout set --no-cone /index.html /plenario/ /api/plenario.json /api/plenario/ /api/executivos.json /api/eleitos.json /api/legislativos/ /partidos/ /partido/ /api/parlamentares.json /api/partidos.json /api/meta.json
           git -C site checkout -q gh-pages
 
       - name: Consultar Câmara e Senado
