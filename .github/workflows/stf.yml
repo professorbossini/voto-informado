@@ -1,0 +1,105 @@
+# STF → site, sozinho na nuvem (GitHub Actions), sem depender de nenhum computador.
+#
+# Composição, presidência, datas e quem nomeou cada ministro, remuneração mês a mês e diárias e
+# passagens, tudo do próprio STF (dados públicos). Lógica em backend/etl/stf.py.
+#
+# Frequência ajustada ao que acontece:
+#   - cadeira vaga no STF (aposentadoria à espera de nomeação e posse): a cada 6 horas;
+#   - dias 1 a 12 de cada mês (quando o STF publica a folha do mês anterior): a cada 6 horas;
+#   - no resto do tempo: uma vez por dia (06h23 de Brasília).
+# A coleta é incremental (meses de folha já guardados não são consultados de novo) e espaçada.
+name: STF → site
+
+on:
+  schedule:
+    - cron: "23 3,9,15,21 * * *"
+  push:
+    branches: [main]
+    paths:
+      - "backend/etl/stf.py"
+      - ".github/workflows/stf.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  actions: write
+
+concurrency:
+  group: gh-pages
+  cancel-in-progress: false
+
+jobs:
+  stf:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Precisa consultar agora?
+        id: gate
+        run: |
+          hora=$(date -u +%H); dia=$(date -u +%-d)
+          if [[ "${{ github.event_name }}" != "schedule" || "$hora" == "09" ]]; then
+            echo "Passada regular."; echo "seguir=1" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          if (( dia <= 12 )); then
+            echo "Início do mês: folha nova pode sair a qualquer momento."; echo "seguir=1" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          vaga=$(curl -fsS "https://www.tanaurna.com.br/api/stf.json?t=$(date +%s)" | python3 -c "import json,sys; d=json.load(sys.stdin); print(int(len(d.get('ministros',[])) < d.get('cadeiras',11)))" || echo 1)
+          if [[ "$vaga" == 1 ]]; then
+            echo "Há cadeira vaga no STF: conferindo nomeação e posse."; echo "seguir=1" >> "$GITHUB_OUTPUT"
+          else
+            echo "Composição completa e fora do início do mês: fica para a passada diária."; echo "seguir=0" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.gate.outputs.seguir == '1'
+        with:
+          sparse-checkout: backend
+
+      - uses: actions/setup-python@v5
+        if: steps.gate.outputs.seguir == '1'
+        with:
+          python-version: "3.12"
+
+      - name: Dependências
+        if: steps.gate.outputs.seguir == '1'
+        run: pip install -q "requests>=2.32" pillow websocket-client
+
+      - name: Site publicado (só o que o STF usa)
+        if: steps.gate.outputs.seguir == '1'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git clone -q --depth 1 --filter=blob:none --no-checkout --branch gh-pages \
+            "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" site
+          git -C site sparse-checkout set --no-cone /index.html /stf/ /api/stf.json /api/stf/
+          git -C site checkout -q gh-pages
+
+      - name: Consultar o STF
+        if: steps.gate.outputs.seguir == '1'
+        id: stf
+        working-directory: backend
+        run: python -m etl.stf ../site
+
+      - name: Publicar
+        if: steps.gate.outputs.seguir == '1' && steps.stf.outputs.mudou == '1'
+        working-directory: site
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then echo "Nada mudou."; exit 0; fi
+          git commit -q -m "STF: composição, remuneração, diárias e passagens"
+          git push -q origin gh-pages
+          gh api -X POST "repos/${{ github.repository }}/pages/builds" >/dev/null || true
+          echo "✓ STF publicado" >> "$GITHUB_STEP_SUMMARY"
+
+      # O GitHub desliga agendamentos de repositórios sem atividade por 60 dias; reativar
+      # este workflow a cada execução mantém a atualização ligada indefinidamente.
+      - name: Manter o agendamento ligado
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh api -X PUT "repos/${{ github.repository }}/actions/workflows/stf.yml/enable" >/dev/null || true
