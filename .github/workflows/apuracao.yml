@@ -1,14 +1,19 @@
-# Apuração → site, sem depender de nenhum computador.
+# Apuração → site, sem depender de nenhum computador, em toda eleição geral.
 #
-# A cada 10 min consulta o TSE. Quando aparece totalização FINAL nova, reescreve só os JSON
-# que dependem do resultado (perfis, resultados, 2º turno, meta) no site publicado (gh-pages)
-# e envia a diferença. O parcial não passa por aqui: o site o mostra ao vivo, direto do TSE.
-# Lógica em backend/etl/apuracao_remota.py; desliga sozinho depois de 01/11/2026.
+# Só roda no período em que pode haver eleição (os dois turnos são sempre em outubro: CF, art. 77)
+# e, dentro dele, só segue se a configuração oficial do TSE (ele-c.json) mostrar uma eleição geral
+# em divulgação: daí vêm o ciclo (ele2026, ele2030…) e os códigos dos dois turnos (etl.calendario_tse).
+# Quando aparece totalização FINAL nova, reescreve só os JSON que dependem do resultado (perfis,
+# resultados, 2º turno, meta) no site publicado (gh-pages). O parcial não passa por aqui: o site o
+# mostra ao vivo, direto do TSE. Lógica em backend/etl/apuracao_remota.py.
 name: Apuração → site
 
 on:
   schedule:
-    - cron: "*/10 * * * *"
+    # A cada 30 min (UTC) só em 1–12/out (1º turno: 1º domingo de outubro), 24–31/out e 1–6/nov
+    # (2º turno: último domingo de outubro). Fora disso, nenhuma execução (e nenhum minuto gasto).
+    - cron: "7,37 * 1-12,24-31 10 *"
+    - cron: "7,37 * 1-6 11 *"
   workflow_dispatch:
 
 permissions:
@@ -24,29 +29,21 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - name: Período de divulgação
-        id: periodo
-        run: |
-          if [[ "$(TZ=America/Sao_Paulo date +%F)" > "2026-11-01" ]]; then
-            echo "Período de divulgação encerrado: nada a fazer."
-            echo "ativo=0" >> "$GITHUB_OUTPUT"
-          else
-            echo "ativo=1" >> "$GITHUB_OUTPUT"
-          fi
-
       - uses: actions/checkout@v4
-        if: steps.periodo.outputs.ativo == '1'
         with:
           sparse-checkout: backend
 
       - uses: actions/setup-python@v5
-        if: steps.periodo.outputs.ativo == '1'
         with:
           python-version: "3.12"
 
       - name: Dependências
-        if: steps.periodo.outputs.ativo == '1'
         run: pip install -q "requests>=2.32"
+
+      - name: Eleição em divulgação (configuração oficial do TSE)
+        id: periodo
+        working-directory: backend
+        run: python -m etl.calendario_tse
 
       - name: Site publicado (só o marcador do último resultado aplicado)
         if: steps.periodo.outputs.ativo == '1'

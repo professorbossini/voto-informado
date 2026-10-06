@@ -14,6 +14,7 @@ Uso: .venv/bin/python -m etl.resultados
 from __future__ import annotations
 
 import json
+import os
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
 
@@ -29,7 +30,7 @@ from .common import (
     USER_AGENT,
 )
 
-BASE = "https://resultados.tse.jus.br/oficial/ele2026"
+BASE = f"https://resultados.tse.jus.br/oficial/{os.environ.get('TSE_CICLO', 'ele2026')}"
 CARGO_CODIGO = {
     "presidente": 1,
     "governador": 3,

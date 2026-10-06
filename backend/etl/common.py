@@ -29,10 +29,13 @@ TSE_CDN = "https://cdn.tse.jus.br/estatistica/sead"
 # PesqEle/TSE, por isso a funcionalidade fica desligada (dados e código seguem no repositório).
 # Ligar com PESQUISAS_ATIVAS=1 (e VITE_ENABLE_PESQUISAS=true no frontend) após a conferência.
 PESQUISAS_ATIVAS = os.environ.get("PESQUISAS_ATIVAS", "").strip().lower() in ("1", "true", "sim", "yes")
-ANO = 2026
-# Códigos oficiais do TSE para 2026 (resultados.tse.jus.br/oficial/comum/config/ele-c.json)
-ELEICAO_FEDERAL_T1, ELEICAO_FEDERAL_T2 = "6257", "6258"
-ELEICAO_ESTADUAL_T1, ELEICAO_ESTADUAL_T2 = "6259", "6260"
+ANO = int(os.environ.get("TSE_ANO", "2026"))
+# Códigos oficiais do TSE (resultados.tse.jus.br/oficial/comum/config/ele-c.json). No apuracao.yml
+# vêm de etl.calendario_tse, que descobre a eleição geral em divulgação; o padrão é 2026.
+ELEICAO_FEDERAL_T1 = os.environ.get("TSE_FEDERAL_T1", "6257")
+ELEICAO_FEDERAL_T2 = os.environ.get("TSE_FEDERAL_T2", "6258")
+ELEICAO_ESTADUAL_T1 = os.environ.get("TSE_ESTADUAL_T1", "6259")
+ELEICAO_ESTADUAL_T2 = os.environ.get("TSE_ESTADUAL_T2", "6260")
 SQ_ELEICAO = "20322002026"  # usado nos links do DivulgaCandContas
 
 UFS = [
