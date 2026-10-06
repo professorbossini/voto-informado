@@ -20,6 +20,14 @@ from .export import _page
 
 # Pastas do site que não são do build do frontend.
 DADOS = {"api", "fotos", "propostas", ".git"}
+SITE = "https://www.tanaurna.com.br"
+# Rotas fixas novas (o export completo também as cria; aqui, para não depender dele).
+NOVAS_ROTAS = {
+    "presidentes": (
+        "Presidentes do Brasil · Tá na Urna",
+        "De Deodoro da Fonseca a hoje: retratos, datas, como cada um chegou e saiu do cargo e os marcos de cada período.",
+    ),
+}
 
 
 def _attr(page: str, pattern: str) -> str | None:
@@ -40,6 +48,11 @@ def remontar(site: Path, dist: Path) -> int:
         else:
             shutil.copy2(item, destino)
     shutil.copy2(dist / "index.html", site / "404.html")
+
+    # Rotas fixas criadas depois do último export completo: página com título e prévia de link.
+    for rel, (titulo, resumo) in NOVAS_ROTAS.items():
+        if not (site / rel / "index.html").exists():
+            _page(template, site, rel, titulo, resumo, f"{SITE}/{rel}")
 
     # 2. Páginas por rota com o template novo.
     n = 0
