@@ -5,9 +5,10 @@ import LogoutRounded from '@mui/icons-material/LogoutRounded';
 import FlagRounded from '@mui/icons-material/FlagRounded';
 import GroupsRounded from '@mui/icons-material/GroupsRounded';
 import OpenInNewRounded from '@mui/icons-material/OpenInNewRounded';
+import HowToVoteRounded from '@mui/icons-material/HowToVoteRounded';
 import { PageHeader } from '@/pages/PageHeader';
 import { CREDITOS_FOTO } from './creditos';
-import { ERAS, PRESIDENCIAS, type Era, type Presidencia } from './presidentes';
+import { ERAS, PRESIDENCIAS, type Eleicao, type Era, type Presidencia } from './presidentes';
 
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 const fotoUrl = (id: string) => `${BASE}/img/presidentes/${id}.jpg`;
@@ -146,6 +147,59 @@ function Rota() {
   );
 }
 
+const int = new Intl.NumberFormat('pt-BR');
+const pctFmt = new Intl.NumberFormat('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const pct = (v?: number) => (v == null ? '' : ` (${pctFmt.format(v)}%)`);
+
+/** "Eleito no 2º turno", "Turno único", "Eleição indireta". */
+function comoVenceu(e: Eleicao) {
+  if (e.tipo === 'indireta') return `Eleição indireta · ${e.colegio}`;
+  if (e.turnos.length === 2) return 'Vitória no 2º turno';
+  return e.ano >= 1989 ? 'Vitória no 1º turno' : 'Turno único (maioria simples)';
+}
+
+function Eleicoes({ p }: { p: Presidencia }) {
+  if (!p.eleicoes?.length) {
+    if (p.junta) return null;
+    return (
+      <Stack direction="row" spacing={1} sx={{ alignItems: 'flex-start' }}>
+        <HowToVoteRounded fontSize="small" color="primary" sx={{ mt: 0.25 }} />
+        <Typography variant="body2">
+          <strong>Votos:</strong> sem eleição para presidente; assumiu pela linha de sucessão.
+        </Typography>
+      </Stack>
+    );
+  }
+  return (
+    <Stack direction="row" spacing={1} sx={{ alignItems: 'flex-start' }}>
+      <HowToVoteRounded fontSize="small" color="primary" sx={{ mt: 0.25 }} />
+      <Box sx={{ minWidth: 0 }}>
+        {p.eleicoes.map((e) => (
+          <Box key={e.ano} sx={{ mb: 0.5 }}>
+            <Typography variant="body2">
+              <strong>Eleição de {e.ano}:</strong> {comoVenceu(e)}
+            </Typography>
+            {e.turnos.map((t) => (
+              <Typography key={t.turno} variant="body2" color="text.secondary" sx={{ pl: 1.5 }}>
+                {e.tipo === 'indireta' ? '' : e.turnos.length === 2 || e.ano >= 1989 ? `${t.turno}º turno: ` : ''}
+                <Box component="span" sx={{ color: 'text.primary', fontWeight: 700, fontVariantNumeric: 'tabular-nums' }}>
+                  {int.format(t.votos)} votos{pct(t.pct)}
+                </Box>
+                {t.segundo ? ` · 2º colocado: ${t.segundo.nome}, ${int.format(t.segundo.votos)}${pct(t.segundo.pct)}` : ''}
+              </Typography>
+            ))}
+            {e.nota && (
+              <Typography variant="caption" color="text.secondary" sx={{ pl: 1.5, display: 'block' }}>
+                {e.nota}
+              </Typography>
+            )}
+          </Box>
+        ))}
+      </Box>
+    </Stack>
+  );
+}
+
 /* ------------------------------------------------------------------ linha do tempo */
 
 function Item({ p }: { p: Presidencia }) {
@@ -199,6 +253,7 @@ function Item({ p }: { p: Presidencia }) {
                   <strong>Como chegou:</strong> {p.chegada}
                 </Typography>
               </Stack>
+              <Eleicoes p={p} />
               {p.saida && (
                 <Stack direction="row" spacing={1} sx={{ alignItems: 'flex-start' }}>
                   <LogoutRounded fontSize="small" color="primary" sx={{ mt: 0.25 }} />
@@ -279,7 +334,7 @@ export function PresidentesPage() {
             Critério e fontes
           </Typography>
           <Typography variant="body2" sx={{ mt: 1 }}>
-            Todos aparecem no mesmo formato: como chegou ao cargo, como saiu e marcos institucionais objetivos do período (Constituições, emendas e
+            Todos aparecem no mesmo formato: como chegou ao cargo, votos na eleição (com o 2º colocado de cada turno), como saiu e marcos institucionais objetivos do período (Constituições, emendas e
             leis pelo número oficial, moedas, obras e fatos históricos registrados oficialmente). Não há avaliação de governo nem de pessoas. A ordem é
             cronológica. Os nomes de períodos históricos seguem a historiografia usual.
           </Typography>
@@ -292,7 +347,14 @@ export function PresidentesPage() {
             <Link href="https://www4.planalto.gov.br/legislacao" target="_blank" rel="noopener noreferrer">
               Portal da Legislação do Planalto <OpenInNewRounded sx={{ fontSize: 12, verticalAlign: 'middle' }} />
             </Link>{' '}
-            (Constituições, emendas e leis citadas) · Retratos: Wikimedia Commons, com autor e licença em cada foto (na maioria, acervo oficial da
+            (Constituições, emendas e leis citadas) ·{' '}
+            <Link href="https://dadosabertos.tse.jus.br/" target="_blank" rel="noopener noreferrer">
+              Dados Abertos do TSE <OpenInNewRounded sx={{ fontSize: 12, verticalAlign: 'middle' }} />
+            </Link>{' '}
+            (votos de 1945 a 2022: soma da votação oficial por estado; nas eleições de 1945 a 1989, a soma do acervo digitalizado pelo TSE pode diferir
+            em poucas centenas de votos do total proclamado na época; percentuais sobre os votos válidos) · Eleições de 1891 a 1934 e indiretas:
+            resultados proclamados pelo Congresso Nacional, pela Assembleia Constituinte ou pelo Colégio Eleitoral, como registrados na
+            historiografia eleitoral (antes de 1932 não havia Justiça Eleitoral) · Retratos: Wikimedia Commons, com autor e licença em cada foto (na maioria, acervo oficial da
             Presidência e da Agência Brasil).
           </Typography>
         </CardContent>
