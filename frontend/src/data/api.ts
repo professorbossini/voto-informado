@@ -1,6 +1,7 @@
 import { env } from '@/config/env';
 import type { MalhaMunicipal } from '@/data/localizacao';
 import type {
+  Eleitos,
   Stf,
   MinistroStfDetalhe,
   BuscaItem,
@@ -79,6 +80,7 @@ export const data = {
   estaduais: () => get<LegislativosEstaduais>('legislativos/estaduais.json'),
   vereadores: (uf: string) => get<VereadoresUf>(`legislativos/vereadores/${uf.toUpperCase()}.json`),
   stf: () => get<Stf>('stf.json'),
+  eleitos: () => get<Eleitos>('eleitos.json'),
   ministroStf: (id: string) => get<MinistroStfDetalhe>(`stf/ministro/${encodeURIComponent(id)}.json`),
   malhaMunicipal: (uf: string) => get<MalhaMunicipal>(`legislativos/malhas/${uf.toUpperCase()}.json`),
   noticias: (tipo: 'parlamentar' | 'partido' | 'ministro', id: string) => get<FeedNoticiasDados>(`noticias/${tipo}/${encodeURIComponent(id)}.json`),

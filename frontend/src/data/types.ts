@@ -347,6 +347,8 @@ export interface MembroPlenario {
   foto: string | null;
   /** Há página de gastos de mandato deste parlamentar no site. */
   perfil: boolean;
+  /** Página do site para esta cadeira, quando não é a de gastos (ex.: candidatura de quem foi eleito). */
+  link?: string | null;
 }
 
 export interface CasaPlenario {
@@ -538,4 +540,33 @@ export interface MinistroStfDetalhe {
   remuneracao: FolhaStf[];
   viagens: { passagens: PassagemStf[]; diarias: DiariaStf[] };
   resumo_viagens: Record<string, ResumoViagensAno>;
+}
+
+/* ------------------------------------------------------------------ eleitos (api/eleitos.json) */
+
+export interface MembroEleito {
+  id: string;
+  sq?: string;
+  nome: string;
+  partido: string;
+  uf: string | null;
+  numero?: string;
+  situacao: string;
+  votos?: number | null;
+  foto: string | null;
+  /** Senador eleito antes, com mandato até o fim da próxima legislatura. */
+  continua?: boolean;
+}
+
+export interface Eleitos {
+  eleicao: number;
+  /** Posse da nova legislatura (AAAA-MM-DD). */
+  posse: string;
+  mandato: string;
+  camara: { membros: MembroEleito[]; completo: boolean };
+  senado: { membros: MembroEleito[]; completo: boolean; continuam: number };
+  assembleias: Record<string, { nome: string; membros: MembroEleito[]; completo: boolean }>;
+  partidos: Record<string, string>;
+  fontes: { tse: string; senado: string };
+  gerado_em: string;
 }

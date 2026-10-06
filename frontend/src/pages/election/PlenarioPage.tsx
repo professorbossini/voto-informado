@@ -37,8 +37,8 @@ import MyLocationRounded from '@mui/icons-material/MyLocationRounded';
 import { municipioDoPonto, ufDoPonto } from '@/data/localizacao';
 import { isNativeApp } from '@/native/platform';
 import { useLocalState } from '@/data/localStore';
-import { data, dataFileUrl } from '@/data/api';
-import type { CasaPlenario, MembroPlenario, Plenario } from '@/data/types';
+import { assetUrl, data, dataFileUrl } from '@/data/api';
+import type { CasaPlenario, Eleitos, MembroEleito, MembroPlenario, Plenario } from '@/data/types';
 import { useAsync } from '@/hooks/useAsync';
 import { PageHeader } from '@/pages/PageHeader';
 import { PlenarioStf } from '@/components/stf/PlenarioStf';
@@ -75,6 +75,11 @@ function nomePartido(sigla: string, partidos: Plenario['partidos']) {
 
 function idPadrao(sigla: string) {
   return `logo-${sigla.normalize('NFKD').replace(/[^A-Za-z0-9]/g, '')}`;
+}
+
+/** Página do site para a cadeira: candidatura de quem foi eleito, ou gastos de mandato. */
+function paginaDe(m: MembroPlenario): string | null {
+  return m.link ?? (m.perfil ? `/parlamentar/${m.id}` : null);
 }
 
 /** "2025-02-01" → "01/02/2025". */
@@ -163,20 +168,20 @@ function Desenho({
 }) {
   const theme = useTheme();
   const navigate = useNavigate();
-  const baseParlamentar = useHref('/parlamentar/');
+  const baseSite = useHref('/');
   const pres = casa.presidente;
   const rotulo = (m: MembroPlenario) => `${m.nome} (${m.partido === SEM_PARTIDO ? 'sem partido' : m.partido}${m.uf ? `-${m.uf}` : ''})`;
   /** Cadeira com página no site vira link (clique, teclado e leitor de tela); sem página, só mostra quem é. */
   const cadeira = (m: MembroPlenario, circulo: ReactElement, extra = '') =>
-    m.perfil ? (
+    paginaDe(m) ? (
       <a
         key={m.id}
-        href={`${baseParlamentar}${m.id}`}
-        aria-label={`${extra}${rotulo(m)}: ver página do parlamentar`}
+        href={`${baseSite.replace(/\/$/, '')}${paginaDe(m)}`}
+        aria-label={`${extra}${rotulo(m)}: ver página`}
         onClick={(e) => {
           if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
           e.preventDefault();
-          void navigate(`/parlamentar/${m.id}`);
+          void navigate(paginaDe(m)!);
         }}
       >
         {circulo}
@@ -200,7 +205,7 @@ function Desenho({
   const cinza = (s: string) => (siglas.indexOf(s) % 2 === 0 ? '#e3e3e3' : '#a8a8a8');
   const temLogo = (s: string) => Boolean(partidos[s]?.logo);
   /** Foto oficial: cópia publicada pelo site (api/...) ou o endereço original da Casa. */
-  const fotoDe = (m: MembroPlenario) => (m.foto ? (/^https?:\/\//.test(m.foto) ? m.foto : dataFileUrl(m.foto)) : null);
+  const fotoDe = (m: MembroPlenario) => (m.foto ? (/^https?:\/\//.test(m.foto) || m.foto.startsWith('/') ? assetUrl(m.foto) : dataFileUrl(m.foto)) : null);
   /**
    * Cadeira: no modo "rosto", só a foto recortada no círculo (sem foto, o partido); no modo
    * "partido", só o símbolo do partido.
@@ -372,9 +377,9 @@ function Selecionado({ m, partidos, presidencia }: { m: MembroPlenario; partidos
           {nomePartido(m.partido, partidos)} ({m.partido}){m.uf ? ` · ${m.uf}` : ''}
         </Typography>
       </Box>
-      {m.perfil && (
-        <Button component={RouterLink} to={`/parlamentar/${m.id}`} size="small" variant="tonal">
-          Gastos de mandato
+      {paginaDe(m) && (
+        <Button component={RouterLink} to={paginaDe(m)!} size="small" variant="tonal">
+          {m.link ? 'Ver candidatura' : 'Gastos de mandato'}
         </Button>
       )}
     </Stack>
@@ -499,8 +504,8 @@ function ListaNomes({ lista, partidos, info }: { lista: Grupo[]; partidos: Plena
                 </Stack>
                 {g.membros.map((m) => (
                   <Typography key={m.id} variant="body2" sx={{ pl: 4 }}>
-                    {m.perfil ? (
-                      <Link component={RouterLink} to={`/parlamentar/${m.id}`}>
+                    {paginaDe(m) ? (
+                      <Link component={RouterLink} to={paginaDe(m)!}>
                         {m.nome}
                       </Link>
                     ) : (
@@ -516,6 +521,45 @@ function ListaNomes({ lista, partidos, info }: { lista: Grupo[]; partidos: Plena
       </CardContent>
     </Card>
   );
+}
+
+/* ------------------------------------------------------------------ atual × eleitos */
+
+type Composicao = 'atual' | 'eleitos';
+
+/** Eleitos publicados e ainda antes da posse: só aí a troca aparece. */
+function eleitosValidos(el: Eleitos | null | undefined): el is Eleitos {
+  return Boolean(el) && new Date().toISOString().slice(0, 10) < el!.posse;
+}
+
+function TrocaComposicao({ valor, onChange, el }: { valor: Composicao; onChange: (v: Composicao) => void; el: Eleitos }) {
+  return (
+    <ToggleButtonGroup exclusive size="small" value={valor} onChange={(_, v: Composicao | null) => v && onChange(v)} aria-label="Qual composição mostrar" sx={{ flexWrap: 'wrap' }}>
+      <ToggleButton value="atual">Composição atual</ToggleButton>
+      <ToggleButton value="eleitos">
+        Eleitos em {el.eleicao} · posse em {dia(el.posse)}
+      </ToggleButton>
+    </ToggleButtonGroup>
+  );
+}
+
+/** Eleitos no formato do desenho: cada cadeira leva à página da candidatura no site. */
+function casaDosEleitos(membros: MembroEleito[], atuais: CasaPlenario | null, gerado: string | null): CasaPlenario {
+  const perfis = new Map((atuais?.membros ?? []).map((m) => [m.id, m.perfil]));
+  return {
+    legislatura: null,
+    coletado_em: gerado,
+    presidente: null,
+    membros: membros.map((m) => ({
+      id: m.id,
+      nome: m.continua ? m.nome : nomeProprio(m.nome),
+      partido: m.partido || SEM_PARTIDO,
+      uf: m.uf,
+      foto: m.foto,
+      perfil: perfis.get(m.id) ?? false,
+      link: m.sq ? `/candidato/${m.sq}` : null,
+    })),
+  };
 }
 
 /* ------------------------------------------------------------------ página */
@@ -610,6 +654,9 @@ function PlenarioLocal({ tipo, partidos }: { tipo: 'assembleia' | 'municipal'; p
   const uf = padrao?.uf ?? ((params.get('uf') ?? (tipo === 'assembleia' ? ufUsuario : null) ?? '').toUpperCase() || null);
   const mun = padrao?.mun ?? params.get('mun');
   const est = useAsync(() => (tipo === 'assembleia' ? data.estaduais() : Promise.resolve(null)), [tipo]);
+  const el = useAsync(() => (tipo === 'assembleia' ? data.eleitos().catch(() => null) : Promise.resolve(null)), [tipo]);
+  const eleitos = eleitosValidos(el.data) ? el.data : null;
+  const verEleitos = tipo === 'assembleia' && eleitos != null && params.get('composicao') === 'eleitos';
   const ver = useAsync(() => (tipo === 'municipal' && uf ? data.vereadores(uf) : Promise.resolve(null)), [tipo, uf]);
   const [destaque, setDestaque] = useState<string | null>(null);
   const [selecionado, setSelecionado] = useState<MembroPlenario | null>(null);
@@ -650,18 +697,21 @@ function PlenarioLocal({ tipo, partidos }: { tipo: 'assembleia' | 'municipal'; p
                 : local.status === 'indisponivel'
                   ? 'Localização indisponível agora: mostrando São Paulo.'
                   : 'Mostrando São Paulo. Use a sua localização para ver a Câmara do seu município.';
-  const fonte = tipo === 'assembleia' ? (uf ? est.data?.casas[uf] : undefined) : mun ? ver.data?.municipios[mun] : undefined;
+  const fonteEleitos = verEleitos && uf ? eleitos?.assembleias[uf] : undefined;
+  const fonte = tipo === 'assembleia' ? (uf ? (verEleitos ? fonteEleitos : est.data?.casas[uf]) : undefined) : mun ? ver.data?.municipios[mun] : undefined;
   const casa = useMemo<CasaPlenario | null>(
     () =>
-      fonte
-        ? {
-            legislatura: null,
-            coletado_em: null,
-            presidente: null,
-            membros: fonte.membros.map((m) => ({ id: m.id, nome: nomeProprio(m.nome), partido: m.partido, uf: m.uf, foto: null, perfil: false })),
-          }
-        : null,
-    [fonte],
+      fonteEleitos
+        ? casaDosEleitos(fonteEleitos.membros, null, eleitos?.gerado_em ?? null)
+        : fonte
+          ? {
+              legislatura: null,
+              coletado_em: null,
+              presidente: null,
+              membros: fonte.membros.map((m) => ({ id: m.id, nome: nomeProprio(m.nome), partido: m.partido, uf: m.uf, foto: null, perfil: false })),
+            }
+          : null,
+    [fonte, fonteEleitos, eleitos],
   );
   const lista = useMemo(() => (casa ? grupos(casa) : []), [casa]);
   const nomeCasa = tipo === 'assembleia' ? (fonte && 'nome' in fonte ? fonte.nome : 'Assembleia Legislativa') : `Câmara Municipal de ${fonte ? nomeProprio(fonte.nome) : ''}`;
@@ -671,10 +721,15 @@ function PlenarioLocal({ tipo, partidos }: { tipo: 'assembleia' | 'municipal'; p
     presidencia: tipo === 'assembleia' ? 'Eleita pelos deputados a cada dois anos' : 'Eleita pelos vereadores',
     membro: tipo === 'assembleia' ? (uf === 'DF' ? 'deputados distritais' : 'deputados estaduais') : 'vereadores',
     fonte: '',
-    semPresidencia: 'Presidência: sem base oficial unificada',
+    semPresidencia: verEleitos && eleitos ? `Presidência: eleita em ${dia(eleitos.posse)}` : 'Presidência: sem base oficial unificada',
   };
-  const carregando = tipo === 'assembleia' ? est.loading : ver.loading;
-  const meta = tipo === 'assembleia' ? est.data : ver.data;
+  const carregando = tipo === 'assembleia' ? est.loading || el.loading : ver.loading;
+  const meta =
+    verEleitos && eleitos
+      ? { eleicao: eleitos.eleicao, mandato: eleitos.mandato, fonte: `TSE · totalização das eleições de ${eleitos.eleicao} (posse em ${dia(eleitos.posse)})` }
+      : tipo === 'assembleia'
+        ? est.data
+        : ver.data;
 
   return (
     <Stack spacing={3}>
@@ -717,6 +772,19 @@ function PlenarioLocal({ tipo, partidos }: { tipo: 'assembleia' | 'municipal'; p
           </Button>
         )}
       </Stack>
+      {tipo === 'assembleia' && eleitos && (
+        <Box>
+          <TrocaComposicao
+            valor={verEleitos ? 'eleitos' : 'atual'}
+            onChange={(v) => {
+              setSelecionado(null);
+              setDestaque(null);
+              set({ composicao: v === 'eleitos' ? 'eleitos' : null });
+            }}
+            el={eleitos}
+          />
+        </Box>
+      )}
       {tipo === 'municipal' && avisoLocal && (
         <Typography variant="caption" color="text.secondary" sx={{ mt: -1.5 }}>
           {avisoLocal}
@@ -741,8 +809,7 @@ function PlenarioLocal({ tipo, partidos }: { tipo: 'assembleia' | 'municipal'; p
                 {nomeCasa}
               </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                {casa.membros.length} {info.membro} eleitos em {meta.eleicao} (mandato {meta.mandato}), cada bolinha com o símbolo do partido pelo qual se
-                elegeram. Partidos em ordem alfabética, da esquerda para a direita: a posição no desenho não indica orientação política. Toque numa cadeira
+                {casa.membros.length} {info.membro} eleitos em {meta.eleicao} (mandato {meta.mandato}), cada bolinha com {verEleitos ? 'a foto de quem foi eleito' : 'o símbolo do partido pelo qual se elegeram'}. Partidos em ordem alfabética, da esquerda para a direita: a posição no desenho não indica orientação política. Toque numa cadeira
                 para ver quem é.
               </Typography>
               <Desenho casa={casa} info={info} partidos={partidos} lista={lista} destaque={destaque} selecionado={selecionado} onSelecionar={setSelecionado} />
@@ -779,9 +846,38 @@ export function PlenarioPage() {
   // Rostos ou símbolos dos partidos nas cadeiras (fica salvo no aparelho).
   const [modo, setModo] = useLocalState<ModoCadeira>('vi:plenario-modo', 'rosto');
 
-  const info = CASAS[federal];
-  const casa = q.data?.[federal] ?? null;
-  const partidos = q.data?.partidos ?? {};
+  const el = useAsync(() => data.eleitos().catch(() => null), []);
+  const eleitos = eleitosValidos(el.data) ? el.data : null;
+  const composicao: Composicao = eleitos && params.get('composicao') === 'eleitos' ? 'eleitos' : 'atual';
+  const setComposicao = (v: Composicao) => {
+    setDestaque(null);
+    setSelecionado(null);
+    setParams(
+      (p) => {
+        if (v === 'eleitos') p.set('composicao', 'eleitos');
+        else p.delete('composicao');
+        return p;
+      },
+      { replace: true, preventScrollReset: true },
+    );
+  };
+
+  const atual = q.data?.[federal] ?? null;
+  const verEleitos = composicao === 'eleitos' && eleitos != null && casaKey !== 'stf';
+  const casa = useMemo(
+    () => (verEleitos && eleitos ? casaDosEleitos(eleitos[federal].membros, atual, eleitos.gerado_em) : atual),
+    [verEleitos, eleitos, federal, atual],
+  );
+  const info: InfoCasa = verEleitos
+    ? { ...CASAS[federal], fonte: 'tse_resultados', semPresidencia: `Presidência: eleita em ${dia(eleitos!.posse)}` }
+    : CASAS[federal];
+  // Partidos novos (sem cadeira hoje) aparecem com o nome do TSE e a sigla no lugar do símbolo.
+  const partidos = useMemo(() => {
+    const base = q.data?.partidos ?? {};
+    if (!verEleitos || !eleitos) return base;
+    const extra = Object.fromEntries(Object.entries(eleitos.partidos).filter(([sg]) => !base[sg]).map(([sg, nome]) => [sg, { nome, logo: null }]));
+    return { ...extra, ...base };
+  }, [q.data, verEleitos, eleitos]);
   const lista = useMemo(() => (casa ? grupos(casa) : []), [casa]);
 
   const trocar = (c: CasaKey) => {
@@ -829,11 +925,22 @@ export function PlenarioPage() {
                 {info.nome}
               </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                {casa.membros.length} cadeiras, cada bolinha com a foto ou o símbolo do partido de quem a ocupa (escolha abaixo). Partidos em ordem
-                alfabética, da esquerda para a direita: a posição no desenho não indica orientação política. Toque numa cadeira para abrir a página do
-                parlamentar.
+                {verEleitos && eleitos
+                  ? federal === 'senado'
+                    ? `${casa.membros.length} cadeiras a partir de ${dia(eleitos.posse)}: ${casa.membros.length - eleitos.senado.continuam} senadores eleitos em ${eleitos.eleicao} e ${eleitos.senado.continuam} com mandato até 2031 (eleitos 4 anos antes), segundo o TSE e o Senado. `
+                    : `${casa.membros.length} deputados eleitos em ${eleitos.eleicao} para o mandato ${eleitos.mandato} (posse em ${dia(eleitos.posse)}), segundo a totalização do TSE. `
+                  : `${casa.membros.length} cadeiras, cada bolinha com a foto ou o símbolo do partido de quem a ocupa (escolha abaixo). `}
+                Partidos em ordem alfabética, da esquerda para a direita: a posição no desenho não indica orientação política. Toque numa cadeira para abrir
+                {verEleitos ? ' a página da candidatura.' : ' a página do parlamentar.'}
               </Typography>
-              <ToggleButtonGroup exclusive size="small" value={modo} onChange={(_, v: ModoCadeira | null) => v && setModo(v)} aria-label="O que mostrar em cada cadeira" sx={{ mb: 2 }}>
+              {verEleitos && eleitos && !eleitos[federal].completo && (
+                <Alert severity="warning" sx={{ mb: 2 }}>
+                  A totalização do TSE ainda não terminou em todos os estados: a lista de eleitos pode mudar.
+                </Alert>
+              )}
+              <Stack direction={{ xs: 'column', md: 'row' }} sx={{ gap: 1.5, mb: 2, alignItems: { md: 'center' }, flexWrap: 'wrap' }}>
+                {eleitos && <TrocaComposicao valor={composicao} onChange={setComposicao} el={eleitos} />}
+              <ToggleButtonGroup exclusive size="small" value={modo} onChange={(_, v: ModoCadeira | null) => v && setModo(v)} aria-label="O que mostrar em cada cadeira">
                 <ToggleButton value="rosto" aria-label="Rostos dos parlamentares">
                   <FaceRounded fontSize="small" sx={{ mr: 0.75 }} /> Rostos
                 </ToggleButton>
@@ -841,6 +948,7 @@ export function PlenarioPage() {
                   <FlagRounded fontSize="small" sx={{ mr: 0.75 }} /> Partidos
                 </ToggleButton>
               </ToggleButtonGroup>
+              </Stack>
               <Desenho
                 modo={modo}
                 casa={casa}
@@ -866,8 +974,27 @@ export function PlenarioPage() {
                 </Box>
               )}
               <Typography variant="caption" color="text.secondary" component="p" sx={{ mt: 2 }}>
-                {quando(casa.coletado_em) ? `Dados oficiais coletados em ${quando(casa.coletado_em)}.` : 'Dados oficiais da última coleta disponível.'} Quem
-                preside a Casa senta à mesa e conta na bancada do seu partido. O mandato na presidência é de 2 anos (Constituição, art. 57, § 4º).
+                {quando(casa.coletado_em) ? `Dados oficiais coletados em ${quando(casa.coletado_em)}.` : 'Dados oficiais da última coleta disponível.'}{' '}
+                {verEleitos && eleitos ? (
+                  <>
+                    Fonte (dados públicos):{' '}
+                    <Link href={eleitos.fontes.tse} target="_blank" rel="noopener noreferrer">
+                      TSE, totalização das eleições de {eleitos.eleicao}
+                    </Link>
+                    {federal === 'senado' && (
+                      <>
+                        {' '}e{' '}
+                        <Link href={eleitos.fontes.senado} target="_blank" rel="noopener noreferrer">
+                          Senado Federal, senadores em exercício
+                        </Link>
+                      </>
+                    )}
+                    . A Presidência da Casa é eleita na posse; mudanças posteriores (renúncias, suplentes, decisões da Justiça Eleitoral) aparecem só na
+                    composição atual.
+                  </>
+                ) : (
+                  'Quem preside a Casa senta à mesa e conta na bancada do seu partido. O mandato na presidência é de 2 anos (Constituição, art. 57, § 4º).'
+                )}
               </Typography>
             </CardContent>
           </Card>
