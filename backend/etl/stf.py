@@ -97,8 +97,39 @@ PARCELAS = [
 s = requests.Session()
 s.headers["User-Agent"] = UA
 
+# Os portais do STF recusam os servidores do GitHub (403). No GitHub Actions, os endereços desses
+# domínios passam pelo intermediário da Cloudflare (infra/cloudflare/stf-proxy/worker.js), que só
+# atende com um token OIDC do próprio GitHub para este repositório. Fora do Actions, acesso direto.
+PROXY = os.environ.get("STF_PROXY", "").rstrip("/")
+VIA_PROXY = ("portal.stf.jus.br", "www.stf.jus.br", "transparencia.stf.jus.br")
+_oidc: dict = {"token": None, "em": 0.0}
+
+
+def _token_oidc() -> str:
+    if not _oidc["token"] or time.time() - _oidc["em"] > 240:  # o token do GitHub vale poucos minutos
+        r = requests.get(
+            os.environ["ACTIONS_ID_TOKEN_REQUEST_URL"],
+            params={"audience": "tanaurna-stf"},
+            headers={"Authorization": f"bearer {os.environ['ACTIONS_ID_TOKEN_REQUEST_TOKEN']}"},
+            timeout=30,
+        )
+        r.raise_for_status()
+        _oidc.update(token=r.json()["value"], em=time.time())
+    return _oidc["token"]
+
+
+def _via_proxy(url: str) -> bool:
+    from urllib.parse import urlparse
+
+    return bool(PROXY) and urlparse(url).hostname in VIA_PROXY
+
 
 def _get(url: str, **kw) -> requests.Response:
+    if _via_proxy(url):
+        completo = requests.Request("GET", url, params=kw.pop("params", None)).prepare().url
+        kw["params"] = {"url": completo}
+        kw["headers"] = {**kw.get("headers", {}), "Authorization": f"Bearer {_token_oidc()}"}
+        url = PROXY + "/"
     for tentativa in range(3):
         try:
             r = s.get(url, timeout=(10, 60), **kw)
@@ -216,6 +247,8 @@ def pasta(url: str) -> dict:
             datas["posse_presidencia"] = d
     return {
         "nome": nome,
+        # "Ministro" ou "Ministra", como o próprio STF identifica na pasta.
+        "tratamento": "Ministra" if titulo.startswith("Ministra") else "Ministro",
         "nome_completo": completo.group(1).strip() if completo else nome,
         "cargo": cargo.group(1) if cargo else None,
         "nascimento": _data(nasc.group(1)) if nasc else None,
@@ -384,9 +417,16 @@ def viagens_brutas() -> tuple[list[list[str]], list[list[str]]]:
     """Passagens e diárias de ministros no painel de transparência do STF (Qlik Sense, acesso anônimo)."""
     import websocket
 
-    _get(PAINEL_VIAGENS)  # abre a sessão anônima (cookie)
-    cookie = "; ".join(f"{c.name}={c.value}" for c in s.cookies if QLIK in c.domain)
-    ws = websocket.create_connection(f"wss://{QLIK}/app/{QLIK_VIAGENS}", header=[f"User-Agent: {UA}", f"Cookie: {cookie}"], origin=f"https://{QLIK}", timeout=90)
+    r = _get(PAINEL_VIAGENS)  # abre a sessão anônima (cookie)
+    cookie = "; ".join(f"{k}={v}" for k, v in {**{c.name: c.value for c in s.cookies if QLIK in c.domain}, **r.cookies.get_dict()}.items())
+    destino = f"wss://{QLIK}/app/{QLIK_VIAGENS}"
+    cab = [f"User-Agent: {UA}", f"Cookie: {cookie}"]
+    if _via_proxy(destino):
+        from urllib.parse import quote
+
+        cab.append(f"Authorization: Bearer {_token_oidc()}")
+        destino = PROXY.replace("https://", "wss://") + "/?url=" + quote(destino, safe="")
+    ws = websocket.create_connection(destino, header=cab, origin=f"https://{QLIK}", timeout=90)
     n = [0]
 
     def chamar(metodo, handle=-1, params=None):
@@ -507,6 +547,7 @@ def montar(site: Path) -> bool:
                 "id": mid,
                 "nome": p["nome"],
                 "nome_completo": p["nome_completo"],
+                "tratamento": p["tratamento"],
                 "cargo": p["cargo"],
                 "antiguidade": ordem,  # 0 = quem preside; depois, do mais antigo ao mais novo
                 "nascimento": p["nascimento"],

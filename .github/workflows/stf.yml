@@ -24,6 +24,7 @@ permissions:
   contents: write
   pages: write
   actions: write
+  id-token: write # token OIDC para o intermediário da Cloudflare (infra/cloudflare/stf-proxy)
 
 concurrency:
   group: gh-pages
@@ -79,6 +80,8 @@ jobs:
         if: steps.gate.outputs.seguir == '1'
         id: stf
         working-directory: backend
+        env:
+          STF_PROXY: https://tanaurna-stf.insta-publisher.workers.dev
         run: python -m etl.stf ../site
 
       - name: Publicar
