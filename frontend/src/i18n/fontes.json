@@ -7,6 +7,13 @@
   ]
  },
  {
+  "texto": "– hoje",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
+  ]
+ },
+ {
   "texto": ", de Rodrigo Bossini, sujeito à licença dele.",
   "tipo": "exato",
   "arquivos": [
@@ -39,6 +46,13 @@
   "tipo": "exato",
   "arquivos": [
    "components/ConfigErrorScreen.tsx"
+  ]
+ },
+ {
+  "texto": ", publicados pelo próprio Supremo Tribunal Federal em seus portais de transparência, como exigem a Lei de Acesso à Informação (Lei 12.527/2011) e a Resolução CNJ 215/2015. O STF decidiu que divulgar nome e remuneração de agentes públicos é legítimo (ARE 652.777, Tema 483). O Tá na Urna só reúne e organiza, sem opinião, e não publica CPF nem dado de servidores. Cada bloco indica a fonte oficial; se houver divergência, vale a fonte.",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx"
   ]
  },
  {
@@ -77,6 +91,20 @@
   ]
  },
  {
+  "texto": ". A Presidência da Casa é eleita na posse; mudanças posteriores (renúncias, suplentes, decisões da Justiça Eleitoral) aparecem só na composição atual.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": ". Coletado pelo Tá na Urna em {0}.",
+  "tipo": "padrao",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx"
+  ]
+ },
+ {
   "texto": ". Como em qualquer acesso à internet, esse provedor recebe tecnicamente o endereço IP e informações básicas do navegador ou do aparelho e pode mantê-los em registros de segurança, conforme a",
   "tipo": "exato",
   "arquivos": [
@@ -98,10 +126,24 @@
   ]
  },
  {
+  "texto": ". O site confere a composição a cada 6 horas enquanto houver vaga.",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx"
+  ]
+ },
+ {
   "texto": ". Para testar sem credenciais, use",
   "tipo": "exato",
   "arquivos": [
    "components/ConfigErrorScreen.tsx"
+  ]
+ },
+ {
+  "texto": ". Partidos em ordem alfabética, da esquerda para a direita: a posição no desenho não indica orientação política. Toque numa cadeira para ver quem é.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlenarioPage.tsx"
   ]
  },
  {
@@ -133,6 +175,13 @@
   ]
  },
  {
+  "texto": "· {0} anos",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
   "texto": "· {0} vagas",
   "tipo": "padrao",
   "arquivos": [
@@ -144,6 +193,13 @@
   "tipo": "padrao",
   "arquivos": [
    "pages/election/ParlamentarPage.tsx"
+  ]
+ },
+ {
+  "texto": "· 2º colocado: {0}, {1}{2}",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
   ]
  },
  {
@@ -204,6 +260,13 @@
   ]
  },
  {
+  "texto": "· natural de {0}",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
   "texto": "· nº",
   "tipo": "exato",
   "arquivos": [
@@ -222,6 +285,13 @@
   "tipo": "padrao",
   "arquivos": [
    "pages/election/CandidatoPage.tsx"
+  ]
+ },
+ {
+  "texto": "· posse em",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlenarioPage.tsx"
   ]
  },
  {
@@ -264,6 +334,13 @@
   "tipo": "exato",
   "arquivos": [
    "theme/theme.ts"
+  ]
+ },
+ {
+  "texto": "“Política dos governadores”, acordo entre o governo federal e os governos estaduais",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -337,10 +414,31 @@
   ]
  },
  {
-  "texto": "(confirmado pelo TSE):",
+  "texto": "(confirmado pelo TSE)",
   "tipo": "exato",
   "arquivos": [
    "components/resultados/ApuracaoAoVivo.tsx"
+  ]
+ },
+ {
+  "texto": "(Constituições, emendas e leis citadas) ·",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
+  ]
+ },
+ {
+  "texto": "(datas e forma de posse) ·",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
+  ]
+ },
+ {
+  "texto": "(desde {0})",
+  "tipo": "padrao",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx"
   ]
  },
  {
@@ -393,6 +491,13 @@
   ]
  },
  {
+  "texto": "(pela totalização de 100% das seções; aguardando a proclamação do TSE)",
+  "tipo": "exato",
+  "arquivos": [
+   "components/resultados/ApuracaoAoVivo.tsx"
+  ]
+ },
+ {
   "texto": "(site e aplicativos para celular) é um projeto independente, gratuito e sem anúncios, mantido por",
   "tipo": "exato",
   "arquivos": [
@@ -414,6 +519,20 @@
   ]
  },
  {
+  "texto": "(vigente desde {0})",
+  "tipo": "padrao",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx"
+  ]
+ },
+ {
+  "texto": "(votos de 1945 a 2022: soma da votação oficial por estado; nas eleições de 1945 a 1989, a soma do acervo digitalizado pelo TSE pode diferir em poucas centenas de votos do total proclamado na época; percentuais sobre os votos válidos) · Eleições de 1891 a 1934 e indiretas: resultados proclamados pelo Congresso Nacional, pela Assembleia Constituinte ou pelo Colégio Eleitoral, como registrados na historiografia eleitoral (antes de 1932 não havia Justiça Eleitoral) · Retratos: Wikimedia Commons, com autor e licença em cada foto (na maioria, acervo oficial da Presidência e da Agência Brasil).",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
+  ]
+ },
+ {
   "texto": ") => send(method, path, opts, false) as Promise",
   "tipo": "exato",
   "arquivos": [
@@ -428,7 +547,14 @@
   ]
  },
  {
-  "texto": "), cada bolinha com o símbolo do partido pelo qual se elegeram. Partidos em ordem alfabética, da esquerda para a direita: a posição no desenho não indica orientação política. Toque numa cadeira para ver quem é.",
+  "texto": "), após aprovação do Senado (Constituição, art. 101)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "), cada bolinha com",
   "tipo": "exato",
   "arquivos": [
    "pages/election/PlenarioPage.tsx"
@@ -587,6 +713,41 @@
   ]
  },
  {
+  "texto": "{0} anos e {1} meses no cargo",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
+  ]
+ },
+ {
+  "texto": "{0} anos e 1 mês no cargo",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
+  ]
+ },
+ {
+  "texto": "{0} anos no cargo",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
+  ]
+ },
+ {
+  "texto": "{0} cadeiras a partir de {1}: {2} senadores eleitos em {3} e {4} com mandato até 2031 (eleitos 4 anos antes), segundo o TSE e o Senado.",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "{0} cadeiras, cada bolinha com a foto ou o símbolo do partido de quem a ocupa (escolha abaixo).",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
   "texto": "{0} candidaturas",
   "tipo": "padrao",
   "arquivos": [
@@ -619,6 +780,27 @@
   "tipo": "padrao",
   "arquivos": [
    "pages/election/PartidoPage.tsx"
+  ]
+ },
+ {
+  "texto": "{0} deputados eleitos em {1} para o mandato {2} (posse em {3}), segundo a totalização do TSE.",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "{0} diárias",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "{0} dias no cargo",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
   ]
  },
  {
@@ -685,6 +867,13 @@
   ]
  },
  {
+  "texto": "{0} meses no cargo",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
+  ]
+ },
+ {
   "texto": "{0} ponto(s) percentual(is), para mais ou para menos",
   "tipo": "padrao",
   "arquivos": [
@@ -748,6 +937,13 @@
   ]
  },
  {
+  "texto": "{0}, desde {1}",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
+  ]
+ },
+ {
   "texto": "{0}: {1} · {2} documento(s)",
   "tipo": "padrao",
   "arquivos": [
@@ -804,6 +1000,13 @@
   ]
  },
  {
+  "texto": "{0}: bruto {1}, líquido {2}",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
   "texto": "{0}: não há 2º turno.{1}",
   "tipo": "padrao",
   "arquivos": [
@@ -839,6 +1042,13 @@
   ]
  },
  {
+  "texto": "{0}: ver página",
+  "tipo": "padrao",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx"
+  ]
+ },
+ {
   "texto": "{0}. Ver detalhes da fonte",
   "tipo": "padrao",
   "arquivos": [
@@ -853,10 +1063,17 @@
   ]
  },
  {
-  "texto": "{0}{1}: ver página do parlamentar",
+  "texto": "{0}{1}: ver página",
   "tipo": "padrao",
   "arquivos": [
    "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "{0}º em antiguidade",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
   ]
  },
  {
@@ -871,6 +1088,13 @@
   "tipo": "padrao",
   "arquivos": [
    "pages/election/CandidatoPage.tsx"
+  ]
+ },
+ {
+  "texto": "{0}º turno:",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
   ]
  },
  {
@@ -899,6 +1123,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/HomePage.tsx"
+  ]
+ },
+ {
+  "texto": "− reembolso",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
   ]
  },
  {
@@ -979,10 +1210,52 @@
   ]
  },
  {
+  "texto": "1 ano e {0} meses no cargo",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
+  ]
+ },
+ {
+  "texto": "1 ano e 1 mês no cargo",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
+  ]
+ },
+ {
+  "texto": "1 ano no cargo",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
+  ]
+ },
+ {
+  "texto": "1 dia no cargo",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
+  ]
+ },
+ {
+  "texto": "1 diária",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
   "texto": "1 mês",
   "tipo": "exato",
   "arquivos": [
    "components/gastos/gastos.ts"
+  ]
+ },
+ {
+  "texto": "1 mês no cargo",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
   ]
  },
  {
@@ -1039,6 +1312,20 @@
   "tipo": "exato",
   "arquivos": [
    "components/IdiomaMenu.tsx"
+  ]
+ },
+ {
+  "texto": "13º salário",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
+  ]
+ },
+ {
+  "texto": "13º salário (Lei 4.090, de 1962)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -1268,6 +1555,13 @@
   ]
  },
  {
+  "texto": "A",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
+  ]
+ },
+ {
   "texto": "a “Minha cola” (estado em que você vota e os números escolhidos);",
   "tipo": "exato",
   "arquivos": [
@@ -1279,6 +1573,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/legal/TermosPage.tsx"
+  ]
+ },
+ {
+  "texto": "A aposentadoria compulsória aos 75 anos está na Constituição (art. 40, § 1º, II, com a Emenda Constitucional 88/2015); a data acima é só a do aniversário de 75 anos.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
   ]
  },
  {
@@ -1360,6 +1661,13 @@
   ]
  },
  {
+  "texto": "A eleição de 2026 escolhe quem toma posse em 05/01/2027 (Constituição, art. 82, com a Emenda Constitucional 111, de 2021).",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
+  ]
+ },
+ {
   "texto": "A eleição em números",
   "tipo": "exato",
   "arquivos": [
@@ -1372,6 +1680,20 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/ColaPage.tsx"
+  ]
+ },
+ {
+  "texto": "A folha deste ministro ainda não foi coletada.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "a foto de quem foi eleito",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlenarioPage.tsx"
   ]
  },
  {
@@ -1417,10 +1739,31 @@
   ]
  },
  {
+  "texto": "A ordem dos votos na urna no 2º turno",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/HomePage.tsx"
+  ]
+ },
+ {
+  "texto": "a página da candidatura.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
   "texto": "A página do 2º turno fica disponível entre a apuração do 1º turno e o fim da eleição.",
   "tipo": "exato",
   "arquivos": [
    "components/SomenteNoPeriodo.tsx"
+  ]
+ },
+ {
+  "texto": "a página do parlamentar.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlenarioPage.tsx"
   ]
  },
  {
@@ -1452,6 +1795,27 @@
   ]
  },
  {
+  "texto": "A remuneração e as viagens deste ministro aparecem aqui depois da próxima coleta automática.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "A rota no tempo, de 1889 a hoje",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
+  ]
+ },
+ {
+  "texto": "A totalização do TSE ainda não terminou em todos os estados: a lista de eleitos pode mudar.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
   "texto": "A urna mostra as candidaturas do estado onde você vota.",
   "tipo": "exato",
   "arquivos": [
@@ -1466,6 +1830,13 @@
    "pages/election/PartidosPage.tsx",
    "pages/election/PesquisasPage.tsx",
    "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Abono de permanência",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
   ]
  },
  {
@@ -1488,6 +1859,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/gastos/gastos.ts",
+   "components/stf/stf.ts",
    "config/legal.ts"
   ]
  },
@@ -1568,6 +1940,13 @@
   ]
  },
  {
+  "texto": "Acervo público",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/creditos.ts"
+  ]
+ },
+ {
   "texto": "Ache sua candidatura: nome ou número",
   "tipo": "exato",
   "arquivos": [
@@ -1593,6 +1972,20 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Adicionais, vantagem pessoal nominalmente identificada, adicional por tempo de serviço, pagamentos por decisão judicial ou extensões administrativas.",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
+  ]
+ },
+ {
+  "texto": "Adicional de 1/3 de férias e adiantamentos.",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
   ]
  },
  {
@@ -1624,6 +2017,76 @@
   ]
  },
  {
+  "texto": "Adoção do parlamentarismo (Emenda Constitucional 4, de 1961)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Adoeceu na véspera da posse e morreu em 21/04/1985, sem assumir.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Aécio Neves",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Afastada com a abertura do processo de impeachment no Senado (12/05/2016) e destituída pelo Senado em 31/08/2016.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Afastado pela abertura do processo de impeachment (02/10/1992); renunciou em 29/12/1992, e o Senado o declarou inelegível por oito anos.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Afastado por doença de novembro de 1896 a março de 1897; o vice, Manuel Vitorino, exerceu a Presidência.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Afastado por doença; morreu em dezembro de 1969.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Afastou-se por motivo de saúde e foi impedido pelo Congresso de reassumir.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Afonso Pena",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Agência Brasil",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/creditos.ts"
+  ]
+ },
+ {
   "texto": "ago",
   "tipo": "exato",
   "arquivos": [
@@ -1643,6 +2106,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/gastos/gastos.ts",
+   "components/stf/stf.ts",
    "config/legal.ts"
   ]
  },
@@ -1725,6 +2189,20 @@
   ]
  },
  {
+  "texto": "Almirante Augusto Rademaker",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Almirante José Isaías de Noronha",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "Alterações destes Termos",
   "tipo": "exato",
   "arquivos": [
@@ -1793,6 +2271,7 @@
   "texto": "Ano",
   "tipo": "exato",
   "arquivos": [
+   "pages/election/MinistroStfPage.tsx",
    "pages/election/ParlamentarPage.tsx"
   ]
  },
@@ -1980,6 +2459,13 @@
   ]
  },
  {
+  "texto": "Arquivo do STF atualizado em {0}.",
+  "tipo": "padrao",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx"
+  ]
+ },
+ {
   "texto": "Arquivo oficial",
   "tipo": "exato",
   "arquivos": [
@@ -2011,8 +2497,15 @@
   ]
  },
  {
-  "texto": "As",
+  "texto": "Artur Bernardes",
   "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "As {0} candidaturas à Presidência",
+  "tipo": "padrao",
   "arquivos": [
    "pages/election/HomePage.tsx"
   ]
@@ -2103,6 +2596,13 @@
   ]
  },
  {
+  "texto": "Assembleia Nacional Constituinte",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "Assembleias",
   "tipo": "exato",
   "arquivos": [
@@ -2114,6 +2614,20 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/SimuladorPage.tsx"
+  ]
+ },
+ {
+  "texto": "Assis Brasil",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Assumiu com a deposição de Washington Luís.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -2150,6 +2664,41 @@
   "arquivos": [
    "components/conta/ContaPerfil.tsx",
    "data/sync/perfil.ts"
+  ]
+ },
+ {
+  "texto": "Ato Institucional nº 1 (09/04/1964)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Ato Institucional nº 2 (1965): extinção dos partidos e bipartidarismo",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Ato Institucional nº 5 (13/12/1968): recesso do Congresso e suspensão de garantias",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Atribuição",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/creditos.ts"
+  ]
+ },
+ {
+  "texto": "atual",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlenarioPage.tsx"
   ]
  },
  {
@@ -2199,6 +2748,41 @@
   ]
  },
  {
+  "texto": "Autonomia do Banco Central (Lei Complementar 179, de 2021)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Autor desconhecido",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/creditos.ts"
+  ]
+ },
+ {
+  "texto": "Auxílio-moradia",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
+  ]
+ },
+ {
+  "texto": "Auxílios como alimentação, pré-escolar, natalidade e transporte.",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
+  ]
+ },
+ {
+  "texto": "Auxílios e benefícios",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
+  ]
+ },
+ {
   "texto": "avif",
   "tipo": "exato",
   "arquivos": [
@@ -2238,6 +2822,7 @@
   "texto": "B",
   "tipo": "exato",
   "arquivos": [
+   "components/stf/stf.ts",
    "pages/election/SimuladorPage.tsx"
   ]
  },
@@ -2268,6 +2853,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "barra inteira = bruto · parte escura = líquido",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
   ]
  },
  {
@@ -2320,10 +2912,38 @@
   ]
  },
  {
+  "texto": "bernardes",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Beto Barata/PR",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/creditos.ts"
+  ]
+ },
+ {
   "texto": "bi",
   "tipo": "exato",
   "arquivos": [
    "data/format.ts"
+  ]
+ },
+ {
+  "texto": "Biblioteca da Presidência do Brasil",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/creditos.ts"
+  ]
+ },
+ {
+  "texto": "bilhete",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
   ]
  },
  {
@@ -2332,6 +2952,13 @@
   "arquivos": [
    "components/gastos/RankingList.tsx",
    "components/urna/UrnaScreen.tsx"
+  ]
+ },
+ {
+  "texto": "bolsonaro",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -2346,6 +2973,13 @@
   "tipo": "exato",
   "arquivos": [
    "components/brand/BrandPlaceholder.tsx"
+  ]
+ },
+ {
+  "texto": "Borges de Medeiros",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -2445,6 +3079,13 @@
   ]
  },
  {
+  "texto": "Brigadeiro Márcio de Souza e Mello",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "BRL",
   "tipo": "exato",
   "arquivos": [
@@ -2452,11 +3093,48 @@
   ]
  },
  {
+  "texto": "Bror Kronstrand",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/creditos.ts"
+  ]
+ },
+ {
+  "texto": "Bruto",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "Bruto antes do teto",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
+  ]
+ },
+ {
+  "texto": "Bruto após o teto",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
+  ]
+ },
+ {
+  "texto": "Bruto no mês",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx",
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
   "texto": "buscando",
   "tipo": "exato",
   "arquivos": [
    "components/resultados/ApuracaoAoVivo.tsx",
-   "components/resultados/hooks.ts"
+   "components/resultados/hooks.ts",
+   "pages/election/PlenarioPage.tsx"
   ]
  },
  {
@@ -2505,6 +3183,13 @@
   ]
  },
  {
+  "texto": "C",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
+  ]
+ },
+ {
   "texto": "Cada barra usa a mesma cor e a mesma escala; a ordem é a da sua seleção. Valores de campanha são parciais e valores de patrimônio são autodeclarados. Cargos diferentes têm limites de gastos diferentes.",
   "tipo": "exato",
   "arquivos": [
@@ -2519,10 +3204,24 @@
   ]
  },
  {
+  "texto": "Cada retrato fica no ano em que a pessoa assumiu; o comprimento das faixas é proporcional ao tempo. Arraste para o lado e toque num retrato para ir até ele.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
+  ]
+ },
+ {
   "texto": "cadeira",
   "tipo": "exato",
   "arquivos": [
    "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Cadeira vaga{0}",
+  "tipo": "padrao",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx"
   ]
  },
  {
@@ -2533,14 +3232,21 @@
   ]
  },
  {
-  "texto": "Cadeiras por partido",
+  "texto": "cadeiras (Constituição, art. 101). Como no Plenário do STF, quem preside fica ao centro e os demais ministros se sentam por ordem de antiguidade, alternando de um lado e de outro. A posição não indica orientação. Toque numa cadeira para abrir a página do ministro.",
   "tipo": "exato",
   "arquivos": [
-   "pages/election/PlenarioPage.tsx"
+   "components/stf/PlenarioStf.tsx"
   ]
  },
  {
-  "texto": "cadeiras, cada bolinha com o símbolo do partido de quem a ocupa. Partidos em ordem alfabética, da esquerda para a direita: a posição no desenho não indica orientação política. Toque numa cadeira para abrir a página do parlamentar.",
+  "texto": "cadeiras ocupadas",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx"
+  ]
+ },
+ {
+  "texto": "Cadeiras por partido",
   "tipo": "exato",
   "arquivos": [
    "pages/election/PlenarioPage.tsx"
@@ -2551,6 +3257,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Café Filho",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -2626,6 +3339,13 @@
   ]
  },
  {
+  "texto": "Campanha Diretas Já (1984)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "Campanha:",
   "tipo": "exato",
   "arquivos": [
@@ -2644,6 +3364,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/SobrePage.tsx"
+  ]
+ },
+ {
+  "texto": "Campos Sales",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -2675,6 +3402,20 @@
    "components/urna/ballot.ts",
    "pages/election/ColaPage.tsx",
    "pages/election/SimuladorPage.tsx"
+  ]
+ },
+ {
+  "texto": "Candidato único; 75 abstenções.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Candidato único; a oposição se absteve.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -2762,13 +3503,6 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/EleicaoPage.tsx"
-  ]
- },
- {
-  "texto": "candidaturas à Presidência",
-  "tipo": "exato",
-  "arquivos": [
-   "pages/election/HomePage.tsx"
   ]
  },
  {
@@ -2865,10 +3599,24 @@
   ]
  },
  {
+  "texto": "Cargo em comissão / função",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
+  ]
+ },
+ {
   "texto": "cargos escolhidos",
   "tipo": "exato",
   "arquivos": [
    "pages/election/ColaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Carlos Luz",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -2936,6 +3684,41 @@
   ]
  },
  {
+  "texto": "castelo",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Castelo Branco",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "CC BY 2.0",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/creditos.ts"
+  ]
+ },
+ {
+  "texto": "CC BY 3.0 br",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/creditos.ts"
+  ]
+ },
+ {
+  "texto": "CC BY-SA 2.0",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/creditos.ts"
+  ]
+ },
+ {
   "texto": "CE",
   "tipo": "exato",
   "arquivos": [
@@ -2965,6 +3748,13 @@
   ]
  },
  {
+  "texto": "Centenário da Independência (1922) e primeira transmissão pública de rádio no país",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "center",
   "tipo": "exato",
   "arquivos": [
@@ -2981,6 +3771,7 @@
   "texto": "central",
   "tipo": "exato",
   "arquivos": [
+   "components/stf/PlenarioStf.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
  },
@@ -2996,6 +3787,20 @@
   "tipo": "exato",
   "arquivos": [
    "data/sync/cripto.ts"
+  ]
+ },
+ {
+  "texto": "Chefe do Governo Provisório após a Proclamação da República; eleito pelo Congresso Constituinte em 25/02/1891.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Chefe do Governo Provisório após a Revolução de 1930; eleito pela Assembleia Constituinte em 1934; a partir de 1937, no Estado Novo.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -3041,6 +3846,27 @@
   ]
  },
  {
+  "texto": "Código Civil (Lei 3.071, de 1916)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Código de Defesa do Consumidor (Lei 8.078, de 1990)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Código Eleitoral de 1932: voto secreto, voto feminino e criação da Justiça Eleitoral",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "cola",
   "tipo": "exato",
   "arquivos": [
@@ -3052,6 +3878,13 @@
   "tipo": "exato",
   "arquivos": [
    "layouts/navigation.ts"
+  ]
+ },
+ {
+  "texto": "Colégio Eleitoral",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -3083,6 +3916,13 @@
   ]
  },
  {
+  "texto": "collor",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "color",
   "tipo": "exato",
   "arquivos": [
@@ -3110,6 +3950,7 @@
    "components/brand/FaiscaCredito.tsx",
    "components/resultados/ApuracaoAoVivo.tsx",
    "components/resultados/CartaoEleitos.tsx",
+   "components/stf/PlenarioStf.tsx",
    "components/urna/UrnaScreen.tsx",
    "layouts/PublicLayout.tsx",
    "pages/PageHeader.tsx",
@@ -3117,6 +3958,7 @@
    "pages/election/EleicaoPage.tsx",
    "pages/election/GastosPage.tsx",
    "pages/election/HomePage.tsx",
+   "pages/election/MinistroStfPage.tsx",
    "pages/election/PesquisasPage.tsx",
    "pages/election/PlenarioPage.tsx",
    "pages/election/SegundoTurnoPage.tsx",
@@ -3180,10 +4022,38 @@
   ]
  },
  {
+  "texto": "Comissão Nacional da Verdade (2012–2014)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Comissão Rondon: linhas telegráficas de Mato Grosso ao Amazonas (a partir de 1907)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "Como cada informação é calculada",
   "tipo": "exato",
   "arquivos": [
    "pages/election/SobrePage.tsx"
+  ]
+ },
+ {
+  "texto": "Como chegou:",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
+  ]
+ },
+ {
+  "texto": "Como saiu:",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
   ]
  },
  {
@@ -3269,6 +4139,13 @@
   ]
  },
  {
+  "texto": "Completa 75 anos (aposentadoria compulsória)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
   "texto": "Compõe a chapa de",
   "tipo": "exato",
   "arquivos": [
@@ -3276,10 +4153,38 @@
   ]
  },
  {
+  "texto": "composicao",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx"
+  ]
+ },
+ {
+  "texto": "Composição atual",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "composição plenária atual, Presidência e datas de cada ministro (indicação, nomeação, posse) vêm do portal e das pastas da Biblioteca do STF; a remuneração mês a mês, com as parcelas (A) a (S) da Resolução CNJ 215/2015, vem da página de remuneração da Gestão de Pessoas do STF; diárias e passagens vêm do painel de transparência do STF (desde 2016). Quem nomeou cada ministro é o Presidente da República em exercício na data do decreto de nomeação (Constituição, art. 101). Só ministros, nunca servidores, e sem CPF. A coleta roda sozinha na nuvem: a cada 6 horas enquanto houver cadeira vaga ou no início do mês (folha nova), e uma vez por dia no resto do tempo.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/SobrePage.tsx"
+  ]
+ },
+ {
   "texto": "Compromisso de neutralidade",
   "tipo": "exato",
   "arquivos": [
    "pages/election/SobrePage.tsx"
+  ]
+ },
+ {
+  "texto": "Concedidas pelo STF em viagens a serviço, como o Tribunal publica: motivo, destino ou trecho, período e valor. Diárias no exterior são pagas em dólar (US$), sem conversão aqui. Quando o STF não informa trecho ou datas (por exemplo, nas passagens com motivo “Art. 14 da IN 291/2024”), aparece só o mês.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
   ]
  },
  {
@@ -3294,6 +4199,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/legal/PrivacidadePage.tsx"
+  ]
+ },
+ {
+  "texto": "Conferência da ONU sobre Meio Ambiente, a Rio-92 (1992)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -3330,6 +4242,55 @@
   "tipo": "exato",
   "arquivos": [
    "components/urna/UrnaScreen.tsx"
+  ]
+ },
+ {
+  "texto": "Congresso Constituinte",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Congresso Nacional",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Consolidação das Leis do Trabalho (1943) e participação na Segunda Guerra Mundial (1942–1945)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Constituição de 1946 (18/09/1946)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Constituição de 1946, eleições diretas para presidente e mudança da capital para Brasília.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Constituição de 1988 (05/10/1988)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Constituição de 1988 e eleições diretas para presidente desde 1989.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -3386,6 +4347,20 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/PesquisasPage.tsx"
+  ]
+ },
+ {
+  "texto": "Contribuição previdenciária",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
+  ]
+ },
+ {
+  "texto": "Contribuição social do servidor público.",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
   ]
  },
  {
@@ -3485,6 +4460,20 @@
   ]
  },
  {
+  "texto": "Corte do que passar do teto remuneratório (CF, art. 37, XI).",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
+  ]
+ },
+ {
+  "texto": "Costa e Silva",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "Cota de deputados e senadores desde 2023.",
   "tipo": "exato",
   "arquivos": [
@@ -3510,6 +4499,55 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/SobrePage.tsx"
+  ]
+ },
+ {
+  "texto": "Criação da Embraer (1969)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Criação da Petrobras (Lei 2.004, de 1953)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Criação da Sudene (1959)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Criação do Banco Central (Lei 4.595, de 1964)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Criação do BNDE, atual BNDES (1952)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Criação do Incra (1970)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Criação do Serviço de Proteção aos Índios (1910)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -3555,6 +4593,13 @@
   ]
  },
  {
+  "texto": "Crise econômica mundial de 1929 e queda do preço do café",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "criterio",
   "tipo": "exato",
   "arquivos": [
@@ -3566,6 +4611,20 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/PesquisasPage.tsx"
+  ]
+ },
+ {
+  "texto": "Critério e fontes",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
+  ]
+ },
+ {
+  "texto": "Cruzeiro novo, nova moeda, e Constituição de 1967",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -3636,14 +4695,37 @@
   "texto": "currency",
   "tipo": "exato",
   "arquivos": [
+   "components/stf/stf.ts",
    "data/format.ts"
+  ]
+ },
+ {
+  "texto": "Custo das passagens",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "D",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
   ]
  },
  {
   "texto": "da",
   "tipo": "exato",
   "arquivos": [
-   "data/format.ts"
+   "data/format.ts",
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "Da Proclamação da República à Revolução de 1930. Constituição de 1891, eleições diretas com voto aberto e restrito.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -3658,6 +4740,13 @@
   "tipo": "exato",
   "arquivos": [
    "layouts/PublicLayout.tsx"
+  ]
+ },
+ {
+  "texto": "Dados Abertos do TSE",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
   ]
  },
  {
@@ -3689,13 +4778,6 @@
   ]
  },
  {
-  "texto": "Dados oficiais (TSE, Câmara e Senado) e pesquisas registradas no TSE · sem opinião, sem recomendação de voto",
-  "tipo": "exato",
-  "arquivos": [
-   "layouts/PublicLayout.tsx"
-  ]
- },
- {
   "texto": "Dados oficiais coletados em {0}.",
   "tipo": "padrao",
   "arquivos": [
@@ -3714,6 +4796,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/SobrePage.tsx"
+  ]
+ },
+ {
+  "texto": "dados públicos",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx"
   ]
  },
  {
@@ -3746,7 +4835,8 @@
   "texto": "das",
   "tipo": "exato",
   "arquivos": [
-   "data/format.ts"
+   "data/format.ts",
+   "pages/election/MinistroStfPage.tsx"
   ]
  },
  {
@@ -3768,9 +4858,18 @@
   "tipo": "exato",
   "arquivos": [
    "components/resultados/ApuracaoAoVivo.tsx",
+   "components/stf/PlenarioStf.tsx",
    "data/format.ts",
    "pages/election/ColaPage.tsx",
-   "pages/election/GastosPage.tsx"
+   "pages/election/GastosPage.tsx",
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "De Deodoro da Fonseca a hoje: {0} pessoas exerceram a Presidência da República, além de duas juntas. Retratos, datas, como cada um chegou e saiu do cargo e os marcos de cada período.",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
   ]
  },
  {
@@ -3840,10 +4939,39 @@
   ]
  },
  {
+  "texto": "delfim",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Delfim Moreira",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "denied",
   "tipo": "exato",
   "arquivos": [
-   "components/resultados/hooks.ts"
+   "components/resultados/hooks.ts",
+   "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "deodoro",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Deodoro da Fonseca",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -3867,6 +4995,34 @@
   "arquivos": [
    "data/apuracao.ts",
    "pages/election/HomePage.tsx"
+  ]
+ },
+ {
+  "texto": "Deposto no movimento militar de 11 de novembro de 1955, que assegurou a posse do presidente eleito.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Deposto pela Revolução de 1930; o eleito em março de 1930, Júlio Prestes (1.091.709 votos, contra 742.794 de Getúlio Vargas), não tomou posse.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Deposto pelo golpe militar de 1964; em 02/04/1964 o Congresso declarou vaga a Presidência.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Deposto pelos militares.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -4090,9 +5246,46 @@
   ]
  },
  {
+  "texto": "desconto",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts",
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "Descontos",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "Descontos de diversas naturezas.",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
+  ]
+ },
+ {
+  "texto": "Descontos diversos",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
+  ]
+ },
+ {
+  "texto": "Descontos obrigatórios (total)",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
+  ]
+ },
+ {
   "texto": "desde {0}",
   "tipo": "padrao",
   "arquivos": [
+   "components/stf/PlenarioStf.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
  },
@@ -4175,6 +5368,13 @@
   ]
  },
  {
+  "texto": "Destino não informado",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
   "texto": "dez",
   "tipo": "exato",
   "arquivos": [
@@ -4187,7 +5387,15 @@
   "tipo": "exato",
   "arquivos": [
    "components/gastos/gastos.ts",
+   "components/stf/stf.ts",
    "config/legal.ts"
+  ]
+ },
+ {
+  "texto": "df",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlenarioPage.tsx"
   ]
  },
  {
@@ -4208,6 +5416,36 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/HomePage.tsx"
+  ]
+ },
+ {
+  "texto": "Diárias",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx",
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "Diárias (",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "Diárias (total)",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx"
+  ]
+ },
+ {
+  "texto": "Diárias e passagens aéreas",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx",
+   "pages/election/MinistroStfPage.tsx"
   ]
  },
  {
@@ -4290,10 +5528,31 @@
   ]
  },
  {
+  "texto": "dilma",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Dilma Rousseff",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "direito",
   "tipo": "exato",
   "arquivos": [
    "pages/election/HomePage.tsx"
+  ]
+ },
+ {
+  "texto": "direta",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -4356,7 +5615,8 @@
   "texto": "do",
   "tipo": "exato",
   "arquivos": [
-   "data/format.ts"
+   "data/format.ts",
+   "pages/election/MinistroStfPage.tsx"
   ]
  },
  {
@@ -4364,6 +5624,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/NumerosPage.tsx"
+  ]
+ },
+ {
+  "texto": "Do mesmo jeito, no plenário das Câmaras Municipais, o site pode usar a localização para abrir a Câmara do seu município: compara a posição com a malha municipal oficial do IBGE, publicada no próprio site, e o cálculo também acontece no seu aparelho. Fica guardado só o código do município. Sem localização, aparece São Paulo e você escolhe o seu na lista.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/legal/PrivacidadePage.tsx"
   ]
  },
  {
@@ -4388,10 +5655,18 @@
   ]
  },
  {
+  "texto": "Domínio público",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/creditos.ts"
+  ]
+ },
+ {
   "texto": "dos",
   "tipo": "exato",
   "arquivos": [
-   "data/format.ts"
+   "data/format.ts",
+   "pages/election/MinistroStfPage.tsx"
   ]
  },
  {
@@ -4416,10 +5691,33 @@
   ]
  },
  {
+  "texto": "dutra",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "e",
   "tipo": "exato",
   "arquivos": [
-   "data/format.ts"
+   "data/format.ts",
+   "pages/election/MinistroStfPage.tsx",
+   "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "E",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
+  ]
+ },
+ {
+  "texto": "e {0} cadeira vaga",
+  "tipo": "padrao",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx"
   ]
  },
  {
@@ -4430,10 +5728,31 @@
   ]
  },
  {
+  "texto": "e no total publicado (desde 2016). Diárias no exterior são pagas em dólar e aparecem em US$, sem conversão. Toque num nome para ver cada viagem, com motivo, destino e valor. Ordem alfabética.",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx"
+  ]
+ },
+ {
   "texto": "e nos",
   "tipo": "exato",
   "arquivos": [
    "pages/election/SobrePage.tsx"
+  ]
+ },
+ {
+  "texto": "EBC",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/creditos.ts"
+  ]
+ },
+ {
+  "texto": "Eduardo Gomes",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -4450,6 +5769,139 @@
    "components/SomenteNoPeriodo.tsx",
    "layouts/navigation.ts",
    "router.tsx"
+  ]
+ },
+ {
+  "texto": "Eleição de",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
+  ]
+ },
+ {
+  "texto": "Eleição direta (1945).",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Eleição direta (1950).",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Eleição direta (1955).",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Eleição direta (1960).",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Eleição direta (1989).",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Eleição direta (1994); reeleito em 1998.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Eleição direta (2002); reeleito em 2006.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Eleição direta (2010), primeira mulher na Presidência; reeleita em 2014.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Eleição direta (2018).",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Eleição direta (2022).",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Eleição direta (eleição de 1919).",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Eleição direta para presidente (1989), a primeira desde 1960",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Eleição direta; primeiro presidente civil.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Eleição direta.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Eleição indireta · {0}",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
+  ]
+ },
+ {
+  "texto": "Eleição indireta, pelo Colégio Eleitoral.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Eleição indireta, pelo Congresso Nacional.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Eleição presidencial de outubro de 1955",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -4471,6 +5923,20 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/HomePage.tsx"
+  ]
+ },
+ {
+  "texto": "Eleições de 2 de dezembro de 1945, para presidente e para a Assembleia Constituinte",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Eleições diretas para governador (1982)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -4524,6 +5990,34 @@
   ]
  },
  {
+  "texto": "Eleito de novo em 1918, com 386.467 votos (2º: Nilo Peçanha, 1.258), morreu em janeiro de 1919 sem tomar posse.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Eleito em 15/01/1985 · morreu em {0}",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
+  ]
+ },
+ {
+  "texto": "Eleito presidente pelo Colégio Eleitoral em 15/01/1985.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Eleito, não tomou posse",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
+  ]
+ },
+ {
   "texto": "Eleito(a) no 1º turno",
   "tipo": "exato",
   "arquivos": [
@@ -4562,7 +6056,21 @@
   ]
  },
  {
+  "texto": "eleitos",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
   "texto": "eleitos em",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Eleitos em",
   "tipo": "exato",
   "arquivos": [
    "pages/election/PlenarioPage.tsx"
@@ -4622,7 +6130,8 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/CandidatoPage.tsx",
-   "pages/election/ParlamentarPage.tsx"
+   "pages/election/ParlamentarPage.tsx",
+   "pages/presidentes/PresidentesPage.tsx"
   ]
  },
  {
@@ -4647,6 +6156,27 @@
   ]
  },
  {
+  "texto": "Emenda Constitucional 1, de 1969",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Emenda da reeleição (Emenda Constitucional 16, de 1997)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Emílio Garrastazu Médici",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "Encontrou divergência com a fonte oficial? A fonte oficial sempre prevalece. Cada bloco de dados indica o arquivo de origem e a data da coleta.",
   "tipo": "exato",
   "arquivos": [
@@ -4665,6 +6195,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/form/PasswordField.tsx",
+   "components/stf/PlenarioStf.tsx",
    "layouts/PublicLayout.tsx"
   ]
  },
@@ -4712,6 +6243,13 @@
   ]
  },
  {
+  "texto": "Entrada do Brasil na Primeira Guerra Mundial (1917)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "Entrar",
   "tipo": "exato",
   "arquivos": [
@@ -4754,6 +6292,13 @@
   ]
  },
  {
+  "texto": "Entregou o governo a Getúlio Vargas.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "Entrevistas",
   "tipo": "exato",
   "arquivos": [
@@ -4765,6 +6310,34 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/PesquisasPage.tsx"
+  ]
+ },
+ {
+  "texto": "epitacio",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Epitácio Pessoa",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Era Vargas",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Ernesto Geisel",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -4804,6 +6377,13 @@
   "arquivos": [
    "components/election/brazilMapData.ts",
    "components/resultados/hooks.ts"
+  ]
+ },
+ {
+  "texto": "Escolas de Aprendizes Artífices (Decreto 7.566, de 1909), origem da rede federal de ensino técnico",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -4964,6 +6544,20 @@
   ]
  },
  {
+  "texto": "Estado de sítio até a posse do presidente eleito",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Estado de sítio durante a maior parte do mandato",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "Estado detectado pela localização do aparelho. A posição é usada só aqui, no aparelho, e não é enviada a ninguém.",
   "tipo": "exato",
   "arquivos": [
@@ -4990,6 +6584,13 @@
   "arquivos": [
    "components/resultados/ApuracaoAoVivo.tsx",
    "pages/election/SegundoTurnoPage.tsx"
+  ]
+ },
+ {
+  "texto": "Estatuto do Trabalhador Rural (1963)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -5049,6 +6650,28 @@
   ]
  },
  {
+  "texto": "Euler Bentes Monteiro",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Eurico Gaspar Dutra",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "eventual",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts",
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
   "texto": "Exatidão das informações",
   "tipo": "exato",
   "arquivos": [
@@ -5077,10 +6700,25 @@
   ]
  },
  {
+  "texto": "Exercícios anteriores",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
+  ]
+ },
+ {
   "texto": "Exibindo",
   "tipo": "exato",
   "arquivos": [
    "pages/election/GastosPage.tsx"
+  ]
+ },
+ {
+  "texto": "F",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts",
+   "pages/election/MinistroStfPage.tsx"
   ]
  },
  {
@@ -5229,6 +6867,34 @@
   ]
  },
  {
+  "texto": "Férias",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
+  ]
+ },
+ {
+  "texto": "Fernando Collor",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Fernando Haddad",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Fernando Henrique Cardoso",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "fev",
   "tipo": "exato",
   "arquivos": [
@@ -5241,7 +6907,15 @@
   "tipo": "exato",
   "arquivos": [
    "components/gastos/gastos.ts",
+   "components/stf/stf.ts",
    "config/legal.ts"
+  ]
+ },
+ {
+  "texto": "fhc",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -5249,6 +6923,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/PesquisasPage.tsx"
+  ]
+ },
+ {
+  "texto": "figueiredo",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -5294,6 +6975,20 @@
   ]
  },
  {
+  "texto": "Fim do AI-5 (Emenda Constitucional 11, de 1978, em vigor em 01/01/1979)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Fim do mandato.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "finalistas",
   "tipo": "exato",
   "arquivos": [
@@ -5336,10 +7031,24 @@
   ]
  },
  {
+  "texto": "Finalistas em ordem alfabética: pela totalização de 100% das seções do 1º turno ninguém passou de 50% dos votos válidos, então os dois mais votados vão ao 2º turno (Constituição, art. 77); aguardando a proclamação oficial do TSE.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/HomePage.tsx"
+  ]
+ },
+ {
   "texto": "Finalistas no seu estado",
   "tipo": "exato",
   "arquivos": [
    "pages/election/HomePage.tsx"
+  ]
+ },
+ {
+  "texto": "Finalistas: pela totalização de 100% das seções do 1º turno ninguém passou de 50% dos votos válidos, então os dois mais votados vão ao 2º turno (Constituição, art. 77); aguardando a proclamação oficial do TSE.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/SegundoTurnoPage.tsx"
   ]
  },
  {
@@ -5401,6 +7110,20 @@
   ]
  },
  {
+  "texto": "floriano",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Floriano Peixoto",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "Foi ao 2º turno, conforme a apuração do 1º turno, e não foi eleito(a) no 2º turno.",
   "tipo": "exato",
   "arquivos": [
@@ -5420,6 +7143,14 @@
   "arquivos": [
    "pages/election/GastosPage.tsx",
    "pages/election/ParlamentarPage.tsx"
+  ]
+ },
+ {
+  "texto": "Fonte (dados públicos):",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx",
+   "pages/election/PlenarioPage.tsx"
   ]
  },
  {
@@ -5465,6 +7196,14 @@
   ]
  },
  {
+  "texto": "Fontes (dados públicos):",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx",
+   "pages/presidentes/PresidentesPage.tsx"
+  ]
+ },
+ {
   "texto": "Fontes desta pesquisa:",
   "tipo": "exato",
   "arquivos": [
@@ -5499,7 +7238,8 @@
   "texto": "fora",
   "tipo": "exato",
   "arquivos": [
-   "components/resultados/hooks.ts"
+   "components/resultados/hooks.ts",
+   "pages/election/PlenarioPage.tsx"
   ]
  },
  {
@@ -5543,7 +7283,17 @@
   "tipo": "padrao",
   "arquivos": [
    "components/gastos/RankingList.tsx",
+   "components/stf/PlenarioStf.tsx",
+   "pages/election/MinistroStfPage.tsx",
    "pages/election/ParlamentarPage.tsx"
+  ]
+ },
+ {
+  "texto": "Foto:",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx",
+   "pages/presidentes/PresidentesPage.tsx"
   ]
  },
  {
@@ -5568,7 +7318,7 @@
   ]
  },
  {
-  "texto": "funciona sem cadastro. Sem anúncios, sem rastreamento, sem ferramentas de análise de audiência. O que você anota (como a sua cola) fica no seu aparelho. Se você quiser, pode entrar com o Google para guardar suas escolhas: elas são criptografadas no seu aparelho com uma frase que só você conhece, e ninguém mais consegue lê-las. A localização, se você permitir, serve só para achar o seu estado e não sai do aparelho.",
+  "texto": "funciona sem cadastro. Sem anúncios, sem rastreamento, sem ferramentas de análise de audiência. O que você anota (como a sua cola) fica no seu aparelho. Se você quiser, pode entrar com o Google para guardar suas escolhas: elas são criptografadas no seu aparelho com uma frase que só você conhece, e ninguém mais consegue lê-las. A localização, se você permitir, serve só para achar o seu estado e o seu município, e não sai do aparelho.",
   "tipo": "exato",
   "arquivos": [
    "pages/legal/PrivacidadePage.tsx"
@@ -5603,6 +7353,20 @@
   "arquivos": [
    "components/numeros/numeros.ts",
    "pages/election/CandidatoPage.tsx"
+  ]
+ },
+ {
+  "texto": "G",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
+  ]
+ },
+ {
+  "texto": "Galeria dos Presidentes, Biblioteca da Presidência da República",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
   ]
  },
  {
@@ -5680,6 +7444,34 @@
   ]
  },
  {
+  "texto": "geisel",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "General Augusto Tasso Fragoso",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "General Aurélio de Lyra Tavares",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "General João de Deus Mena Barreto",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "Gênero",
   "tipo": "exato",
   "arquivos": [
@@ -5700,7 +7492,8 @@
   "texto": "geolocation",
   "tipo": "exato",
   "arquivos": [
-   "components/resultados/hooks.ts"
+   "components/resultados/hooks.ts",
+   "pages/election/PlenarioPage.tsx"
   ]
  },
  {
@@ -5708,6 +7501,20 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/SourceNote.tsx"
+  ]
+ },
+ {
+  "texto": "Geraldo Alckmin",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Getúlio Vargas",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -5797,6 +7604,27 @@
   ]
  },
  {
+  "texto": "Governo (onde houver)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/HomePage.tsx"
+  ]
+ },
+ {
+  "texto": "Governo do Brasil",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/creditos.ts"
+  ]
+ },
+ {
+  "texto": "Governo Provisório, Constituição de 1934 e Estado Novo (Constituição de 1937), até a deposição de Getúlio Vargas.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "Governo, Senado e deputados",
   "tipo": "exato",
   "arquivos": [
@@ -5815,6 +7643,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/PartidoPage.tsx"
+  ]
+ },
+ {
+  "texto": "Governos militares",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -5840,6 +7675,20 @@
   ]
  },
  {
+  "texto": "granted",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Gratificação natalina ou sua antecipação.",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
+  ]
+ },
+ {
   "texto": "Grau de instrução",
   "tipo": "exato",
   "arquivos": [
@@ -5856,6 +7705,13 @@
   ]
  },
  {
+  "texto": "Greve geral de 1917",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "grid",
   "tipo": "exato",
   "arquivos": [
@@ -5868,8 +7724,23 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/UfTileMap.tsx",
+   "components/stf/PlenarioStf.tsx",
    "components/urna/UrnaKeypad.tsx",
    "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Guerra de Canudos (1896–1897)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Guerra do Contestado (1912–1916)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -5883,7 +7754,22 @@
   "texto": "H",
   "tipo": "exato",
   "arquivos": [
+   "components/stf/stf.ts",
    "data/localizacao.ts"
+  ]
+ },
+ {
+  "texto": "Há {0} cadeiras vagas",
+  "tipo": "padrao",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx"
+  ]
+ },
+ {
+  "texto": "Há 1 cadeira vaga",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx"
   ]
  },
  {
@@ -5891,6 +7777,27 @@
   "tipo": "exato",
   "arquivos": [
    "theme/theme.ts"
+  ]
+ },
+ {
+  "texto": "Henrique Lott",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "hermes",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Hermes da Fonseca",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -5903,6 +7810,13 @@
    "components/urna/UrnaScreen.tsx",
    "pages/election/ColaPage.tsx",
    "pages/election/SimuladorPage.tsx"
+  ]
+ },
+ {
+  "texto": "hoje",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
   ]
  },
  {
@@ -5933,6 +7847,13 @@
   "tipo": "exato",
   "arquivos": [
    "data/apuracao.ts"
+  ]
+ },
+ {
+  "texto": "I",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
   ]
  },
  {
@@ -5993,7 +7914,22 @@
   "arquivos": [
    "components/charts/charts.tsx",
    "components/election/UfTileMap.tsx",
-   "components/urna/DigitBoxes.tsx"
+   "components/urna/DigitBoxes.tsx",
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "Imposto de renda",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
+  ]
+ },
+ {
+  "texto": "Imposto sobre a renda retido na fonte.",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
   ]
  },
  {
@@ -6004,10 +7940,31 @@
   ]
  },
  {
+  "texto": "Inauguração de Brasília, nova capital (21/04/1960)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Incentivo à imigração e expansão das ferrovias",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "include",
   "tipo": "exato",
   "arquivos": [
    "api/client.ts"
+  ]
+ },
+ {
+  "texto": "Inclui parcelas pessoais, como pensão alimentícia, consignações, plano de saúde e reposições.",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
   ]
  },
  {
@@ -6018,10 +7975,38 @@
   ]
  },
  {
+  "texto": "Incluído na galeria dos Presidentes da República pela Lei 7.465, de 1986.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "Incluir fora da urna",
   "tipo": "exato",
   "arquivos": [
    "pages/election/EleicaoPage.tsx"
+  ]
+ },
+ {
+  "texto": "Indenizações",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
+  ]
+ },
+ {
+  "texto": "Indenizações de férias, de transporte e outras previstas em lei.",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
+  ]
+ },
+ {
+  "texto": "Indicação ao STF",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
   ]
  },
  {
@@ -6032,10 +8017,19 @@
   ]
  },
  {
+  "texto": "indireta",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx",
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "indisponivel",
   "tipo": "exato",
   "arquivos": [
-   "components/resultados/hooks.ts"
+   "components/resultados/hooks.ts",
+   "pages/election/PlenarioPage.tsx"
   ]
  },
  {
@@ -6045,9 +8039,11 @@
    "components/election/CandidateCard.tsx",
    "components/gastos/AvisosAlerts.tsx",
    "components/resultados/ApuracaoAoVivo.tsx",
+   "components/stf/PlenarioStf.tsx",
    "pages/election/ColaPage.tsx",
    "pages/election/CompararPage.tsx",
    "pages/election/EleicaoPage.tsx",
+   "pages/election/MinistroStfPage.tsx",
    "pages/election/PartidoPage.tsx",
    "pages/election/PesquisasPage.tsx",
    "pages/election/PlenarioPage.tsx",
@@ -6055,6 +8051,7 @@
    "pages/election/SimuladorPage.tsx",
    "pages/election/SobrePage.tsx",
    "pages/legal/LegalDoc.tsx",
+   "pages/presidentes/PresidentesPage.tsx",
    "theme/theme.ts"
   ]
  },
@@ -6074,6 +8071,13 @@
    "layouts/AppLayout.tsx",
    "layouts/PublicLayout.tsx",
    "layouts/navigation.ts"
+  ]
+ },
+ {
+  "texto": "Início da abertura política",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -6120,10 +8124,24 @@
   ]
  },
  {
+  "texto": "Integrantes:",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
+  ]
+ },
+ {
   "texto": "Interface construída a partir do template",
   "tipo": "exato",
   "arquivos": [
    "pages/election/SobrePage.tsx"
+  ]
+ },
+ {
+  "texto": "Intervenção federal na segurança pública do Rio de Janeiro (2018)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -6158,6 +8176,20 @@
   ]
  },
  {
+  "texto": "itamar",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Itamar Franco",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "item",
   "tipo": "exato",
   "arquivos": [
@@ -6169,6 +8201,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/CandidatoPage.tsx"
+  ]
+ },
+ {
+  "texto": "J",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
   ]
  },
  {
@@ -6186,6 +8225,13 @@
   ]
  },
  {
+  "texto": "Jair Bolsonaro",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "jan",
   "tipo": "exato",
   "arquivos": [
@@ -6198,7 +8244,71 @@
   "tipo": "exato",
   "arquivos": [
    "components/gastos/gastos.ts",
+   "components/stf/stf.ts",
    "config/legal.ts"
+  ]
+ },
+ {
+  "texto": "jango",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "janio",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Jânio Quadros",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "jk",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "João Figueiredo",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "João Goulart",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "José Linhares",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "José Sarney",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "José Serra",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -6216,6 +8326,13 @@
   ]
  },
  {
+  "texto": "Juarez Távora",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "jul",
   "tipo": "exato",
   "arquivos": [
@@ -6228,6 +8345,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/gastos/gastos.ts",
+   "components/stf/stf.ts",
    "config/legal.ts"
   ]
  },
@@ -6244,7 +8362,36 @@
   "tipo": "exato",
   "arquivos": [
    "components/gastos/gastos.ts",
+   "components/stf/stf.ts",
    "config/legal.ts"
+  ]
+ },
+ {
+  "texto": "Junta Governativa Provisória de 1930",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Junta Militar de 1969",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Juscelino Kubitschek",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "K",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
   ]
  },
  {
@@ -6265,6 +8412,7 @@
   "texto": "L",
   "tipo": "exato",
   "arquivos": [
+   "components/stf/stf.ts",
    "data/localizacao.ts"
   ]
  },
@@ -6290,12 +8438,21 @@
   ]
  },
  {
+  "texto": "Lauro Sodré",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "lazy",
   "tipo": "exato",
   "arquivos": [
    "components/election/CandidatePhoto.tsx",
    "components/partidos/SimboloPartido.tsx",
-   "pages/election/PlenarioPage.tsx"
+   "components/stf/PlenarioStf.tsx",
+   "pages/election/PlenarioPage.tsx",
+   "pages/presidentes/PresidentesPage.tsx"
   ]
  },
  {
@@ -6364,6 +8521,41 @@
   "tipo": "exato",
   "arquivos": [
    "pages/legal/TermosPage.tsx"
+  ]
+ },
+ {
+  "texto": "Lei da Anistia (Lei 6.683, de 1979) e volta do pluripartidarismo (1979)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Lei da Ficha Limpa (Lei Complementar 135, de 2010)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Lei de Acesso à Informação (Lei 12.527, de 2011)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Lei de Responsabilidade Fiscal (Lei Complementar 101, de 2000)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Lei do Divórcio (Lei 6.515, de 1977)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -6499,6 +8691,20 @@
   ]
  },
  {
+  "texto": "Linha do tempo dos Presidentes, de 1889 a hoje",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
+  ]
+ },
+ {
+  "texto": "linhares",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "Link copiado.",
   "tipo": "exato",
   "arquivos": [
@@ -6518,6 +8724,14 @@
   "tipo": "exato",
   "arquivos": [
    "components/share/ShareButton.tsx"
+  ]
+ },
+ {
+  "texto": "Líquido",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx",
+   "pages/election/MinistroStfPage.tsx"
   ]
  },
  {
@@ -6570,7 +8784,14 @@
   ]
  },
  {
-  "texto": "Localização: só para descobrir o seu estado, no próprio aparelho",
+  "texto": "Localização indisponível agora: mostrando São Paulo.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Localização: só para descobrir o seu estado e o seu município, no próprio aparelho",
   "tipo": "exato",
   "arquivos": [
    "pages/legal/PrivacidadePage.tsx"
@@ -6598,6 +8819,27 @@
   ]
  },
  {
+  "texto": "Lotação/função na folha:",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "Luiz Inácio Lula da Silva",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "lula",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "m",
   "tipo": "exato",
   "arquivos": [
@@ -6608,7 +8850,9 @@
   "texto": "M",
   "tipo": "exato",
   "arquivos": [
-   "data/localizacao.ts"
+   "components/stf/stf.ts",
+   "data/localizacao.ts",
+   "pages/election/MinistroStfPage.tsx"
   ]
  },
  {
@@ -6632,6 +8876,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/gastos/gastos.ts",
+   "components/stf/stf.ts",
    "config/legal.ts"
   ]
  },
@@ -6720,10 +8965,24 @@
   ]
  },
  {
+  "texto": "Malta",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/creditos.ts"
+  ]
+ },
+ {
   "texto": "Mandato 2023–2026, eleitos em 2022 (TSE).",
   "tipo": "exato",
   "arquivos": [
    "pages/election/PartidoPage.tsx"
+  ]
+ },
+ {
+  "texto": "Mandato até 05/01/2027: a Emenda Constitucional 111, de 2021, passou a posse presidencial para 5 de janeiro.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -6832,7 +9091,22 @@
   "tipo": "exato",
   "arquivos": [
    "components/gastos/gastos.ts",
+   "components/stf/stf.ts",
    "config/legal.ts"
+  ]
+ },
+ {
+  "texto": "Marco Civil da Internet (Lei 12.965, de 2014)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Marcos do período",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
   ]
  },
  {
@@ -6883,6 +9157,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "mazzilli",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -6937,6 +9218,13 @@
   ]
  },
  {
+  "texto": "medici",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "medium",
   "tipo": "exato",
   "arquivos": [
@@ -6974,6 +9262,27 @@
    "components/conta/ContaPerfil.tsx",
    "components/share/ShareButton.tsx",
    "layouts/AccountMenu.tsx"
+  ]
+ },
+ {
+  "texto": "Mês",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "Mês a mês",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "Mês da folha",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
   ]
  },
  {
@@ -7027,10 +9336,18 @@
   ]
  },
  {
+  "texto": "Michel Temer",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "middle",
   "tipo": "exato",
   "arquivos": [
    "components/election/UfTileMap.tsx",
+   "components/stf/PlenarioStf.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
  },
@@ -7082,6 +9399,62 @@
   "tipo": "exato",
   "arquivos": [
    "layouts/AccountMenu.tsx"
+  ]
+ },
+ {
+  "texto": "Ministra",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
+  ]
+ },
+ {
+  "texto": "Ministra do STF",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
+  ]
+ },
+ {
+  "texto": "ministro",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "Ministro",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
+  ]
+ },
+ {
+  "texto": "Ministro do STF",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
+  ]
+ },
+ {
+  "texto": "Ministro(a)",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx"
+  ]
+ },
+ {
+  "texto": "Ministro(a) do STF",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
+  ]
+ },
+ {
+  "texto": "Ministros militares; assumiram com o afastamento de Costa e Silva, sem a posse do vice-presidente, Pedro Aleixo.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -7141,10 +9514,31 @@
   ]
  },
  {
+  "texto": "Morte no cargo (suicídio).",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Morte no cargo.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "Mostrando o último dado recebido.",
   "tipo": "exato",
   "arquivos": [
    "components/resultados/ApuracaoAoVivo.tsx"
+  ]
+ },
+ {
+  "texto": "Mostrando São Paulo. Use a sua localização para ver a Câmara do seu município.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlenarioPage.tsx"
   ]
  },
  {
@@ -7235,6 +9629,20 @@
   ]
  },
  {
+  "texto": "Município pela sua localização, calculado no seu aparelho (a posição não sai dele).",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "N",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
+  ]
+ },
+ {
   "texto": "Na apuração, o site pode perguntar se você permite o uso da localização, para já mostrar os resultados do seu estado. Se você permitir, o navegador informa a posição à própria página, que descobre a UF comparando-a com o mapa oficial do IBGE embutido no site. Esse cálculo acontece no seu aparelho: a posição não é enviada para nós nem para nenhum serviço de mapas, e é descartada em seguida. Fica guardada só a sigla do estado (por exemplo, “SP”). Se você não permitir, basta escolher o estado na lista. Você pode revogar a permissão nas configurações do navegador quando quiser.",
   "tipo": "exato",
   "arquivos": [
@@ -7253,6 +9661,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/CandidatoPage.tsx"
+  ]
+ },
+ {
+  "texto": "na composição publicada pelo STF",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx"
   ]
  },
  {
@@ -7284,7 +9699,7 @@
   ]
  },
  {
-  "texto": "não é um serviço oficial e não tem nenhum vínculo com o TSE, com a Justiça Eleitoral, com a Câmara, com o Senado, com qualquer órgão de governo, partido, coligação, federação ou candidatura.",
+  "texto": "não é um serviço oficial e não tem nenhum vínculo com o TSE, com a Justiça Eleitoral, com a Câmara, com o Senado, com o STF, com qualquer órgão de governo, partido, coligação, federação ou candidatura.",
   "tipo": "exato",
   "arquivos": [
    "pages/legal/TermosPage.tsx"
@@ -7309,6 +9724,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Não encontramos este ministro na composição atual do STF publicada no site.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
   ]
  },
  {
@@ -7462,10 +9884,18 @@
   ]
  },
  {
+  "texto": "Não identificamos um município brasileiro na sua localização: mostrando São Paulo.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
   "texto": "não informada",
   "tipo": "exato",
   "arquivos": [
-   "components/noticias/FeedNoticias.tsx"
+   "components/noticias/FeedNoticias.tsx",
+   "components/stf/PlenarioStf.tsx"
   ]
  },
  {
@@ -7521,6 +9951,13 @@
   ]
  },
  {
+  "texto": "Nascimento",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
   "texto": "Naturalidade",
   "tipo": "exato",
   "arquivos": [
@@ -7540,7 +9977,8 @@
   "texto": "negado",
   "tipo": "exato",
   "arquivos": [
-   "components/resultados/hooks.ts"
+   "components/resultados/hooks.ts",
+   "pages/election/PlenarioPage.tsx"
   ]
  },
  {
@@ -7656,6 +10094,13 @@
   ]
  },
  {
+  "texto": "Nenhuma diária ou passagem publicada para este ministro.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
   "texto": "Nenhuma inteligência artificial é usada para resumir, ordenar, classificar ou recomendar candidaturas. Planos de governo aparecem só no PDF original.",
   "tipo": "exato",
   "arquivos": [
@@ -7695,6 +10140,20 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/CandidatoPage.tsx"
+  ]
+ },
+ {
+  "texto": "nereu",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Nereu Ramos",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -7748,6 +10207,13 @@
   ]
  },
  {
+  "texto": "Nilo Peçanha",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "Ninguém com eleição confirmada pelo TSE ainda.",
   "tipo": "exato",
   "arquivos": [
@@ -7783,6 +10249,13 @@
   ]
  },
  {
+  "texto": "No 2º turno não há votos para Senado nem para deputados.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/HomePage.tsx"
+  ]
+ },
+ {
   "texto": "no Brasil",
   "tipo": "exato",
   "arquivos": [
@@ -7790,10 +10263,38 @@
   ]
  },
  {
+  "texto": "No Distrito Federal não há Câmara Municipal: os deputados distritais estão na aba Assembleias. Mostrando São Paulo.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
   "texto": "no menu da conta, “Apagar minha conta e meus dados” remove a conta e tudo o que estava no servidor. “Sair” encerra a sincronização neste aparelho. Você pode retirar o consentimento a qualquer momento dessa forma.",
   "tipo": "exato",
   "arquivos": [
    "pages/legal/PrivacidadePage.tsx"
+  ]
+ },
+ {
+  "texto": "No STF desde",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx"
+  ]
+ },
+ {
+  "texto": "No STF desde {0}",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "No Supremo",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
   ]
  },
  {
@@ -7837,6 +10338,42 @@
   ]
  },
  {
+  "texto": "nomeacao",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx",
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "Nomeação (decreto)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "Nomeação assinada por",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "nomeação em",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx"
+  ]
+ },
+ {
+  "texto": "Nomeação:",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx"
+  ]
+ },
+ {
   "texto": "none",
   "tipo": "exato",
   "arquivos": [
@@ -7846,6 +10383,7 @@
    "components/brand/FaiscaMark.tsx",
    "components/brand/PoweredByFaisca.tsx",
    "components/election/UfTileMap.tsx",
+   "components/stf/PlenarioStf.tsx",
    "components/urna/UrnaScreen.tsx",
    "layouts/AppLayout.tsx",
    "layouts/PublicLayout.tsx",
@@ -7872,16 +10410,20 @@
    "components/election/SourceNote.tsx",
    "components/resultados/ApuracaoAoVivo.tsx",
    "components/share/ShareButton.tsx",
+   "components/stf/PlenarioStf.tsx",
    "layouts/PublicLayout.tsx",
    "pages/election/CandidatoPage.tsx",
    "pages/election/GastosPage.tsx",
+   "pages/election/MinistroStfPage.tsx",
    "pages/election/ParlamentarPage.tsx",
    "pages/election/PartidoPage.tsx",
    "pages/election/PesquisasPage.tsx",
+   "pages/election/PlenarioPage.tsx",
    "pages/election/SobrePage.tsx",
    "pages/legal/LegalDoc.tsx",
    "pages/legal/PrivacidadePage.tsx",
-   "pages/legal/TermosPage.tsx"
+   "pages/legal/TermosPage.tsx",
+   "pages/presidentes/PresidentesPage.tsx"
   ]
  },
  {
@@ -7932,11 +10474,33 @@
   ]
  },
  {
+  "texto": "Nova eleição presidencial (abril de 1919)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Nova República",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "novembro",
   "tipo": "exato",
   "arquivos": [
    "components/gastos/gastos.ts",
+   "components/stf/stf.ts",
    "config/legal.ts"
+  ]
+ },
+ {
+  "texto": "Novo arcabouço fiscal (Lei Complementar 200, de 2023)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -8076,6 +10640,7 @@
   "texto": "O",
   "tipo": "exato",
   "arquivos": [
+   "components/stf/stf.ts",
    "pages/legal/PrivacidadePage.tsx",
    "pages/legal/TermosPage.tsx"
   ]
@@ -8179,6 +10744,13 @@
   ]
  },
  {
+  "texto": "O que mostrar em cada cadeira",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
   "texto": "O que ver",
   "tipo": "exato",
   "arquivos": [
@@ -8236,6 +10808,13 @@
   ]
  },
  {
+  "texto": "o símbolo do partido pelo qual se elegeram",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
   "texto": "O simulador de urna",
   "tipo": "exato",
   "arquivos": [
@@ -8250,7 +10829,7 @@
   ]
  },
  {
-  "texto": "o Tá na Urna não tem vínculo com o TSE, a Justiça Eleitoral, a Câmara, o Senado ou qualquer órgão de governo, partido ou candidatura.",
+  "texto": "o Tá na Urna não tem vínculo com o TSE, a Justiça Eleitoral, a Câmara, o Senado, o STF ou qualquer órgão de governo, partido ou candidatura.",
   "tipo": "exato",
   "arquivos": [
    "layouts/PublicLayout.tsx"
@@ -8330,7 +10909,8 @@
   "texto": "ocioso",
   "tipo": "exato",
   "arquivos": [
-   "components/resultados/hooks.ts"
+   "components/resultados/hooks.ts",
+   "pages/election/PlenarioPage.tsx"
   ]
  },
  {
@@ -8436,6 +11016,13 @@
   ]
  },
  {
+  "texto": "Os {0} finalistas à Presidência no 2º turno",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/election/HomePage.tsx"
+  ]
+ },
+ {
   "texto": "Os arquivos anuais da Câmara não trazem as passagens aéreas emitidas pelo sistema SIGEPA a partir de agosto de 2025: os totais de deputados em 2025 e 2026 aparecem menores do que no painel da Câmara. Por isso o ranking abre em 2024 e oferece a opção de excluir passagens aéreas.",
   "tipo": "exato",
   "arquivos": [
@@ -8447,6 +11034,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Os dados do STF ainda não foram publicados no site. Eles são atualizados automaticamente.",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx"
   ]
  },
  {
@@ -8475,6 +11069,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/HomePage.tsx"
+  ]
+ },
+ {
+  "texto": "Os ministros do STF são nomeados pelo Presidente da República depois de aprovados pela maioria absoluta do Senado (Constituição, art. 101). Abaixo, o Presidente que assinou cada nomeação, pela data do decreto publicada pelo STF. Presidentes em ordem alfabética.",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx"
   ]
  },
  {
@@ -8561,7 +11162,15 @@
   "tipo": "exato",
   "arquivos": [
    "components/gastos/gastos.ts",
+   "components/stf/stf.ts",
    "config/legal.ts"
+  ]
+ },
+ {
+  "texto": "P",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
   ]
  },
  {
@@ -8577,6 +11186,20 @@
   "arquivos": [
    "components/election/brazilMapData.ts",
    "components/resultados/hooks.ts"
+  ]
+ },
+ {
+  "texto": "Pagamento de auxílio-moradia.",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
+  ]
+ },
+ {
+  "texto": "Pagamentos de exercícios anteriores e licença-prêmio convertida em dinheiro.",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
   ]
  },
  {
@@ -8605,6 +11228,27 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/ParlamentarPage.tsx"
+  ]
+ },
+ {
+  "texto": "Pago a quem já poderia se aposentar e continua em atividade; no máximo, o valor da contribuição previdenciária.",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
+  ]
+ },
+ {
+  "texto": "Palácio do Planalto",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/creditos.ts"
+  ]
+ },
+ {
+  "texto": "Pandemia de covid-19 e Auxílio Emergencial (Lei 13.982, de 2020)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -8714,6 +11358,27 @@
   ]
  },
  {
+  "texto": "Parcelas (A) a (S) do modelo da Resolução CNJ 215/2015, exatamente como o STF publica; passe o mouse ou toque numa linha para ver a explicação oficial.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "Parcelas de natureza remuneratória",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "Parcelas não permanentes, indenizações e benefícios",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
   "texto": "Parcial: líder com mais de 50% dos válidos",
   "tipo": "exato",
   "arquivos": [
@@ -8767,7 +11432,8 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/GastosPage.tsx",
-   "pages/election/PartidoPage.tsx"
+   "pages/election/PartidoPage.tsx",
+   "pages/election/PlenarioPage.tsx"
   ]
  },
  {
@@ -8812,7 +11478,15 @@
   "tipo": "exato",
   "arquivos": [
    "layouts/navigation.ts",
-   "pages/election/PartidosPage.tsx"
+   "pages/election/PartidosPage.tsx",
+   "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Partidos em ordem alfabética, da esquerda para a direita: a posição no desenho não indica orientação política. Toque numa cadeira para abrir",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlenarioPage.tsx"
   ]
  },
  {
@@ -8823,11 +11497,55 @@
   ]
  },
  {
+  "texto": "Passagens",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx",
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "Passagens (",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "Passagens (total)",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx"
+  ]
+ },
+ {
+  "texto": "Passagens e diárias concedidas pelo STF a cada ministro em viagens a serviço, em",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx"
+  ]
+ },
+ {
   "texto": "password",
   "tipo": "exato",
   "arquivos": [
    "components/conta/ContaPerfil.tsx",
    "components/form/PasswordField.tsx"
+  ]
+ },
+ {
+  "texto": "Pasta oficial no STF",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "pastas",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx",
+   "pages/election/MinistroStfPage.tsx"
   ]
  },
  {
@@ -8873,6 +11591,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/SobrePage.tsx"
+  ]
+ },
+ {
+  "texto": "Paulo Maluf",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -8979,6 +11704,13 @@
   ]
  },
  {
+  "texto": "Período de alto crescimento econômico (1968–1973)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "Período de campo",
   "tipo": "exato",
   "arquivos": [
@@ -9057,10 +11789,52 @@
   ]
  },
  {
+  "texto": "Plano Collor (1990)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Plano Cruzado (1986)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "Plano de governo",
   "tipo": "exato",
   "arquivos": [
    "pages/election/CandidatoPage.tsx"
+  ]
+ },
+ {
+  "texto": "Plano de Metas",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Plano Real e nova moeda, o real (1994)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Plebiscito de 1963: volta do presidencialismo",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Plebiscito de 1993: república e presidencialismo",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -9077,6 +11851,20 @@
   "tipo": "padrao",
   "arquivos": [
    "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Plenário do STF",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "Plenário do Supremo Tribunal Federal: {0} ministros{1}. Presidência: {2}.",
+  "tipo": "padrao",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx"
   ]
  },
  {
@@ -9098,6 +11886,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/UfTileMap.tsx",
+   "components/stf/PlenarioStf.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
  },
@@ -9178,10 +11967,66 @@
   ]
  },
  {
+  "texto": "Portal da Legislação do Planalto",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
+  ]
+ },
+ {
   "texto": "Portal de Dados Abertos do TSE",
   "tipo": "exato",
   "arquivos": [
    "layouts/PublicLayout.tsx"
+  ]
+ },
+ {
+  "texto": "Posse do presidente eleito indiretamente pelo Congresso.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Posse do presidente eleito.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Posse do presidente escolhido em nova eleição (1919).",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Posse do vice-presidente, João Goulart.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Posse na Presidência",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "Posse na Vice-Presidência",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "Posse no STF",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
   ]
  },
  {
@@ -9214,6 +12059,13 @@
   ]
  },
  {
+  "texto": "Preside a Corte",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
   "texto": "Preside o Senado",
   "tipo": "exato",
   "arquivos": [
@@ -9239,7 +12091,8 @@
   "texto": "Presidência da República",
   "tipo": "exato",
   "arquivos": [
-   "pages/election/PartidoPage.tsx"
+   "pages/election/PartidoPage.tsx",
+   "pages/presidentes/creditos.ts"
   ]
  },
  {
@@ -9252,6 +12105,13 @@
  {
   "texto": "Presidência: dado indisponível no momento",
   "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Presidência: eleita em {0}",
+  "tipo": "padrao",
   "arquivos": [
    "pages/election/PlenarioPage.tsx"
   ]
@@ -9289,6 +12149,8 @@
   "tipo": "exato",
   "arquivos": [
    "components/numeros/numeros.ts",
+   "components/stf/PlenarioStf.tsx",
+   "components/stf/stf.ts",
    "data/apuracao.ts",
    "data/format.ts",
    "pages/election/SegundoTurnoPage.tsx",
@@ -9324,6 +12186,27 @@
   ]
  },
  {
+  "texto": "Presidente da Câmara dos Deputados; assumiu com o afastamento de Café Filho.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Presidente da Câmara dos Deputados; assumiu interinamente com a renúncia de Jânio Quadros.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Presidente da Câmara dos Deputados; assumiu interinamente quando o Congresso declarou vaga a Presidência.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "presidente da República",
   "tipo": "exato",
   "arquivos": [
@@ -9335,6 +12218,20 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/PartidoPage.tsx"
+  ]
+ },
+ {
+  "texto": "Presidente da República ·",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx"
+  ]
+ },
+ {
+  "texto": "Presidente da República (",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
   ]
  },
  {
@@ -9352,6 +12249,21 @@
   ]
  },
  {
+  "texto": "Presidente do STF",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx",
+   "components/stf/stf.ts"
+  ]
+ },
+ {
+  "texto": "Presidente do Supremo Tribunal Federal; assumiu com a deposição de Getúlio Vargas.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "Presidente e",
   "tipo": "exato",
   "arquivos": [
@@ -9359,10 +12271,45 @@
   ]
  },
  {
+  "texto": "Presidentes",
+  "tipo": "exato",
+  "arquivos": [
+   "layouts/navigation.ts"
+  ]
+ },
+ {
+  "texto": "Presidentes do Brasil",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
+  ]
+ },
+ {
+  "texto": "Presidentes eleitos de forma indireta, Atos Institucionais e Constituição de 1967, até a abertura política.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "primary",
   "tipo": "exato",
   "arquivos": [
    "theme/theme.ts"
+  ]
+ },
+ {
+  "texto": "Primeira Constituição da República (24/02/1891)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Primeira República",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -9380,6 +12327,41 @@
   ]
  },
  {
+  "texto": "Privatizações e criação das agências reguladoras",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Proclamação da República (15/11/1889)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Procurador-Geral da República na composição:",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx"
+  ]
+ },
+ {
+  "texto": "Procurando o seu município…",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Programa Bolsa Família (Lei 10.836, de 2004)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "progressbar",
   "tipo": "exato",
   "arquivos": [
@@ -9387,10 +12369,31 @@
   ]
  },
  {
+  "texto": "Proibição dos jogos de azar (Decreto-Lei 9.215, de 1946)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "Pronto: suas escolhas agora ficam salvas no seu perfil, criptografadas.",
   "tipo": "exato",
   "arquivos": [
    "components/conta/ContaPerfil.tsx"
+  ]
+ },
+ {
+  "texto": "prudente",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Prudente de Morais",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -9408,10 +12411,24 @@
   ]
  },
  {
+  "texto": "Q",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
+  ]
+ },
+ {
   "texto": "Quais candidaturas mostrar",
   "tipo": "exato",
   "arquivos": [
    "pages/election/EleicaoPage.tsx"
+  ]
+ },
+ {
+  "texto": "Qual composição mostrar",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlenarioPage.tsx"
   ]
  },
  {
@@ -9464,6 +12481,13 @@
   ]
  },
  {
+  "texto": "Quem nomeou cada ministro",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx"
+  ]
+ },
+ {
   "texto": "Quem ocupa cada cadeira",
   "tipo": "exato",
   "arquivos": [
@@ -9471,7 +12495,7 @@
   ]
  },
  {
-  "texto": "Quem ocupa cada cadeira da Câmara dos Deputados e do Senado Federal (atualizado todos os dias), e os eleitos para as Assembleias Legislativas e as Câmaras Municipais de cada estado, com o símbolo do partido de cada um.",
+  "texto": "Quem ocupa cada cadeira da Câmara dos Deputados, do Senado Federal e do Supremo Tribunal Federal (atualizado todos os dias), e os eleitos para as Assembleias Legislativas e as Câmaras Municipais de cada estado, com o símbolo do partido de cada um.",
   "tipo": "exato",
   "arquivos": [
    "pages/election/PlenarioPage.tsx"
@@ -9492,10 +12516,38 @@
   ]
  },
  {
+  "texto": "Quintino Bocaiúva",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "R",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
+  ]
+ },
+ {
   "texto": "radial-gradient(120% 120% at 0% 0%, {0} 0%, transparent 60%), radial-gradient(120% 120% at 100% 100%, {1} 0%, transparent 60%), {2}",
   "tipo": "padrao",
   "arquivos": [
    "pages/election/HomePage.tsx"
+  ]
+ },
+ {
+  "texto": "Radiobrás",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/creditos.ts"
+  ]
+ },
+ {
+  "texto": "Ranieri Mazzilli",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -9607,6 +12659,48 @@
   ]
  },
  {
+  "texto": "Reforma da Constituição de 1891 (1926)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Reforma da Previdência (Emenda Constitucional 103, de 2019)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Reforma da Previdência dos servidores (Emenda Constitucional 41, de 2003)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Reforma trabalhista (Lei 13.467, de 2017)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Reforma tributária sobre o consumo (Emenda Constitucional 132, de 2023)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Reforma urbana e vacinação obrigatória no Rio de Janeiro; Revolta da Vacina (1904)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "region",
   "tipo": "exato",
   "arquivos": [
@@ -9672,6 +12766,78 @@
   ]
  },
  {
+  "texto": "remuneracao",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx",
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "Remuneração",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "Remuneração bruta e líquida mês a mês",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "Remuneração em",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx"
+  ]
+ },
+ {
+  "texto": "Remuneração mensal após aplicar o teto constitucional.",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
+  ]
+ },
+ {
+  "texto": "Remuneração mensal sem aplicar o teto constitucional.",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
+  ]
+ },
+ {
+  "texto": "remuneratoria",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts",
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "Renegociação da dívida externa (funding loan), acertada em 1898",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Renúncia, depois de decretar a dissolução do Congresso.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Renúncia.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "Repita a frase",
   "tipo": "exato",
   "arquivos": [
@@ -9683,6 +12849,13 @@
   "tipo": "exato",
   "arquivos": [
    "layouts/PublicLayout.tsx"
+  ]
+ },
+ {
+  "texto": "República de 1946",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -9809,6 +12982,70 @@
   ]
  },
  {
+  "texto": "Retrato de {0}",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
+  ]
+ },
+ {
+  "texto": "Retrato oficial de {0}",
+  "tipo": "padrao",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx",
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "Retribuição pelo cargo ou função exercida.",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
+  ]
+ },
+ {
+  "texto": "Revolta da Armada (1893–1894)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Revolta da Chibata (1910)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Revolta de 1924 em São Paulo e Coluna Prestes (1925–1927)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Revolta dos 18 do Forte de Copacabana (1922)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Revolução Constitucionalista (1932), Constituição de 1934 e Constituição de 1937 (Estado Novo)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Revolução Federalista, no Sul (1893–1895)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "rgba(187, 164, 238, 0.16)",
   "tipo": "exato",
   "arquivos": [
@@ -9927,10 +13164,12 @@
    "components/conta/ContaPerfil.tsx",
    "components/gastos/RankingList.tsx",
    "components/numeros/Concorrencia.tsx",
+   "components/stf/PlenarioStf.tsx",
    "layouts/AccountMenu.tsx",
    "layouts/PublicLayout.tsx",
    "pages/election/CandidatoPage.tsx",
    "pages/election/HomePage.tsx",
+   "pages/election/MinistroStfPage.tsx",
    "pages/election/ParlamentarPage.tsx"
   ]
  },
@@ -9980,10 +13219,38 @@
   ]
  },
  {
+  "texto": "Roberto Stuckert Filho/Presidência da República",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/creditos.ts"
+  ]
+ },
+ {
+  "texto": "Rodovia Transamazônica (1972) e Ponte Rio–Niterói (1974)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Rodovias Rio–São Paulo e Rio–Petrópolis (1928)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "Rodrigo Bossini",
   "tipo": "exato",
   "arquivos": [
    "config/legal.ts"
+  ]
+ },
+ {
+  "texto": "Rodrigues Alves",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -9995,6 +13262,27 @@
  },
  {
   "texto": "Roraima",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "rosto",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Rostos",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Rostos dos parlamentares",
   "tipo": "exato",
   "arquivos": [
    "pages/election/PlenarioPage.tsx"
@@ -10033,7 +13321,8 @@
   "tipo": "exato",
   "arquivos": [
    "components/brand/BossiniMark.tsx",
-   "components/brand/FaiscaMark.tsx"
+   "components/brand/FaiscaMark.tsx",
+   "components/stf/PlenarioStf.tsx"
   ]
  },
  {
@@ -10049,6 +13338,7 @@
    "components/noticias/FeedNoticias.tsx",
    "components/resultados/ApuracaoAoVivo.tsx",
    "components/resultados/CartaoEleitos.tsx",
+   "components/stf/PlenarioStf.tsx",
    "layouts/AccountMenu.tsx",
    "layouts/AppLayout.tsx",
    "layouts/AuthLayout.tsx",
@@ -10061,13 +13351,15 @@
    "pages/election/EleicaoPage.tsx",
    "pages/election/GastosPage.tsx",
    "pages/election/HomePage.tsx",
+   "pages/election/MinistroStfPage.tsx",
    "pages/election/ParlamentarPage.tsx",
    "pages/election/PartidoPage.tsx",
    "pages/election/PartidosPage.tsx",
    "pages/election/PesquisasPage.tsx",
    "pages/election/PlenarioPage.tsx",
    "pages/election/SegundoTurnoPage.tsx",
-   "pages/election/SimuladorPage.tsx"
+   "pages/election/SimuladorPage.tsx",
+   "pages/presidentes/PresidentesPage.tsx"
   ]
  },
  {
@@ -10087,10 +13379,24 @@
   ]
  },
  {
+  "texto": "Rui Barbosa",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "s",
   "tipo": "exato",
   "arquivos": [
    "data/apuracao.ts"
+  ]
+ },
+ {
+  "texto": "S",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
   ]
  },
  {
@@ -10127,6 +13433,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "sarney",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -10237,6 +13550,13 @@
   ]
  },
  {
+  "texto": "Sem acesso à localização: mostrando São Paulo. Escolha o seu município na lista.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
   "texto": "Sem bens declarados",
   "tipo": "exato",
   "arquivos": [
@@ -10255,6 +13575,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/CandidatoPage.tsx"
+  ]
+ },
+ {
+  "texto": "sem eleição para presidente; assumiu pela linha de sucessão.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
   ]
  },
  {
@@ -10375,6 +13702,13 @@
   ]
  },
  {
+  "texto": "Senado Federal, senadores em exercício",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
   "texto": "senador",
   "tipo": "exato",
   "arquivos": [
@@ -10447,10 +13781,24 @@
   ]
  },
  {
+  "texto": "Separação entre Igreja e Estado (Decreto 119-A, de 1890)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "Sergipe",
   "tipo": "exato",
   "arquivos": [
    "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Serviço extraordinário, substituição, adicionais e gratificações de natureza periódica ou eventual.",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
   ]
  },
  {
@@ -10473,6 +13821,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/gastos/gastos.ts",
+   "components/stf/stf.ts",
    "config/legal.ts"
   ]
  },
@@ -10541,6 +13890,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/PartidoPage.tsx"
+  ]
+ },
+ {
+  "texto": "Símbolos dos partidos",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlenarioPage.tsx"
   ]
  },
  {
@@ -10684,6 +14040,7 @@
   "arquivos": [
    "components/conta/ContaPerfil.tsx",
    "components/numeros/Concorrencia.tsx",
+   "components/stf/PlenarioStf.tsx",
    "components/urna/UfPicker.tsx",
    "layouts/PublicLayout.tsx",
    "pages/election/ColaPage.tsx",
@@ -10712,7 +14069,8 @@
    "pages/election/GastosPage.tsx",
    "pages/election/HomePage.tsx",
    "pages/election/PlenarioPage.tsx",
-   "pages/election/SimuladorPage.tsx"
+   "pages/election/SimuladorPage.tsx",
+   "pages/presidentes/PresidentesPage.tsx"
   ]
  },
  {
@@ -10720,8 +14078,23 @@
   "tipo": "exato",
   "arquivos": [
    "components/resultados/ApuracaoAoVivo.tsx",
+   "pages/election/MinistroStfPage.tsx",
    "pages/election/SegundoTurnoPage.tsx",
    "pages/election/SimuladorPage.tsx"
+  ]
+ },
+ {
+  "texto": "Só dados públicos oficiais (TSE, Câmara, Senado e STF) · sem opinião, sem recomendação de voto",
+  "tipo": "exato",
+  "arquivos": [
+   "layouts/PublicLayout.tsx"
+  ]
+ },
+ {
+  "texto": "Só dados públicos oficiais (TSE, Câmara, Senado e STF) e pesquisas registradas no TSE · sem opinião, sem recomendação de voto",
+  "tipo": "exato",
+  "arquivos": [
+   "layouts/PublicLayout.tsx"
   ]
  },
  {
@@ -10729,6 +14102,20 @@
   "tipo": "exato",
   "arquivos": [
    "components/resultados/ApuracaoAoVivo.tsx"
+  ]
+ },
+ {
+  "texto": "Só usamos dados públicos, publicados pelos próprios órgãos em cumprimento à Lei de Acesso à Informação (Lei 12.527/2011); não usamos dado sigiloso nem publicamos CPF.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/legal/TermosPage.tsx"
+  ]
+ },
+ {
+  "texto": "Só usamos dados públicos: tudo o que aparece aqui foi publicado pelos próprios órgãos oficiais (TSE, Câmara dos Deputados, Senado Federal, Supremo Tribunal Federal e IBGE), em cumprimento à Lei de Acesso à Informação (Lei 12.527/2011). Não usamos dado sigiloso, não publicamos CPF e sempre citamos a fonte.",
+  "tipo": "exato",
+  "arquivos": [
+   "layouts/PublicLayout.tsx"
   ]
  },
  {
@@ -10743,6 +14130,13 @@
   "tipo": "exato",
   "arquivos": [
    "theme/theme.ts"
+  ]
+ },
+ {
+  "texto": "Soma da contribuição previdenciária e do imposto de renda.",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
   ]
  },
  {
@@ -10781,13 +14175,6 @@
   ]
  },
  {
-  "texto": "Somente dados oficiais (TSE, Câmara e Senado) · sem opinião, sem recomendação de voto",
-  "tipo": "exato",
-  "arquivos": [
-   "layouts/PublicLayout.tsx"
-  ]
- },
- {
   "texto": "Somente em exercício",
   "tipo": "exato",
   "arquivos": [
@@ -10806,7 +14193,8 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
-   "components/resultados/hooks.ts"
+   "components/resultados/hooks.ts",
+   "pages/election/PlenarioPage.tsx"
   ]
  },
  {
@@ -10831,9 +14219,11 @@
    "components/election/CandidateSearch.tsx",
    "components/election/UfTileMap.tsx",
    "components/resultados/ApuracaoAoVivo.tsx",
+   "components/stf/PlenarioStf.tsx",
    "pages/election/EleicaoPage.tsx",
    "pages/election/GastosPage.tsx",
    "pages/election/HomePage.tsx",
+   "pages/election/MinistroStfPage.tsx",
    "pages/election/SegundoTurnoPage.tsx",
    "pages/election/SimuladorPage.tsx"
   ]
@@ -10865,6 +14255,22 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/SimuladorPage.tsx"
+  ]
+ },
+ {
+  "texto": "stf",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx",
+   "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "STF",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx",
+   "pages/election/PlenarioPage.tsx"
   ]
  },
  {
@@ -10912,7 +14318,7 @@
   ]
  },
  {
-  "texto": "sua localização (veja abaixo como o site descobre o seu estado sem recebê-la), contatos, fotos, câmera, microfone ou arquivos do aparelho;",
+  "texto": "sua localização (veja abaixo como o site descobre o seu estado e o seu município sem recebê-la), contatos, fotos, câmera, microfone ou arquivos do aparelho;",
   "tipo": "exato",
   "arquivos": [
    "pages/legal/PrivacidadePage.tsx"
@@ -10947,6 +14353,22 @@
   ]
  },
  {
+  "texto": "Subsídio",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx",
+   "components/stf/stf.ts",
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "Subsídio dos membros (vencimento do cargo), como publicado pelo STF.",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
+  ]
+ },
+ {
   "texto": "success",
   "tipo": "exato",
   "arquivos": [
@@ -10967,6 +14389,27 @@
   "tipo": "exato",
   "arquivos": [
    "components/numeros/numeros.ts"
+  ]
+ },
+ {
+  "texto": "Supremo Tribunal Federal",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx"
+  ]
+ },
+ {
+  "texto": "SUPREMO TRIBUNAL FEDERAL",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx"
+  ]
+ },
+ {
+  "texto": "Supremo Tribunal Federal:",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/SobrePage.tsx"
   ]
  },
  {
@@ -11008,6 +14451,20 @@
   "tipo": "exato",
   "arquivos": [
    "pages/legal/PrivacidadePage.tsx"
+  ]
+ },
+ {
+  "texto": "tancredo",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Tancredo Neves",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -11074,6 +14531,13 @@
   ]
  },
  {
+  "texto": "temer",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "Tentar de novo",
   "tipo": "exato",
   "arquivos": [
@@ -11100,6 +14564,13 @@
    "pages/election/SobrePage.tsx",
    "pages/legal/PrivacidadePage.tsx",
    "pages/legal/TermosPage.tsx"
+  ]
+ },
+ {
+  "texto": "Teto de gastos (Emenda Constitucional 95, de 2016)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -11309,6 +14780,13 @@
   ]
  },
  {
+  "texto": "Todos aparecem no mesmo formato: como chegou ao cargo, votos na eleição (com o 2º colocado de cada turno), como saiu e marcos institucionais objetivos do período (Constituições, emendas e leis pelo número oficial, moedas, obras e fatos históricos registrados oficialmente). Não há avaliação de governo nem de pessoas. A ordem é cronológica. Os nomes de períodos históricos seguem a historiografia usual.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
+  ]
+ },
+ {
   "texto": "Todos de uma vez",
   "tipo": "exato",
   "arquivos": [
@@ -11394,6 +14872,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/ParlamentarPage.tsx"
+  ]
+ },
+ {
+  "texto": "Total de descontos",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
   ]
  },
  {
@@ -11555,13 +15040,35 @@
   ]
  },
  {
+  "texto": "Transparência do Supremo Tribunal Federal",
+  "tipo": "exato",
+  "arquivos": [
+   "layouts/PublicLayout.tsx"
+  ]
+ },
+ {
   "texto": "transparent",
   "tipo": "exato",
   "arquivos": [
    "components/brand/BrandPlaceholder.tsx",
    "components/election/CandidateCard.tsx",
    "components/resultados/ApuracaoAoVivo.tsx",
+   "components/stf/PlenarioStf.tsx",
    "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Tratado de Petrópolis (1903): o Acre passa a integrar o Brasil",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Trecho não informado",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
   ]
  },
  {
@@ -11640,10 +15147,31 @@
   ]
  },
  {
+  "texto": "TSE · totalização das eleições de {0} (posse em {1})",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "TSE, totalização das eleições de",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
   "texto": "TSE:",
   "tipo": "exato",
   "arquivos": [
    "components/resultados/ApuracaoAoVivo.tsx"
+  ]
+ },
+ {
+  "texto": "Tudo nesta seção são",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx"
   ]
  },
  {
@@ -11661,10 +15189,24 @@
   ]
  },
  {
+  "texto": "Turno único (maioria simples)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
+  ]
+ },
+ {
   "texto": "type",
   "tipo": "exato",
   "arquivos": [
    "main.tsx"
+  ]
+ },
+ {
+  "texto": "Ubirajara Dettimar/Presidência da República",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/creditos.ts"
   ]
  },
  {
@@ -11713,6 +15255,13 @@
   ]
  },
  {
+  "texto": "Ulysses Guimarães",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
   "texto": "Um estado tem 2º turno para governador",
   "tipo": "exato",
   "arquivos": [
@@ -11720,7 +15269,7 @@
   ]
  },
  {
-  "texto": "Uma ferramenta gratuita de transparência que reúne, organiza e exibe dados públicos publicados pelo Tribunal Superior Eleitoral (TSE), pela Câmara dos Deputados e pelo Senado Federal sobre as eleições de 2026 e sobre gastos de mandato.",
+  "texto": "Uma ferramenta gratuita de transparência que reúne, organiza e exibe dados públicos publicados pelo Tribunal Superior Eleitoral (TSE), pela Câmara dos Deputados, pelo Senado Federal e pelo Supremo Tribunal Federal (STF) sobre as eleições de 2026, gastos de mandato, a composição dos Poderes e a remuneração, as diárias e as passagens dos ministros do STF.",
   "tipo": "exato",
   "arquivos": [
    "pages/legal/TermosPage.tsx"
@@ -11764,6 +15313,13 @@
   ]
  },
  {
+  "texto": "US Embassy Brasília",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/creditos.ts"
+  ]
+ },
+ {
   "texto": "usa o campo de situação do julgamento publicado pelo TSE. Quando uma candidatura substituída e a substituta aparecem com o mesmo número na urna, os votos são atribuídos à substituta.",
   "tipo": "exato",
   "arquivos": [
@@ -11774,7 +15330,16 @@
   "texto": "Usar minha localização",
   "tipo": "exato",
   "arquivos": [
-   "components/resultados/ApuracaoAoVivo.tsx"
+   "components/resultados/ApuracaoAoVivo.tsx",
+   "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "USD",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts",
+   "pages/election/MinistroStfPage.tsx"
   ]
  },
  {
@@ -11812,6 +15377,13 @@
   "arquivos": [
    "pages/election/EleicaoPage.tsx",
    "pages/election/NumerosPage.tsx"
+  ]
+ },
+ {
+  "texto": "Vaga",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx"
   ]
  },
  {
@@ -11860,6 +15432,13 @@
   ]
  },
  {
+  "texto": "Valor das diárias",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
   "texto": "Valor no período",
   "tipo": "exato",
   "arquivos": [
@@ -11871,6 +15450,20 @@
   "tipo": "exato",
   "arquivos": [
    "components/gastos/RankingList.tsx"
+  ]
+ },
+ {
+  "texto": "Valores da folha de pagamento publicada pelo STF. O subsídio de ministro do STF é o teto do funcionalismo (Constituição, art. 37, XI). O bruto inclui as demais verbas do mês (como vantagens pessoais, abono de permanência, férias e 13º); o líquido é o que sobra depois de impostos, previdência e descontos pessoais. Toque num nome para ver as parcelas e os últimos meses. Ordem alfabética.",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx"
+  ]
+ },
+ {
+  "texto": "Valores das passagens: custo efetivo publicado (bilhete menos reembolso).",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx"
   ]
  },
  {
@@ -11923,10 +15516,31 @@
   ]
  },
  {
+  "texto": "Vantagens eventuais",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
+  ]
+ },
+ {
+  "texto": "Vantagens pessoais",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
+  ]
+ },
+ {
   "texto": "Vão ao 2º turno",
   "tipo": "exato",
   "arquivos": [
    "components/resultados/ApuracaoAoVivo.tsx"
+  ]
+ },
+ {
+  "texto": "vargas",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -11988,6 +15602,27 @@
   ]
  },
  {
+  "texto": "venceslau",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Venceslau Brás",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Ver candidatura",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
   "texto": "Ver candidaturas",
   "tipo": "exato",
   "arquivos": [
@@ -12014,6 +15649,20 @@
   "tipo": "padrao",
   "arquivos": [
    "pages/election/EleicaoPage.tsx"
+  ]
+ },
+ {
+  "texto": "Ver mais diárias",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "Ver mais passagens",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MinistroStfPage.tsx"
   ]
  },
  {
@@ -12094,6 +15743,14 @@
   ]
  },
  {
+  "texto": "viagens",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx",
+   "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
   "texto": "Vice",
   "tipo": "exato",
   "arquivos": [
@@ -12108,10 +15765,87 @@
   ]
  },
  {
+  "texto": "Vice-Presidente",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx"
+  ]
+ },
+ {
   "texto": "Vice-presidente da República",
   "tipo": "exato",
   "arquivos": [
    "pages/election/PartidoPage.tsx"
+  ]
+ },
+ {
+  "texto": "Vice-presidente do Senado; assumiu por decisão do Congresso Nacional.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Vice-Presidente do STF",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/stf.ts"
+  ]
+ },
+ {
+  "texto": "Vice-presidente eleito; assumiu interinamente em 15/03/1985 e, com a morte de Tancredo Neves, em definitivo.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Vice-presidente; assumiu após a renúncia de Jânio Quadros, sob o parlamentarismo.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Vice-presidente; assumiu com a morte de Afonso Pena.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Vice-presidente; assumiu com a morte de Getúlio Vargas.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Vice-presidente; assumiu com a renúncia de Deodoro da Fonseca.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Vice-presidente; assumiu porque o presidente eleito, Rodrigues Alves, adoeceu e morreu sem tomar posse.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Vice-presidente; exerceu a Presidência desde 02/10/1992 e assumiu em definitivo com a renúncia de Fernando Collor.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Vice-presidente; exerceu a Presidência interinamente desde 12/05/2016 e assumiu em definitivo com a destituição de Dilma Rousseff.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -12156,6 +15890,20 @@
   "tipo": "exato",
   "arquivos": [
    "components/ConfigErrorScreen.tsx"
+  ]
+ },
+ {
+  "texto": "Vitória no 1º turno",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
+  ]
+ },
+ {
+  "texto": "Vitória no 2º turno",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
   ]
  },
  {
@@ -12338,7 +16086,8 @@
   "tipo": "exato",
   "arquivos": [
    "components/resultados/ApuracaoAoVivo.tsx",
-   "components/resultados/CartaoEleitos.tsx"
+   "components/resultados/CartaoEleitos.tsx",
+   "pages/presidentes/PresidentesPage.tsx"
   ]
  },
  {
@@ -12391,6 +16140,13 @@
   ]
  },
  {
+  "texto": "Votos:",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/PresidentesPage.tsx"
+  ]
+ },
+ {
   "texto": "votos)",
   "tipo": "exato",
   "arquivos": [
@@ -12423,7 +16179,15 @@
    "pages/election/ColaPage.tsx",
    "pages/election/ParlamentarPage.tsx",
    "pages/election/PartidosPage.tsx",
-   "pages/election/PesquisasPage.tsx"
+   "pages/election/PesquisasPage.tsx",
+   "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Washington Luís",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/presidentes/presidentes.ts"
   ]
  },
  {
@@ -12448,6 +16212,13 @@
   ]
  },
  {
+  "texto": "Wikimedia Commons",
+  "tipo": "exato",
+  "arquivos": [
+   "components/stf/PlenarioStf.tsx"
+  ]
+ },
+ {
   "texto": "X (Twitter)",
   "tipo": "exato",
   "arquivos": [
@@ -12465,6 +16236,7 @@
   "texto": "xMidYMin slice",
   "tipo": "exato",
   "arquivos": [
+   "components/stf/PlenarioStf.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
  },

@@ -36,7 +36,7 @@ export function FontesStf({ stf, chaves }: { stf: Stf; chaves?: (keyof Stf['font
   return (
     <Box sx={{ mt: 2 }}>
       <Typography variant="caption" color="text.secondary" component="p" sx={{ mb: 0.5 }}>
-        <strong>Fonte{lista.length > 1 ? 's' : ''} (dados públicos):</strong>{' '}
+        <strong>{lista.length > 1 ? 'Fontes (dados públicos):' : 'Fonte (dados públicos):'}</strong>{' '}
         {lista.map((f, i) => (
           <span key={f.url}>
             {i > 0 && ' · '}
@@ -175,7 +175,7 @@ export function DesenhoStf({ stf }: { stf: Stf }) {
           <a
             key={m.id}
             href={`${base}${m.id}`}
-            aria-label={`${m.nome}, ${cargoStf(m)}: ver página`}
+            aria-label={`${m.nome}: ver página`}
             onClick={(e) => {
               if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
               e.preventDefault();

@@ -171,7 +171,7 @@ function Remuneracao({ det, stf }: { det: MinistroStfDetalhe; stf: Stf }) {
             <Tooltip key={p.k} title={p.legenda} placement="top-start">
               <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 2, py: 0.5, borderBottom: 1, borderColor: 'divider', opacity: v ? 1 : 0.55 }}>
                 <Typography variant="body2">
-                  ({p.k}) {p.nome}
+                  (<span translate="no">{p.k}</span>) {p.nome}
                 </Typography>
                 <Typography variant="body2" sx={{ fontVariantNumeric: 'tabular-nums', fontWeight: ['F', 'M'].includes(p.k) ? 800 : 500 }}>
                   {g === 'desconto' && v ? '− ' : ''}
@@ -378,7 +378,7 @@ function Viagens({ det, stf }: { det: MinistroStfDetalhe; stf: Stf }) {
                   <Typography variant="body2" sx={{ fontVariantNumeric: 'tabular-nums', fontWeight: 700, textAlign: { sm: 'right' } }}>
                     {d.valor != null ? (d.moeda === 'USD' ? usd.format(d.valor) : money(d.valor)) : '—'}
                     <Typography component="span" variant="caption" color="text.secondary" sx={{ display: 'block', fontWeight: 400 }}>
-                      {d.quantidade != null ? `${d.quantidade.toLocaleString('pt-BR')} diária${d.quantidade === 1 ? '' : 's'}` : ''}
+                      {d.quantidade == null ? '' : d.quantidade === 1 ? '1 diária' : `${d.quantidade.toLocaleString('pt-BR')} diárias`}
                     </Typography>
                   </Typography>
                 </Box>

@@ -32,7 +32,7 @@ export function fotoStf(caminho: string | null | undefined): string | null {
 export function cargoStf(m: Pick<MinistroStf, 'cargo' | 'tratamento'>): string {
   if (m.cargo === 'Presidente') return 'Presidente do STF';
   if (m.cargo === 'Vice-Presidente') return 'Vice-Presidente do STF';
-  return `${m.tratamento ?? 'Ministro(a)'} do STF`;
+  return m.tratamento === 'Ministra' ? 'Ministra do STF' : m.tratamento === 'Ministro' ? 'Ministro do STF' : 'Ministro(a) do STF';
 }
 
 /** Idade (anos completos) numa data. */

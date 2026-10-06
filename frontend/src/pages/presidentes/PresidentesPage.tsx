@@ -21,20 +21,25 @@ function dia(iso: string) {
 
 const hojeIso = () => new Date().toISOString().slice(0, 10);
 
-/** Duração legível: "4 anos e 2 meses", "13 dias". */
-function duracao(inicio: string, fim: string | null) {
+/**
+ * Tempo no cargo como frase inteira ("2 anos no cargo", "3 anos e 9 meses no cargo"), para o
+ * tradutor não confundir com idade ("68 anos").
+ */
+function duracao(inicio: string, fim: string | null): string {
   const a = new Date(`${inicio}T12:00:00`);
   const b = new Date(`${fim ?? hojeIso()}T12:00:00`);
   let meses = (b.getFullYear() - a.getFullYear()) * 12 + (b.getMonth() - a.getMonth());
   if (b.getDate() < a.getDate()) meses--;
   if (meses < 1) {
-    const dias = Math.round((b.getTime() - a.getTime()) / 86_400_000);
-    return `${dias} dia${dias === 1 ? '' : 's'}`;
+    const d = Math.round((b.getTime() - a.getTime()) / 86_400_000);
+    return d === 1 ? '1 dia no cargo' : `${d} dias no cargo`;
   }
-  const anos = Math.floor(meses / 12);
-  const resto = meses % 12;
-  const partes = [anos ? `${anos} ano${anos === 1 ? '' : 's'}` : null, resto ? `${resto} ${resto === 1 ? 'mês' : 'meses'}` : null].filter(Boolean);
-  return partes.join(' e ');
+  const an = Math.floor(meses / 12);
+  const m = meses % 12;
+  if (!an) return m === 1 ? '1 mês no cargo' : `${m} meses no cargo`;
+  if (!m) return an === 1 ? '1 ano no cargo' : `${an} anos no cargo`;
+  if (an === 1) return m === 1 ? '1 ano e 1 mês no cargo' : `1 ano e ${m} meses no cargo`;
+  return m === 1 ? `${an} anos e 1 mês no cargo` : `${an} anos e ${m} meses no cargo`;
 }
 
 const anoFrac = (iso: string) => {
@@ -239,7 +244,16 @@ function Item({ p }: { p: Presidencia }) {
               {p.naoExerceu && <Chip size="small" label="Eleito, não tomou posse" />}
             </Stack>
             <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-              {p.naoExerceu ? `Eleito em 15/01/1985 · morreu em ${dia(p.fim!)}` : `${dia(p.inicio)} – ${p.fim ? dia(p.fim) : 'hoje'} · ${duracao(p.inicio, p.fim)}`}
+              {p.naoExerceu ? (
+                `Eleito em 15/01/1985 · morreu em ${dia(p.fim!)}`
+              ) : (
+                <>
+                  <span>{`${dia(p.inicio)} – ${p.fim ? dia(p.fim) : ''}`}</span>
+                  {!p.fim && <span>hoje</span>}
+                  <span> · </span>
+                  <span>{duracao(p.inicio, p.fim)}</span>
+                </>
+              )}
             </Typography>
             {p.junta && (
               <Typography variant="body2" sx={{ mb: 1 }}>
