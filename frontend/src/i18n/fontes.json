@@ -14,6 +14,13 @@
   ]
  },
  {
+  "texto": ", com o exterior",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
   "texto": ", com o nome publicado pela CGU (",
   "tipo": "exato",
   "arquivos": [
@@ -39,6 +46,13 @@
   "tipo": "exato",
   "arquivos": [
    "components/votacoes/VotacoesNominais.tsx"
+  ]
+ },
+ {
+  "texto": ", incluindo as cidades do exterior). Votos válidos são os dados a candidaturas, sem brancos e nulos, como o TSE calcula as porcentagens.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -154,6 +168,20 @@
   ]
  },
  {
+  "texto": ". Contornos: IBGE, malha municipal.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
+  "texto": ". Eleição",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
   "texto": ". Eleitos aparecem com a faixa verde na lista.",
   "tipo": "exato",
   "arquivos": [
@@ -231,6 +259,13 @@
   ]
  },
  {
+  "texto": "· {0} votos válidos",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
   "texto": "· {0}/mês",
   "tipo": "padrao",
   "arquivos": [
@@ -255,7 +290,8 @@
   "texto": "· arquivo de {0}",
   "tipo": "padrao",
   "arquivos": [
-   "components/emendas/FonteEmendasNota.tsx"
+   "components/emendas/FonteEmendasNota.tsx",
+   "pages/election/CongressoEleitoPage.tsx"
   ]
  },
  {
@@ -363,6 +399,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "· Presidente,",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -548,6 +591,13 @@
   ]
  },
  {
+  "texto": "(horário de Brasília); coletado por este site em",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
   "texto": "(mandato",
   "tipo": "exato",
   "arquivos": [
@@ -611,6 +661,13 @@
   ]
  },
  {
+  "texto": "(prefeitura, Câmara, emendas)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
   "texto": "(site e aplicativos para celular) é um projeto independente, gratuito e sem anúncios, mantido por",
   "tipo": "exato",
   "arquivos": [
@@ -657,6 +714,13 @@
   "tipo": "exato",
   "arquivos": [
    "api/client.ts"
+  ]
+ },
+ {
+  "texto": ") a 100% (cor mais",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -734,6 +798,13 @@
   "tipo": "padrao",
   "arquivos": [
    "components/emendas/EmendasIndicadas.tsx"
+  ]
+ },
+ {
+  "texto": "{0} · {1}: dados oficiais no Tá na Urna",
+  "tipo": "padrao",
+  "arquivos": [
+   "components/compartilhar/BotaoCompartilharImagem.tsx"
   ]
  },
  {
@@ -842,12 +913,21 @@
   ]
  },
  {
+  "texto": "{0} 32px \"Google Sans Flex Variable\"",
+  "tipo": "padrao",
+  "arquivos": [
+   "components/compartilhar/desenho.ts"
+  ]
+ },
+ {
   "texto": "{0} anos",
   "tipo": "padrao",
   "arquivos": [
+   "components/compartilhar/dados.ts",
    "components/election/CandidateCard.tsx",
    "pages/election/CandidatoPage.tsx",
    "pages/election/CompararPage.tsx",
+   "pages/election/CongressoEleitoPage.tsx",
    "pages/election/EleicaoPage.tsx",
    "pages/election/HomePage.tsx",
    "pages/election/SegundoTurnoPage.tsx"
@@ -1022,6 +1102,20 @@
   ]
  },
  {
+  "texto": "{0} menções",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
+  ]
+ },
+ {
+  "texto": "{0} menções nesta página",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
+  ]
+ },
+ {
   "texto": "{0} meses",
   "tipo": "padrao",
   "arquivos": [
@@ -1033,6 +1127,34 @@
   "tipo": "padrao",
   "arquivos": [
    "pages/presidentes/PresidentesPage.tsx"
+  ]
+ },
+ {
+  "texto": "{0} no {1}º turno",
+  "tipo": "padrao",
+  "arquivos": [
+   "components/compartilhar/dados.ts"
+  ]
+ },
+ {
+  "texto": "{0} páginas",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
+  ]
+ },
+ {
+  "texto": "{0} páginas só com imagem não entram na busca.",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
+  ]
+ },
+ {
+  "texto": "{0} paisagem",
+  "tipo": "padrao",
+  "arquivos": [
+   "components/compartilhar/BotaoCompartilharImagem.tsx"
   ]
  },
  {
@@ -1092,10 +1214,24 @@
   ]
  },
  {
+  "texto": "{0} votos",
+  "tipo": "padrao",
+  "arquivos": [
+   "components/compartilhar/dados.ts"
+  ]
+ },
+ {
   "texto": "{0} votos · {1}",
   "tipo": "padrao",
   "arquivos": [
    "pages/election/CandidatoPage.tsx"
+  ]
+ },
+ {
+  "texto": "{0} votos válidos · clique para ver a votação",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -1138,6 +1274,13 @@
   "tipo": "padrao",
   "arquivos": [
    "components/resultados/ApuracaoAoVivo.tsx"
+  ]
+ },
+ {
+  "texto": "{0}: {1} dos válidos",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -1225,6 +1368,13 @@
   ]
  },
  {
+  "texto": "{0}{1} · mandato atual",
+  "tipo": "padrao",
+  "arquivos": [
+   "components/compartilhar/dados.ts"
+  ]
+ },
+ {
   "texto": "{0}{1} (Fonte: TSE)",
   "tipo": "padrao",
   "arquivos": [
@@ -1295,10 +1445,24 @@
   ]
  },
  {
+  "texto": "% dos válidos",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
   "texto": "% dos válidos ·",
   "tipo": "exato",
   "arquivos": [
    "components/resultados/CartaoEleitos.tsx"
+  ]
+ },
+ {
+  "texto": "% dos votos válidos no município (mesma escala para todas as candidaturas)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -1428,6 +1592,13 @@
   ]
  },
  {
+  "texto": "1 menção",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
+  ]
+ },
+ {
   "texto": "1 mês",
   "tipo": "exato",
   "arquivos": [
@@ -1439,6 +1610,20 @@
   "tipo": "exato",
   "arquivos": [
    "pages/presidentes/PresidentesPage.tsx"
+  ]
+ },
+ {
+  "texto": "1 página",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
+  ]
+ },
+ {
+  "texto": "1 página só com imagem não entra na busca.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
   ]
  },
  {
@@ -1529,7 +1714,8 @@
   "texto": "1º turno",
   "tipo": "exato",
   "arquivos": [
-   "components/resultados/CartaoEleitos.tsx"
+   "components/resultados/CartaoEleitos.tsx",
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -1617,6 +1803,7 @@
    "components/resultados/ApuracaoAoVivo.tsx",
    "components/resultados/CartaoEleitos.tsx",
    "layouts/navigation.ts",
+   "pages/election/MapaPage.tsx",
    "pages/election/SegundoTurnoPage.tsx"
   ]
  },
@@ -1625,6 +1812,13 @@
   "tipo": "padrao",
   "arquivos": [
    "pages/election/HomePage.tsx"
+  ]
+ },
+ {
+  "texto": "2º turno · {0} · {1}",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/election/SegundoTurnoPage.tsx"
   ]
  },
  {
@@ -1738,6 +1932,13 @@
   ]
  },
  {
+  "texto": "a",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/compartilhar.ts"
+  ]
+ },
+ {
   "texto": "A",
   "tipo": "exato",
   "arquivos": [
@@ -1777,6 +1978,13 @@
   "tipo": "exato",
   "arquivos": [
    "layouts/AppLayout.tsx"
+  ]
+ },
+ {
+  "texto": "A busca nos planos de governo",
+  "tipo": "exato",
+  "arquivos": [
+   "router.tsx"
   ]
  },
  {
@@ -1894,6 +2102,20 @@
   ]
  },
  {
+  "texto": "A idade é a de cada eleito no dia da posse, 1º de fevereiro do ano seguinte à eleição, calculada pela data de nascimento informada ao TSE. As datas de nascimento não são publicadas aqui, nem nomes: esta página só mostra contagens.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx"
+  ]
+ },
+ {
+  "texto": "A imagem é gerada no seu aparelho, só com os dados oficiais já mostrados nesta página, a fonte e o link para conferir.",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/BotaoCompartilharImagem.tsx"
+  ]
+ },
+ {
   "texto": "A Justiça Eleitoral aprovou o registro da candidatura.",
   "tipo": "exato",
   "arquivos": [
@@ -1985,10 +2207,24 @@
   ]
  },
  {
+  "texto": "A partir de {0}",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx"
+  ]
+ },
+ {
   "texto": "A pessoa desistiu da candidatura.",
   "tipo": "exato",
   "arquivos": [
    "components/election/StatusChip.tsx"
+  ]
+ },
+ {
+  "texto": "A pessoa reeleita é reconhecida pelo nome completo, nome social ou nome de urna, dentro da mesma Casa e do mesmo estado, nos arquivos do TSE das eleições anteriores. Nas Assembleias, a Câmara Legislativa do Distrito Federal está somada às 26 Assembleias Legislativas.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx"
   ]
  },
  {
@@ -2031,6 +2267,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "A totalização do TSE ainda não terminou em todos os estados: os números desta Casa podem mudar.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx"
   ]
  },
  {
@@ -2132,6 +2375,7 @@
    "components/AuroraBackground.tsx",
    "components/brand/PoweredByFaisca.tsx",
    "components/charts/charts.tsx",
+   "components/mapa/MapaCanvas.tsx",
    "components/urna/DigitBoxes.tsx",
    "pages/election/SimuladorPage.tsx"
   ]
@@ -2156,6 +2400,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/legal/TermosPage.tsx"
+  ]
+ },
+ {
+  "texto": "Acentos e maiúsculas não fazem diferença. A busca acha palavras que começam pelo termo (“escola” acha “escolas”).",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
   ]
  },
  {
@@ -2199,6 +2450,7 @@
   "arquivos": [
    "components/avisos/AvisoResultado.tsx",
    "pages/election/EmendasPage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/MinhaCidadePage.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
@@ -2295,6 +2547,13 @@
   ]
  },
  {
+  "texto": "Afastar",
+  "tipo": "exato",
+  "arquivos": [
+   "components/mapa/MapaCanvas.tsx"
+  ]
+ },
+ {
   "texto": "Afastou-se por motivo de saúde e foi impedido pelo Congresso de reassumir.",
   "tipo": "exato",
   "arquivos": [
@@ -2340,10 +2599,24 @@
   ]
  },
  {
+  "texto": "Agricultura",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
+  ]
+ },
+ {
   "texto": "aguardando",
   "tipo": "exato",
   "arquivos": [
    "pages/election/SimuladorPage.tsx"
+  ]
+ },
+ {
+  "texto": "Aguardando a totalização final do TSE neste município.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -2375,6 +2648,20 @@
   ]
  },
  {
+  "texto": "Ainda não há dados desta Casa.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx"
+  ]
+ },
+ {
+  "texto": "Ainda não há disputas de 2º turno confirmadas. Os planos aparecem aqui assim que o TSE confirmar os finalistas.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
+  ]
+ },
+ {
   "texto": "Ainda não há finalistas confirmados. Assim que o TSE marcar as candidaturas que vão ao 2º turno na apuração do 1º turno, as disputas aparecem aqui, com a comparação lado a lado. A página consulta o TSE a cada minuto.",
   "tipo": "exato",
   "arquivos": [
@@ -2395,6 +2682,7 @@
   "arquivos": [
    "components/avisos/AvisoResultado.tsx",
    "pages/election/EmendasPage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/MinhaCidadePage.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
@@ -2462,6 +2750,7 @@
   "arquivos": [
    "components/avisos/AvisoResultado.tsx",
    "pages/election/EmendasPage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/MinhaCidadePage.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
@@ -2472,6 +2761,7 @@
   "arquivos": [
    "components/avisos/AvisoResultado.tsx",
    "pages/election/EmendasPage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/MinhaCidadePage.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
@@ -2533,6 +2823,13 @@
   "arquivos": [
    "components/emendas/EmendasIndicadas.tsx",
    "pages/election/EmendasPage.tsx"
+  ]
+ },
+ {
+  "texto": "anonymous",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/desenho.ts"
   ]
  },
  {
@@ -2670,6 +2967,13 @@
   ]
  },
  {
+  "texto": "Aproximar",
+  "tipo": "exato",
+  "arquivos": [
+   "components/mapa/MapaCanvas.tsx"
+  ]
+ },
+ {
   "texto": "apur",
   "tipo": "exato",
   "arquivos": [
@@ -2733,11 +3037,25 @@
   ]
  },
  {
+  "texto": "arquivo oficial",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx"
+  ]
+ },
+ {
   "texto": "Arquivo oficial",
   "tipo": "exato",
   "arquivos": [
    "components/election/SourceNote.tsx",
    "components/resultados/ApuracaoAoVivo.tsx"
+  ]
+ },
+ {
+  "texto": "Arquivo oficial do município no TSE",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -2775,6 +3093,13 @@
   "tipo": "padrao",
   "arquivos": [
    "pages/election/HomePage.tsx"
+  ]
+ },
+ {
+  "texto": "As 10 ocupações mais declaradas em cada ano, com o nome usado pelo TSE (“Deputado” e “Senador” são ocupações declaradas por quem já tinha mandato; “Outros” é uma categoria do próprio TSE).",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx"
   ]
  },
  {
@@ -2891,9 +3216,17 @@
   ]
  },
  {
+  "texto": "assembleias",
+  "tipo": "exato",
+  "arquivos": [
+   "components/congresso/perfil.ts"
+  ]
+ },
+ {
   "texto": "Assembleias",
   "tipo": "exato",
   "arquivos": [
+   "components/congresso/perfil.ts",
    "pages/election/PlenarioPage.tsx"
   ]
  },
@@ -2922,6 +3255,7 @@
   "texto": "async",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/desenho.ts",
    "components/election/CandidatePhoto.tsx"
   ]
  },
@@ -3011,6 +3345,13 @@
   ]
  },
  {
+  "texto": "Atualizado em",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx"
+  ]
+ },
+ {
   "texto": "authenticated",
   "tipo": "exato",
   "arquivos": [
@@ -3053,6 +3394,7 @@
   "texto": "Autodeclaração feita no registro da candidatura.",
   "tipo": "exato",
   "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx",
    "pages/election/NumerosPage.tsx"
   ]
  },
@@ -3198,8 +3540,31 @@
   "arquivos": [
    "components/avisos/AvisoResultado.tsx",
    "pages/election/EmendasPage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/MinhaCidadePage.tsx",
    "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "baixado",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/BotaoCompartilharImagem.tsx",
+   "components/compartilhar/compartilhar.ts"
+  ]
+ },
+ {
+  "texto": "Baixar",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/BotaoCompartilharImagem.tsx"
+  ]
+ },
+ {
+  "texto": "Baixar imagem e copiar link",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/BotaoCompartilharImagem.tsx"
   ]
  },
  {
@@ -3221,6 +3586,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "base",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
   ]
  },
  {
@@ -3312,7 +3684,8 @@
   "tipo": "exato",
   "arquivos": [
    "components/gastos/RankingList.tsx",
-   "components/urna/UrnaScreen.tsx"
+   "components/urna/UrnaScreen.tsx",
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -3374,6 +3747,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/avisos/AvisoResultado.tsx",
+   "components/compartilhar/dados.ts",
    "components/election/CandidateCard.tsx",
    "components/election/CandidateSearch.tsx",
    "components/gastos/RankingList.tsx",
@@ -3431,13 +3805,29 @@
   "texto": "Brasil",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/dados.ts",
    "components/election/CandidateCard.tsx",
    "components/election/CandidateSearch.tsx",
    "components/resultados/ApuracaoAoVivo.tsx",
    "pages/election/CandidatoPage.tsx",
    "pages/election/CompararPage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/NumerosPage.tsx",
    "pages/election/SegundoTurnoPage.tsx"
+  ]
+ },
+ {
+  "texto": "Brasil (sem o exterior)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Brasil inteiro",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -3445,6 +3835,7 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/EmendasPage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/MinhaCidadePage.tsx"
   ]
  },
@@ -3539,6 +3930,34 @@
   ]
  },
  {
+  "texto": "Buscar município",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Buscar nos planos de governo",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/SegundoTurnoPage.tsx"
+  ]
+ },
+ {
+  "texto": "Buscar nos planos para Governador(a) · {0}",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
+  ]
+ },
+ {
+  "texto": "Buscar nos planos para Presidente",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
+  ]
+ },
+ {
   "texto": "Buscar por nome",
   "tipo": "exato",
   "arquivos": [
@@ -3552,6 +3971,13 @@
    "components/election/CandidateSearch.tsx",
    "pages/election/ColaPage.tsx",
    "pages/election/HomePage.tsx"
+  ]
+ },
+ {
+  "texto": "Busque um tema nos planos de governo que os finalistas do 2º turno registraram no TSE e veja, lado a lado, onde cada plano trata dele.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
   ]
  },
  {
@@ -3574,6 +4000,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/CompararPage.tsx"
+  ]
+ },
+ {
+  "texto": "Cada município recebe a cor da faixa em que está a porcentagem dos votos válidos da candidatura escolhida: 10 faixas de 10 pontos (0 a 10%, 10 a 20%... 90 a 100%). A escala é fixa e igual para todas as candidaturas, então a mesma cor quer dizer a mesma porcentagem, seja qual for a escolha. O mapa não pinta ninguém como vencedor: para comparar, troque a candidatura escolhida ou toque num município.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -3654,6 +4087,13 @@
   ]
  },
  {
+  "texto": "calc({0}px - 100%)",
+  "tipo": "padrao",
+  "arquivos": [
+   "components/mapa/MapaCanvas.tsx"
+  ]
+ },
+ {
   "texto": "calculada na data do 1º turno (4/10/2026) a partir da data de nascimento publicada pelo TSE.",
   "tipo": "exato",
   "arquivos": [
@@ -3664,8 +4104,11 @@
   "texto": "camara",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/dados.ts",
+   "components/congresso/perfil.ts",
    "components/votacoes/VotacoesNominais.tsx",
    "pages/election/CandidatoPage.tsx",
+   "pages/election/CongressoEleitoPage.tsx",
    "pages/election/GastosPage.tsx",
    "pages/election/ParlamentarPage.tsx",
    "pages/election/PlenarioPage.tsx"
@@ -3675,6 +4118,7 @@
   "texto": "Câmara",
   "tipo": "exato",
   "arquivos": [
+   "components/congresso/perfil.ts",
    "components/gastos/gastos.ts",
    "pages/election/GastosPage.tsx",
    "pages/election/PlenarioPage.tsx"
@@ -3684,7 +4128,8 @@
   "texto": "Câmara dos Deputados",
   "tipo": "exato",
   "arquivos": [
-   "components/election/SourceNote.tsx",
+   "components/compartilhar/dados.ts",
+   "components/election/orgao.ts",
    "components/gastos/gastos.ts",
    "pages/election/CandidatoPage.tsx",
    "pages/election/PartidoPage.tsx",
@@ -3755,9 +4200,18 @@
   ]
  },
  {
+  "texto": "cancelado",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/BotaoCompartilharImagem.tsx",
+   "components/compartilhar/compartilhar.ts"
+  ]
+ },
+ {
   "texto": "Cancelar",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/BotaoCompartilharImagem.tsx",
    "components/conta/ContaPerfil.tsx"
   ]
  },
@@ -3772,6 +4226,7 @@
   "texto": "cancelled",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/compartilhar.ts",
    "native/platform.ts"
   ]
  },
@@ -3826,6 +4281,7 @@
   "arquivos": [
    "pages/election/CompararPage.tsx",
    "pages/election/HomePage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/PesquisasPage.tsx"
   ]
  },
@@ -3833,6 +4289,7 @@
   "texto": "Candidatura em 2026",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/dados.ts",
    "pages/election/ParlamentarPage.tsx"
   ]
  },
@@ -3897,6 +4354,7 @@
   "texto": "Candidaturas anteriores (desde 2004)",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/dados.ts",
    "pages/election/CompararPage.tsx"
   ]
  },
@@ -3971,6 +4429,21 @@
   ]
  },
  {
+  "texto": "canvas",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/desenho.ts",
+   "components/mapa/MapaCanvas.tsx"
+  ]
+ },
+ {
+  "texto": "Canvas indisponível",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/desenho.ts"
+  ]
+ },
+ {
   "texto": "Cargo",
   "tipo": "exato",
   "arquivos": [
@@ -4037,6 +4510,13 @@
   ]
  },
  {
+  "texto": "Carregando o texto dos planos…",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
+  ]
+ },
+ {
   "texto": "Carregando…",
   "tipo": "exato",
   "arquivos": [
@@ -4058,6 +4538,13 @@
   ]
  },
  {
+  "texto": "cartao",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/texto.ts"
+  ]
+ },
+ {
   "texto": "carteira de identidade (RG) ou Carteira Nacional de Habilitação (CNH);",
   "tipo": "exato",
   "arquivos": [
@@ -4075,6 +4562,7 @@
   "texto": "Casa legislativa",
   "tipo": "exato",
   "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx",
    "pages/election/GastosPage.tsx"
   ]
  },
@@ -4127,6 +4615,7 @@
   "arquivos": [
    "components/avisos/AvisoResultado.tsx",
    "pages/election/EmendasPage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/MinhaCidadePage.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
@@ -4167,6 +4656,7 @@
    "components/brand/FaiscaCredito.tsx",
    "components/brand/FaiscaMark.tsx",
    "components/brand/PoweredByFaisca.tsx",
+   "components/compartilhar/desenho.ts",
    "components/feedback/NotificationsProvider.tsx",
    "components/partidos/SimboloPartido.tsx",
    "components/resultados/ApuracaoAoVivo.tsx"
@@ -4209,10 +4699,24 @@
   ]
  },
  {
+  "texto": "cidades com seção eleitoral) não aparece no mapa; a votação de cada cidade está na busca por município.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
   "texto": "circular",
   "tipo": "exato",
   "arquivos": [
    "layouts/AppLayout.tsx"
+  ]
+ },
+ {
+  "texto": "clara",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -4371,6 +4875,7 @@
    "pages/election/EmendasPage.tsx",
    "pages/election/GastosPage.tsx",
    "pages/election/HomePage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/MinhaCidadePage.tsx",
    "pages/election/MinistroStfPage.tsx",
    "pages/election/PesquisasPage.tsx",
@@ -4384,6 +4889,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/SegundoTurnoPage.tsx"
+  ]
+ },
+ {
+  "texto": "Com curso superior completo",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx"
   ]
  },
  {
@@ -4495,7 +5007,15 @@
   "texto": "Como contamos",
   "tipo": "exato",
   "arquivos": [
-   "components/votacoes/VotacoesNominais.tsx"
+   "components/votacoes/VotacoesNominais.tsx",
+   "pages/election/CongressoEleitoPage.tsx"
+  ]
+ },
+ {
+  "texto": "Como ler este mapa",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -4532,6 +5052,13 @@
   "tipo": "exato",
   "arquivos": [
    "components/gastos/RankingList.tsx"
+  ]
+ },
+ {
+  "texto": "Comparação · {0} · {1}",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/election/CompararPage.tsx"
   ]
  },
  {
@@ -4587,9 +5114,17 @@
   ]
  },
  {
+  "texto": "compartilhado",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/compartilhar.ts"
+  ]
+ },
+ {
   "texto": "Compartilhar",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/BotaoCompartilharImagem.tsx",
    "pages/election/CandidatoPage.tsx",
    "pages/election/ColaPage.tsx",
    "pages/election/CompararPage.tsx"
@@ -4603,10 +5138,31 @@
   ]
  },
  {
+  "texto": "Compartilhar imagem",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/BotaoCompartilharImagem.tsx"
+  ]
+ },
+ {
+  "texto": "Compartilhar link",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/BotaoCompartilharImagem.tsx"
+  ]
+ },
+ {
   "texto": "Completa 75 anos (aposentadoria compulsória)",
   "tipo": "exato",
   "arquivos": [
    "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "completo",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx"
   ]
  },
  {
@@ -4709,10 +5265,24 @@
   ]
  },
  {
+  "texto": "Conforme declarado ao TSE.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx"
+  ]
+ },
+ {
   "texto": "Congresso Constituinte",
   "tipo": "exato",
   "arquivos": [
    "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Congresso eleito",
+  "tipo": "exato",
+  "arquivos": [
+   "layouts/navigation.ts"
   ]
  },
  {
@@ -4866,6 +5436,7 @@
   "texto": "copied",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/compartilhar.ts",
    "components/share/ShareButton.tsx",
    "native/platform.ts",
    "pages/election/CandidatoPage.tsx",
@@ -4883,6 +5454,7 @@
   "texto": "Cor/raça",
   "tipo": "exato",
   "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx",
    "pages/election/NumerosPage.tsx"
   ]
  },
@@ -4962,7 +5534,22 @@
   "texto": "Cota parlamentar desde 2023",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/dados.ts",
    "pages/election/CompararPage.tsx"
+  ]
+ },
+ {
+  "texto": "Cota parlamentar desde fev/2023",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/dados.ts"
+  ]
+ },
+ {
+  "texto": "Cota parlamentar em {0}",
+  "tipo": "padrao",
+  "arquivos": [
+   "components/compartilhar/dados.ts"
   ]
  },
  {
@@ -5148,6 +5735,13 @@
   ]
  },
  {
+  "texto": "Cultura",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
+  ]
+ },
+ {
   "texto": "cupertino",
   "tipo": "exato",
   "arquivos": [
@@ -5217,7 +5811,8 @@
   "texto": "dados abertos",
   "tipo": "exato",
   "arquivos": [
-   "components/emendas/FonteEmendasNota.tsx"
+   "components/emendas/FonteEmendasNota.tsx",
+   "pages/election/CongressoEleitoPage.tsx"
   ]
  },
  {
@@ -5256,6 +5851,13 @@
   ]
  },
  {
+  "texto": "Dados de {0} ·",
+  "tipo": "padrao",
+  "arquivos": [
+   "components/compartilhar/desenho.ts"
+  ]
+ },
+ {
   "texto": "dados de navegação para estatística, perfil ou publicidade: não usamos Google Analytics, Firebase Analytics, pixels, cookies de rastreamento nem ferramentas parecidas.",
   "tipo": "exato",
   "arquivos": [
@@ -5267,6 +5869,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/legal/PrivacidadePage.tsx"
+  ]
+ },
+ {
+  "texto": "dados oficiais",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/dados.ts"
   ]
  },
  {
@@ -5298,6 +5907,13 @@
   ]
  },
  {
+  "texto": "Dados públicos oficiais · sem recomendação de voto",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/desenho.ts"
+  ]
+ },
+ {
   "texto": "Dados que NÃO coletamos",
   "tipo": "exato",
   "arquivos": [
@@ -5319,6 +5935,7 @@
    "layouts/AuthLayout.tsx",
    "native/NativeBridge.tsx",
    "pages/election/HomePage.tsx",
+   "pages/election/MapaPage.tsx",
    "theme/temas.ts",
    "theme/theme.ts"
   ]
@@ -5354,6 +5971,7 @@
    "data/format.ts",
    "pages/election/ColaPage.tsx",
    "pages/election/GastosPage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/MinistroStfPage.tsx"
   ]
  },
@@ -5397,6 +6015,13 @@
   "tipo": "padrao",
   "arquivos": [
    "components/election/DesfechoChip.tsx"
+  ]
+ },
+ {
+  "texto": "Declararam ao TSE que concorriam à reeleição:",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx"
   ]
  },
  {
@@ -5641,6 +6266,7 @@
   "texto": "Deputado(a) federal",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/dados.ts",
    "data/format.ts",
    "pages/election/ParlamentarPage.tsx"
   ]
@@ -5840,6 +6466,13 @@
   ]
  },
  {
+  "texto": "Despesas contratadas (parcial)",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/dados.ts"
+  ]
+ },
+ {
   "texto": "Despesas contratadas declaradas ao TSE (parcial)",
   "tipo": "exato",
   "arquivos": [
@@ -5924,9 +6557,11 @@
    "components/resultados/hooks.ts",
    "components/urna/ballot.ts",
    "data/apuracao.ts",
+   "data/mapaVotos.ts",
    "data/useMunicipioUsuario.ts",
    "pages/election/EleicaoPage.tsx",
    "pages/election/EmendasPage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/MinhaCidadePage.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
@@ -6043,10 +6678,24 @@
   ]
  },
  {
+  "texto": "Digite pelo menos {0} letras.",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
+  ]
+ },
+ {
   "texto": "Digite sua frase de sincronização",
   "tipo": "exato",
   "arquivos": [
    "components/conta/ContaPerfil.tsx"
+  ]
+ },
+ {
+  "texto": "Digite um termo ou escolha um tema para ver os trechos de cada plano. Candidaturas em ordem alfabética.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
   ]
  },
  {
@@ -6085,6 +6734,13 @@
   ]
  },
  {
+  "texto": "Disputa",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
+  ]
+ },
+ {
   "texto": "Disputas de 2º turno",
   "tipo": "exato",
   "arquivos": [
@@ -6095,6 +6751,7 @@
   "texto": "Disputou o 2º turno",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/dados.ts",
    "components/election/DesfechoChip.tsx"
   ]
  },
@@ -6104,6 +6761,7 @@
   "arquivos": [
    "components/avisos/AvisoResultado.tsx",
    "pages/election/EmendasPage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/MinhaCidadePage.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
@@ -6119,7 +6777,8 @@
   "texto": "DivulgaCandContas (TSE)",
   "tipo": "exato",
   "arquivos": [
-   "layouts/PublicLayout.tsx"
+   "layouts/PublicLayout.tsx",
+   "pages/election/PlanosPage.tsx"
   ]
  },
  {
@@ -6148,6 +6807,7 @@
   "texto": "Do menor ao maior grau declarado.",
   "tipo": "exato",
   "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx",
    "pages/election/NumerosPage.tsx"
   ]
  },
@@ -6324,6 +6984,13 @@
   ]
  },
  {
+  "texto": "Educação",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
+  ]
+ },
+ {
   "texto": "Ela criptografa suas escolhas antes de saírem deste aparelho. Use pelo menos 8 caracteres e guarde-a: sem ela, ninguém (nem você) consegue abrir o que ficou no servidor.",
   "tipo": "exato",
   "arquivos": [
@@ -6487,6 +7154,13 @@
   ]
  },
  {
+  "texto": "Eleições 2026 · dados oficiais",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/desenho.ts"
+  ]
+ },
+ {
   "texto": "Eleições 2026 · votação encerrada",
   "tipo": "exato",
   "arquivos": [
@@ -6518,6 +7192,7 @@
   "texto": "Eleita",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/dados.ts",
    "components/election/DesfechoChip.tsx",
    "components/resultados/CartaoEleitos.tsx",
    "pages/election/HomePage.tsx",
@@ -6542,6 +7217,7 @@
   "texto": "eleito",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/dados.ts",
    "components/election/DesfechoChip.tsx",
    "components/resultados/ApuracaoAoVivo.tsx",
    "data/apuracao.ts"
@@ -6551,6 +7227,7 @@
   "texto": "Eleito",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/dados.ts",
    "components/election/DesfechoChip.tsx",
    "components/resultados/CartaoEleitos.tsx",
    "pages/election/HomePage.tsx",
@@ -6627,7 +7304,15 @@
   "texto": "eleitos",
   "tipo": "exato",
   "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx",
    "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Eleitos",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx"
   ]
  },
  {
@@ -6645,6 +7330,13 @@
   ]
  },
  {
+  "texto": "Eleitos em {0}",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx"
+  ]
+ },
+ {
   "texto": "Eleitos em 2022 que concorrem a outro cargo em 2026 e, por isso, tiveram de deixar o mandato até 6 meses antes da eleição (Constituição, art. 14, § 6º).",
   "tipo": "exato",
   "arquivos": [
@@ -6656,6 +7348,20 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/MinhaCidadePage.tsx"
+  ]
+ },
+ {
+  "texto": "Eleitos em cada eleição",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx"
+  ]
+ },
+ {
+  "texto": "Eleitos são as candidaturas com a situação “Eleito”, “Eleito por QP” ou “Eleito por média” nos arquivos de candidaturas do TSE, só na eleição geral ordinária. Gênero, cor/raça, grau de instrução e ocupação são os declarados no registro da candidatura, com os nomes usados pelo TSE.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx"
   ]
  },
  {
@@ -6712,6 +7418,7 @@
   "texto": "Em exercício",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/dados.ts",
    "pages/election/CandidatoPage.tsx",
    "pages/election/ParlamentarPage.tsx",
    "pages/presidentes/PresidentesPage.tsx"
@@ -6946,6 +7653,13 @@
   ]
  },
  {
+  "texto": "Emprego",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
+  ]
+ },
+ {
   "texto": "Encontrou divergência com a fonte oficial? A fonte oficial sempre prevalece. Cada bloco de dados indica o arquivo de origem e a data da coleta.",
   "tipo": "exato",
   "arquivos": [
@@ -6973,6 +7687,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/CandidatoPage.tsx"
+  ]
+ },
+ {
+  "texto": "Enquadrar de novo",
+  "tipo": "exato",
+  "arquivos": [
+   "components/mapa/MapaCanvas.tsx"
   ]
  },
  {
@@ -7114,6 +7835,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/avisos/AvisoResultado.tsx",
+   "components/compartilhar/BotaoCompartilharImagem.tsx",
    "components/conta/ContaPerfil.tsx",
    "data/sync/perfil.ts"
   ]
@@ -7129,13 +7851,16 @@
   "texto": "error",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/BotaoCompartilharImagem.tsx",
    "components/conta/ContaPerfil.tsx",
    "components/election/StatusChip.tsx",
    "pages/election/CandidatoPage.tsx",
    "pages/election/ColaPage.tsx",
+   "pages/election/CongressoEleitoPage.tsx",
    "pages/election/EleicaoPage.tsx",
    "pages/election/EmendasPage.tsx",
    "pages/election/GastosPage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/NumerosPage.tsx",
    "pages/election/ParlamentarPage.tsx",
    "pages/election/PesquisasPage.tsx",
@@ -7148,6 +7873,13 @@
   "arquivos": [
    "components/election/brazilMapData.ts",
    "components/resultados/hooks.ts"
+  ]
+ },
+ {
+  "texto": "Escala de 10 faixas de 10 pontos percentuais, de 0% (cor mais",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -7223,10 +7955,31 @@
   ]
  },
  {
+  "texto": "Escolha uma candidatura",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Escolha uma candidatura para colorir o mapa. Nenhuma vem escolhida de início, e as cores mostram só a porcentagem de quem você escolher, na mesma escala para todas: o mapa não aponta quem venceu em cada lugar.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
   "texto": "Escolhas sincronizadas e criptografadas.",
   "tipo": "exato",
   "arquivos": [
    "components/conta/ContaPerfil.tsx"
+  ]
+ },
+ {
+  "texto": "Escolher a disputa",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
   ]
  },
  {
@@ -7244,6 +7997,13 @@
   ]
  },
  {
+  "texto": "escura",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
   "texto": "Escuro",
   "tipo": "exato",
   "arquivos": [
@@ -7256,6 +8016,7 @@
   "arquivos": [
    "components/avisos/AvisoResultado.tsx",
    "pages/election/EmendasPage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/MinhaCidadePage.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
@@ -7324,6 +8085,7 @@
   "arquivos": [
    "pages/election/EleicaoPage.tsx",
    "pages/election/EmendasPage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/MinhaCidadePage.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
@@ -7479,6 +8241,13 @@
   ]
  },
  {
+  "texto": "Ex.: creche, saneamento, emprego",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
+  ]
+ },
+ {
   "texto": "Exatidão das informações",
   "tipo": "exato",
   "arquivos": [
@@ -7518,6 +8287,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/GastosPage.tsx"
+  ]
+ },
+ {
+  "texto": "Exterior",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -7599,7 +8375,23 @@
   "texto": "Faixa etária",
   "tipo": "exato",
   "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx",
    "pages/election/NumerosPage.tsx"
+  ]
+ },
+ {
+  "texto": "Falha ao gerar a imagem",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/desenho.ts"
+  ]
+ },
+ {
+  "texto": "falhou",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/BotaoCompartilharImagem.tsx",
+   "components/compartilhar/compartilhar.ts"
   ]
  },
  {
@@ -7669,6 +8461,7 @@
   "texto": "Feminino",
   "tipo": "exato",
   "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx",
    "pages/election/EleicaoPage.tsx",
    "pages/election/NumerosPage.tsx"
   ]
@@ -7979,6 +8772,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/votacoes/VotacoesNominais.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
  },
@@ -8008,6 +8802,13 @@
   "tipo": "exato",
   "arquivos": [
    "components/noticias/FeedNoticias.tsx"
+  ]
+ },
+ {
+  "texto": "Fonte: {0}",
+  "tipo": "padrao",
+  "arquivos": [
+   "components/compartilhar/dados.ts"
   ]
  },
  {
@@ -8070,6 +8871,7 @@
   "texto": "Fora de exercício",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/dados.ts",
    "pages/election/ParlamentarPage.tsx"
   ]
  },
@@ -8078,6 +8880,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/CandidatoPage.tsx"
+  ]
+ },
+ {
+  "texto": "Formato da imagem",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/BotaoCompartilharImagem.tsx"
   ]
  },
  {
@@ -8099,6 +8908,7 @@
    "pages/election/EleicaoPage.tsx",
    "pages/election/HomePage.tsx",
    "pages/election/PartidoPage.tsx",
+   "pages/election/PlanosPage.tsx",
    "pages/election/SegundoTurnoPage.tsx"
   ]
  },
@@ -8159,6 +8969,7 @@
   "texto": "function",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/compartilhar.ts",
    "components/share/ShareButton.tsx",
    "data/localStore.ts",
    "native/platform.ts"
@@ -8308,6 +9119,7 @@
   "arquivos": [
    "pages/election/CandidatoPage.tsx",
    "pages/election/CompararPage.tsx",
+   "pages/election/CongressoEleitoPage.tsx",
    "pages/election/EleicaoPage.tsx",
    "pages/election/NumerosPage.tsx"
   ]
@@ -8342,6 +9154,13 @@
   ]
  },
  {
+  "texto": "Gerando a imagem",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/BotaoCompartilharImagem.tsx"
+  ]
+ },
+ {
   "texto": "Getúlio Vargas",
   "tipo": "exato",
   "arquivos": [
@@ -8362,6 +9181,7 @@
   "arquivos": [
    "components/avisos/AvisoResultado.tsx",
    "pages/election/EmendasPage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/MinhaCidadePage.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
@@ -8505,6 +9325,13 @@
   ]
  },
  {
+  "texto": "grab",
+  "tipo": "exato",
+  "arquivos": [
+   "components/mapa/MapaCanvas.tsx"
+  ]
+ },
+ {
   "texto": "grafite",
   "tipo": "exato",
   "arquivos": [
@@ -8539,6 +9366,7 @@
   "arquivos": [
    "pages/election/CandidatoPage.tsx",
    "pages/election/CompararPage.tsx",
+   "pages/election/CongressoEleitoPage.tsx",
    "pages/election/NumerosPage.tsx"
   ]
  },
@@ -8658,6 +9486,7 @@
   "arquivos": [
    "components/brand/PoweredByFaisca.tsx",
    "components/charts/charts.tsx",
+   "components/mapa/MapaCanvas.tsx",
    "components/partidos/SimboloPartido.tsx",
    "components/urna/UrnaScreen.tsx",
    "pages/election/ColaPage.tsx",
@@ -8727,6 +9556,13 @@
   ]
  },
  {
+  "texto": "Idade em anos completos no dia da posse.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx"
+  ]
+ },
+ {
   "texto": "Idade em anos completos.",
   "tipo": "exato",
   "arquivos": [
@@ -8734,9 +9570,17 @@
   ]
  },
  {
+  "texto": "Idade mediana na posse",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx"
+  ]
+ },
+ {
   "texto": "Idade na eleição",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/dados.ts",
    "pages/election/CandidatoPage.tsx",
    "pages/election/CompararPage.tsx"
   ]
@@ -8763,11 +9607,33 @@
   ]
  },
  {
+  "texto": "Imagem baixada e link da página copiado.",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/BotaoCompartilharImagem.tsx"
+  ]
+ },
+ {
+  "texto": "Imagem baixada.",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/BotaoCompartilharImagem.tsx"
+  ]
+ },
+ {
+  "texto": "Imagem para compartilhar",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/BotaoCompartilharImagem.tsx"
+  ]
+ },
+ {
   "texto": "img",
   "tipo": "exato",
   "arquivos": [
    "components/charts/charts.tsx",
    "components/election/UfTileMap.tsx",
+   "components/mapa/MapaCanvas.tsx",
    "components/urna/DigitBoxes.tsx",
    "pages/election/MinistroStfPage.tsx"
   ]
@@ -8784,6 +9650,13 @@
   "tipo": "exato",
   "arquivos": [
    "components/stf/stf.ts"
+  ]
+ },
+ {
+  "texto": "Impostos",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
   ]
  },
  {
@@ -8907,6 +9780,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/avisos/AvisoResultado.tsx",
+   "components/compartilhar/BotaoCompartilharImagem.tsx",
    "components/election/CandidateCard.tsx",
    "components/gastos/AvisosAlerts.tsx",
    "components/resultados/ApuracaoAoVivo.tsx",
@@ -8915,12 +9789,15 @@
    "pages/election/ColaPage.tsx",
    "pages/election/ComoVotarPage.tsx",
    "pages/election/CompararPage.tsx",
+   "pages/election/CongressoEleitoPage.tsx",
    "pages/election/EleicaoPage.tsx",
    "pages/election/EmendasPage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/MinhaCidadePage.tsx",
    "pages/election/MinistroStfPage.tsx",
    "pages/election/PartidoPage.tsx",
    "pages/election/PesquisasPage.tsx",
+   "pages/election/PlanosPage.tsx",
    "pages/election/PlenarioPage.tsx",
    "pages/election/SegundoTurnoPage.tsx",
    "pages/election/SimuladorPage.tsx",
@@ -9348,7 +10225,9 @@
   "texto": "left",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/desenho.ts",
    "components/election/SourceNote.tsx",
+   "components/mapa/MapaCanvas.tsx",
    "pages/election/HomePage.tsx"
   ]
  },
@@ -9483,7 +10362,8 @@
    "components/AparenciaMenu.tsx",
    "components/ColorModeToggle.tsx",
    "components/charts/charts.tsx",
-   "native/NativeBridge.tsx"
+   "native/NativeBridge.tsx",
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -9601,9 +10481,17 @@
   ]
  },
  {
+  "texto": "link",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/compartilhar.ts"
+  ]
+ },
+ {
   "texto": "Link copiado.",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/BotaoCompartilharImagem.tsx",
    "components/share/ShareButton.tsx",
    "pages/election/CandidatoPage.tsx"
   ]
@@ -9664,6 +10552,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/ColaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Lista oficial de municípios",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -9890,6 +10785,13 @@
   ]
  },
  {
+  "texto": "Mais sobre",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
   "texto": "Mais votos",
   "tipo": "exato",
   "arquivos": [
@@ -10004,6 +10906,35 @@
   ]
  },
  {
+  "texto": "Mapa do voto",
+  "tipo": "exato",
+  "arquivos": [
+   "layouts/navigation.ts",
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Mapa do voto para Presidente por município",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/ResultadosPage.tsx"
+  ]
+ },
+ {
+  "texto": "Mapa dos municípios com a porcentagem dos votos válidos de {0}. Os números estão na tabela por estado e na busca por município.",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Mapa dos municípios do Brasil. Escolha uma candidatura para colorir. Os números estão na tabela por estado e na busca por município.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
   "texto": "mar",
   "tipo": "exato",
   "arquivos": [
@@ -10017,6 +10948,7 @@
   "arquivos": [
    "components/avisos/AvisoResultado.tsx",
    "pages/election/EmendasPage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/MinhaCidadePage.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
@@ -10093,6 +11025,7 @@
   "arquivos": [
    "components/avisos/AvisoResultado.tsx",
    "pages/election/EmendasPage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/MinhaCidadePage.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
@@ -10103,6 +11036,7 @@
   "arquivos": [
    "components/avisos/AvisoResultado.tsx",
    "pages/election/EmendasPage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/MinhaCidadePage.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
@@ -10145,6 +11079,13 @@
   ]
  },
  {
+  "texto": "Média por mês com lançamento ({0})",
+  "tipo": "padrao",
+  "arquivos": [
+   "components/compartilhar/dados.ts"
+  ]
+ },
+ {
   "texto": "Média por mês deste parlamentar: {0}. Média das médias mensais na {1} em {2}, no mesmo período: {3} ({4} parlamentares com lançamentos, incluindo este).",
   "tipo": "padrao",
   "arquivos": [
@@ -10178,6 +11119,13 @@
   "arquivos": [
    "components/brand/BrandLogo.tsx",
    "components/election/CandidateSearch.tsx"
+  ]
+ },
+ {
+  "texto": "Meio ambiente",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
   ]
  },
  {
@@ -10294,6 +11242,7 @@
   "texto": "middle",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/desenho.ts",
    "components/election/UfTileMap.tsx",
    "components/stf/PlenarioStf.tsx",
    "pages/election/PlenarioPage.tsx"
@@ -10319,6 +11268,7 @@
   "arquivos": [
    "components/avisos/AvisoResultado.tsx",
    "pages/election/EmendasPage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/MinhaCidadePage.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
@@ -10487,6 +11437,13 @@
   ]
  },
  {
+  "texto": "Moradia",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
+  ]
+ },
+ {
   "texto": "Morte no cargo (suicídio).",
   "tipo": "exato",
   "arquivos": [
@@ -10537,6 +11494,13 @@
   ]
  },
  {
+  "texto": "Mostrar mais páginas (",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
+  ]
+ },
+ {
   "texto": "Mostrar menos",
   "tipo": "exato",
   "arquivos": [
@@ -10584,6 +11548,13 @@
   ]
  },
  {
+  "texto": "mouse",
+  "tipo": "exato",
+  "arquivos": [
+   "components/mapa/MapaCanvas.tsx"
+  ]
+ },
+ {
   "texto": "MS",
   "tipo": "exato",
   "arquivos": [
@@ -10610,6 +11581,7 @@
   "texto": "Mulheres",
   "tipo": "exato",
   "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx",
    "pages/election/NumerosPage.tsx"
   ]
  },
@@ -10657,6 +11629,13 @@
   "tipo": "exato",
   "arquivos": [
    "components/emendas/EmendasIndicadas.tsx"
+  ]
+ },
+ {
+  "texto": "Municípios",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -10838,6 +11817,34 @@
   ]
  },
  {
+  "texto": "Não foi possível carregar o mapa agora. Tente de novo em instantes.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Não foi possível carregar o perfil dos eleitos.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx"
+  ]
+ },
+ {
+  "texto": "Não foi possível carregar o texto dos planos desta disputa agora.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
+  ]
+ },
+ {
+  "texto": "Não foi possível carregar os contornos dos municípios. A tabela abaixo traz os números.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
   "texto": "Não foi possível carregar os dados agora. Tente de novo em instantes.",
   "tipo": "exato",
   "arquivos": [
@@ -10871,6 +11878,20 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/EleicaoPage.tsx"
+  ]
+ },
+ {
+  "texto": "Não foi possível carregar os planos de governo agora.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
+  ]
+ },
+ {
+  "texto": "Não foi possível compartilhar agora.",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/BotaoCompartilharImagem.tsx"
   ]
  },
  {
@@ -10909,6 +11930,13 @@
   ]
  },
  {
+  "texto": "Não foi possível gerar a imagem neste aparelho. O link da página continua disponível no botão de compartilhar.",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/BotaoCompartilharImagem.tsx"
+  ]
+ },
+ {
   "texto": "Não foi possível ligar os avisos agora. Tente de novo em instantes.",
   "tipo": "exato",
   "arquivos": [
@@ -10941,6 +11969,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/ParlamentarPage.tsx"
+  ]
+ },
+ {
+  "texto": "Não há plano de governo desta candidatura publicado pelo TSE.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
   ]
  },
  {
@@ -10993,6 +12028,7 @@
   "texto": "Não se aplica",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/dados.ts",
    "pages/election/CompararPage.tsx"
   ]
  },
@@ -11056,6 +12092,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/legal/PrivacidadePage.tsx"
+  ]
+ },
+ {
+  "texto": "Nenhum bem declarado",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/dados.ts"
   ]
  },
  {
@@ -11145,6 +12188,13 @@
   ]
  },
  {
+  "texto": "Nenhuma (mapa sem cores)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
   "texto": "Nenhuma candidatura anterior encontrada no histórico do TSE (desde 2004).",
   "tipo": "exato",
   "arquivos": [
@@ -11205,6 +12255,20 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/SobrePage.tsx"
+  ]
+ },
+ {
+  "texto": "Nenhuma menção encontrada neste plano.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
+  ]
+ },
+ {
+  "texto": "Nenhuma no período",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/dados.ts"
   ]
  },
  {
@@ -11317,6 +12381,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/partidos/partidos.ts",
+   "components/planos/busca.ts",
    "data/format.ts"
   ]
  },
@@ -11354,7 +12419,9 @@
   "arquivos": [
    "components/IdiomaMenu.tsx",
    "components/votacoes/VotacoesNominais.tsx",
-   "pages/election/MinistroStfPage.tsx"
+   "pages/election/MapaPage.tsx",
+   "pages/election/MinistroStfPage.tsx",
+   "pages/election/PlanosPage.tsx"
   ]
  },
  {
@@ -11376,6 +12443,13 @@
   "tipo": "padrao",
   "arquivos": [
    "components/emendas/EmendasIndicadas.tsx"
+  ]
+ },
+ {
+  "texto": "No aplicativo, o compartilhamento envia o link desta página, que abre com a prévia própria.",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/BotaoCompartilharImagem.tsx"
   ]
  },
  {
@@ -11453,6 +12527,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "no total",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx"
   ]
  },
  {
@@ -11542,11 +12623,13 @@
    "components/brand/FaiscaMark.tsx",
    "components/brand/PoweredByFaisca.tsx",
    "components/election/UfTileMap.tsx",
+   "components/mapa/MapaCanvas.tsx",
    "components/stf/PlenarioStf.tsx",
    "components/urna/UrnaScreen.tsx",
    "layouts/AppLayout.tsx",
    "layouts/PublicLayout.tsx",
    "pages/election/HomePage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/PlenarioPage.tsx",
    "theme/temas.ts",
    "theme/theme.ts"
@@ -11558,6 +12641,13 @@
   "arquivos": [
    "layouts/PublicLayout.tsx",
    "pages/election/ColaPage.tsx"
+  ]
+ },
+ {
+  "texto": "noopener",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/compartilhar.ts"
   ]
  },
  {
@@ -11576,13 +12666,16 @@
    "layouts/PublicLayout.tsx",
    "pages/election/CandidatoPage.tsx",
    "pages/election/ComoVotarPage.tsx",
+   "pages/election/CongressoEleitoPage.tsx",
    "pages/election/EmendasPage.tsx",
    "pages/election/GastosPage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/MinhaCidadePage.tsx",
    "pages/election/MinistroStfPage.tsx",
    "pages/election/ParlamentarPage.tsx",
    "pages/election/PartidoPage.tsx",
    "pages/election/PesquisasPage.tsx",
+   "pages/election/PlanosPage.tsx",
    "pages/election/PlenarioPage.tsx",
    "pages/election/SobrePage.tsx",
    "pages/legal/LegalDoc.tsx",
@@ -11614,6 +12707,13 @@
    "pages/election/CandidatoPage.tsx",
    "pages/election/EleicaoPage.tsx",
    "theme/temas.ts"
+  ]
+ },
+ {
+  "texto": "nos municípios já totalizados",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -11676,6 +12776,13 @@
   ]
  },
  {
+  "texto": "Novos na Casa",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx"
+  ]
+ },
+ {
   "texto": "nowrap",
   "tipo": "exato",
   "arquivos": [
@@ -11711,6 +12818,7 @@
   "texto": "number",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/desenho.ts",
    "data/apuracao.ts"
   ]
  },
@@ -11882,6 +12990,13 @@
   ]
  },
  {
+  "texto": "O exterior (",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
   "texto": "O gasto passa por estágios:",
   "tipo": "exato",
   "arquivos": [
@@ -11924,10 +13039,38 @@
   ]
  },
  {
+  "texto": "O mapa aparece depois que o TSE concluir a totalização dos municípios. Enquanto isso, acompanhe a apuração em",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
+  "texto": "o município",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
   "texto": "O nome ainda aparece na urna porque ela foi preparada antes da decisão. A validade dos votos segue as regras da Justiça Eleitoral: consulte o TSE.",
   "tipo": "exato",
   "arquivos": [
    "components/election/StatusChip.tsx"
+  ]
+ },
+ {
+  "texto": "O número de menções não mede a qualidade, a viabilidade nem o compromisso com uma proposta: um plano pode tratar de um tema com outras palavras, em mais ou menos páginas. Os textos são reproduzidos como registrados no TSE, sem edição. A leitura automática do PDF pode ter falhas; cada resultado leva à página do documento oficial.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
+  ]
+ },
+ {
+  "texto": "O PDF deste plano é imagem digitalizada, sem texto que possa ser lido automaticamente: a busca não alcança esse conteúdo. Consulte o documento oficial.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
   ]
  },
  {
@@ -11942,6 +13085,20 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/StatusChip.tsx"
+  ]
+ },
+ {
+  "texto": "O perfil dos eleitos ainda não foi publicado. Ele é atualizado automaticamente a partir dos dados abertos do TSE.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx"
+  ]
+ },
+ {
+  "texto": "O que comparar no Senado",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx"
   ]
  },
  {
@@ -12030,6 +13187,13 @@
   ]
  },
  {
+  "texto": "O Senado renova um terço das cadeiras (27) e dois terços (54) em eleições alternadas: por isso em 2022 foram eleitos 27 senadores e em 2026, 54. As porcentagens permitem comparar grupos de tamanhos diferentes. O Senado completo soma os eleitos na eleição com os eleitos 4 anos antes, que continuam no mandato (titulares eleitos; suplentes em exercício não entram).",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx"
+  ]
+ },
+ {
   "texto": "O serviço é oferecido gratuitamente, “no estado em que se encontra”, e pode ficar fora do ar, mudar ou ser encerrado (por exemplo, ao fim do período eleitoral). Na medida permitida pela lei, o responsável não responde por decisões tomadas exclusivamente com base nas informações exibidas, por erros das fontes oficiais nem por indisponibilidade de sites de terceiros.",
   "tipo": "exato",
   "arquivos": [
@@ -12072,6 +13236,13 @@
   ]
  },
  {
+  "texto": "O tamanho de um município no mapa não diz quantos eleitores ele tem: áreas grandes podem ter poucos votos, e capitais pequenas no mapa reúnem milhões. A tabela por estado e o quadro do município mostram os números absolutos.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
   "texto": "O teto mensal varia por UF porque inclui o custo de deslocamento até Brasília. A Câmara publica esse valor por UF; o Senado Federal não publica, em formato aberto, o teto da cota por UF, por isso ele não é exibido para senadores.",
   "tipo": "exato",
   "arquivos": [
@@ -12100,6 +13271,13 @@
   ]
  },
  {
+  "texto": "O TSE ainda não publicou quem declarou concorrer à reeleição neste ano.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx"
+  ]
+ },
+ {
   "texto": "O TSE respondeu {0}",
   "tipo": "padrao",
   "arquivos": [
@@ -12110,7 +13288,15 @@
   "texto": "º turno",
   "tipo": "exato",
   "arquivos": [
-   "components/resultados/ApuracaoAoVivo.tsx"
+   "components/resultados/ApuracaoAoVivo.tsx",
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
+  "texto": "º turno ·",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -12118,6 +13304,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/CandidatoPage.tsx"
+  ]
+ },
+ {
+  "texto": "º turno). Arquivo mais recente do TSE:",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -12192,6 +13385,7 @@
   "texto": "Ocupações mais frequentes",
   "tipo": "exato",
   "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx",
    "pages/election/NumerosPage.tsx"
   ]
  },
@@ -12511,6 +13705,13 @@
   ]
  },
  {
+  "texto": "Página {0}",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
+  ]
+ },
+ {
   "texto": "Página do conjunto de dados",
   "tipo": "exato",
   "arquivos": [
@@ -12604,6 +13805,20 @@
   ]
  },
  {
+  "texto": "paisagem",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/BotaoCompartilharImagem.tsx"
+  ]
+ },
+ {
+  "texto": "Paisagem · 1200×630",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/BotaoCompartilharImagem.tsx"
+  ]
+ },
+ {
   "texto": "Palácio do Planalto",
   "tipo": "exato",
   "arquivos": [
@@ -12638,6 +13853,7 @@
   "arquivos": [
    "components/avisos/AvisoResultado.tsx",
    "pages/election/EmendasPage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/MinhaCidadePage.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
@@ -12733,6 +13949,7 @@
   "arquivos": [
    "components/avisos/AvisoResultado.tsx",
    "pages/election/EmendasPage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/MinhaCidadePage.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
@@ -12743,6 +13960,7 @@
   "arquivos": [
    "components/avisos/AvisoResultado.tsx",
    "pages/election/EmendasPage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/MinhaCidadePage.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
@@ -12840,10 +14058,38 @@
   ]
  },
  {
+  "texto": "Parte {0} (PDF)",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
+  ]
+ },
+ {
+  "texto": "Parte {0}, página {1}",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
+  ]
+ },
+ {
+  "texto": "Parte do plano é imagem digitalizada, sem texto que possa ser lido automaticamente: a busca não alcança esse conteúdo. Consulte o documento oficial.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
+  ]
+ },
+ {
   "texto": "Participação",
   "tipo": "exato",
   "arquivos": [
    "components/votacoes/VotacoesNominais.tsx"
+  ]
+ },
+ {
+  "texto": "Participação em votações nominais",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/dados.ts"
   ]
  },
  {
@@ -12995,6 +14241,7 @@
   "texto": "Patrimônio declarado (2026)",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/dados.ts",
    "pages/election/SegundoTurnoPage.tsx"
   ]
  },
@@ -13115,6 +14362,20 @@
   ]
  },
  {
+  "texto": "Perfil do Congresso eleito",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx"
+  ]
+ },
+ {
+  "texto": "Perfil dos eleitos",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
   "texto": "perfis",
   "tipo": "exato",
   "arquivos": [
@@ -13163,6 +14424,7 @@
   "arquivos": [
    "components/avisos/AvisoResultado.tsx",
    "pages/election/EmendasPage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/MinhaCidadePage.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
@@ -13230,6 +14492,7 @@
   "arquivos": [
    "components/avisos/AvisoResultado.tsx",
    "pages/election/EmendasPage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/MinhaCidadePage.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
@@ -13256,6 +14519,20 @@
   ]
  },
  {
+  "texto": "Plano de governo (PDF)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
+  ]
+ },
+ {
+  "texto": "Plano de governo de {0}",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
+  ]
+ },
+ {
   "texto": "Plano de Metas",
   "tipo": "exato",
   "arquivos": [
@@ -13267,6 +14544,15 @@
   "tipo": "exato",
   "arquivos": [
    "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Planos de governo",
+  "tipo": "exato",
+  "arquivos": [
+   "layouts/navigation.ts",
+   "pages/election/PlanosPage.tsx",
+   "pages/election/SegundoTurnoPage.tsx"
   ]
  },
  {
@@ -13339,8 +14625,16 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/UfTileMap.tsx",
+   "components/mapa/MapaCanvas.tsx",
    "components/stf/PlenarioStf.tsx",
    "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "pointerup",
+  "tipo": "exato",
+  "arquivos": [
+   "components/mapa/MapaCanvas.tsx"
   ]
  },
  {
@@ -13418,6 +14712,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/GastosPage.tsx"
+  ]
+ },
+ {
+  "texto": "Por estado",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -13661,6 +14962,7 @@
    "pages/election/NumerosPage.tsx",
    "pages/election/PartidosPage.tsx",
    "pages/election/PesquisasPage.tsx",
+   "pages/election/PlanosPage.tsx",
    "pages/election/SegundoTurnoPage.tsx",
    "pages/election/SimuladorPage.tsx"
   ]
@@ -13674,6 +14976,7 @@
    "components/stf/stf.ts",
    "data/apuracao.ts",
    "data/format.ts",
+   "pages/election/PlanosPage.tsx",
    "pages/election/SegundoTurnoPage.tsx",
    "pages/election/SimuladorPage.tsx"
   ]
@@ -13806,6 +15109,13 @@
   ]
  },
  {
+  "texto": "Presidente,",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
   "texto": "Presidentes",
   "tipo": "exato",
   "arquivos": [
@@ -13824,6 +15134,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Prévia da imagem com os dados oficiais desta página",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/BotaoCompartilharImagem.tsx"
   ]
  },
  {
@@ -14004,6 +15321,13 @@
   ]
  },
  {
+  "texto": "Quando o eleito perdeu o mandato e a vaga foi preenchida em eleição suplementar, ela não entra na soma: por isso o total pode ser menor que 81.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx"
+  ]
+ },
+ {
   "texto": "Quantidade de candidaturas na urna de cada partido para este cargo, da maior para a menor.",
   "tipo": "exato",
   "arquivos": [
@@ -14036,6 +15360,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/HomePage.tsx"
+  ]
+ },
+ {
+  "texto": "Quem foi eleito em 2026 para a Câmara dos Deputados, o Senado e as Assembleias Legislativas, comparado com a eleição de 2022: gênero, idade, cor/raça, instrução, ocupação e renovação. Contagens oficiais do TSE, sem interpretação.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx"
   ]
  },
  {
@@ -14211,6 +15542,7 @@
   "texto": "Receitas de campanha (parcial)",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/dados.ts",
    "pages/election/SegundoTurnoPage.tsx"
   ]
  },
@@ -14284,6 +15616,20 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/CompararPage.tsx"
+  ]
+ },
+ {
+  "texto": "Reeleito é quem já tinha sido eleito para a mesma Casa, pelo mesmo estado, na eleição anterior (no Senado, em qualquer das duas anteriores, porque o mandato é de 8 anos). O critério é o mesmo nos dois anos. Quem foi parlamentar em outra Casa, em mandatos mais antigos ou como suplente conta como novo.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx"
+  ]
+ },
+ {
+  "texto": "Reeleitos",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx"
   ]
  },
  {
@@ -14480,6 +15826,13 @@
   ]
  },
  {
+  "texto": "Renovação",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx"
+  ]
+ },
+ {
   "texto": "Renúncia, depois de decretar a dissolução do Congresso.",
   "tipo": "exato",
   "arquivos": [
@@ -14491,6 +15844,27 @@
   "tipo": "exato",
   "arquivos": [
    "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "repeat",
+  "tipo": "exato",
+  "arquivos": [
+   "components/mapa/MapaCanvas.tsx"
+  ]
+ },
+ {
+  "texto": "repeat({0}, minmax(0, 1fr))",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
+  ]
+ },
+ {
+  "texto": "repeating-linear-gradient(135deg, {0} 0 3px, {1} 3px 4px)",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -14556,6 +15930,7 @@
   "texto": "Resultado (TSE)",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/dados.ts",
    "pages/election/CompararPage.tsx"
   ]
  },
@@ -14609,7 +15984,8 @@
   "arquivos": [
    "layouts/navigation.ts",
    "pages/election/ComoVotarPage.tsx",
-   "pages/election/HomePage.tsx"
+   "pages/election/HomePage.tsx",
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -14644,7 +16020,8 @@
   "texto": "resultados.tse.jus.br",
   "tipo": "exato",
   "arquivos": [
-   "components/resultados/ApuracaoAoVivo.tsx"
+   "components/resultados/ApuracaoAoVivo.tsx",
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -14667,6 +16044,21 @@
   "arquivos": [
    "pages/legal/PrivacidadePage.tsx",
    "pages/legal/TermosPage.tsx"
+  ]
+ },
+ {
+  "texto": "retrato",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/BotaoCompartilharImagem.tsx",
+   "components/compartilhar/desenho.ts"
+  ]
+ },
+ {
+  "texto": "Retrato · 1080×1350",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/BotaoCompartilharImagem.tsx"
   ]
  },
  {
@@ -14849,6 +16241,7 @@
   "texto": "right",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/desenho.ts",
    "components/conta/ContaPerfil.tsx",
    "components/emendas/EmendasIndicadas.tsx",
    "components/gastos/RankingList.tsx",
@@ -14859,6 +16252,7 @@
    "pages/election/CandidatoPage.tsx",
    "pages/election/EmendasPage.tsx",
    "pages/election/HomePage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/MinistroStfPage.tsx",
    "pages/election/ParlamentarPage.tsx"
   ]
@@ -14869,6 +16263,7 @@
   "arquivos": [
    "components/avisos/AvisoResultado.tsx",
    "pages/election/EmendasPage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/MinhaCidadePage.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
@@ -14879,6 +16274,7 @@
   "arquivos": [
    "components/avisos/AvisoResultado.tsx",
    "pages/election/EmendasPage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/MinhaCidadePage.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
@@ -14889,6 +16285,7 @@
   "arquivos": [
    "components/avisos/AvisoResultado.tsx",
    "pages/election/EmendasPage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/MinhaCidadePage.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
@@ -14958,6 +16355,7 @@
   "arquivos": [
    "components/avisos/AvisoResultado.tsx",
    "pages/election/EmendasPage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/MinhaCidadePage.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
@@ -14968,6 +16366,7 @@
   "arquivos": [
    "components/avisos/AvisoResultado.tsx",
    "pages/election/EmendasPage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/MinhaCidadePage.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
@@ -15027,6 +16426,7 @@
   "arquivos": [
    "components/brand/BossiniMark.tsx",
    "components/brand/FaiscaMark.tsx",
+   "components/mapa/MapaCanvas.tsx",
    "components/stf/PlenarioStf.tsx"
   ]
  },
@@ -15058,16 +16458,19 @@
    "pages/election/ColaPage.tsx",
    "pages/election/ComoVotarPage.tsx",
    "pages/election/CompararPage.tsx",
+   "pages/election/CongressoEleitoPage.tsx",
    "pages/election/EleicaoPage.tsx",
    "pages/election/EmendasPage.tsx",
    "pages/election/GastosPage.tsx",
    "pages/election/HomePage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/MinhaCidadePage.tsx",
    "pages/election/MinistroStfPage.tsx",
    "pages/election/ParlamentarPage.tsx",
    "pages/election/PartidoPage.tsx",
    "pages/election/PartidosPage.tsx",
    "pages/election/PesquisasPage.tsx",
+   "pages/election/PlanosPage.tsx",
    "pages/election/PlenarioPage.tsx",
    "pages/election/SegundoTurnoPage.tsx",
    "pages/election/SimuladorPage.tsx",
@@ -15125,6 +16528,7 @@
   "arquivos": [
    "components/avisos/AvisoResultado.tsx",
    "pages/election/EmendasPage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/MinhaCidadePage.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
@@ -15149,6 +16553,7 @@
   "arquivos": [
    "components/avisos/AvisoResultado.tsx",
    "pages/election/EmendasPage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/MinhaCidadePage.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
@@ -15179,6 +16584,13 @@
   "tipo": "exato",
   "arquivos": [
    "theme/temas.ts"
+  ]
+ },
+ {
+  "texto": "Saúde",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
   ]
  },
  {
@@ -15233,6 +16645,13 @@
   ]
  },
  {
+  "texto": "search",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
+  ]
+ },
+ {
   "texto": "Seções apuradas por estado",
   "tipo": "exato",
   "arquivos": [
@@ -15282,6 +16701,13 @@
   ]
  },
  {
+  "texto": "Segurança",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
+  ]
+ },
+ {
   "texto": "sem",
   "tipo": "exato",
   "arquivos": [
@@ -15321,6 +16747,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/NumerosPage.tsx"
+  ]
+ },
+ {
+  "texto": "Sem contorno na malha do IBGE usada no mapa (aparece só na busca e na tabela): {0}.",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -15439,9 +16872,19 @@
   ]
  },
  {
+  "texto": "Sem resultado final do TSE",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
   "texto": "senado",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/dados.ts",
+   "components/congresso/perfil.ts",
+   "pages/election/CongressoEleitoPage.tsx",
    "pages/election/GastosPage.tsx",
    "pages/election/ParlamentarPage.tsx",
    "pages/election/PlenarioPage.tsx"
@@ -15451,6 +16894,7 @@
   "texto": "Senado",
   "tipo": "exato",
   "arquivos": [
+   "components/congresso/perfil.ts",
    "components/gastos/gastos.ts",
    "data/apuracao.ts",
    "data/format.ts",
@@ -15473,6 +16917,13 @@
   ]
  },
  {
+  "texto": "Senado completo",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx"
+  ]
+ },
+ {
   "texto": "Senado e deputados são decididos sempre no 1º turno. Abaixo, o resultado do 1º turno.",
   "tipo": "exato",
   "arquivos": [
@@ -15483,7 +16934,8 @@
   "texto": "Senado Federal",
   "tipo": "exato",
   "arquivos": [
-   "components/election/SourceNote.tsx",
+   "components/compartilhar/dados.ts",
+   "components/election/orgao.ts",
    "components/gastos/gastos.ts",
    "pages/election/CandidatoPage.tsx",
    "pages/election/PartidoPage.tsx",
@@ -15564,6 +17016,13 @@
   ]
  },
  {
+  "texto": "Senadores",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx"
+  ]
+ },
+ {
   "texto": "Senadores(as) em exercício, segundo o Senado Federal.",
   "tipo": "exato",
   "arquivos": [
@@ -15583,6 +17042,7 @@
   "arquivos": [
    "components/avisos/AvisoResultado.tsx",
    "pages/election/EmendasPage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/MinhaCidadePage.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
@@ -15665,6 +17125,7 @@
   "texto": "shared",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/compartilhar.ts",
    "native/platform.ts"
   ]
  },
@@ -15781,6 +17242,7 @@
   "texto": "Situação",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/dados.ts",
    "pages/election/CandidatoPage.tsx"
   ]
  },
@@ -15838,6 +17300,7 @@
   "texto": "sm",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/BotaoCompartilharImagem.tsx",
    "components/conta/ContaPerfil.tsx",
    "components/numeros/Concorrencia.tsx",
    "components/stf/PlenarioStf.tsx",
@@ -15859,6 +17322,7 @@
    "components/election/DesfechoChip.tsx",
    "components/election/StatusChip.tsx",
    "components/form/PasswordField.tsx",
+   "components/mapa/MapaCanvas.tsx",
    "components/resultados/ApuracaoAoVivo.tsx",
    "components/resultados/CartaoEleitos.tsx",
    "components/share/ShareButton.tsx",
@@ -15903,6 +17367,13 @@
   "tipo": "exato",
   "arquivos": [
    "components/resultados/ApuracaoAoVivo.tsx"
+  ]
+ },
+ {
+  "texto": "Só entram os municípios com totalização final do TSE (",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -16054,6 +17525,7 @@
    "pages/election/GastosPage.tsx",
    "pages/election/HomePage.tsx",
    "pages/election/MinistroStfPage.tsx",
+   "pages/election/PlanosPage.tsx",
    "pages/election/SegundoTurnoPage.tsx",
    "pages/election/SimuladorPage.tsx"
   ]
@@ -16123,6 +17595,7 @@
   "tipo": "exato",
   "arquivos": [
    "api/client.ts",
+   "components/mapa/MapaCanvas.tsx",
    "config/env.ts"
   ]
  },
@@ -16204,7 +17677,8 @@
   "texto": "Superior completo",
   "tipo": "exato",
   "arquivos": [
-   "components/numeros/numeros.ts"
+   "components/numeros/numeros.ts",
+   "pages/election/CongressoEleitoPage.tsx"
   ]
  },
  {
@@ -16258,15 +17732,24 @@
    "components/ColorModeToggle.tsx",
    "components/resultados/ApuracaoAoVivo.tsx",
    "main.tsx",
-   "native/NativeBridge.tsx"
+   "native/NativeBridge.tsx",
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
   "texto": "Tá na Urna",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/desenho.ts",
    "components/share/ShareButton.tsx",
    "config/legal.ts"
+  ]
+ },
+ {
+  "texto": "Tá na Urna ÁÉÍÓÚÂÊÔÃÕÇáéíóúâêôãõç 0123456789 R$ % º ·",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/desenho.ts"
   ]
  },
  {
@@ -16354,6 +17837,13 @@
   ]
  },
  {
+  "texto": "Temas sugeridos",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
+  ]
+ },
+ {
   "texto": "temer",
   "tipo": "exato",
   "arquivos": [
@@ -16366,10 +17856,12 @@
   "arquivos": [
    "components/resultados/ApuracaoAoVivo.tsx",
    "pages/election/ColaPage.tsx",
+   "pages/election/CongressoEleitoPage.tsx",
    "pages/election/EmendasPage.tsx",
    "pages/election/GastosPage.tsx",
    "pages/election/NumerosPage.tsx",
    "pages/election/ParlamentarPage.tsx",
+   "pages/election/PlanosPage.tsx",
    "pages/election/SimuladorPage.tsx"
   ]
  },
@@ -16461,6 +17953,20 @@
   ]
  },
  {
+  "texto": "Texto extraído em {0}.",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
+  ]
+ },
+ {
+  "texto": "texto lido dos PDFs registrados, sem OCR",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
+  ]
+ },
+ {
   "texto": "The \"{0}\" auth provider needs these variables in your .env file.",
   "tipo": "padrao",
   "arquivos": [
@@ -16502,6 +18008,7 @@
   "arquivos": [
    "components/avisos/AvisoResultado.tsx",
    "pages/election/EmendasPage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/MinhaCidadePage.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
@@ -16682,6 +18189,13 @@
   ]
  },
  {
+  "texto": "topo",
+  "tipo": "exato",
+  "arquivos": [
+   "layouts/PublicLayout.tsx"
+  ]
+ },
+ {
   "texto": "Toque no seu estado",
   "tipo": "exato",
   "arquivos": [
@@ -16710,10 +18224,24 @@
   ]
  },
  {
+  "texto": "Toque num município do mapa ou use a busca para ver a votação de cada lugar.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
   "texto": "Toque ou clique em um estado",
   "tipo": "exato",
   "arquivos": [
    "components/election/UfTileMap.tsx"
+  ]
+ },
+ {
+  "texto": "Toque ou clique num município para ver a votação dele. Arraste para mover; aproxime com a pinça, com os botões ou com Ctrl + roda do mouse.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -16801,6 +18329,13 @@
   ]
  },
  {
+  "texto": "Total, com o exterior",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
   "texto": "Trajetória",
   "tipo": "exato",
   "arquivos": [
@@ -16844,6 +18379,13 @@
   "tipo": "exato",
   "arquivos": [
    "components/AuroraBackground.tsx"
+  ]
+ },
+ {
+  "texto": "translate({0}, {1}px)",
+  "tipo": "padrao",
+  "arquivos": [
+   "components/mapa/MapaCanvas.tsx"
   ]
  },
  {
@@ -16904,6 +18446,13 @@
    "components/resultados/ApuracaoAoVivo.tsx",
    "components/stf/PlenarioStf.tsx",
    "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Transporte",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
   ]
  },
  {
@@ -16992,8 +18541,16 @@
   "texto": "TSE",
   "tipo": "exato",
   "arquivos": [
-   "components/election/SourceNote.tsx",
+   "components/compartilhar/dados.ts",
+   "components/election/orgao.ts",
    "pages/election/ComoVotarPage.tsx"
+  ]
+ },
+ {
+  "texto": "TSE ·",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx"
   ]
  },
  {
@@ -17063,7 +18620,8 @@
   "texto": "Turno",
   "tipo": "exato",
   "arquivos": [
-   "components/resultados/ApuracaoAoVivo.tsx"
+   "components/resultados/ApuracaoAoVivo.tsx",
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -17165,6 +18723,9 @@
   "tipo": "exato",
   "arquivos": [
    "components/avisos/push.ts",
+   "components/compartilhar/compartilhar.ts",
+   "components/compartilhar/desenho.ts",
+   "components/mapa/MapaCanvas.tsx",
    "components/share/ShareButton.tsx",
    "native/platform.ts"
   ]
@@ -17301,6 +18862,7 @@
   "texto": "Vai ao 2º turno",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/dados.ts",
    "components/election/DesfechoChip.tsx",
    "components/resultados/ApuracaoAoVivo.tsx"
   ]
@@ -17589,6 +19151,20 @@
   ]
  },
  {
+  "texto": "Ver no mapa",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Ver no TSE",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/PlanosPage.tsx"
+  ]
+ },
+ {
   "texto": "Ver o 2º turno",
   "tipo": "exato",
   "arquivos": [
@@ -17614,6 +19190,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/MinhaCidadePage.tsx"
+  ]
+ },
+ {
+  "texto": "Ver os eleitos no plenário",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/CongressoEleitoPage.tsx"
   ]
  },
  {
@@ -17810,6 +19393,7 @@
   "texto": "visible",
   "tipo": "exato",
   "arquivos": [
+   "components/mapa/MapaCanvas.tsx",
    "components/resultados/hooks.ts",
    "pages/election/ColaPage.tsx",
    "theme/theme.ts"
@@ -17963,6 +19547,13 @@
   ]
  },
  {
+  "texto": "Votação para Presidente em cada município: escolha uma candidatura para ver a porcentagem dos votos válidos que ela recebeu em cada lugar. Dados oficiais do TSE.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
   "texto": "Votação secreta",
   "tipo": "exato",
   "arquivos": [
@@ -17981,6 +19572,20 @@
   "tipo": "exato",
   "arquivos": [
    "components/votacoes/VotacoesNominais.tsx"
+  ]
+ },
+ {
+  "texto": "Votações nominais com registro",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/dados.ts"
+  ]
+ },
+ {
+  "texto": "Votações nominais do Plenário",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/dados.ts"
   ]
  },
  {
@@ -18091,9 +19696,24 @@
   ]
  },
  {
+  "texto": "Votos de",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Votos de {0} e porcentagem dos votos válidos em cada estado e no exterior, somando os municípios com totalização final do TSE (coluna Municípios: quantos já têm resultado final).",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
   "texto": "Votos no 1º turno",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/dados.ts",
    "pages/election/SegundoTurnoPage.tsx"
   ]
  },
@@ -18101,6 +19721,7 @@
   "texto": "Votos no 2º turno",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/dados.ts",
    "pages/election/SegundoTurnoPage.tsx"
   ]
  },
@@ -18119,10 +19740,25 @@
   ]
  },
  {
+  "texto": "votos válidos",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
   "texto": "Votos válidos",
   "tipo": "exato",
   "arquivos": [
-   "components/resultados/ApuracaoAoVivo.tsx"
+   "components/resultados/ApuracaoAoVivo.tsx",
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Votos válidos em cada estado e no exterior, somando os municípios com totalização final do TSE. Escolha uma candidatura para ver os votos dela.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -18192,9 +19828,11 @@
    "components/resultados/ApuracaoAoVivo.tsx",
    "pages/election/CandidatoPage.tsx",
    "pages/election/ColaPage.tsx",
+   "pages/election/CongressoEleitoPage.tsx",
    "pages/election/ParlamentarPage.tsx",
    "pages/election/PartidosPage.tsx",
    "pages/election/PesquisasPage.tsx",
+   "pages/election/PlanosPage.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
  },
@@ -18217,6 +19855,13 @@
   "tipo": "exato",
   "arquivos": [
    "config/brand.ts"
+  ]
+ },
+ {
+  "texto": "wheel",
+  "tipo": "exato",
+  "arquivos": [
+   "components/mapa/MapaCanvas.tsx"
   ]
  },
  {
@@ -18281,6 +19926,13 @@
   "tipo": "exato",
   "arquivos": [
    "data/localizacao.ts"
+  ]
+ },
+ {
+  "texto": "ZZ",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
   ]
  }
 ]
