@@ -23,6 +23,10 @@ DADOS = {"api", "fotos", "propostas", ".git"}
 SITE = "https://www.tanaurna.com.br"
 # Rotas fixas novas (o export completo também as cria; aqui, para não depender dele).
 NOVAS_ROTAS = {
+    "minha-cidade": (
+        "Minha cidade · Tá na Urna",
+        "Prefeitura, Câmara Municipal, como a cidade votou em 2026 e as emendas parlamentares recebidas. Dados oficiais do TSE e da CGU.",
+    ),
     "emendas": (
         "Emendas parlamentares no seu município · Tá na Urna",
         "Quanto dinheiro de emendas chegou a cada município, de qual parlamentar e para quê. Dados do Portal da Transparência (CGU).",

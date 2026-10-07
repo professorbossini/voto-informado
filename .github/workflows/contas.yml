@@ -33,7 +33,8 @@ permissions:
   id-token: write # gravação no R2 da Cloudflare (etl.r2, OIDC)
 
 concurrency:
-  group: gh-pages
+  # Uma fila por automação: com uma fila só para todas, o GitHub cancela a que estava esperando.
+  group: ${{ github.workflow }}
   cancel-in-progress: false
 
 env:
@@ -116,7 +117,8 @@ jobs:
           git add -A api
           if git diff --cached --quiet; then echo "Nada mudou."; exit 0; fi
           git commit -q -m "Prestação de contas do TSE: finanças de campanha (${{ steps.contas.outputs.perfis }} perfis)"
-          git push -q origin gh-pages
+          # Outra automação pode ter publicado nesse meio-tempo: incorpora e tenta de novo.
+          for i in 1 2 3 4 5; do git pull -q --rebase origin gh-pages && git push -q origin gh-pages && break; git rebase --abort 2>/dev/null; sleep $((i * 7)); done
           gh api -X POST "repos/${{ github.repository }}/pages/builds" >/dev/null || true
           echo "enviar=1" >> "$GITHUB_OUTPUT"
           echo "✓ finanças publicadas (${{ steps.contas.outputs.perfis }} perfis alterados)" >> "$GITHUB_STEP_SUMMARY"

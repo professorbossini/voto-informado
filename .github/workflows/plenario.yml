@@ -27,7 +27,8 @@ permissions:
   actions: write
 
 concurrency:
-  group: gh-pages
+  # Uma fila por automação: com uma fila só para todas, o GitHub cancela a que estava esperando.
+  group: ${{ github.workflow }}
   cancel-in-progress: false
 
 jobs:
@@ -90,7 +91,8 @@ jobs:
           git add -A
           if git diff --cached --quiet; then echo "Nada mudou."; exit 0; fi
           git commit -q -m "Plenário: composição e presidência da Câmara e do Senado"
-          git push -q origin gh-pages
+          # Outra automação pode ter publicado nesse meio-tempo: incorpora e tenta de novo.
+          for i in 1 2 3 4 5; do git pull -q --rebase origin gh-pages && git push -q origin gh-pages && break; git rebase --abort 2>/dev/null; sleep $((i * 7)); done
           gh api -X POST "repos/${{ github.repository }}/pages/builds" >/dev/null || true
           echo "✓ plenário publicado" >> "$GITHUB_STEP_SUMMARY"
 
