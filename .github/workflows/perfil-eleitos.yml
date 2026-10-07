@@ -1,0 +1,90 @@
+# Perfil do Congresso eleito → site, sozinho na nuvem (GitHub Actions), sem depender de nenhum computador.
+#
+# Baixa os arquivos de candidaturas do TSE (dados abertos, ~5 MB cada: 2026, 2022, 2018 e 2014, mais
+# as informações complementares de 2026 e 2022) e grava api/perfil-eleitos.json no site publicado
+# (gh-pages e R2 da Cloudflare), só quando as contagens mudam: gênero, faixa etária, cor/raça,
+# instrução, ocupações e renovação dos eleitos para a Câmara, o Senado e as Assembleias, 2026 × 2022.
+# Lógica em backend/etl/perfil_eleitos.py. O TSE ainda corrige os arquivos depois da eleição
+# (situação de registros, ST_REELEICAO); uma vez por semana basta (segunda, 06h23 de Brasília).
+# Se o download falhar, o job falha com o motivo e o site mantém os dados anteriores.
+name: Perfil do Congresso eleito → site
+
+on:
+  schedule:
+    - cron: "23 9 * * 1" # segunda, 06h23 em Brasília
+  push:
+    branches: [main]
+    paths:
+      - "backend/etl/perfil_eleitos.py"
+      - ".github/workflows/perfil-eleitos.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  id-token: write # gravação no R2 da Cloudflare (etl.r2, OIDC)
+  pages: write
+  actions: write
+
+concurrency:
+  # Uma fila por automação: com uma fila só para todas, o GitHub cancela a que estava esperando.
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+jobs:
+  perfil:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: backend
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Dependências
+        run: pip install -q "requests>=2.32"
+
+      - name: Site publicado (eleitos e perfil)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git clone -q --depth 1 --filter=blob:none --no-checkout --branch gh-pages \
+            "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" site
+          git -C site sparse-checkout set --no-cone /api/eleitos.json /api/perfil-eleitos.json
+          git -C site checkout -q gh-pages
+
+      - name: Perfil dos eleitos (TSE)
+        id: perfil
+        working-directory: backend
+        run: python -m etl.perfil_eleitos ../site
+
+      - name: Publicar
+        if: steps.perfil.outputs.mudou == '1'
+        working-directory: site
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A api/perfil-eleitos.json
+          if git diff --cached --quiet; then echo "Nada mudou."; exit 0; fi
+          git commit -q -m "Perfil do Congresso eleito: atualização (TSE)"
+          # Outra automação pode ter publicado nesse meio-tempo: incorpora e tenta de novo.
+          for i in 1 2 3 4 5; do git pull -q --rebase origin gh-pages && git push -q origin gh-pages && break; git rebase --abort 2>/dev/null; sleep $((i * 7)); done
+          gh api -X POST "repos/${{ github.repository }}/pages/builds" >/dev/null || true
+          echo "✓ perfil do Congresso eleito publicado" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Enviar ao R2 (Cloudflare)
+        if: steps.perfil.outputs.mudou == '1'
+        working-directory: backend
+        run: python -m etl.r2 enviar ../site --prefixo api/perfil-eleitos.json
+
+      # O GitHub desliga agendamentos de repositórios sem atividade por 60 dias; reativar
+      # este workflow a cada execução mantém a atualização ligada indefinidamente.
+      - name: Manter o agendamento ligado
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh api -X PUT "repos/${{ github.repository }}/actions/workflows/perfil-eleitos.yml/enable" >/dev/null || true

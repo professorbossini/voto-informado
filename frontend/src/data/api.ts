@@ -25,6 +25,7 @@ import type {
   Meta,
   ParlamentarDetalhe,
   Partido,
+  PerfilEleitos,
   Plenario,
   Resultados,
   SegundoTurno,
@@ -87,6 +88,8 @@ export const data = {
   vereadores: (uf: string) => get<VereadoresUf>(`legislativos/vereadores/${uf.toUpperCase()}.json`),
   stf: () => get<Stf>('stf.json'),
   eleitos: () => get<Eleitos>('eleitos.json'),
+  /** Perfil dos eleitos (Câmara, Senado, Assembleias), 2026 × 2022, a partir dos dados abertos do TSE. */
+  perfilEleitos: () => get<PerfilEleitos>('perfil-eleitos.json'),
   ministroStf: (id: string) => get<MinistroStfDetalhe>(`stf/ministro/${encodeURIComponent(id)}.json`),
   malhaMunicipal: (uf: string) => get<MalhaMunicipal>(`legislativos/malhas/${uf.toUpperCase()}.json`),
   noticias: (tipo: 'parlamentar' | 'partido' | 'ministro', id: string) => get<FeedNoticiasDados>(`noticias/${tipo}/${encodeURIComponent(id)}.json`),

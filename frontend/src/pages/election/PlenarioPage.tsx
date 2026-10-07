@@ -531,14 +531,20 @@ function eleitosValidos(el: Eleitos | null | undefined): el is Eleitos {
   return Boolean(el) && new Date().toISOString().slice(0, 10) < el!.posse;
 }
 
-function TrocaComposicao({ valor, onChange, el }: { valor: Composicao; onChange: (v: Composicao) => void; el: Eleitos }) {
+function TrocaComposicao({ valor, onChange, el, perfil }: { valor: Composicao; onChange: (v: Composicao) => void; el: Eleitos; perfil: string }) {
   return (
-    <ToggleButtonGroup exclusive size="small" value={valor} onChange={(_, v: Composicao | null) => v && onChange(v)} aria-label="Qual composição mostrar" sx={{ flexWrap: 'wrap' }}>
-      <ToggleButton value="atual">Composição atual</ToggleButton>
-      <ToggleButton value="eleitos">
-        Eleitos em {el.eleicao} · posse em {dia(el.posse)}
-      </ToggleButton>
-    </ToggleButtonGroup>
+    <Stack direction="row" sx={{ gap: 1.5, alignItems: 'center', flexWrap: 'wrap' }}>
+      <ToggleButtonGroup exclusive size="small" value={valor} onChange={(_, v: Composicao | null) => v && onChange(v)} aria-label="Qual composição mostrar" sx={{ flexWrap: 'wrap' }}>
+        <ToggleButton value="atual">Composição atual</ToggleButton>
+        <ToggleButton value="eleitos">
+          Eleitos em {el.eleicao} · posse em {dia(el.posse)}
+        </ToggleButton>
+      </ToggleButtonGroup>
+      {/* Gênero, idade, cor/raça, instrução e renovação dos eleitos, comparados com a eleição anterior. */}
+      <Link component={RouterLink} to={perfil} variant="body2">
+        Perfil dos eleitos
+      </Link>
+    </Stack>
   );
 }
 
@@ -713,6 +719,7 @@ function PlenarioLocal({ tipo, partidos }: { tipo: 'assembleia' | 'municipal'; p
               set({ composicao: v === 'eleitos' ? 'eleitos' : null });
             }}
             el={eleitos}
+            perfil="/congresso-eleito?casa=assembleias"
           />
         </Box>
       )}
@@ -870,7 +877,9 @@ export function PlenarioPage() {
                 </Alert>
               )}
               <Stack direction={{ xs: 'column', md: 'row' }} sx={{ gap: 1.5, mb: 2, alignItems: { md: 'center' }, flexWrap: 'wrap' }}>
-                {eleitos && <TrocaComposicao valor={composicao} onChange={setComposicao} el={eleitos} />}
+                {eleitos && (
+                  <TrocaComposicao valor={composicao} onChange={setComposicao} el={eleitos} perfil={federal === 'senado' ? '/congresso-eleito?casa=senado' : '/congresso-eleito'} />
+                )}
               <ToggleButtonGroup exclusive size="small" value={modo} onChange={(_, v: ModoCadeira | null) => v && setModo(v)} aria-label="O que mostrar em cada cadeira">
                 <ToggleButton value="rosto" aria-label="Rostos dos parlamentares">
                   <FaceRounded fontSize="small" sx={{ mr: 0.75 }} /> Rostos

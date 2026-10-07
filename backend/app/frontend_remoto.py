@@ -39,6 +39,10 @@ NOVAS_ROTAS = {
         "Presidentes do Brasil · Tá na Urna",
         "De Deodoro da Fonseca a hoje: retratos, datas, como cada um chegou e saiu do cargo e os marcos de cada período.",
     ),
+    "congresso-eleito": (
+        "Perfil do Congresso eleito · Tá na Urna",
+        "Quem foi eleito em 2026 para a Câmara, o Senado e as Assembleias, comparado com 2022: gênero, idade, cor/raça, instrução, ocupação e renovação. Dados oficiais do TSE.",
+    ),
 }
 
 

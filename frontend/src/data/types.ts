@@ -645,6 +645,65 @@ export interface Eleitos {
   gerado_em: string;
 }
 
+/* ------------------------------------------------------------------ perfil do Congresso eleito (api/perfil-eleitos.json) */
+
+export interface ContagemPerfil {
+  nome: string;
+  n: number;
+}
+
+/** Perfil de um grupo de eleitos: só contagens, como no arquivo do TSE. */
+export interface PerfilGrupo {
+  total: number;
+  vagas: number;
+  /** Posse (AAAA-MM-DD): data de referência da idade. */
+  posse: string;
+  genero: ContagemPerfil[];
+  faixa_etaria: ContagemPerfil[];
+  idade_mediana: number | null;
+  cor_raca: ContagemPerfil[];
+  instrucao: ContagemPerfil[];
+  /** As 10 ocupações mais declaradas; `ocupacoes_outras` soma o resto. */
+  ocupacoes: ContagemPerfil[];
+  ocupacoes_outras: number;
+}
+
+export interface RenovacaoPerfil {
+  reeleitos: number;
+  novos: number;
+  /** Eleitos que declararam ao TSE concorrer à reeleição (ST_REELEICAO); null enquanto o TSE não publica. */
+  declararam_reeleicao: number | null;
+}
+
+export type CasaPerfil = 'camara' | 'senado' | 'assembleias';
+
+export interface PerfilCasa {
+  nome: string;
+  completo: boolean;
+  anos: Record<string, PerfilGrupo & { renovacao: RenovacaoPerfil }>;
+  /** Só no Senado: a Casa inteira (eleitos no ano + eleitos 4 anos antes). */
+  composicao?: Record<string, PerfilGrupo & { eleitos_em: number[] }>;
+}
+
+export interface FontePerfilEleitos {
+  nome: string;
+  orgao: string;
+  url: string;
+  pagina: string;
+  publicado_em: string | null;
+  uso: string;
+}
+
+export interface PerfilEleitos {
+  eleicao: number;
+  comparacao: number;
+  completo: boolean;
+  casas: Record<CasaPerfil, PerfilCasa>;
+  criterio: { eleitos: string; renovacao: string; idade: string; senado: string; ocupacoes: string };
+  fontes: FontePerfilEleitos[];
+  gerado_em: string;
+}
+
 /* ------------------------------------------------------------------ emendas parlamentares (CGU) */
 
 /** Tipo de emenda, em chave curta (o resumo traz o texto publicado pela CGU). */

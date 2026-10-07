@@ -15,6 +15,7 @@ import LocationCityRounded from '@mui/icons-material/LocationCityRounded';
 import HelpOutlineRounded from '@mui/icons-material/HelpOutlineRounded';
 import HistoryEduRounded from '@mui/icons-material/HistoryEduRounded';
 import PaymentsRounded from '@mui/icons-material/PaymentsRounded';
+import Diversity3Rounded from '@mui/icons-material/Diversity3Rounded';
 import { env } from '@/config/env';
 import { usePeriodoEleitoral } from '@/data/usePeriodoEleitoral';
 
@@ -32,6 +33,7 @@ export const NAV_ITEMS = [
   { to: '/como-votar', label: 'Como votar', icon: HelpOutlineRounded, mobile: false, periodo: 'segundo-turno' },
   { to: '/minha-cidade', label: 'Minha cidade', icon: LocationCityRounded, mobile: false },
   { to: '/plenario', label: 'Plenário', icon: AccountBalanceRounded, mobile: false },
+  { to: '/congresso-eleito', label: 'Congresso eleito', icon: Diversity3Rounded, mobile: false },
   { to: '/partidos', label: 'Partidos', icon: GroupsRounded, mobile: false },
   { to: '/presidentes', label: 'Presidentes', icon: HistoryEduRounded, mobile: false },
   { to: '/gastos', label: 'Gastos de mandato', icon: ReceiptLongRounded, mobile: false },

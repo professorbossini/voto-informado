@@ -77,6 +77,7 @@ export const router = createBrowserRouter([
       { path: '/presidentes', ...page(() => import('@/pages/presidentes/PresidentesPage'), 'PresidentesPage') },
       { path: '/minha-cidade', ...page(() => import('@/pages/election/MinhaCidadePage'), 'MinhaCidadePage') },
       { path: '/plenario', ...page(() => import('@/pages/election/PlenarioPage'), 'PlenarioPage') },
+      { path: '/congresso-eleito', ...page(() => import('@/pages/election/CongressoEleitoPage'), 'CongressoEleitoPage') },
       { path: '/numeros', ...page(() => import('@/pages/election/NumerosPage'), 'NumerosPage') },
       { path: '/sobre', ...page(() => import('@/pages/election/SobrePage'), 'SobrePage') },
       { path: '/privacidade', ...page(() => import('@/pages/legal/PrivacidadePage'), 'PrivacidadePage') },
