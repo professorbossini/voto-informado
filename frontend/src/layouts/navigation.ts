@@ -11,6 +11,7 @@ import PollRounded from '@mui/icons-material/PollRounded';
 import BarChartRounded from '@mui/icons-material/BarChartRounded';
 import AccountBalanceRounded from '@mui/icons-material/AccountBalanceRounded';
 import GroupsRounded from '@mui/icons-material/GroupsRounded';
+import HelpOutlineRounded from '@mui/icons-material/HelpOutlineRounded';
 import HistoryEduRounded from '@mui/icons-material/HistoryEduRounded';
 import { env } from '@/config/env';
 import { usePeriodoEleitoral } from '@/data/usePeriodoEleitoral';
@@ -26,6 +27,7 @@ export const NAV_ITEMS = [
   ...(env.enablePesquisas ? [{ to: '/pesquisas', label: 'Pesquisas', icon: PollRounded, mobile: false } as const] : []),
   { to: '/simulador', label: 'Simulador de urna', icon: TouchAppRounded, mobile: false, periodo: 'eleicao' },
   { to: '/segundo-turno', label: '2º turno', icon: SyncAltRounded, mobile: false, periodo: 'segundo-turno' },
+  { to: '/como-votar', label: 'Como votar', icon: HelpOutlineRounded, mobile: false, periodo: 'segundo-turno' },
   { to: '/plenario', label: 'Plenário', icon: AccountBalanceRounded, mobile: false },
   { to: '/partidos', label: 'Partidos', icon: GroupsRounded, mobile: false },
   { to: '/presidentes', label: 'Presidentes', icon: HistoryEduRounded, mobile: false },

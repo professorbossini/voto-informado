@@ -8,7 +8,7 @@ export const LEGAL = {
   responsavel: 'Rodrigo Bossini',
   email: 'professorbossini@gmail.com',
   /** Data da versão vigente dos dois textos (AAAA-MM-DD). */
-  vigencia: '2026-10-06',
+  vigencia: '2026-10-07',
   hospedagem: {
     nome: 'GitHub Pages, serviço da GitHub, Inc.',
     privacidade: 'https://docs.github.com/pt/site-policy/privacy-policies/github-general-privacy-statement',

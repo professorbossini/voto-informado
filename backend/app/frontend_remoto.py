@@ -23,6 +23,10 @@ DADOS = {"api", "fotos", "propostas", ".git"}
 SITE = "https://www.tanaurna.com.br"
 # Rotas fixas novas (o export completo também as cria; aqui, para não depender dele).
 NOVAS_ROTAS = {
+    "como-votar": (
+        "Como votar no 2º turno · Tá na Urna",
+        "Data, horário, documentos, celular, local de votação e justificativa, conforme as regras do TSE.",
+    ),
     "presidentes": (
         "Presidentes do Brasil · Tá na Urna",
         "De Deodoro da Fonseca a hoje: retratos, datas, como cada um chegou e saiu do cargo e os marcos de cada período.",

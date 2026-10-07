@@ -26,6 +26,7 @@ import { useMeta } from '@/data/MetaContext';
 import type { CandidatoDetalhe } from '@/data/types';
 import { useAsync } from '@/hooks/useAsync';
 import { PageHeader } from '@/pages/PageHeader';
+import { AvisoResultado } from '@/components/avisos/AvisoResultado';
 
 const LINHAS: { label: string; value: (c: CandidatoDetalhe) => string }[] = [
   { label: 'Partido / federação', value: (c) => `${c.partido}${c.federacao_nome ? ` · ${nomeProprio(c.federacao_nome)}` : ''}` },
@@ -85,6 +86,12 @@ export function SegundoTurnoPage() {
       />
 
       <Stack spacing={4}>
+        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1}>
+          <Button component={RouterLink} to="/como-votar" variant="tonal">
+            Como votar no 2º turno
+          </Button>
+        </Stack>
+        <AvisoResultado />
         <Card>
           <CardContent sx={{ p: { xs: 2.5, md: 3 } }}>
             <Typography variant="h5" component="h2" sx={{ mb: 1 }}>

@@ -101,7 +101,21 @@ export function PrivacidadePage() {
         </P>
       </Secao>
 
-      <Secao n={6} title="Conexão com a internet e hospedagem">
+      <Secao n={6} title="Avisos de resultado (notificações), só se você pedir">
+        <P>
+          Se você ligar os avisos de resultado, o navegador cria um endereço de entrega de notificações (Web Push), que fica
+          guardado num banco de dados na Cloudflare junto com os resultados que você escolheu (Presidência e, se houver,
+          o governo do seu estado). Não guardamos nome, e-mail, CPF, localização nem nada que identifique você. As
+          notificações passam pelo serviço de push do seu navegador (do Google, da Mozilla, da Apple ou da Microsoft), como
+          em qualquer site que envia notificações, e o conteúdo vai criptografado.
+        </P>
+        <P>
+          Você pode desligar os avisos a qualquer momento no próprio site ou nas configurações do navegador; o endereço é
+          apagado ao desligar, quando o navegador informa que ele expirou ou depois de encerrada a eleição.
+        </P>
+      </Secao>
+
+      <Secao n={7} title="Conexão com a internet e hospedagem">
         <P>
           Para mostrar as informações, o site e o aplicativo baixam arquivos públicos (dados em JSON, fotos oficiais e
           planos de governo em PDF) do serviço de hospedagem, atualmente o {LEGAL.hospedagem.nome}. Como em qualquer
@@ -121,7 +135,7 @@ export function PrivacidadePage() {
         <P>Toda a comunicação é criptografada (HTTPS).</P>
       </Secao>
 
-      <Secao n={7} title="Aplicativo: permissões">
+      <Secao n={8} title="Aplicativo: permissões">
         <P>
           O aplicativo usa acesso à internet, necessário para baixar os dados oficiais. Não pede acesso a
           contatos, câmera, microfone, armazenamento de arquivos nem notificações. A única outra permissão é a de
@@ -137,7 +151,7 @@ export function PrivacidadePage() {
         </P>
       </Secao>
 
-      <Secao n={8} title="Dados das candidaturas e dos parlamentares">
+      <Secao n={9} title="Dados das candidaturas e dos parlamentares">
         <P>
           As informações sobre candidaturas e mandatos (nome, foto, partido, bens declarados, contas de campanha, gastos
           de mandato etc.) são dados que a lei manda tornar públicos e que o Tribunal Superior Eleitoral, a Câmara dos
@@ -152,14 +166,14 @@ export function PrivacidadePage() {
         </P>
       </Secao>
 
-      <Secao n={9} title="Crianças e adolescentes">
+      <Secao n={10} title="Crianças e adolescentes">
         <P>
           O conteúdo é voltado a eleitores, inclusive aos de 16 e 17 anos, e não é direcionado a crianças. O login
           opcional segue as regras de idade da conta Google.
         </P>
       </Secao>
 
-      <Secao n={10} title="Seus direitos">
+      <Secao n={11} title="Seus direitos">
         <P>
           A LGPD (art. 18) garante, entre outros, os direitos de confirmação, acesso, correção e eliminação de dados
           pessoais. Sem login, não guardamos dados seus. Com login, você mesmo pode apagar a conta e os dados no menu da
@@ -168,7 +182,7 @@ export function PrivacidadePage() {
         </P>
       </Secao>
 
-      <Secao n={11} title="Mudanças nesta política">
+      <Secao n={12} title="Mudanças nesta política">
         <P>
           Se algum recurso novo passar a tratar dados pessoais, esta política será atualizada antes, com nova data de
           versão no topo da página. Mudanças relevantes também serão avisadas no site e
