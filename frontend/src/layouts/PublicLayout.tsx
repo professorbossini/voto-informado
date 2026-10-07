@@ -139,10 +139,12 @@ export function PublicLayout() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [moreAnchor, setMoreAnchor] = useState<HTMLElement | null>(null);
   const NAV_ITEMS = useNavItems();
-  const mobileItems = NAV_ITEMS.filter((i) => i.mobile);
-  const moreItems = NAV_ITEMS.filter((i) => !i.mobile);
-  const mobileValue = mobileItems.some((i) => i.to === current) ? current : 'mais';
   const wide = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
+  const mobileItems = NAV_ITEMS.filter((i) => i.mobile);
+  // Tela larga: no topo só os principais; o resto (e o Início, que é o logo) vai para "Mais".
+  const topItems = wide ? NAV_ITEMS.filter((i) => 'topo' in i && i.topo) : mobileItems;
+  const moreItems = wide ? NAV_ITEMS.filter((i) => !('topo' in i && i.topo) && i.to !== '/') : NAV_ITEMS.filter((i) => !i.mobile);
+  const mobileValue = mobileItems.some((i) => i.to === current) ? current : 'mais';
   const desktop = useMediaQuery((theme: Theme) => theme.breakpoints.up('md'));
 
   return (
@@ -155,17 +157,17 @@ export function PublicLayout() {
             <BrandLogo size="small" />
           </NavLink>
           <Tabs
-            value={wide || mobileItems.some((i) => i.to === current) ? current : 'mais'}
+            value={topItems.some((i) => i.to === current) ? current : 'mais'}
             component="nav"
             aria-label="Navegação principal"
             variant="scrollable"
             scrollButtons={false}
             sx={{ display: { xs: 'none', md: 'flex' }, minHeight: 64, flex: 1, '& .MuiTab-root': { minHeight: 64 } }}
           >
-            {(wide ? NAV_ITEMS : mobileItems).map((item) => (
+            {topItems.map((item) => (
               <Tab key={item.to} value={item.to} label={item.label} component={NavLink} to={item.to} />
             ))}
-            {!wide && <Tab value="mais" label="Mais" icon={<MoreHorizRounded />} iconPosition="end" onClick={(e) => setMoreAnchor(e.currentTarget)} />}
+            <Tab value="mais" label="Mais" icon={<MoreHorizRounded />} iconPosition="end" onClick={(e) => setMoreAnchor(e.currentTarget)} />
           </Tabs>
           <Stack direction="row" spacing={0.5} sx={{ ml: 'auto', alignItems: 'center' }}>
             <ShareButton />

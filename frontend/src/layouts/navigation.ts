@@ -21,22 +21,25 @@ import ManageSearchRounded from '@mui/icons-material/ManageSearchRounded';
 import { env } from '@/config/env';
 import { usePeriodoEleitoral } from '@/data/usePeriodoEleitoral';
 
-/** Main navigation. `mobile: true` items go to the bottom bar; the rest live in "Mais". */
+/**
+ * Main navigation. `mobile: true` items go to the bottom bar; `topo: true` items stay in the
+ * desktop top bar (os demais ficam em "Mais", para a barra não cortar rótulos).
+ */
 export const NAV_ITEMS = [
   { to: '/', label: 'Início', icon: HomeRounded, mobile: true },
-  { to: '/eleicao', label: 'Candidatos', icon: HowToVoteRounded, mobile: true },
-  { to: '/resultados', label: 'Resultados', icon: BarChartRounded, mobile: false },
+  { to: '/eleicao', label: 'Candidatos', icon: HowToVoteRounded, mobile: true, topo: true },
+  { to: '/resultados', label: 'Resultados', icon: BarChartRounded, mobile: false, topo: true },
   { to: '/mapa', label: 'Mapa do voto', icon: MapRounded, mobile: false },
-  { to: '/comparar', label: 'Comparar', icon: CompareArrowsRounded, mobile: true },
+  { to: '/comparar', label: 'Comparar', icon: CompareArrowsRounded, mobile: true, topo: true },
   { to: '/cola', label: 'Minha cola', short: 'Cola', icon: ListAltRounded, mobile: true, periodo: 'eleicao' },
   // Pesquisas: pendente (ver env.enablePesquisas).
   ...(env.enablePesquisas ? [{ to: '/pesquisas', label: 'Pesquisas', icon: PollRounded, mobile: false } as const] : []),
   { to: '/simulador', label: 'Simulador de urna', icon: TouchAppRounded, mobile: false, periodo: 'eleicao' },
-  { to: '/segundo-turno', label: '2º turno', icon: SyncAltRounded, mobile: false, periodo: 'segundo-turno' },
+  { to: '/segundo-turno', label: '2º turno', icon: SyncAltRounded, mobile: false, topo: true, periodo: 'segundo-turno' },
   { to: '/planos', label: 'Planos de governo', icon: ManageSearchRounded, mobile: false, periodo: 'segundo-turno' },
   { to: '/como-votar', label: 'Como votar', icon: HelpOutlineRounded, mobile: false, periodo: 'segundo-turno' },
-  { to: '/minha-cidade', label: 'Minha cidade', icon: LocationCityRounded, mobile: false },
-  { to: '/plenario', label: 'Plenário', icon: AccountBalanceRounded, mobile: false },
+  { to: '/minha-cidade', label: 'Minha cidade', icon: LocationCityRounded, mobile: false, topo: true },
+  { to: '/plenario', label: 'Plenário', icon: AccountBalanceRounded, mobile: false, topo: true },
   { to: '/congresso-eleito', label: 'Congresso eleito', icon: Diversity3Rounded, mobile: false },
   { to: '/partidos', label: 'Partidos', icon: GroupsRounded, mobile: false },
   { to: '/presidentes', label: 'Presidentes', icon: HistoryEduRounded, mobile: false },
