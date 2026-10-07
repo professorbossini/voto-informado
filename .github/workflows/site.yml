@@ -23,6 +23,7 @@ on:
 
 permissions:
   contents: write
+  id-token: write # gravação no R2 da Cloudflare (etl.r2, OIDC)
   pages: write
 
 concurrency:
@@ -100,3 +101,11 @@ jobs:
           git push -q origin gh-pages
           gh api -X POST "repos/${{ github.repository }}/pages/builds" >/dev/null || true
           echo "✓ interface publicada (${GITHUB_SHA::10})" >> "$GITHUB_STEP_SUMMARY"
+
+      # Cloudflare: a interface nova (index.html e assets) e as páginas de rotas novas. As demais
+      # páginas por rota não precisam ser regravadas: o Worker usa sempre o index.html atual.
+      - name: Enviar ao R2 (Cloudflare)
+        working-directory: backend
+        run: |
+          python -m etl.r2 enviar ../frontend/dist
+          python -m etl.r2 enviar ../site $(python -c "from app.frontend_remoto import NOVAS_ROTAS; print(' '.join(f'--prefixo {r}/' for r in NOVAS_ROTAS))")

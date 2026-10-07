@@ -114,7 +114,7 @@ def _md5(p: Path) -> str:
 
 def enviar(pasta: Path, prefixos: list[str] | None = None) -> int:
     """Envia os arquivos da pasta que não existem no R2 ou têm conteúdo diferente."""
-    locais = [p for p in pasta.rglob("*") if p.is_file() and not (set(p.relative_to(pasta).parts) & IGNORAR)]
+    locais = [p for p in pasta.rglob("*") if p.is_file() and p.suffix != ".map" and not (set(p.relative_to(pasta).parts) & IGNORAR)]
     chaves = {str(p.relative_to(pasta)).replace(os.sep, "/"): p for p in locais}
     if prefixos:
         chaves = {k: p for k, p in chaves.items() if any(k.startswith(x.lstrip("/")) for x in prefixos)}

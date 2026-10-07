@@ -18,6 +18,7 @@ on:
 
 permissions:
   contents: write
+  id-token: write # gravação no R2 da Cloudflare (etl.r2, OIDC)
   pages: write
 
 concurrency:
@@ -85,3 +86,8 @@ jobs:
           # Garante a nova versão do GitHub Pages (push feito com GITHUB_TOKEN).
           gh api -X POST "repos/${{ github.repository }}/pages/builds" >/dev/null || true
           echo "✓ publicado" >> "$GITHUB_STEP_SUMMARY"
+      - name: Enviar ao R2 (Cloudflare)
+        if: steps.tse.outputs.mudou == '1'
+        working-directory: backend
+        run: python -m etl.r2 enviar ../site
+

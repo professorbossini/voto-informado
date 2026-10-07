@@ -12,6 +12,7 @@ on:
 
 permissions:
   contents: write
+  id-token: write # gravação no R2 da Cloudflare (etl.r2, OIDC)
   pages: write
   actions: write
 
@@ -65,6 +66,11 @@ jobs:
           git push -q origin gh-pages
           gh api -X POST "repos/${{ github.repository }}/pages/builds" >/dev/null || true
           echo "✓ notícias publicadas" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Enviar ao R2 (Cloudflare)
+        if: steps.noticias.outputs.mudou == '1'
+        working-directory: backend
+        run: python -m etl.r2 enviar ../site
 
       # O GitHub desliga agendamentos de repositórios sem atividade por 60 dias.
       - name: Manter o agendamento ligado
