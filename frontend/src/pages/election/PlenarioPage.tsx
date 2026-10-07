@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState, type ReactElement } from 'react';
+import { useMemo, useState, type ReactElement } from 'react';
 import {
   Alert,
   Box,
@@ -34,8 +34,7 @@ import HighlightAltRounded from '@mui/icons-material/HighlightAltRounded';
 import FaceRounded from '@mui/icons-material/FaceRounded';
 import FlagRounded from '@mui/icons-material/FlagRounded';
 import MyLocationRounded from '@mui/icons-material/MyLocationRounded';
-import { municipioDoPonto, ufDoPonto } from '@/data/localizacao';
-import { isNativeApp } from '@/native/platform';
+import { MUN_PADRAO, useMunicipioUsuario } from '@/data/useMunicipioUsuario';
 import { useLocalState } from '@/data/localStore';
 import { assetUrl, data, dataFileUrl } from '@/data/api';
 import type { CasaPlenario, Eleitos, MembroEleito, MembroPlenario, Plenario } from '@/data/types';
@@ -577,74 +576,6 @@ const UFS_NOMES: Record<string, string> = {
  * Assembleias Legislativas (eleitos em 2022) e Câmaras Municipais (eleitos em 2024), por estado.
  * Fonte: TSE. Não há base oficial unificada da composição ATUAL dessas Casas; o texto diz isso.
  */
-/** Sem município escolhido nem localização: São Paulo (código do município no TSE). */
-const MUN_PADRAO = { uf: 'SP', mun: '71072' };
-
-type StatusMunicipio = 'ocioso' | 'buscando' | 'negado' | 'indisponivel' | 'fora' | 'df';
-
-/**
- * Município da pessoa pela localização, para abrir a Câmara Municipal dela. Como a UF na
- * apuração, o cálculo é feito no aparelho (malha municipal do IBGE publicada no site): a posição
- * não sai dele. Fica guardado só o código do município.
- */
-function useMunicipioUsuario(ativo: boolean) {
-  const [salvo, setSalvo] = useLocalState<{ uf: string; mun: string } | null>('vi:municipio', null);
-  const [pediu, setPediu] = useLocalState<boolean>('vi:municipio-pediu', false);
-  const [status, setStatus] = useState<StatusMunicipio>('ocioso');
-
-  const detectar = useCallback(
-    (aoAchar?: () => void) => {
-      if (!('geolocation' in navigator)) {
-        setStatus('indisponivel');
-        return;
-      }
-      setStatus('buscando');
-      setPediu(true);
-      navigator.geolocation.getCurrentPosition(
-        async ({ coords }) => {
-          const uf = ufDoPonto(coords.latitude, coords.longitude);
-          if (!uf) return setStatus('fora');
-          if (uf === 'DF') return setStatus('df');
-          try {
-            const mun = municipioDoPonto(coords.latitude, coords.longitude, await data.malhaMunicipal(uf));
-            if (!mun) return setStatus('fora');
-            setSalvo({ uf, mun });
-            setStatus('ocioso');
-            aoAchar?.();
-          } catch {
-            setStatus('indisponivel');
-          }
-        },
-        (err) => setStatus(err.code === err.PERMISSION_DENIED ? 'negado' : 'indisponivel'),
-        { enableHighAccuracy: false, timeout: 15_000, maximumAge: 3_600_000 },
-      );
-    },
-    [setSalvo, setPediu],
-  );
-
-  // Ao abrir as Câmaras municipais: com a permissão já dada, confere de novo (a pessoa pode ter
-  // mudado de cidade); sem ela, pergunta uma vez só e não insiste se já foi negada.
-  useEffect(() => {
-    if (!ativo) return;
-    let cancel = false;
-    const perm: Promise<PermissionStatus | null> = isNativeApp
-      ? Promise.resolve(null)
-      : (navigator.permissions?.query?.({ name: 'geolocation' as PermissionName }) ?? Promise.resolve(null));
-    perm.then(
-      (p) => {
-        if (cancel) return;
-        if (p?.state === 'denied') setStatus('negado');
-        else if (p?.state === 'granted' || (!salvo && !pediu)) detectar();
-      },
-      () => !cancel && !salvo && !pediu && detectar(),
-    );
-    return () => void (cancel = true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ativo]);
-
-  return { salvo, status, detectar };
-}
-
 function PlenarioLocal({ tipo, partidos }: { tipo: 'assembleia' | 'municipal'; partidos: Plenario['partidos'] }) {
   const [params, setParams] = useSearchParams();
   const { uf: ufUsuario } = useUfUsuario({ detectarSozinho: false });

@@ -69,6 +69,7 @@ export const router = createBrowserRouter([
       { path: '/como-votar', ...pageEleitoral(() => import('@/pages/election/ComoVotarPage'), 'ComoVotarPage', 'segundo-turno', 'O guia do 2º turno') },
       { path: '/segundo-turno', ...pageEleitoral(() => import('@/pages/election/SegundoTurnoPage'), 'SegundoTurnoPage', 'segundo-turno', 'O 2º turno') },
       { path: '/gastos', ...page(() => import('@/pages/election/GastosPage'), 'GastosPage') },
+      { path: '/emendas', ...page(() => import('@/pages/election/EmendasPage'), 'EmendasPage') },
       { path: '/parlamentar/:id', ...page(() => import('@/pages/election/ParlamentarPage'), 'ParlamentarPage') },
       { path: '/partidos', ...page(() => import('@/pages/election/PartidosPage'), 'PartidosPage') },
       { path: '/partido/:slug', ...page(() => import('@/pages/election/PartidoPage'), 'PartidoPage') },

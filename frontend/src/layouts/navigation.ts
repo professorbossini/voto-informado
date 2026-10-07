@@ -13,6 +13,7 @@ import AccountBalanceRounded from '@mui/icons-material/AccountBalanceRounded';
 import GroupsRounded from '@mui/icons-material/GroupsRounded';
 import HelpOutlineRounded from '@mui/icons-material/HelpOutlineRounded';
 import HistoryEduRounded from '@mui/icons-material/HistoryEduRounded';
+import PaymentsRounded from '@mui/icons-material/PaymentsRounded';
 import { env } from '@/config/env';
 import { usePeriodoEleitoral } from '@/data/usePeriodoEleitoral';
 
@@ -32,6 +33,7 @@ export const NAV_ITEMS = [
   { to: '/partidos', label: 'Partidos', icon: GroupsRounded, mobile: false },
   { to: '/presidentes', label: 'Presidentes', icon: HistoryEduRounded, mobile: false },
   { to: '/gastos', label: 'Gastos de mandato', icon: ReceiptLongRounded, mobile: false },
+  { to: '/emendas', label: 'Emendas', icon: PaymentsRounded, mobile: false },
   { to: '/numeros', label: 'Em números', icon: InsightsRounded, mobile: false },
   { to: '/sobre', label: 'Fontes e método', icon: InfoRounded, mobile: false },
 ] as const;

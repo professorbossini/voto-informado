@@ -644,3 +644,146 @@ export interface Eleitos {
   fontes: { tse: string; senado: string };
   gerado_em: string;
 }
+
+/* ------------------------------------------------------------------ emendas parlamentares (CGU) */
+
+/** Tipo de emenda, em chave curta (o resumo traz o texto publicado pela CGU). */
+export type TipoEmenda = 'individual' | 'especial' | 'bancada' | 'comissao' | 'relator' | 'outro';
+/** Quem indicou: parlamentar (emenda individual), bancada estadual, comissão ou relator-geral. */
+export type TipoAutorEmenda = 'parlamentar' | 'bancada' | 'comissao' | 'relator' | 'outro';
+
+export interface FonteEmendas {
+  nome: string;
+  orgao: string;
+  /** Página do conjunto de dados no Portal da Transparência. */
+  url: string;
+  /** Data do arquivo publicado pela CGU (Last-Modified do servidor). */
+  arquivo_atualizado_em: string | null;
+  /** Endereço de uma emenda no Portal da Transparência: troque {codigo} pelo código. */
+  link_emenda: string;
+}
+
+/** Valores em reais, como publicados: `valor` é tudo; `prefeitura`, só prefeitura e órgãos municipais. */
+export interface ValorEmenda {
+  valor: number;
+  prefeitura: number;
+}
+
+export interface EstagiosEmenda {
+  empenhado: number;
+  liquidado: number;
+  pago: number;
+  /** Restos a pagar pagos: pagos em anos seguintes ao da emenda. */
+  rp_pago: number;
+  emendas: number;
+}
+
+export interface AutorEmenda {
+  /** Nome do autor exatamente como publicado pela CGU. */
+  autor: string;
+  autor_tipo: TipoAutorEmenda;
+  /** Presentes quando o autor é um parlamentar em exercício com página no site. */
+  id?: string;
+  nome?: string;
+  partido?: string | null;
+  uf?: string | null;
+}
+
+export interface EmendaMunicipio extends AutorEmenda, ValorEmenda {
+  codigo: string;
+  ano: number;
+  tipo: TipoEmenda;
+  funcao: string;
+  acao: string;
+  localidade: string;
+}
+
+export interface EmendasMunicipio {
+  uf: string;
+  /** Código do município no TSE. */
+  cd: string;
+  ibge: string;
+  nome: string;
+  periodo: { desde: number };
+  /** Pagamentos a favorecidos sediados no município, pela data do pagamento. */
+  recebido: {
+    total: number;
+    prefeitura: number;
+    emendas: number;
+    por_ano: ({ ano: number } & ValorEmenda)[];
+    por_autor: (AutorEmenda & ValorEmenda)[];
+    por_funcao: ({ nome: string } & ValorEmenda)[];
+    por_favorecido: { nome: string; valor: number }[];
+    por_tipo: ({ nome: TipoEmenda } & ValorEmenda)[];
+  };
+  /** Emendas cuja localidade de aplicação é o próprio município, pelo ano da emenda. */
+  destinadas: { total: EstagiosEmenda; por_ano: ({ ano: number } & EstagiosEmenda)[] };
+  maiores: EmendaMunicipio[];
+  fonte: FonteEmendas;
+}
+
+export interface EmendasUf {
+  uf: string;
+  nome: string;
+  periodo: { desde: number };
+  recebido_municipios: { total: number; prefeitura: number; por_ano: ({ ano: number } & ValorEmenda)[] };
+  governo_estadual: { total: number; por_ano: { ano: number; valor: number }[] };
+  destinadas: { total: EstagiosEmenda; por_ano: ({ ano: number } & EstagiosEmenda)[] };
+  /** Todos os municípios da UF (código TSE), do maior valor recebido para o menor. */
+  municipios: { cd: string; nome: string; recebido: number; prefeitura: number; emendas: number }[];
+  fonte: FonteEmendas;
+}
+
+export interface EmendaParlamentar {
+  codigo: string;
+  ano: number;
+  tipo: TipoEmenda;
+  numero: string;
+  localidade: string;
+  funcao: string;
+  acao: string;
+  empenhado: number;
+  liquidado: number;
+  pago: number;
+  rp_pago: number;
+}
+
+export interface EmendasParlamentar {
+  id: string;
+  nome: string;
+  partido: string | null;
+  uf: string | null;
+  /** Nome(s) do autor como publicados pela CGU. */
+  autor_cgu: string[];
+  periodo: { desde: number };
+  total: EstagiosEmenda;
+  por_ano: ({ ano: number } & EstagiosEmenda)[];
+  pagamentos: { total: number; por_ano: { ano: number; valor: number }[]; sem_municipio: number };
+  destinos_uf: { uf: string; nome: string; valor: number }[];
+  destinos_municipio: { uf: string; cd: string; nome: string; valor: number }[];
+  emendas: EmendaParlamentar[];
+  fonte: FonteEmendas;
+}
+
+export interface ResumoEmendas {
+  fonte: {
+    nome: string;
+    orgao: string;
+    url: string;
+    pagina: string;
+    dicionario: string;
+    arquivo_atualizado_em: string | null;
+    gerado_em: string | null;
+    coletado_em: string;
+  };
+  periodo: { desde: number; ate: number };
+  tipos: Record<string, string>;
+  link_emenda: string;
+  valores: string;
+  emendas_por_ano: ({ ano: number } & EstagiosEmenda)[];
+  emendas_por_tipo: ({ tipo: TipoEmenda; nome: string } & EstagiosEmenda)[];
+  /** Pagamentos de cada ano: a favorecidos em municípios, ao governo do estado e sem município identificado. */
+  pagamentos_por_ano: { ano: number; total: number; municipios: number; governo_estadual: number; sem_municipio: number }[];
+  sem_municipio_por_motivo: { motivo: string; valor: number }[];
+  ufs: { uf: string; nome: string; recebido_municipios: number; prefeitura: number; governo_estadual: number; municipios_com_pagamento: number; municipios: number }[];
+}
