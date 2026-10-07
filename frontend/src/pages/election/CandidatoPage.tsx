@@ -33,6 +33,9 @@ import { StatusChip } from '@/components/election/StatusChip';
 import { assetUrl, data, DataError } from '@/data/api';
 import { CARGO_LABEL, dateShort, money, moneyCompact, nomeProprio, NAO_INFORMADO, number, percent, variation } from '@/data/format';
 import { useComparar, useCola } from '@/data/localStore';
+import { useMeta } from '@/data/MetaContext';
+import { BotaoCompartilharImagem } from '@/components/compartilhar/BotaoCompartilharImagem';
+import { cartaoCandidato } from '@/components/compartilhar/dados';
 import type { CandidatoDetalhe, CustoPorVoto } from '@/data/types';
 import { useAsync } from '@/hooks/useAsync';
 
@@ -365,6 +368,7 @@ export function CandidatoPage() {
   const notify = useNotify();
   const { has, toggle } = useComparar();
   const { cola, setCola } = useCola();
+  const { fontes } = useMeta();
   const res = useAsync(() => data.candidato(sq), [sq]);
 
   if (res.loading) {
@@ -416,10 +420,10 @@ export function CandidatoPage() {
     notify(`${nome} foi para a sua cola.`);
   };
 
+  const textoShare = `${nome} (${c.numero}, ${c.partido}) · ${CARGO_LABEL[c.cargo]}: dados oficiais do TSE`;
   const share = async () => {
     const url = publicUrl(`candidato/${c.sq}`);
-    const text = `${nome} (${c.numero}, ${c.partido}) · ${CARGO_LABEL[c.cargo]}: dados oficiais do TSE`;
-    if ((await shareContent({ title: nome, text, url })) === 'copied') notify('Link copiado.');
+    if ((await shareContent({ title: nome, text: textoShare, url })) === 'copied') notify('Link copiado.');
   };
 
   return (
@@ -510,6 +514,7 @@ export function CandidatoPage() {
             <Button variant="outlined" startIcon={<IosShareRounded />} onClick={() => void share()}>
               Compartilhar
             </Button>
+            <BotaoCompartilharImagem texto={textoShare} montar={() => cartaoCandidato(c, publicUrl(`candidato/${c.sq}`), fontes)} />
             <Button variant="text" endIcon={<OpenInNewRounded />} href={c.divulgacand} target="_blank" rel="noopener noreferrer">
               Ver no DivulgaCandContas (TSE)
             </Button>

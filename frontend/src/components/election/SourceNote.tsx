@@ -5,13 +5,7 @@ import OpenInNewRounded from '@mui/icons-material/OpenInNewRounded';
 import { useMeta } from '@/data/MetaContext';
 import { dateTime } from '@/data/format';
 import type { Fonte } from '@/data/types';
-
-function orgaoCurto(orgao: string) {
-  if (orgao.includes('TSE')) return 'TSE';
-  if (orgao.includes('Câmara')) return 'Câmara dos Deputados';
-  if (orgao.includes('Senado')) return 'Senado Federal';
-  return orgao;
-}
+import { orgaoCurto } from './orgao';
 
 export function FonteDetalhe({ fonte }: { fonte: Fonte }) {
   return (

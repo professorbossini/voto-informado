@@ -27,6 +27,9 @@ import type { CandidatoDetalhe } from '@/data/types';
 import { useAsync } from '@/hooks/useAsync';
 import { PageHeader } from '@/pages/PageHeader';
 import { AvisoResultado } from '@/components/avisos/AvisoResultado';
+import { BotaoCompartilharImagem } from '@/components/compartilhar/BotaoCompartilharImagem';
+import { cartaoLadoALado } from '@/components/compartilhar/dados';
+import { publicUrl } from '@/native/platform';
 
 const LINHAS: { label: string; value: (c: CandidatoDetalhe) => string }[] = [
   { label: 'Partido / federação', value: (c) => `${c.partido}${c.federacao_nome ? ` · ${nomeProprio(c.federacao_nome)}` : ''}` },
@@ -43,7 +46,7 @@ const LINHAS: { label: string; value: (c: CandidatoDetalhe) => string }[] = [
 const pctBr = (v: number) => `${v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}%`;
 
 export function SegundoTurnoPage() {
-  const { meta } = useMeta();
+  const { meta, fontes } = useMeta();
   // Finalistas confirmados pelo TSE (ao vivo), mais os que o site já publicou.
   const fin = useFinalistas();
   const { uf: ufUsuario } = useUfUsuario({ detectarSozinho: false });
@@ -186,9 +189,25 @@ export function SegundoTurnoPage() {
                           {d.origem !== 'tse' ? 'Finalistas conforme os dados oficiais publicados pelo site.' : d.oficial ? 'Finalistas confirmados pelo TSE na apuração do 1º turno.' : 'Finalistas: pela totalização de 100% das seções do 1º turno ninguém passou de 50% dos votos válidos, então os dois mais votados vão ao 2º turno (Constituição, art. 77); aguardando a proclamação oficial do TSE.'}
                         </Typography>
                       </Box>
-                      <Button component={RouterLink} to={`/comparar?c=${d.sqs.join(',')}`} startIcon={<CompareArrowsRounded />} variant="tonal" size="small">
-                        Comparação completa
-                      </Button>
+                      <Stack direction="row" useFlexGap sx={{ flexWrap: 'wrap', gap: 1, flexShrink: 0 }}>
+                        <Button component={RouterLink} to={`/comparar?c=${d.sqs.join(',')}`} startIcon={<CompareArrowsRounded />} variant="tonal" size="small">
+                          Comparação completa
+                        </Button>
+                        {/* Finalistas na ordem da página (alfabética), com as mesmas linhas da tabela abaixo. */}
+                        <BotaoCompartilharImagem
+                          size="small"
+                          montar={() =>
+                            cartaoLadoALado(cs, {
+                              titulo: `2º turno · ${CARGO_LABEL[d.cargo]} · ${nomeUf(d.uf)}`,
+                              url: publicUrl(`segundo-turno#st-${d.uf}-${d.cargo}`),
+                              fontes,
+                              antes: linhas.slice(0, d.turno2 ? 2 : 1).map((l) => ({ rotulo: l.label, valores: cs.map((c) => l.value(c)) })),
+                              semResultado: true,
+                              chavesExtras: ['tse_resultados'],
+                            })
+                          }
+                        />
+                      </Stack>
                     </Stack>
                     {eleitos.length > 0 && <CartaoEleitos eleitos={eleitos} cargo={d.cargo} turno={2} local={d.cargo === 'presidente' ? null : nomeUf(d.uf)} compacto sx={{ mb: 2 }} />}
                     <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr 1fr', md: `220px repeat(${cs.length}, 1fr)` }, gap: 2, alignItems: 'start' }}>
