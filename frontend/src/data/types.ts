@@ -350,6 +350,50 @@ export interface SegundoTurno {
   fontes: string[];
 }
 
+/** Planos de governo registrados no TSE (api/planos/, backend/etl/planos.py). */
+export interface FontePlanos {
+  nome: string;
+  orgao: string;
+  url: string;
+  pagina: string;
+  descricao: string;
+}
+
+export interface PlanosIndice {
+  /** Presidente primeiro, depois os estados pelo nome. */
+  disputas: { uf: string; nome_uf: string; cargo: Cargo; arquivo: string }[];
+  fonte: FontePlanos;
+  gerado_em: string;
+}
+
+/** Um PDF do plano: o texto de cada página (índice 0 = página 1), como extraído do arquivo. */
+export interface DocumentoPlano {
+  pdf: string;
+  paginas: string[];
+  /** PDF só com imagem (digitalizado): não há texto para buscar. */
+  sem_texto: boolean;
+}
+
+export interface CandidatoPlano {
+  sq: string;
+  nome_urna: string;
+  partido: string;
+  numero: string;
+  foto: string | null;
+  divulgacand: string | null;
+  documentos: DocumentoPlano[];
+}
+
+export interface PlanosDisputa {
+  uf: string;
+  nome_uf: string;
+  cargo: Cargo;
+  /** Ordem alfabética do nome de urna. */
+  candidatos: CandidatoPlano[];
+  fonte: FontePlanos;
+  gerado_em: string;
+}
+
 /** Composição atual de cada Casa e presidência (api/plenario.json, atualizado todo dia). */
 export interface MembroPlenario {
   id: string;

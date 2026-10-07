@@ -43,6 +43,10 @@ NOVAS_ROTAS = {
         "Perfil do Congresso eleito · Tá na Urna",
         "Quem foi eleito em 2026 para a Câmara, o Senado e as Assembleias, comparado com 2022: gênero, idade, cor/raça, instrução, ocupação e renovação. Dados oficiais do TSE.",
     ),
+    "planos": (
+        "Planos de governo do 2º turno · Tá na Urna",
+        "Busque um tema nos planos de governo registrados no TSE pelos finalistas do 2º turno e veja os trechos de cada plano, lado a lado, com a página do PDF oficial.",
+    ),
 }
 
 
