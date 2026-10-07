@@ -1,0 +1,2 @@
+import{m as e}from"./react-DWX0PShv.js";import{Dn as t}from"./mui-BqCp1XF-.js";import{t as n}from"./AvisoResultado-DTqitKAC.js";import{t as r}from"./ApuracaoAoVivo-CaSq-W0k.js";var i=e();function a(){return(0,i.jsxs)(i.Fragment,{children:[(0,i.jsx)(r,{headingLevel:`h1`}),(0,i.jsx)(t,{sx:{mt:3},children:(0,i.jsx)(n,{})})]})}export{a as ResultadosPage};
+//# sourceMappingURL=ResultadosPage-B9rxyMpb.js.map
