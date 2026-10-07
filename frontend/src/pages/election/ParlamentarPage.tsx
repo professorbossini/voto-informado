@@ -45,6 +45,10 @@ import {
   percentSigned,
 } from '@/components/gastos/gastos';
 import { data, DataError } from '@/data/api';
+import { useMeta } from '@/data/MetaContext';
+import { publicUrl } from '@/native/platform';
+import { BotaoCompartilharImagem } from '@/components/compartilhar/BotaoCompartilharImagem';
+import { cartaoParlamentar } from '@/components/compartilhar/dados';
 import { money, moneyCompact, NAO_INFORMADO, nomeProprio, number } from '@/data/format';
 import { useAsync } from '@/hooks/useAsync';
 
@@ -96,6 +100,7 @@ export function ParlamentarPage() {
   const { data: d, error, loading, reload } = useAsync(() => data.parlamentar(id), [id]);
   const [anoTab, setAnoTab] = useState<number | null>(null);
   const desfechos = useDesfechos(d?.candidato ? cargoDaBusca(d.candidato.cargo) : null, d?.candidato?.uf ?? null);
+  const { fontes } = useMeta();
 
   const anos = useMemo(() => {
     if (!d) return [];
@@ -214,6 +219,11 @@ export function ParlamentarPage() {
                       Página oficial
                     </Button>
                   )}
+                  {/* Participação nas votações: o mesmo arquivo que a seção de votações já carregou (fica em cache). */}
+                  <BotaoCompartilharImagem
+                    size="small"
+                    montar={async () => cartaoParlamentar(d, publicUrl(`parlamentar/${id}`), fontes, await data.votacoes(id).catch(() => null))}
+                  />
                 </Stack>
                 <SourceNote keys={fontesCadastro} />
               </Stack>

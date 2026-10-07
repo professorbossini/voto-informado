@@ -37,6 +37,8 @@ import { MAX_COMPARAR, useComparar } from '@/data/localStore';
 import { useMeta } from '@/data/MetaContext';
 import type { CandidatoDetalhe } from '@/data/types';
 import { useAsync } from '@/hooks/useAsync';
+import { BotaoCompartilharImagem } from '@/components/compartilhar/BotaoCompartilharImagem';
+import { cartaoLadoALado } from '@/components/compartilhar/dados';
 import { PageHeader } from '@/pages/PageHeader';
 
 function fefc(c: CandidatoDetalhe) {
@@ -136,7 +138,7 @@ export function CompararPage() {
   }, [fromUrl, set, setParams]);
 
   // Atalhos do 2º turno: finalistas confirmados pelo TSE.
-  const { meta } = useMeta();
+  const { meta, fontes } = useMeta();
   const fin = useFinalistas();
   const { uf: ufUsuario } = useUfUsuario({ detectarSozinho: false });
   const nomeUf = (uf: string) => meta?.ufs.find((u) => u.uf === uf)?.nome ?? uf;
@@ -157,6 +159,15 @@ export function CompararPage() {
     if ((await shareContent({ title: 'Comparação de candidaturas', url })) === 'copied') notify('Link da comparação copiado.');
   };
 
+  // Cartão em imagem: as candidaturas na ordem da seleção, com as mesmas linhas para todas.
+  const mesmoCargo = cands.length > 0 && cands.every((c) => c.cargo === cands[0].cargo && c.uf === cands[0].uf);
+  const cartao = () =>
+    cartaoLadoALado(cands, {
+      titulo: mesmoCargo ? `Comparação · ${CARGO_LABEL[cands[0].cargo]} · ${cands[0].uf === 'BR' ? 'Brasil' : cands[0].uf}` : 'Comparação de candidaturas',
+      url: publicUrl(`comparar?c=${cands.map((c) => c.sq).join(',')}`),
+      fontes,
+    });
+
   return (
     <>
       <PageHeader
@@ -168,6 +179,7 @@ export function CompararPage() {
               <Button variant="outlined" startIcon={<IosShareRounded />} onClick={() => void share()}>
                 Compartilhar
               </Button>
+              {cands.length >= 2 && <BotaoCompartilharImagem montar={cartao} />}
               <Button onClick={() => set([])}>Limpar</Button>
             </>
           )
