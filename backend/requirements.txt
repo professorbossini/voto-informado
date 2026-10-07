@@ -3,5 +3,6 @@
 pandas>=2.2
 pyarrow>=17
 sqlalchemy>=2.0
+pypdf>=5  # etl.planos (texto dos planos de governo)
 pytest>=8
 httpx>=0.27

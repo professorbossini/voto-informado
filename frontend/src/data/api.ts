@@ -26,6 +26,8 @@ import type {
   ParlamentarDetalhe,
   Partido,
   Plenario,
+  PlanosDisputa,
+  PlanosIndice,
   Resultados,
   SegundoTurno,
 } from './types';
@@ -103,4 +105,7 @@ export const data = {
   emendasUf: (uf: string) => get<EmendasUf>(`emendas/uf/${uf.toUpperCase()}.json`),
   emendasMunicipio: (uf: string, cd: string) => get<EmendasMunicipio>(`emendas/municipio/${uf.toUpperCase()}/${encodeURIComponent(cd)}.json`),
   emendasParlamentar: (id: string) => get<EmendasParlamentar>(`emendas/parlamentar/${encodeURIComponent(id)}.json`),
+  /** Texto dos planos de governo dos finalistas do 2º turno, para a busca (um arquivo por disputa). */
+  planosIndice: () => get<PlanosIndice>('planos/indice.json'),
+  planosDisputa: (arquivo: string) => get<PlanosDisputa>(`planos/${encodeURIComponent(arquivo)}`),
 };

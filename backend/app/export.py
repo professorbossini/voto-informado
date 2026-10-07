@@ -114,6 +114,7 @@ def write_pages(dest: Path, site_url: str) -> None:
         "simulador": "Simulador de urna (educativo)",
         "resultados": "Resultados ao vivo das Eleições 2026 (TSE)",
         "segundo-turno": "2º turno",
+        "planos": "Planos de governo do 2º turno",
         "plenario": "Plenário da Câmara e do Senado",
         "presidentes": "Presidentes do Brasil",
         "gastos": "Gastos de mandato (cota parlamentar)",

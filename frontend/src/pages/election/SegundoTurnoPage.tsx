@@ -12,6 +12,7 @@ import {
 } from '@mui/material';
 import CompareArrowsRounded from '@mui/icons-material/CompareArrowsRounded';
 import BarChartRounded from '@mui/icons-material/BarChartRounded';
+import ManageSearchRounded from '@mui/icons-material/ManageSearchRounded';
 import { Link as RouterLink, useLocation } from 'react-router';
 import { useFinalistas, useUfUsuario, type DisputaFinal } from '@/components/resultados/hooks';
 import { CartaoEleitos } from '@/components/resultados/CartaoEleitos';
@@ -89,6 +90,9 @@ export function SegundoTurnoPage() {
         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1}>
           <Button component={RouterLink} to="/como-votar" variant="tonal">
             Como votar no 2º turno
+          </Button>
+          <Button component={RouterLink} to="/planos" variant="tonal" startIcon={<ManageSearchRounded />}>
+            Buscar nos planos de governo
           </Button>
         </Stack>
         <AvisoResultado />
@@ -186,9 +190,14 @@ export function SegundoTurnoPage() {
                           {d.origem !== 'tse' ? 'Finalistas conforme os dados oficiais publicados pelo site.' : d.oficial ? 'Finalistas confirmados pelo TSE na apuração do 1º turno.' : 'Finalistas: pela totalização de 100% das seções do 1º turno ninguém passou de 50% dos votos válidos, então os dois mais votados vão ao 2º turno (Constituição, art. 77); aguardando a proclamação oficial do TSE.'}
                         </Typography>
                       </Box>
-                      <Button component={RouterLink} to={`/comparar?c=${d.sqs.join(',')}`} startIcon={<CompareArrowsRounded />} variant="tonal" size="small">
-                        Comparação completa
-                      </Button>
+                      <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: 'wrap' }}>
+                        <Button component={RouterLink} to={`/comparar?c=${d.sqs.join(',')}`} startIcon={<CompareArrowsRounded />} variant="tonal" size="small">
+                          Comparação completa
+                        </Button>
+                        <Button component={RouterLink} to={`/planos?d=${d.uf.toLowerCase()}-${d.cargo}`} startIcon={<ManageSearchRounded />} variant="tonal" size="small">
+                          Planos de governo
+                        </Button>
+                      </Stack>
                     </Stack>
                     {eleitos.length > 0 && <CartaoEleitos eleitos={eleitos} cargo={d.cargo} turno={2} local={d.cargo === 'presidente' ? null : nomeUf(d.uf)} compacto sx={{ mb: 2 }} />}
                     <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr 1fr', md: `220px repeat(${cs.length}, 1fr)` }, gap: 2, alignItems: 'start' }}>

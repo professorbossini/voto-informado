@@ -39,6 +39,10 @@ NOVAS_ROTAS = {
         "Presidentes do Brasil · Tá na Urna",
         "De Deodoro da Fonseca a hoje: retratos, datas, como cada um chegou e saiu do cargo e os marcos de cada período.",
     ),
+    "planos": (
+        "Planos de governo do 2º turno · Tá na Urna",
+        "Busque um tema nos planos de governo registrados no TSE pelos finalistas do 2º turno e veja os trechos de cada plano, lado a lado, com a página do PDF oficial.",
+    ),
 }
 
 

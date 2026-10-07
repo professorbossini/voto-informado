@@ -18,6 +18,7 @@ deputados federais e senadores. Não produz opinião, não exibe pesquisas e nã
 | Minha cola | `/cola` | Números na ordem da urna, para imprimir. Fica só no aparelho |
 | Simulador | `/simulador` | Urna educativa com fotos e números reais |
 | 2º turno | `/segundo-turno` | Apuração oficial e finalistas lado a lado (preenche sozinho com o feed do TSE) |
+| Planos de governo | `/planos` | Busca por tema nos planos registrados no TSE pelos finalistas do 2º turno: trecho, página e link para o PDF oficial (texto extraído por `.github/workflows/planos.yml`) |
 | Gastos de mandato | `/gastos`, `/parlamentar/:id` | Cota parlamentar (CEAP/CEAPS) desde 2023, ranking com comparação mensal justa por UF |
 | Em números | `/numeros` | Perfil das candidaturas: gênero, idade, instrução, financiamento, concorrência por vaga |
 | Fontes e método | `/sobre` | Todas as fontes com links e datas, metodologia e limitações |
