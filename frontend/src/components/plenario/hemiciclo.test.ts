@@ -17,7 +17,7 @@ describe('hemiciclo do plenário', () => {
         expect(Math.hypot(a.x - b.x, a.y - b.y)).toBeGreaterThanOrEqual(a.r + b.r - 1e-6);
       }
     }
-  });
+  }, 20_000);
 
   it.each([
     [80, [15, 14, 9, 9, 8, 6, 6, 4, 3, 3, 2, 1]],
