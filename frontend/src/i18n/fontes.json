@@ -84,6 +84,13 @@
   ]
  },
  {
+  "texto": ", que atua como operador. Como em qualquer acesso à internet, esse provedor recebe tecnicamente o endereço IP e informações básicas do navegador ou do aparelho e pode mantê-los nos próprios registros de segurança, conforme a",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/legal/PrivacidadePage.tsx"
+  ]
+ },
+ {
   "texto": ", sem as categorias de passagens",
   "tipo": "exato",
   "arquivos": [
@@ -147,24 +154,10 @@
   ]
  },
  {
-  "texto": ". Como em qualquer acesso à internet, esse provedor recebe tecnicamente o endereço IP e informações básicas do navegador ou do aparelho e pode mantê-los em registros de segurança, conforme a",
-  "tipo": "exato",
-  "arquivos": [
-   "pages/legal/PrivacidadePage.tsx"
-  ]
- },
- {
   "texto": ". Eleitos aparecem com a faixa verde na lista.",
   "tipo": "exato",
   "arquivos": [
    "components/resultados/ApuracaoAoVivo.tsx"
-  ]
- },
- {
-  "texto": ". O responsável pelo",
-  "tipo": "exato",
-  "arquivos": [
-   "pages/legal/PrivacidadePage.tsx"
   ]
  },
  {
@@ -1915,7 +1908,7 @@
   ]
  },
  {
-  "texto": "A LGPD (art. 18) garante, entre outros, os direitos de confirmação, acesso, correção e eliminação de dados pessoais. Sem login, não guardamos dados seus. Com login, você mesmo pode apagar a conta e os dados no menu da conta; qualquer outro pedido ou dúvida pode ser enviado para",
+  "texto": "A LGPD (art. 18) garante, entre outros, os direitos de confirmação, acesso, correção e eliminação de dados pessoais. Sem login, guardamos só os registros técnicos de acesso do item 7, que se apagam sozinhos em até 7 dias. Com login, você mesmo pode apagar a conta e os dados no menu da conta; qualquer outro pedido ou dúvida pode ser enviado para",
   "tipo": "exato",
   "arquivos": [
    "pages/legal/PrivacidadePage.tsx"
@@ -1933,6 +1926,13 @@
   "tipo": "exato",
   "arquivos": [
    "components/votacoes/VotacoesNominais.tsx"
+  ]
+ },
+ {
+  "texto": "a localização do seu aparelho (veja abaixo como o site descobre o seu estado e o seu município sem recebê-la), contatos, fotos, câmera, microfone ou arquivos do aparelho;",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/legal/PrivacidadePage.tsx"
   ]
  },
  {
@@ -8149,7 +8149,7 @@
   ]
  },
  {
-  "texto": "funciona sem cadastro. Sem anúncios, sem rastreamento, sem ferramentas de análise de audiência. O que você anota (como a sua cola) fica no seu aparelho. Se você quiser, pode entrar com o Google para guardar suas escolhas: elas são criptografadas no seu aparelho com uma frase que só você conhece, e ninguém mais consegue lê-las. A localização, se você permitir, serve só para achar o seu estado e o seu município, e não sai do aparelho.",
+  "texto": "funciona sem cadastro. Sem anúncios, sem rastreamento, sem ferramentas de análise de audiência. O que você anota (como a sua cola) fica no seu aparelho. Se você quiser, pode entrar com o Google para guardar suas escolhas: elas são criptografadas no seu aparelho com uma frase que só você conhece, e ninguém mais consegue lê-las. A localização, se você permitir, serve só para achar o seu estado e o seu município, e não sai do aparelho. Como em todo site, a hospedagem guarda por até 7 dias registros técnicos de acesso (item 7), usados só para segurança e correção de erros.",
   "tipo": "exato",
   "arquivos": [
    "pages/legal/PrivacidadePage.tsx"
@@ -10990,13 +10990,6 @@
   ]
  },
  {
-  "texto": "não recebe nem armazena esses registros.",
-  "tipo": "exato",
-  "arquivos": [
-   "pages/legal/PrivacidadePage.tsx"
-  ]
- },
- {
   "texto": "Não se aplica",
   "tipo": "exato",
   "arquivos": [
@@ -12668,6 +12661,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/SobrePage.tsx"
+  ]
+ },
+ {
+  "texto": "Para manter o site seguro e corrigir erros, a hospedagem também guarda, na conta do projeto, um registro de cada acesso ao site, aos dados e aos avisos: data e hora, endereço da página ou do arquivo pedido, endereço IP, localização aproximada calculada pela Cloudflare a partir do IP (país, estado, cidade e CEP aproximados), provedor de internet, navegador e sistema do aparelho e a página de onde você veio. Esses registros são apagados automaticamente em até 7 dias. Só o responsável pelo projeto tem acesso a eles, que não são vendidos nem compartilhados e não são usados para estatística, perfil, publicidade nem para saber o que cada pessoa consulta. Podem ser processados em servidores da Cloudflare fora do Brasil, com as garantias contratuais da empresa (LGPD, art. 33). A base legal é o legítimo interesse em manter o serviço seguro e funcionando (LGPD, art. 7º, IX).",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/legal/PrivacidadePage.tsx"
   ]
  },
  {
@@ -14357,6 +14357,13 @@
   ]
  },
  {
+  "texto": "Registros técnicos de acesso.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/legal/PrivacidadePage.tsx"
+  ]
+ },
+ {
   "texto": "relative",
   "tipo": "exato",
   "arquivos": [
@@ -15212,7 +15219,7 @@
   ]
  },
  {
-  "texto": "Se você ligar os avisos de resultado, o navegador cria um endereço de entrega de notificações (Web Push), que fica guardado num banco de dados na Cloudflare junto com os resultados que você escolheu (Presidência e, se houver, o governo do seu estado). Não guardamos nome, e-mail, CPF, localização nem nada que identifique você. As notificações passam pelo serviço de push do seu navegador (do Google, da Mozilla, da Apple ou da Microsoft), como em qualquer site que envia notificações, e o conteúdo vai criptografado.",
+  "texto": "Se você ligar os avisos de resultado, o navegador cria um endereço de entrega de notificações (Web Push), que fica guardado num banco de dados na Cloudflare junto com os resultados que você escolheu (Presidência e, se houver, o governo do seu estado). Esse banco não guarda nome, e-mail, CPF, localização nem nada que identifique você (valem só os registros técnicos de acesso do item 7, apagados em até 7 dias). As notificações passam pelo serviço de push do seu navegador (do Google, da Mozilla, da Apple ou da Microsoft), como em qualquer site que envia notificações, e o conteúdo vai criptografado.",
   "tipo": "exato",
   "arquivos": [
    "pages/legal/PrivacidadePage.tsx"
@@ -16141,13 +16148,6 @@
   ]
  },
  {
-  "texto": "sua localização (veja abaixo como o site descobre o seu estado e o seu município sem recebê-la), contatos, fotos, câmera, microfone ou arquivos do aparelho;",
-  "tipo": "exato",
-  "arquivos": [
-   "pages/legal/PrivacidadePage.tsx"
-  ]
- },
- {
   "texto": "sua UF",
   "tipo": "exato",
   "arquivos": [
@@ -16270,7 +16270,7 @@
   ]
  },
  {
-  "texto": "Também não vendemos, alugamos nem compartilhamos dados com terceiros. Não perguntamos em quem você pretende votar e não sabemos quais candidaturas você consulta ou acompanha, nem com login (as escolhas vão criptografadas).",
+  "texto": "Também não vendemos, alugamos nem compartilhamos dados com terceiros. Não perguntamos em quem você pretende votar e não acompanhamos quais candidaturas você consulta: as que você marca para acompanhar vão criptografadas, mesmo com login, e os registros técnicos de acesso (item 7) não são usados para isso.",
   "tipo": "exato",
   "arquivos": [
    "pages/legal/PrivacidadePage.tsx"

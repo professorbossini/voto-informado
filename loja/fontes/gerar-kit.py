@@ -56,10 +56,16 @@ conteudo = tabela([
 ])
 
 seguranca = tabela([
-    ("O app coleta ou compartilha algum dos tipos de dados do usuário exigidos?", "Não",
-     "Gera o selo “Nenhum dado coletado”. O que o app guarda (cola, comparação, tema, estado) fica só no aparelho e nunca é enviado; a localização, quando permitida, é convertida em UF no aparelho e descartada. Pela definição do Google, dado processado só no aparelho não é coleta."),
-    ("Todos os dados são criptografados em trânsito?", "(só aparece se a resposta acima for Sim)", "Se aparecer: Sim, toda a comunicação é HTTPS."),
-    ("O app permite criar conta?", "Não", "Por isso não é preciso informar URL de exclusão de conta."),
+    ("O app coleta ou compartilha algum dos tipos de dados do usuário exigidos?", "Sim (coleta; não compartilha)",
+     "O app lê os dados do site, e a hospedagem (Cloudflare) guarda por até 7 dias registros técnicos de cada acesso (item 7 da Política de Privacidade). Por isso não dá para declarar “Nenhum dado coletado”. A Cloudflare atua como prestadora de serviço, o que o Google não conta como compartilhamento. Se os logs dos Workers tanaurna-site e tanaurna-avisos forem desligados, a resposta volta a ser “Não”. O que o app guarda (cola, comparação, tema, estado) fica só no aparelho; a localização do aparelho vira UF no próprio aparelho e é descartada."),
+    ("Tipos de dados coletados", "Local → Local aproximado · Atividade no app → Interações no app · Informações e desempenho do app → Diagnóstico",
+     "Local aproximado: cidade e CEP estimados pela Cloudflare a partir do IP. Interações no app: endereço de cada página ou arquivo pedido. Diagnóstico: erros registrados. Para os três: coletado, não compartilhado, não é efêmero, coleta obrigatória (o usuário não pode desativar)."),
+    ("Finalidade da coleta (para os três tipos)", "Prevenção de fraudes, segurança e conformidade · Funcionalidade do app",
+     "Não marque Análise, Publicidade nem Personalização: os registros não são usados para isso."),
+    ("Todos os dados são criptografados em trânsito?", "Sim", "Toda a comunicação é HTTPS."),
+    ("O app permite criar conta?", "Não", "O login com Google existe só no site; o app é gerado com VITE_ENABLE_LOGIN=false. Por isso não é preciso informar URL de exclusão de conta."),
+    ("Os usuários podem pedir a exclusão dos dados?", "Sim",
+     "Os registros se apagam sozinhos em até 7 dias; pedidos podem ir para o e-mail de contato da Política de Privacidade."),
 ])
 
 dica_desc = "Inclui o aviso de app não oficial e os links das fontes oficiais, exigidos pela política do Google Play para apps com informações de governo."

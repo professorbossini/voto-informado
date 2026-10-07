@@ -12,7 +12,8 @@ export function PrivacidadePage() {
           ferramentas de análise de audiência. O que você anota (como a sua cola) fica no seu aparelho. Se você quiser,
           pode entrar com o Google para guardar suas escolhas: elas são criptografadas no seu aparelho com uma frase que
           só você conhece, e ninguém mais consegue lê-las. A localização, se você permitir, serve só para achar o seu
-          estado e o seu município, e não sai do aparelho.
+          estado e o seu município, e não sai do aparelho. Como em todo site, a hospedagem guarda por até 7 dias
+          registros técnicos de acesso (item 7), usados só para segurança e correção de erros.
         </>
       }
       outro={{ to: '/termos', label: 'Termos de Uso' }}
@@ -29,13 +30,14 @@ export function PrivacidadePage() {
         <P>Não pedimos nem recebemos:</P>
         <ul>
           <li>telefone, CPF, título de eleitor ou qualquer cadastro (o login com Google é opcional; veja o item 4);</li>
-          <li>sua localização (veja abaixo como o site descobre o seu estado e o seu município sem recebê-la), contatos, fotos, câmera, microfone ou arquivos do aparelho;</li>
+          <li>a localização do seu aparelho (veja abaixo como o site descobre o seu estado e o seu município sem recebê-la), contatos, fotos, câmera, microfone ou arquivos do aparelho;</li>
           <li>identificadores de publicidade ou de dispositivo;</li>
           <li>dados de navegação para estatística, perfil ou publicidade: não usamos Google Analytics, Firebase Analytics, pixels, cookies de rastreamento nem ferramentas parecidas.</li>
         </ul>
         <P>
           Também não vendemos, alugamos nem compartilhamos dados com terceiros. Não perguntamos em quem você pretende votar
-          e não sabemos quais candidaturas você consulta ou acompanha, nem com login (as escolhas vão criptografadas).
+          e não acompanhamos quais candidaturas você consulta: as que você marca para acompanhar vão criptografadas, mesmo
+          com login, e os registros técnicos de acesso (item 7) não são usados para isso.
         </P>
       </Secao>
 
@@ -105,7 +107,8 @@ export function PrivacidadePage() {
         <P>
           Se você ligar os avisos de resultado, o navegador cria um endereço de entrega de notificações (Web Push), que fica
           guardado num banco de dados na Cloudflare junto com os resultados que você escolheu (Presidência e, se houver,
-          o governo do seu estado). Não guardamos nome, e-mail, CPF, localização nem nada que identifique você. As
+          o governo do seu estado). Esse banco não guarda nome, e-mail, CPF, localização nem nada que identifique você
+          (valem só os registros técnicos de acesso do item 7, apagados em até 7 dias). As
           notificações passam pelo serviço de push do seu navegador (do Google, da Mozilla, da Apple ou da Microsoft), como
           em qualquer site que envia notificações, e o conteúdo vai criptografado.
         </P>
@@ -125,13 +128,24 @@ export function PrivacidadePage() {
       <Secao n={7} title="Conexão com a internet e hospedagem">
         <P>
           Para mostrar as informações, o site e o aplicativo baixam arquivos públicos (dados em JSON, fotos oficiais e
-          planos de governo em PDF) do serviço de hospedagem, atualmente o {LEGAL.hospedagem.nome}. Como em qualquer
-          acesso à internet, esse provedor recebe tecnicamente o endereço IP e informações básicas do navegador ou do
-          aparelho e pode mantê-los em registros de segurança, conforme a{' '}
+          planos de governo em PDF) do serviço de hospedagem, atualmente o {LEGAL.hospedagem.nome}, que atua como
+          operador. Como em qualquer acesso à internet, esse provedor recebe tecnicamente o endereço IP e informações
+          básicas do navegador ou do aparelho e pode mantê-los nos próprios registros de segurança, conforme a{' '}
           <Link href={LEGAL.hospedagem.privacidade} target="_blank" rel="noopener noreferrer">
             política de privacidade dele
           </Link>
-          . O responsável pelo {LEGAL.projeto} não recebe nem armazena esses registros.
+          .
+        </P>
+        <P>
+          <strong>Registros técnicos de acesso.</strong> Para manter o site seguro e corrigir erros, a hospedagem também
+          guarda, na conta do projeto, um registro de cada acesso ao site, aos dados e aos avisos: data e hora, endereço
+          da página ou do arquivo pedido, endereço IP, localização aproximada calculada pela Cloudflare a partir do IP
+          (país, estado, cidade e CEP aproximados), provedor de internet, navegador e sistema do aparelho e a página de
+          onde você veio. Esses registros são apagados automaticamente em até 7 dias. Só o responsável pelo projeto tem
+          acesso a eles, que não são vendidos nem compartilhados e não são usados para estatística, perfil, publicidade
+          nem para saber o que cada pessoa consulta. Podem ser processados em servidores da Cloudflare fora do Brasil,
+          com as garantias contratuais da empresa (LGPD, art. 33). A base legal é o legítimo interesse em manter o
+          serviço seguro e funcionando (LGPD, art. 7º, IX).
         </P>
         <P>
           Os resultados da apuração são baixados diretamente do servidor oficial de divulgação do Tribunal Superior
@@ -183,7 +197,7 @@ export function PrivacidadePage() {
       <Secao n={11} title="Seus direitos">
         <P>
           A LGPD (art. 18) garante, entre outros, os direitos de confirmação, acesso, correção e eliminação de dados
-          pessoais. Sem login, não guardamos dados seus. Com login, você mesmo pode apagar a conta e os dados no menu da
+          pessoais. Sem login, guardamos só os registros técnicos de acesso do item 7, que se apagam sozinhos em até 7 dias. Com login, você mesmo pode apagar a conta e os dados no menu da
           conta; qualquer outro pedido ou dúvida pode ser enviado para <Contato />. Você também pode
           procurar a Autoridade Nacional de Proteção de Dados (ANPD).
         </P>

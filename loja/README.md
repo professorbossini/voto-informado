@@ -126,7 +126,7 @@ interface embutida (abre sem carregar o site), compartilhamento e impressão nat
 
 ## Sobre os textos jurídicos
 
-A Política de Privacidade e os Termos seguem a LGPD e o que o app realmente faz (nenhuma coleta, só armazenamento
-local, hospedagem no GitHub Pages). São uma base sólida para um projeto pessoal e gratuito, mas não substituem a revisão
+A Política de Privacidade e os Termos seguem a LGPD e o que o app realmente faz (armazenamento local, hospedagem
+na Cloudflare com registros técnicos de acesso guardados por até 7 dias). São uma base sólida para um projeto pessoal e gratuito, mas não substituem a revisão
 de um advogado. Se um dia entrar login, analytics ou anúncio, a política precisa mudar **antes**, e a seção Segurança
 dos dados do Play Console também.
