@@ -117,6 +117,7 @@ def write_pages(dest: Path, site_url: str) -> None:
         "plenario": "Plenário da Câmara e do Senado",
         "presidentes": "Presidentes do Brasil",
         "gastos": "Gastos de mandato (cota parlamentar)",
+        "emendas": "Emendas parlamentares no seu município",
         "numeros": "A eleição em números",
         "sobre": "Fontes e método",
         "privacidade": "Política de Privacidade",

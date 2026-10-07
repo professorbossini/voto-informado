@@ -2,6 +2,10 @@ import { env } from '@/config/env';
 import type { MalhaMunicipal } from '@/data/localizacao';
 import type {
   Eleitos,
+  EmendasMunicipio,
+  EmendasParlamentar,
+  EmendasUf,
+  ResumoEmendas,
   Stf,
   MinistroStfDetalhe,
   BuscaItem,
@@ -90,4 +94,9 @@ export const data = {
   resultados: () => get<Resultados>('resultados.json'),
   pesquisas: () => get<ListaPesquisas>('pesquisas.json'),
   segundoTurno: () => get<SegundoTurno>('segundo-turno.json'),
+  /** Emendas parlamentares (Portal da Transparência/CGU), atualizadas toda semana. */
+  emendasResumo: () => get<ResumoEmendas>('emendas/resumo.json'),
+  emendasUf: (uf: string) => get<EmendasUf>(`emendas/uf/${uf.toUpperCase()}.json`),
+  emendasMunicipio: (uf: string, cd: string) => get<EmendasMunicipio>(`emendas/municipio/${uf.toUpperCase()}/${encodeURIComponent(cd)}.json`),
+  emendasParlamentar: (id: string) => get<EmendasParlamentar>(`emendas/parlamentar/${encodeURIComponent(id)}.json`),
 };

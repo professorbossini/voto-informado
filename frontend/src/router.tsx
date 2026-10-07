@@ -68,6 +68,7 @@ export const router = createBrowserRouter([
       { path: '/resultados', ...page(() => import('@/pages/election/ResultadosPage'), 'ResultadosPage') },
       { path: '/segundo-turno', ...pageEleitoral(() => import('@/pages/election/SegundoTurnoPage'), 'SegundoTurnoPage', 'segundo-turno', 'O 2º turno') },
       { path: '/gastos', ...page(() => import('@/pages/election/GastosPage'), 'GastosPage') },
+      { path: '/emendas', ...page(() => import('@/pages/election/EmendasPage'), 'EmendasPage') },
       { path: '/parlamentar/:id', ...page(() => import('@/pages/election/ParlamentarPage'), 'ParlamentarPage') },
       { path: '/partidos', ...page(() => import('@/pages/election/PartidosPage'), 'PartidosPage') },
       { path: '/partido/:slug', ...page(() => import('@/pages/election/PartidoPage'), 'PartidoPage') },

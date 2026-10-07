@@ -1,0 +1,89 @@
+# Emendas parlamentares → site, sozinho na nuvem (GitHub Actions), sem depender de nenhum computador.
+#
+# Baixa o arquivo completo de emendas do Portal da Transparência (CGU, ~32 MB, dados públicos) e
+# grava api/emendas/... no site publicado (gh-pages e R2 da Cloudflare), só quando muda:
+# quanto foi pago a cada município e estado, por quem indicou a emenda e para quê.
+# Lógica em backend/etl/emendas.py. A CGU atualiza o arquivo com frequência; aqui, uma vez por
+# semana basta (domingo, 05h17 de Brasília). Se o download falhar ou vier bloqueado, o job falha
+# com o motivo e o site mantém os dados anteriores.
+name: Emendas → site
+
+on:
+  schedule:
+    - cron: "17 8 * * 0" # domingo, 05h17 em Brasília
+  push:
+    branches: [main]
+    paths:
+      - "backend/etl/emendas.py"
+      - ".github/workflows/emendas.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  id-token: write # gravação no R2 da Cloudflare (etl.r2, OIDC)
+  pages: write
+  actions: write
+
+concurrency:
+  group: gh-pages
+  cancel-in-progress: false
+
+jobs:
+  emendas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: backend
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Dependências
+        run: pip install -q "requests>=2.32"
+
+      - name: Site publicado (plenário e emendas)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git clone -q --depth 1 --filter=blob:none --no-checkout --branch gh-pages \
+            "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" site
+          git -C site sparse-checkout set --no-cone /api/plenario.json /api/emendas/
+          git -C site checkout -q gh-pages
+
+      - name: Emendas (Portal da Transparência)
+        id: emendas
+        working-directory: backend
+        run: python -m etl.emendas ../site
+
+      - name: Publicar
+        if: steps.emendas.outputs.mudou == '1'
+        working-directory: site
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A api/emendas
+          if git diff --cached --quiet; then echo "Nada mudou."; exit 0; fi
+          git commit -q -m "Emendas parlamentares: atualização semanal (CGU)"
+          # Outro workflow pode ter publicado enquanto este processava: rebase antes de enviar.
+          git pull -q --rebase origin gh-pages
+          git push -q origin gh-pages
+          gh api -X POST "repos/${{ github.repository }}/pages/builds" >/dev/null || true
+          echo "✓ emendas publicadas" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Enviar ao R2 (Cloudflare)
+        if: steps.emendas.outputs.mudou == '1'
+        working-directory: backend
+        run: python -m etl.r2 enviar ../site --prefixo api/emendas/
+
+      # O GitHub desliga agendamentos de repositórios sem atividade por 60 dias; reativar
+      # este workflow a cada execução mantém a atualização ligada indefinidamente.
+      - name: Manter o agendamento ligado
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh api -X PUT "repos/${{ github.repository }}/actions/workflows/emendas.yml/enable" >/dev/null || true
