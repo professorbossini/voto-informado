@@ -1,4 +1,4 @@
-import { dateTime, money, moneyCompact, NAO_INFORMADO, nomeProprio, normalize, percent, variation } from './format';
+import { dateShort, dateTime, money, moneyCompact, NAO_INFORMADO, nomeProprio, normalize, percent, variation } from './format';
 
 const nbsp = (s: string) => s.replace(/\u00a0/g, ' ');
 
@@ -30,6 +30,12 @@ describe('format', () => {
   it('reads both TSE and ISO timestamps', () => {
     expect(dateTime('30/09/2026 19:30:35')).toBe('30/09/2026, 19:30');
     expect(dateTime(null)).toBe(NAO_INFORMADO);
+  });
+
+  it('shows the date of an ISO timestamp in Brasília time', () => {
+    expect(dateShort('2026-10-06T07:34:12+00:00')).toBe('06/10/2026');
+    expect(dateShort('2026-10-07T01:00:00+00:00')).toBe('06/10/2026'); // 22h do dia 6 em Brasília
+    expect(dateShort(null)).toBe(NAO_INFORMADO);
   });
 
   it('normalizes accents for search', () => {

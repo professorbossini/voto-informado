@@ -4,7 +4,7 @@ Não precisa do banco nem dos dados brutos: trabalha direto sobre a pasta api/ d
 publicado (branch gh-pages) e reescreve só o que depende do resultado, no mesmo formato
 que app.export grava a partir do banco:
 
-  api/candidato/<sq>.json   campo "resultados" de cada candidatura com resultado final
+  api/candidato/<sq>.json   campos "resultados" e "custo_por_voto" de cada candidatura com resultado final
   api/resultados.json       disputas majoritárias (como app.queries.resultados)
   api/segundo-turno.json    finalistas de Presidente/Governador (como app.queries.segundo_turno)
   api/meta.json             fase da eleição, hora da consulta e a fonte tse_resultados
@@ -25,7 +25,7 @@ from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
-from app.queries import MAJORITARIOS, UF_NOMES, fase_de
+from app.queries import MAJORITARIOS, UF_NOMES, custo_por_voto, fase_de
 
 from .resultados import BASE, coletar
 
@@ -100,6 +100,7 @@ def aplicar(site: Path, finais: list[dict], parciais: int, agora: datetime | Non
         if c is None:
             continue
         c["resultados"] = sorted(res, key=lambda r: r["turno"])
+        c["custo_por_voto"] = custo_por_voto(c)  # receitas ÷ votos do turno que elegeu (etl.contas)
         mudados += _gravar(api / "candidato" / f"{sq}.json", c)
 
     # 2. Fase da eleição (mesma regra de app.queries.fase).

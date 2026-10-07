@@ -234,17 +234,39 @@ def candidato(conn: sqlite3.Connection, sq: str) -> dict | None:
     c["historico"] = _rows(conn, "SELECT ano, cargo, uf, ue, partido, numero, resultado, eleito, foi_2turno FROM historico WHERE sq=? ORDER BY ano DESC, cargo", (sq,))
     c["redes"] = [r["url"] for r in _rows(conn, "SELECT url FROM redes WHERE sq=? ORDER BY ordem, url", (sq,))]
     c["propostas"] = [f"/propostas/{r['arquivo']}" for r in _rows(conn, "SELECT arquivo FROM propostas WHERE sq=? ORDER BY arquivo", (sq,))]
-    c["financas"] = {
+    c["financas"] = financas(conn, sq)
+    c["mandato"] = parlamentar(conn, c["parlamentar_id"], resumo=True) if c.get("parlamentar_id") else None
+    c["resultados"] = _rows(conn, "SELECT turno, votos, pct, situacao, eleito FROM resultados WHERE sq=? ORDER BY turno", (sq,)) if _has(conn, "resultados") else []
+    c["fontes"] = FONTES_CARD + ["tse_redes", "tse_bens_2022", "tse_propostas"] + FONTES_CONGRESSO
+    c["contas_atualizadas_em"] = _meta(conn).get("prestacao_gerada_em")
+    c["custo_por_voto"] = custo_por_voto(c)
+    return c
+
+
+def financas(conn: sqlite3.Connection, sq: str) -> dict:
+    """Detalhe das finanças de uma candidatura (também usado por etl.contas, sobre um banco em memória)."""
+    return {
         "receitas_por_origem": _rows(conn, "SELECT origem, valor FROM fin_receita_origem WHERE sq=? ORDER BY valor DESC, origem", (sq,)),
         "receitas_por_fonte": _rows(conn, "SELECT fonte, valor FROM fin_receita_fonte WHERE sq=? ORDER BY valor DESC, fonte", (sq,)),
         "maiores_doadores": _rows(conn, "SELECT doador, tipo, origem, valor FROM fin_doadores WHERE sq=? ORDER BY valor DESC, doador", (sq,)),
         "despesas_por_categoria": _rows(conn, "SELECT categoria, valor FROM fin_despesa_categoria WHERE sq=? ORDER BY valor DESC, categoria", (sq,)),
         "maiores_fornecedores": _rows(conn, "SELECT fornecedor, valor FROM fin_fornecedores WHERE sq=? ORDER BY valor DESC, fornecedor", (sq,)),
     }
-    c["mandato"] = parlamentar(conn, c["parlamentar_id"], resumo=True) if c.get("parlamentar_id") else None
-    c["resultados"] = _rows(conn, "SELECT turno, votos, pct, situacao, eleito FROM resultados WHERE sq=? ORDER BY turno", (sq,)) if _has(conn, "resultados") else []
-    c["fontes"] = FONTES_CARD + ["tse_redes", "tse_bens_2022", "tse_propostas"] + FONTES_CONGRESSO
-    return c
+
+
+def custo_por_voto(c: dict) -> dict | None:
+    """Receitas declaradas ÷ votos no turno que elegeu a candidatura (só para quem foi eleito em 2026).
+
+    Sem receita declarada, ou sem votos, não há conta a fazer (None). Usado pelo export, por
+    etl.contas e por etl.apuracao_remota (quando o resultado do 2º turno chega).
+    """
+    eleito = [r for r in c.get("resultados") or [] if r.get("eleito") and r.get("votos")]
+    receitas = c.get("receitas")
+    if not eleito or not receitas or receitas <= 0:
+        return None
+    r = max(eleito, key=lambda r: r["turno"])
+    votos = int(r["votos"])
+    return {"valor": round(receitas / votos, 2), "receitas": round(receitas, 2), "votos": votos, "turno": r["turno"]}
 
 
 def busca(conn: sqlite3.Connection) -> list[list]:
@@ -260,6 +282,18 @@ def busca(conn: sqlite3.Connection) -> list[list]:
 
 def partidos(conn: sqlite3.Connection) -> list[dict]:
     return _rows(conn, "SELECT * FROM partidos ORDER BY partido") if _has(conn, "partidos") else []
+
+
+def receitas_por_fonte_por_cargo(conn: sqlite3.Connection) -> dict:
+    """Soma das receitas por fonte e cargo (estatisticas.json; também usado por etl.contas)."""
+    fontes_fin = defaultdict(dict)
+    for r in _rows(
+        conn,
+        # Sem "Recursos de outros candidatos": o repasse entre campanhas seria contado duas vezes.
+        f"SELECT c.cargo, f.fonte, SUM(f.valor) v FROM fin_receita_fonte_agregado f JOIN candidatos c ON c.sq=f.sq WHERE c.cargo IN {TITULARES} GROUP BY 1, 2",
+    ):
+        fontes_fin[r["cargo"]][r["fonte"]] = r["v"]
+    return fontes_fin
 
 
 def estatisticas(conn: sqlite3.Connection) -> dict:
@@ -286,13 +320,7 @@ def estatisticas(conn: sqlite3.Connection) -> dict:
         for k, v in bens.items()
     }
 
-    fontes_fin = defaultdict(dict)
-    for r in _rows(
-        conn,
-        # Sem "Recursos de outros candidatos": o repasse entre campanhas seria contado duas vezes.
-        f"SELECT c.cargo, f.fonte, SUM(f.valor) v FROM fin_receita_fonte_agregado f JOIN candidatos c ON c.sq=f.sq WHERE c.cargo IN {TITULARES} GROUP BY 1, 2",
-    ):
-        fontes_fin[r["cargo"]][r["fonte"]] = r["v"]
+    fontes_fin = receitas_por_fonte_por_cargo(conn)
 
     ocup = defaultdict(list)
     for r in _rows(conn, f"SELECT c.cargo, c.ocupacao k, COUNT(*) n {base} GROUP BY 1, 2 ORDER BY 3 DESC, 2"):

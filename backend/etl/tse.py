@@ -12,6 +12,7 @@ import re
 import sqlite3
 import unicodedata
 import zipfile
+from collections.abc import Iterable
 from datetime import date, datetime, timezone
 from pathlib import Path
 
@@ -93,6 +94,14 @@ def mask_ids(text: str | None) -> str | None:
     for pattern, repl in _MASCARAS:
         text = pattern.sub(repl, text)
     return text
+
+
+_CPF_EM_NOME = re.compile(r"(?<!\d)\d{3}\.?\d{3}\.?\d{3}-?\d{2}(?!\d)")
+
+
+def mask_doc_nome(nome: str | None) -> str | None:
+    """Doadores e fornecedores MEI vêm com o CPF do titular no nome ('FULANO DE TAL 12345678901')."""
+    return _CPF_EM_NOME.sub("***.***.***-**", nome) if nome else nome
 
 
 def _title(text: str | None) -> str | None:
@@ -320,15 +329,33 @@ def build_vagas(conn: sqlite3.Connection) -> None:
     out.to_sql("vagas", conn, index=False)
 
 
-def build_financas(conn: sqlite3.Connection) -> None:
-    """Receitas e despesas contratadas declaradas pelas campanhas (prestação parcial/final)."""
-    zf = _zip("prestacao")
-    # Lê todas as colunas: só uma linha idêntica em TODOS os campos é tratada como repetição.
-    rec = _read(zf, "receitas_candidatos_2026_BRASIL.csv")
+DESPESAS_COLS = ["SQ_CANDIDATO", "SQ_DESPESA", "DS_ORIGEM_DESPESA", "DS_DESPESA", "NR_DOCUMENTO", "NM_FORNECEDOR", "NM_FORNECEDOR_RFB", "VR_DESPESA_CONTRATADA"]
+TABELAS_FIN = (
+    "fin_receita_fonte_agregado", "fin_receita_origem", "fin_receita_fonte", "fin_doadores",
+    "fin_despesa_categoria", "fin_fornecedores",
+)
+
+
+def _despesas_reduzidas(chunk: pd.DataFrame) -> pd.DataFrame:
+    """Só o que as finanças usam de cada bloco do CSV de despesas contratadas (cabe na memória)."""
+    chunk = chunk.copy()
+    chunk["valor"] = _money(chunk.VR_DESPESA_CONTRATADA)
+    chunk["fornecedor"] = chunk.NM_FORNECEDOR_RFB.map(_clean).fillna(chunk.NM_FORNECEDOR.map(_clean)).fillna("Não informado")
+    return chunk[["SQ_CANDIDATO", "SQ_DESPESA", "DS_DESPESA", "NR_DOCUMENTO", "DS_ORIGEM_DESPESA", "fornecedor", "valor"]]
+
+
+def calcular_financas(rec: pd.DataFrame, desp_blocos: Iterable[pd.DataFrame], log=print) -> dict[str, pd.DataFrame]:
+    """Finanças por candidatura, sem banco e sem rede (build local e etl.contas usam esta mesma função).
+
+    rec: CSV de receitas com TODAS as colunas (só uma linha idêntica em todos os campos é tratada
+    como repetição); desp_blocos: blocos do CSV de despesas contratadas com DESPESAS_COLS.
+    Devolve as tabelas fin_* (mesmos nomes e colunas do banco), incluindo fin_totais.
+    CPF/CNPJ só servem para classificar o tipo de doador: nenhuma tabela devolvida os contém.
+    """
     antes = len(rec)
     rec = rec.drop_duplicates()  # linhas idênticas repetidas no arquivo contam uma vez
-    rec = rec[rec.DS_ORIGEM_RECEITA.map(_clean).notna()]  # linhas-modelo vazias (#NULO, valor 0)
-    print(f"  receitas: {antes - len(rec)} linhas repetidas ou vazias descartadas")
+    rec = rec[rec.DS_ORIGEM_RECEITA.map(_clean).notna()].copy()  # linhas-modelo vazias (#NULO, valor 0)
+    log(f"  receitas: {antes - len(rec)} linhas repetidas ou vazias descartadas")
     rec["valor"] = _money(rec.VR_RECEITA)
     rec_origem = rec.groupby(["SQ_CANDIDATO", "DS_ORIGEM_RECEITA"]).valor.sum().reset_index()
     rec_origem.columns = ["sq", "origem", "valor"]
@@ -345,50 +372,67 @@ def build_financas(conn: sqlite3.Connection) -> None:
     )
     top = top.groupby("SQ_CANDIDATO").head(10)
     top.columns = ["sq", "doador", "tipo", "origem", "valor"]
+    top["doador"] = top.doador.map(mask_doc_nome)  # depois de somar: dois MEIs homônimos não se fundem
 
-    desp = []
-    usecols = ["SQ_CANDIDATO", "SQ_DESPESA", "DS_ORIGEM_DESPESA", "DS_DESPESA", "NR_DOCUMENTO", "NM_FORNECEDOR", "NM_FORNECEDOR_RFB", "VR_DESPESA_CONTRATADA"]
-    member = next(n for n in zf.namelist() if n.endswith("despesas_contratadas_candidatos_2026_BRASIL.csv"))
-    with zf.open(member) as fh:
-        for chunk in pd.read_csv(fh, sep=";", encoding="latin1", dtype=str, usecols=usecols, chunksize=400_000):
-            chunk["valor"] = _money(chunk.VR_DESPESA_CONTRATADA)
-            chunk["fornecedor"] = chunk.NM_FORNECEDOR_RFB.map(_clean).fillna(chunk.NM_FORNECEDOR.map(_clean)).fillna("Não informado")
-            desp.append(chunk[["SQ_CANDIDATO", "SQ_DESPESA", "DS_DESPESA", "NR_DOCUMENTO", "DS_ORIGEM_DESPESA", "fornecedor", "valor"]])
-    desp = pd.concat(desp)
+    desp = pd.concat([_despesas_reduzidas(b) for b in desp_blocos])
     antes = len(desp)
     desp = desp.drop_duplicates()  # mesmas colunas, mesmo valor: linha repetida no arquivo
     desp = desp[desp.DS_ORIGEM_DESPESA.map(_clean).notna()]
-    print(f"  despesas: {antes - len(desp)} linhas repetidas ou vazias descartadas")
+    log(f"  despesas: {antes - len(desp)} linhas repetidas ou vazias descartadas")
     desp_origem = desp.groupby(["SQ_CANDIDATO", "DS_ORIGEM_DESPESA"]).valor.sum().reset_index()
     desp_origem.columns = ["sq", "categoria", "valor"]
     forn = desp.groupby(["SQ_CANDIDATO", "fornecedor"]).valor.sum().reset_index().sort_values("valor", ascending=False)
     forn = forn.groupby("SQ_CANDIDATO").head(10)
     forn.columns = ["sq", "fornecedor", "valor"]
+    forn["fornecedor"] = forn.fornecedor.map(mask_doc_nome)
 
     sem_transf = rec[rec.DS_ORIGEM_RECEITA != "Recursos de outros candidatos"]
     rec_fonte_agregado = sem_transf.groupby(["SQ_CANDIDATO", "DS_FONTE_RECEITA"]).valor.sum().reset_index()
     rec_fonte_agregado.columns = ["sq", "fonte", "valor"]
-    for name, frame in {
+
+    totals = pd.DataFrame({"receitas": rec.groupby("SQ_CANDIDATO").valor.sum(), "despesas": desp.groupby("SQ_CANDIDATO").valor.sum()}).fillna(0)
+    totals.index.name = "sq"
+    return {
         "fin_receita_fonte_agregado": rec_fonte_agregado,
         "fin_receita_origem": rec_origem,
         "fin_receita_fonte": rec_fonte,
         "fin_doadores": top,
         "fin_despesa_categoria": desp_origem,
         "fin_fornecedores": forn,
-    }.items():
-        conn.execute(f"DROP TABLE IF EXISTS {name}")
-        frame.to_sql(name, conn, index=False)
-        conn.execute(f"CREATE INDEX ix_{name} ON {name}(sq)")
+        "fin_totais": totals.reset_index(),
+    }
 
-    totals = pd.DataFrame({"receitas": rec.groupby("SQ_CANDIDATO").valor.sum(), "despesas": desp.groupby("SQ_CANDIDATO").valor.sum()}).fillna(0)
-    totals.index.name = "sq"
+
+def gravar_financas(conn: sqlite3.Connection, tabelas: dict[str, pd.DataFrame]) -> None:
+    """Grava as tabelas de calcular_financas no SQLite (o banco local ou um banco em memória)."""
+    for name in TABELAS_FIN:
+        conn.execute(f"DROP TABLE IF EXISTS {name}")
+        tabelas[name].to_sql(name, conn, index=False)
+        conn.execute(f"CREATE INDEX ix_{name} ON {name}(sq)")
     conn.execute("DROP TABLE IF EXISTS fin_totais")
-    totals.reset_index().to_sql("fin_totais", conn, index=False)
+    tabelas["fin_totais"].to_sql("fin_totais", conn, index=False)
     conn.execute("CREATE UNIQUE INDEX ix_fin_totais ON fin_totais(sq)")
+
+
+def financas_do_zip(zf: zipfile.ZipFile, log=print) -> tuple[dict[str, pd.DataFrame], str]:
+    """Lê o zip da prestação de contas: (tabelas fin_*, data do arquivo de despesas, em UTC)."""
+    # Lê todas as colunas das receitas: só uma linha idêntica em TODOS os campos é repetição.
+    rec = _read(zf, f"receitas_candidatos_{ANO}_BRASIL.csv")
+    member = next(n for n in zf.namelist() if n.endswith(f"despesas_contratadas_candidatos_{ANO}_BRASIL.csv"))
+    with zf.open(member) as fh:
+        blocos = pd.read_csv(fh, sep=";", encoding="latin1", dtype=str, usecols=DESPESAS_COLS, chunksize=400_000)
+        tabelas = calcular_financas(rec, blocos, log=log)
     info = zf.getinfo(member)
     # O horário dentro do zip do TSE está em UTC (confere com o Last-Modified do servidor).
-    common.set_meta(conn, "prestacao_gerada_em", datetime(*info.date_time, tzinfo=timezone.utc).isoformat())
-    print(f"  finanças: {len(totals)} campanhas com movimentação")
+    return tabelas, datetime(*info.date_time, tzinfo=timezone.utc).isoformat()
+
+
+def build_financas(conn: sqlite3.Connection) -> None:
+    """Receitas e despesas contratadas declaradas pelas campanhas (prestação parcial/final)."""
+    tabelas, gerado_em = financas_do_zip(_zip("prestacao"))
+    gravar_financas(conn, tabelas)
+    common.set_meta(conn, "prestacao_gerada_em", gerado_em)
+    print(f"  finanças: {len(tabelas['fin_totais'])} campanhas com movimentação")
 
 
 def extract_fotos(conn: sqlite3.Connection) -> None:
