@@ -10,8 +10,8 @@ export const LEGAL = {
   /** Data da versão vigente dos dois textos (AAAA-MM-DD). */
   vigencia: '2026-10-07',
   hospedagem: {
-    nome: 'GitHub Pages, serviço da GitHub, Inc.',
-    privacidade: 'https://docs.github.com/pt/site-policy/privacy-policies/github-general-privacy-statement',
+    nome: 'Cloudflare (Workers, R2), serviço da Cloudflare, Inc.',
+    privacidade: 'https://www.cloudflare.com/pt-br/privacypolicy/',
   },
   repositorio: 'https://github.com/professorbossini/voto-informado',
 } as const;

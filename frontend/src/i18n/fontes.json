@@ -4237,6 +4237,13 @@
   ]
  },
  {
+  "texto": "Cloudflare (Workers, R2), serviço da Cloudflare, Inc.",
+  "tipo": "exato",
+  "arquivos": [
+   "config/legal.ts"
+  ]
+ },
+ {
   "texto": "CNPJ/CPF exatamente como publicado pela fonte oficial. Lista limitada aos maiores fornecedores do ano.",
   "tipo": "exato",
   "arquivos": [
@@ -8339,13 +8346,6 @@
   "tipo": "exato",
   "arquivos": [
    "pages/presidentes/presidentes.ts"
-  ]
- },
- {
-  "texto": "GitHub Pages, serviço da GitHub, Inc.",
-  "tipo": "exato",
-  "arquivos": [
-   "config/legal.ts"
   ]
  },
  {
