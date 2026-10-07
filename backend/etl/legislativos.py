@@ -92,6 +92,19 @@ def run() -> None:
     for row in _linhas(z24, {"VEREADOR"}):
         mun = por_uf[row["SG_UF"]].setdefault(row["SG_UE"], {"nome": row["NM_UE"], "membros": []})
         mun["membros"].append(_membro(row, "ver"))
+    # Prefeito(a) e vice eleitos em 2024 (no 2º turno, onde houve, vale o resultado final).
+    executivo: dict[tuple[str, str], dict] = {}
+    for row in _linhas(z24, {"PREFEITO", "VICE-PREFEITO"}):
+        chave = (row["SG_UF"], row["SG_UE"])
+        papel = "prefeito" if row["DS_CARGO"] == "PREFEITO" else "vice"
+        atual = executivo.setdefault(chave, {}).get(papel)
+        if atual and int(atual["turno"]) >= int(row["NR_TURNO"]):
+            continue
+        executivo[chave][papel] = {**_membro(row, "pref" if papel == "prefeito" else "vice"), "sq": row["SQ_CANDIDATO"], "turno": row["NR_TURNO"], "municipio": row["NM_UE"]}
+    for (uf, ue), exe in executivo.items():
+        nome = next(iter(exe.values()))["municipio"]
+        mun = por_uf[uf].setdefault(ue, {"nome": nome, "membros": []})
+        mun["executivo"] = {papel: {k: v for k, v in m.items() if k != "municipio"} for papel, m in exe.items()}
     total = 0
     for uf, muns in sorted(por_uf.items()):
         for m in muns.values():
@@ -103,12 +116,12 @@ def run() -> None:
                 "uf": uf,
                 "eleicao": 2024,
                 "mandato": "2025–2028",
-                "fonte": "TSE · consulta_cand_2024 (situação de eleito)",
+                "fonte": "TSE · consulta_cand_2024 (situação de eleito: vereadores, prefeitos e vices)",
                 "gerado_em": agora,
                 "municipios": dict(sorted(muns.items(), key=lambda kv: kv[1]["nome"])),
             },
         )
-    print(f"legislativos: {total} vereadores em {sum(len(m) for m in por_uf.values())} municípios")
+    print(f"legislativos: {total} vereadores em {sum(len(m) for m in por_uf.values())} municípios; {sum(1 for e in executivo.values() if 'prefeito' in e)} prefeitos")
 
 
 if __name__ == "__main__":

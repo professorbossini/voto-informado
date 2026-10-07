@@ -432,7 +432,15 @@ export interface VereadoresUf {
   eleicao: number;
   mandato: string;
   fonte: string;
-  municipios: Record<string, { nome: string; membros: EleitoLegislativo[] }>;
+  municipios: Record<
+    string,
+    {
+      nome: string;
+      membros: EleitoLegislativo[];
+      /** Prefeito(a) e vice eleitos em 2024 (turno = em que turno se decidiu). */
+      executivo?: { prefeito?: EleitoLegislativo & { sq: string; turno: string }; vice?: EleitoLegislativo & { sq: string; turno: string } };
+    }
+  >;
 }
 
 /* ------------------------------------------------------------------ STF (api/stf.json) */
