@@ -101,7 +101,7 @@ export function PrivacidadePage() {
         </P>
       </Secao>
 
-      <Secao n={6} title="Avisos de resultado (notificações), só se você pedir">
+      <Secao n={6} title="Avisos (notificações), só se você pedir">
         <P>
           Se você ligar os avisos de resultado, o navegador cria um endereço de entrega de notificações (Web Push), que fica
           guardado num banco de dados na Cloudflare junto com os resultados que você escolheu (Presidência e, se houver,
@@ -110,8 +110,15 @@ export function PrivacidadePage() {
           em qualquer site que envia notificações, e o conteúdo vai criptografado.
         </P>
         <P>
-          Você pode desligar os avisos a qualquer momento no próprio site ou nas configurações do navegador; o endereço é
-          apagado ao desligar, quando o navegador informa que ele expirou ou depois de encerrada a eleição.
+          Se você tocar em “Seguir” na página de um parlamentar, partido ou ministro, o mesmo endereço de entrega fica
+          associado aos códigos de quem você segue (por exemplo, “parlamentar:camara-123”), para o aviso de notícia ou
+          votação nova chegar só a quem pediu. Sem login, essa lista fica também no seu aparelho; com login, vai
+          criptografada para o seu perfil, como as demais escolhas.
+        </P>
+        <P>
+          Você pode desligar os avisos a qualquer momento no próprio site (deixando de seguir ou desligando os avisos de
+          resultado) ou nas configurações do navegador; os dados são apagados ao desligar ou quando o navegador informa
+          que o endereço expirou.
         </P>
       </Secao>
 

@@ -10,6 +10,11 @@
  *   POST /inscrever    {endpoint, keys:{p256dh,auth}, ufs:["BR","SP"]}  → grava e manda um aviso
  *                        de confirmação
  *   POST /cancelar     {endpoint} → apaga
+ *   POST /seguir       {endpoint, keys, alvos:["parlamentar:camara-1", "partido:pt", "ministro:x"]}
+ *                        → troca a lista de quem este navegador acompanha (máx. 100)
+ *   POST /novidades    (só GitHub Actions deste repositório, token OIDC "tanaurna-avisos")
+ *                        {itens:[{alvo, chave, titulo, corpo, url}]} → avisa quem acompanha cada alvo,
+ *                        uma vez por chave
  *   cron (dias de eleição, a cada 5 min): lê no TSE a configuração (ele-c.json) e os arquivos de
  *   resultado; quando houver eleito (ou definição de 2º turno), avisa uma única vez cada disputa.
  */
@@ -31,7 +36,40 @@ const ESQUEMA = [
   'CREATE TABLE IF NOT EXISTS config (chave TEXT PRIMARY KEY, valor TEXT)',
   'CREATE TABLE IF NOT EXISTS inscricoes (endpoint TEXT PRIMARY KEY, p256dh TEXT NOT NULL, auth TEXT NOT NULL, ufs TEXT NOT NULL, criado_em TEXT, atualizado_em TEXT)',
   'CREATE TABLE IF NOT EXISTS enviados (chave TEXT PRIMARY KEY, em TEXT)',
+  'CREATE TABLE IF NOT EXISTS seguindo (endpoint TEXT NOT NULL, alvo TEXT NOT NULL, PRIMARY KEY (endpoint, alvo))',
+  'CREATE INDEX IF NOT EXISTS ix_seguindo_alvo ON seguindo (alvo)',
 ];
+
+/* ------------------------------------------------------------------ OIDC do GitHub (para /novidades) */
+
+const REPOSITORIO = 'professorbossini/voto-informado';
+const EMISSOR = 'https://token.actions.githubusercontent.com';
+let jwks = null;
+let jwksEm = 0;
+const b64 = (x) => Uint8Array.from(atob(x.replace(/-/g, '+').replace(/_/g, '/') + '='.repeat((4 - (x.length % 4)) % 4)), (c) => c.charCodeAt(0));
+const parte = (x) => JSON.parse(new TextDecoder().decode(b64(x)));
+
+async function doGithub(req) {
+  const partes = (req.headers.get('authorization') || '').replace(/^Bearer\s+/i, '').split('.');
+  if (partes.length !== 3) return false;
+  let cab, d;
+  try {
+    cab = parte(partes[0]);
+    d = parte(partes[1]);
+  } catch {
+    return false;
+  }
+  const agora = Math.floor(Date.now() / 1000);
+  if (cab.alg !== 'RS256' || d.iss !== EMISSOR || d.aud !== 'tanaurna-avisos' || d.repository !== REPOSITORIO || !(d.exp > agora)) return false;
+  if (!jwks || Date.now() - jwksEm > 3_600_000) {
+    jwks = (await (await fetch(`${EMISSOR}/.well-known/jwks`)).json()).keys;
+    jwksEm = Date.now();
+  }
+  const jwk = jwks.find((k) => k.kid === cab.kid);
+  if (!jwk) return false;
+  const chave = await crypto.subtle.importKey('jwk', jwk, { name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256' }, false, ['verify']);
+  return crypto.subtle.verify('RSASSA-PKCS1-v1_5', chave, b64(partes[2]), new TextEncoder().encode(`${partes[0]}.${partes[1]}`));
+}
 
 async function preparar(env) {
   await env.DB.batch(ESQUEMA.map((s) => env.DB.prepare(s)));
@@ -57,8 +95,8 @@ function cors(req) {
 
 const json = (req, corpo, status = 200) => new Response(JSON.stringify(corpo), { status, headers: { 'content-type': 'application/json', ...cors(req) } });
 
-async function lerCorpo(req) {
-  if ((Number(req.headers.get('content-length')) || 0) > 4096) return null;
+async function lerCorpo(req, limite = 4096) {
+  if ((Number(req.headers.get('content-length')) || 0) > limite) return null;
   try {
     return await req.json();
   } catch {
@@ -121,15 +159,19 @@ async function desfecho(ciclo, codigo, uf, cargo) {
 }
 
 async function avisarTodos(env, ufAlvo, msg) {
-  const ch = await chaves(env);
   const { results } = await env.DB.prepare("SELECT endpoint, p256dh, auth FROM inscricoes WHERE ',' || ufs || ',' LIKE ?").bind(`%,${ufAlvo},%`).all();
+  return entregar(env, results, msg);
+}
+
+async function entregar(env, results, msg) {
+  const ch = await chaves(env);
   let ok = 0;
   for (let i = 0; i < results.length; i += 50) {
     const lote = results.slice(i, i + 50);
     const st = await Promise.all(lote.map((s) => enviar(s, msg, ch, SITE).catch(() => 0)));
     const mortos = lote.filter((_, k) => st[k] === 404 || st[k] === 410).map((s) => s.endpoint);
     ok += st.filter((x) => x >= 200 && x < 300).length;
-    if (mortos.length) await env.DB.batch(mortos.map((e) => env.DB.prepare('DELETE FROM inscricoes WHERE endpoint = ?').bind(e)));
+    if (mortos.length) await env.DB.batch(mortos.flatMap((e) => [env.DB.prepare('DELETE FROM inscricoes WHERE endpoint = ?').bind(e), env.DB.prepare('DELETE FROM seguindo WHERE endpoint = ?').bind(e)]));
   }
   return { inscritos: results.length, entregues: ok };
 }
@@ -139,7 +181,7 @@ async function verificar(env) {
   if (!c) return 'fora do período de divulgação';
   await preparar(env);
   const { results } = await env.DB.prepare('SELECT ufs FROM inscricoes').all();
-  const ufs = new Set(results.flatMap((r) => r.ufs.split(',')));
+  const ufs = new Set(results.flatMap((r) => r.ufs.split(',')).filter(Boolean));
   const log = [];
   for (const turno of [0, 1]) {
     if (Date.now() < c.t[turno].getTime()) continue;
@@ -192,8 +234,49 @@ export default {
 
     if (url.pathname === '/cancelar' && req.method === 'POST') {
       const b = await lerCorpo(req);
-      if (b?.endpoint) await env.DB.prepare('DELETE FROM inscricoes WHERE endpoint = ?').bind(b.endpoint).run();
+      if (b?.endpoint) {
+        if (b.so === 'resultados') await env.DB.prepare("UPDATE inscricoes SET ufs = '' WHERE endpoint = ?").bind(b.endpoint).run();
+        else if (b.so === 'seguindo') await env.DB.prepare('DELETE FROM seguindo WHERE endpoint = ?').bind(b.endpoint).run();
+        else await env.DB.batch([env.DB.prepare('DELETE FROM inscricoes WHERE endpoint = ?').bind(b.endpoint), env.DB.prepare('DELETE FROM seguindo WHERE endpoint = ?').bind(b.endpoint)]);
+      }
       return json(req, { ok: true });
+    }
+
+    if (url.pathname === '/seguir' && req.method === 'POST') {
+      const b = await lerCorpo(req, 16384);
+      let host = '';
+      try {
+        host = new URL(b?.endpoint ?? '').hostname;
+      } catch {
+        /* inválido */
+      }
+      const alvos = [...new Set((b?.alvos ?? []).map(String))].filter((a) => /^(parlamentar|partido|ministro):[a-z0-9-]{1,60}$/.test(a)).slice(0, 100);
+      if (!b?.endpoint?.startsWith('https://') || !SERVICOS_PUSH.test(host) || !b.keys?.p256dh || !b.keys?.auth) return json(req, { erro: 'inscrição inválida' }, 400);
+      const agora = new Date().toISOString();
+      await env.DB.batch([
+        env.DB.prepare(
+          "INSERT INTO inscricoes (endpoint, p256dh, auth, ufs, criado_em, atualizado_em) VALUES (?, ?, ?, '', ?, ?) ON CONFLICT(endpoint) DO UPDATE SET p256dh = excluded.p256dh, auth = excluded.auth, atualizado_em = excluded.atualizado_em",
+        ).bind(b.endpoint, b.keys.p256dh, b.keys.auth, agora, agora),
+        env.DB.prepare('DELETE FROM seguindo WHERE endpoint = ?').bind(b.endpoint),
+        ...alvos.map((a) => env.DB.prepare('INSERT OR IGNORE INTO seguindo (endpoint, alvo) VALUES (?, ?)').bind(b.endpoint, a)),
+      ]);
+      return json(req, { ok: true, alvos: alvos.length });
+    }
+
+    if (url.pathname === '/novidades' && req.method === 'POST') {
+      if (!(await doGithub(req))) return json(req, { erro: 'não autorizado' }, 401);
+      const b = await req.json().catch(() => null);
+      const log = [];
+      for (const it of (b?.itens ?? []).slice(0, 2000)) {
+        if (!it?.alvo || !it?.chave || !it?.titulo) continue;
+        if (await env.DB.prepare('SELECT 1 FROM enviados WHERE chave = ?').bind(it.chave).first()) continue;
+        await env.DB.prepare('INSERT OR IGNORE INTO enviados (chave, em) VALUES (?, ?)').bind(it.chave, new Date().toISOString()).run();
+        const { results } = await env.DB.prepare('SELECT i.endpoint, i.p256dh, i.auth FROM seguindo s JOIN inscricoes i ON i.endpoint = s.endpoint WHERE s.alvo = ?').bind(it.alvo).all();
+        if (!results.length) continue;
+        const r = await entregar(env, results, mensagem(it.titulo, it.corpo || '', it.url || SITE, it.alvo));
+        log.push({ alvo: it.alvo, ...r });
+      }
+      return json(req, { ok: true, enviados: log });
     }
     return json(req, { erro: 'não encontrado' }, 404);
   },

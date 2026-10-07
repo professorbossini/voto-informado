@@ -3,6 +3,7 @@ import { Alert, Box, Button, Card, CardActionArea, Chip, Link, Skeleton, Stack, 
 import ArrowBackRounded from '@mui/icons-material/ArrowBackRounded';
 import OpenInNewRounded from '@mui/icons-material/OpenInNewRounded';
 import { Link as RouterLink, useParams } from 'react-router';
+import { BotaoSeguir } from '@/components/avisos/BotaoSeguir';
 import { CandidatePhoto } from '@/components/election/CandidatePhoto';
 import { SimboloPartido } from '@/components/partidos/SimboloPartido';
 import { fotoParlamentar, SEM_PARTIDO, usePartidos } from '@/components/partidos/partidos';
@@ -134,6 +135,11 @@ export function PartidoPage() {
             <Typography variant="h6" color="text.secondary">
               {p.sigla}
             </Typography>
+          )}
+          {p.sigla !== SEM_PARTIDO && (
+            <Box sx={{ mt: 1 }}>
+              <BotaoSeguir alvo={`partido:${p.slug}`} nome={p.sigla} />
+            </Box>
           )}
         </Box>
       </Stack>

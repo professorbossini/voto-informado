@@ -24,6 +24,7 @@ import OpenInNewRounded from '@mui/icons-material/OpenInNewRounded';
 import ArrowBackRounded from '@mui/icons-material/ArrowBackRounded';
 import { Link as RouterLink, useParams } from 'react-router';
 import { FeedNoticias } from '@/components/noticias/FeedNoticias';
+import { BotaoSeguir } from '@/components/avisos/BotaoSeguir';
 import { BarList, ColumnChart, StatTile } from '@/components/charts/charts';
 import { CandidateCard } from '@/components/election/CandidateCard';
 import { CandidatePhoto } from '@/components/election/CandidatePhoto';
@@ -193,6 +194,9 @@ export function ParlamentarPage() {
                 <Typography variant="body1" sx={{ fontWeight: 500 }}>
                   {d.partido ?? NAO_INFORMADO} · {d.uf ?? NAO_INFORMADO}
                 </Typography>
+                <Box>
+                  <BotaoSeguir alvo={`parlamentar:${id}`} nome={d.nome} />
+                </Box>
                 <Stack direction="row" useFlexGap spacing={1} sx={{ flexWrap: 'wrap', alignItems: 'center', pt: 0.5 }}>
                   <Chip size="small" variant="outlined" label={CASA_NOME[d.casa]} />
                   <Chip size="small" variant="outlined" label={d.em_exercicio ? 'Em exercício' : 'Fora de exercício'} />

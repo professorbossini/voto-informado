@@ -15,6 +15,7 @@ Uso: python -m etl.noticias <site> [--limite N]
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import re
@@ -31,6 +32,7 @@ import requests
 from .plenario import SEM_PARTIDO, slug_partido
 
 BRT = ZoneInfo("America/Sao_Paulo")
+SITE = os.environ.get("SITE_URL", "https://www.tanaurna.com.br")
 RSS = "https://news.google.com/rss/search?q={q}&hl=pt-BR&gl=BR&ceid=BR:pt-419"
 # Reserva: o Google Notícias costuma recusar servidores de nuvem (como os do GitHub Actions).
 BING = "https://www.bing.com/news/search?q={q}&format=rss&setlang=pt-BR&cc=BR"
@@ -170,27 +172,34 @@ class Buscador:
 
 def alvos(api: Path) -> list[tuple[str, str]]:
     """(arquivo relativo em api/noticias, consulta) de cada parlamentar e partido em exercício."""
+    return [(rel, consulta) for rel, consulta, _, _ in alvos_com_nome(api)]
+
+
+def alvos_com_nome(api: Path) -> list[tuple[str, str, str, str]]:
+    """(arquivo, consulta, nome para o aviso, página no site) de cada alvo."""
     pl = _ler(api / "plenario.json") or {}
-    out: list[tuple[str, str]] = []
+    out: list[tuple[str, str, str, str]] = []
     for casa in ("senado", "camara"):
         for m in (pl.get(casa) or {}).get("membros", []):
-            out.append((f"parlamentar/{m['id']}.json", consulta_parlamentar(m["nome"], casa)))
+            out.append((f"parlamentar/{m['id']}.json", consulta_parlamentar(m["nome"], casa), m["nome"], f"/parlamentar/{m['id']}"))
     # Ministros do STF (api/stf.json, publicado pelo stf.yml).
     for m in (_ler(api / "stf.json") or {}).get("ministros", []):
-        out.append((f"ministro/{m['id']}.json", f'"{m["nome"]}" STF when:30d'))
+        out.append((f"ministro/{m['id']}.json", f'"{m["nome"]}" STF when:30d', m["nome"], f"/stf/{m['id']}"))
     for sigla, info in sorted((pl.get("partidos") or {}).items()):
         if sigla != SEM_PARTIDO:
-            out.append((f"partido/{slug_partido(sigla)}.json", consulta_partido(sigla, info.get("nome"))))
+            out.append((f"partido/{slug_partido(sigla)}.json", consulta_partido(sigla, info.get("nome")), sigla, f"/partido/{slug_partido(sigla)}"))
     return out
 
 
 def run(site: Path, limite: int | None = None) -> int:
     api = site / "api"
-    lista = alvos(api)[:limite] if limite else alvos(api)
+    todos = alvos_com_nome(api)
+    lista = todos[:limite] if limite else todos
     buscar = Buscador()
+    novidades: list[dict] = []
     agora = datetime.now(BRT).isoformat(timespec="minutes")
     mudados = falhas = 0
-    for i, (rel, consulta) in enumerate(lista):
+    for i, (rel, consulta, nome, pagina) in enumerate(lista):
         if i:
             time.sleep(PAUSA)
         r = buscar(consulta)
@@ -206,7 +215,22 @@ def run(site: Path, limite: int | None = None) -> int:
         if anterior.get("itens") == achados:
             continue  # nada novo: não regrava (a data da consulta não conta)
         mudados += _gravar(destino, {"consulta": consulta, "atualizado_em": agora, "fonte": origem, "itens": achados})
+        # Aviso para quem segue: só a notícia mais recente, e só se ela é nova.
+        vistos = {x.get("link") for x in anterior.get("itens", [])}
+        if achados and achados[0]["link"] not in vistos:
+            n = achados[0]
+            alvo = rel.removesuffix(".json").replace("/", ":", 1)
+            novidades.append({
+                "alvo": alvo,
+                "chave": f"noticia:{alvo}:{hashlib.sha1(n['link'].encode()).hexdigest()[:16]}",
+                "titulo": f"Notícia: {nome}",
+                "corpo": f"{n['titulo']}" + (f" ({n['fonte']})" if n.get("fonte") else ""),
+                "url": f"{SITE}{pagina}",
+            })
     print(f"noticias: {len(lista)} consultas, {mudados} arquivos atualizados, {falhas} falhas; respostas: {buscar.origens}; erros: {buscar.erros}")
+    from .novidades import enviar as enviar_novidades
+
+    enviar_novidades(novidades)
     if os.environ.get("GITHUB_OUTPUT"):
         with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as f:
             f.write(f"mudou={int(mudados > 0)}\n")

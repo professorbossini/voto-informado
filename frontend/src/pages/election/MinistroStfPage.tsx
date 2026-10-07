@@ -26,6 +26,7 @@ import ArrowBackRounded from '@mui/icons-material/ArrowBackRounded';
 import OpenInNewRounded from '@mui/icons-material/OpenInNewRounded';
 import { Link as RouterLink, useLocation, useParams } from 'react-router';
 import { FeedNoticias } from '@/components/noticias/FeedNoticias';
+import { BotaoSeguir } from '@/components/avisos/BotaoSeguir';
 import { AvisoDadosPublicosStf, CreditoFoto, FontesStf } from '@/components/stf/PlenarioStf';
 import { PARCELAS, aos75, cargoStf, diaBr, fotoStf, idade, mesCurtoRef, mesRef, usd } from '@/components/stf/stf';
 import { data } from '@/data/api';
@@ -73,6 +74,9 @@ function Cabecalho({ m }: { m: MinistroStf }) {
         <Typography variant="h6" color="primary" sx={{ fontWeight: 700 }}>
           {cargoStf(m)}
         </Typography>
+        <Box sx={{ my: 1 }}>
+          <BotaoSeguir alvo={`ministro:${m.id}`} nome={m.nome} />
+        </Box>
         <Typography color="text.secondary">
           {m.nome_completo}
           {anos != null ? ` · ${anos} anos` : ''}

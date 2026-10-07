@@ -10,7 +10,7 @@ import { cifrar, decifrar, derivarChave, esquecerChave, guardarChave, lerChave, 
  */
 
 /** Escolhas sincronizadas: acompanhados, cola, comparação, estado, tema e idioma. */
-export const CHAVES = ['vi:acompanhar', 'vi:cola', 'vi:comparar', 'vi:uf', 'vi:tema', 'vi:idioma'] as const;
+export const CHAVES = ['vi:acompanhar', 'vi:cola', 'vi:comparar', 'vi:uf', 'vi:tema', 'vi:idioma', 'vi:seguindo'] as const;
 
 export interface DocPerfil {
   cifra: string;

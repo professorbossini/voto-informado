@@ -7,14 +7,7 @@ import { useUfUsuario } from '@/components/resultados/hooks';
 import { data } from '@/data/api';
 import { useLocalState } from '@/data/localStore';
 import { useAsync } from '@/hooks/useAsync';
-import { isNativeApp } from '@/native/platform';
-
-/** Worker que guarda as inscrições e envia os avisos (infra/cloudflare/avisos). */
-const AVISOS = (import.meta.env.VITE_AVISOS_URL as string | undefined) || 'https://tanaurna-avisos.insta-publisher.workers.dev';
-
-const suportado = () => !isNativeApp && typeof window !== 'undefined' && 'serviceWorker' in navigator && 'PushManager' in window && 'Notification' in window;
-
-const chaveBytes = (b64: string) => Uint8Array.from(atob(b64.replace(/-/g, '+').replace(/_/g, '/') + '='.repeat((4 - (b64.length % 4)) % 4)), (c) => c.charCodeAt(0));
+import { inscricaoAtual, inscricaoPush, postar, pushSuportado as suportado } from './push';
 
 const NOMES_UF: Record<string, string> = {
   AC: 'Acre', AL: 'Alagoas', AM: 'Amazonas', AP: 'Amapá', BA: 'Bahia', CE: 'Ceará', DF: 'Distrito Federal', ES: 'Espírito Santo', GO: 'Goiás',
@@ -46,16 +39,12 @@ export function AvisoResultado() {
     if (!ufs.length) return;
     setEstado('pedindo');
     try {
-      const permissao = await Notification.requestPermission();
-      if (permissao !== 'granted') {
-        setEstado(permissao === 'denied' ? 'negado' : 'ocioso');
+      const sub = await inscricaoPush();
+      if (!sub) {
+        setEstado(Notification.permission === 'denied' ? 'negado' : 'ocioso');
         return;
       }
-      const reg = await navigator.serviceWorker.register('/sw-avisos.js', { scope: '/' });
-      await navigator.serviceWorker.ready;
-      const { publica } = (await (await fetch(`${AVISOS}/chave`)).json()) as { publica: string };
-      const sub = (await reg.pushManager.getSubscription()) ?? (await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: chaveBytes(publica) }));
-      const r = await fetch(`${AVISOS}/inscrever`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ ...sub.toJSON(), ufs }) });
+      const r = await postar('/inscrever', { ...sub.toJSON(), ufs });
       if (!r.ok) throw new Error(String(r.status));
       setInscrito({ ufs });
       setEstado('ocioso');
@@ -66,12 +55,9 @@ export function AvisoResultado() {
 
   const desligar = async () => {
     try {
-      const reg = await navigator.serviceWorker.getRegistration('/');
-      const sub = await reg?.pushManager.getSubscription();
-      if (sub) {
-        await fetch(`${AVISOS}/cancelar`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ endpoint: sub.endpoint }) });
-        await sub.unsubscribe();
-      }
+      const sub = await inscricaoAtual();
+      // Só os avisos de resultado: quem acompanha políticos continua inscrito.
+      if (sub) await postar('/cancelar', { endpoint: sub.endpoint, so: 'resultados' });
     } finally {
       setInscrito(null);
     }
