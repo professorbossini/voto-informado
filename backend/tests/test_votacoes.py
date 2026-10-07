@@ -209,3 +209,30 @@ def test_run_grava_por_parlamentar_e_reaproveita_anos_encerrados(tmp_path, monke
     assert vt.run(tmp_path, hoje=date(2026, 3, 1)) is False
     assert sorted(chamadas) == [("camara", 2026), ("senado", 2026)]
     assert json.loads((api / "votacoes/parlamentar/camara-1.json").read_text())["atualizado_em"] == d1["atualizado_em"]
+
+
+def test_avisa_seguidores_so_das_votacoes_novas():
+    vots = {
+        "1": {"data": "2026-09-30", "proposicao": "PL 1/2026"},
+        "2": {"data": "2026-10-06", "proposicao": "PEC 2/2026"},
+        "3": {"data": "2026-10-07", "proposicao": None, "ementa": "Requerimento de urgência"},
+        "0": {"data": "2026-03-01", "proposicao": "MPV 9/2026"},
+    }
+    anterior = [{"id": "1", "voto": "Sim"}]
+    atual = [{"id": "3", "voto": "Não"}, {"id": "2", "voto": "AP"}, {"id": "1", "voto": "Sim"}, {"id": "0", "voto": "Sem registro"}]
+    av = vt.novidades_parlamentar(anterior, atual, vots, "senado-9", "Fulana", {"AP": "Atividade parlamentar"})
+    assert [a["chave"] for a in av] == ["votacao:parlamentar:senado-9:3", "votacao:parlamentar:senado-9:2"]
+    assert av[0]["alvo"] == "parlamentar:senado-9"
+    assert av[0]["corpo"] == "Não em Requerimento de urgência (07/10)."
+    assert av[1]["corpo"] == "Atividade parlamentar em PEC 2/2026 (06/10)."  # legenda do Senado; votação antiga "0" ignorada
+    # Primeira coleta (sem arquivo anterior): nenhum aviso.
+    assert vt.novidades_parlamentar(None, atual, vots, "senado-9", "Fulana", {}) == []
+
+
+def test_muitas_votacoes_novas_viram_um_aviso_so():
+    vots = {str(i): {"data": f"2026-10-{i + 1:02d}", "proposicao": f"PL {i}/2026"} for i in range(8)}
+    anterior = [{"id": "0", "voto": "Sim"}]
+    atual = [{"id": str(i), "voto": "Sim"} for i in range(7, -1, -1)]
+    av = vt.novidades_parlamentar(anterior, atual, vots, "camara-5", "Beltrano", {})
+    assert len(av) == 1
+    assert av[0]["corpo"].startswith("7 votações nominais novas no Plenário. A mais recente: Sim em PL 7/2026 (08/10)")

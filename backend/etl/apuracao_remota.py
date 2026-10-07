@@ -67,15 +67,28 @@ def _vai_ao_2turno(situacao: str | None) -> bool:
     return s.startswith("2") and s.endswith("turno")  # LIKE '2%turno', como em app.queries
 
 
+def _fase_hoje(finais: list[dict], hoje) -> str:
+    """Fase pelos resultados finais e pela data (a mesma regra que aplicar grava)."""
+    tem_t2 = any(d["turno"] == 2 for d in finais)
+    tem_2turno = tem_t2 or any(
+        d["turno"] == 1 and d["cargo"] in ("presidente", "governador") and any(_vai_ao_2turno(l[8]) for l in d["linhas"])
+        for d in finais
+    )
+    return fase_de(hoje, tem_2turno, tem_t2)
+
+
 def verificar(site: Path, salvar: Path | None) -> bool:
     finais, parciais = coletar()
     ass = assinatura(finais)
     marca = site / "api" / MARCA
-    anterior = _ler(marca).get("assinatura") if marca.exists() else None
-    mudou = bool(finais) and ass != anterior
+    publicada = _ler(marca) if marca.exists() else {}
+    anterior = publicada.get("assinatura")
+    # Também reaplica quando só a data muda a fase (ex.: dia do 2º turno, eleição encerrada).
+    fase = _fase_hoje(finais, datetime.now(BRT).date())
+    mudou = bool(finais) and (ass != anterior or fase != publicada.get("fase"))
     if salvar:
         salvar.write_text(json.dumps({"finais": finais, "parciais": parciais}, ensure_ascii=False), encoding="utf-8")
-    print(f"TSE: {len(finais)} disputas com totalização final, {parciais} parciais; assinatura {ass} (publicada: {anterior})")
+    print(f"TSE: {len(finais)} disputas com totalização final, {parciais} parciais; assinatura {ass} (publicada: {anterior}); fase {fase} (publicada: {publicada.get('fase')})")
     _saida(mudou=int(mudou), disputas=len(finais))
     return mudou
 
@@ -166,7 +179,7 @@ def aplicar(site: Path, finais: list[dict], parciais: int, agora: datetime | Non
         mudados += _gravar(meta_path, meta)
 
     # 6. Marca do que foi aplicado.
-    _gravar(api / MARCA, {"assinatura": assinatura(finais), "disputas": len(finais), "parciais": parciais, "aplicado_em": agora.isoformat(timespec="seconds")})
+    _gravar(api / MARCA, {"assinatura": assinatura(finais), "fase": fase, "disputas": len(finais), "parciais": parciais, "aplicado_em": agora.isoformat(timespec="seconds")})
     print(f"aplicado: {len(finais)} disputas finais, {len(por_sq)} candidaturas, {mudados} arquivos alterados, fase {fase}")
     return mudados
 

@@ -11,18 +11,43 @@ import type { Cargo } from './types';
  */
 
 export const TSE_RESULTADOS = 'https://resultados.tse.jus.br';
-const BASE = `${TSE_RESULTADOS}/oficial/ele2026`;
+const BASE = `${TSE_RESULTADOS}/oficial/ele2026`; // mesmo ciclo de CICLO
 
 export type Turno = 1 | 2;
 
 /** Os cinco cargos em disputa em 2026 (distrital no lugar de estadual no DF). */
 export type CargoApuracao = 'presidente' | 'governador' | 'senador' | 'deputado-federal' | 'deputado-estadual' | 'deputado-distrital';
 
-/** Códigos de eleição do TSE (ele-c.json): federal = Presidente; estadual = os demais. */
+/**
+ * Códigos de eleição do TSE (ele-c.json): federal = Presidente; estadual = os demais. Os do 2º
+ * turno são a regra de sempre (código do 1º turno + 1) até o TSE publicá-los na configuração
+ * oficial; `prepararCodigos` troca pelos publicados, se forem outros.
+ */
 const ELEICAO: Record<Turno, { federal: string; estadual: string }> = {
   1: { federal: '6257', estadual: '6259' },
   2: { federal: '6258', estadual: '6260' },
 };
+
+const CICLO = 'ele2026';
+let codigosOficiais: Promise<void> | null = null;
+
+/** Lê uma vez a configuração oficial do TSE e usa os códigos do 2º turno publicados lá. */
+export function prepararCodigos(): Promise<void> {
+  codigosOficiais ??= fetch(`${TSE_RESULTADOS}/oficial/comum/config/ele-c.json`, { cache: 'no-cache' })
+    .then((r) => (r.ok ? (r.json() as Promise<{ pl?: { c: string; e?: { cd: string; tp: string; t?: string; nm?: string }[] }[] }>) : null))
+    .then((cfg) => {
+      const eleicoes = cfg?.pl?.find((p) => p.c === CICLO)?.e ?? [];
+      for (const e of eleicoes) {
+        if (e.t !== '2' || !/ordin/i.test(e.nm ?? '')) continue;
+        if (e.tp === '8') ELEICAO[2].federal = e.cd;
+        if (e.tp === '1') ELEICAO[2].estadual = e.cd;
+      }
+    })
+    .catch(() => {
+      codigosOficiais = null; // tenta de novo na próxima consulta
+    });
+  return codigosOficiais;
+}
 
 const CODIGO_CARGO: Record<CargoApuracao, number> = {
   presidente: 1,
@@ -226,6 +251,7 @@ export function parseApuracao(raw: RawUnificado, cargo: CargoApuracao, url: stri
  * normal antes das 17h do dia da votação e, no 2º turno, onde não houver disputa.
  */
 export async function buscarApuracao(turno: Turno, cargo: CargoApuracao, uf: string, signal?: AbortSignal): Promise<Apuracao | null> {
+  if (turno === 2) await prepararCodigos();
   const url = urlApuracao(turno, cargo, uf);
   // no-cache: revalida com o servidor (ETag) a cada consulta; o CDN do TSE segura ~1 min.
   const res = await fetch(url, { cache: 'no-cache', signal, headers: { Accept: 'application/json' } });

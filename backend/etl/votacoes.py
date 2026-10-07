@@ -30,6 +30,9 @@ Grava (só quando o conteúdo muda):
   api/votacoes/resumo.json             metadados, critérios, fontes e data da coleta
   api/votacoes/base/<casa>-<ano>.json  base compacta por ano (anos passados não são baixados de novo)
 
+Avisa quem segue o parlamentar (botão "Seguir") de cada votação nova em que ele aparece
+(etl.novidades), com o voto como publicado.
+
 Uso: python -m etl.votacoes <site>   (saída: mudou=1|0)
 """
 
@@ -69,6 +72,8 @@ DESCRICAO_MAX = 260
 VOTOU = {"Sim", "Não", "Abstenção", "Obstrução", "Votou"}
 PRESIDIU = {"Artigo 17", "Presidente (art. 51 RISF)"}
 SEM_REGISTRO = "Sem registro"  # Câmara: em exercício, mas fora da lista de votos publicada
+SITE = os.environ.get("SITE_URL", "https://www.tanaurna.com.br")
+AVISOS_POR_PARLAMENTAR = 3  # acima disso, um aviso só com o total (ex.: dia de muitas votações)
 
 csv.field_size_limit(min(sys.maxsize, 2**31 - 1))
 
@@ -398,6 +403,43 @@ def montar_parlamentar(votacoes: list[dict], cod: str, periodos: list | None, le
     }
 
 
+def novidades_parlamentar(anterior: list[dict] | None, atual: list[dict], votacoes: dict[str, dict], m_id: str, nome: str, legenda: dict[str, str]) -> list[dict]:
+    """Avisos (etl.novidades) das votações que entraram na lista do parlamentar desde a última coleta.
+
+    Sem lista anterior (primeira coleta), não avisa: tudo pareceria novo. Também só conta votação
+    de data igual ou posterior à mais recente já publicada: uma votação antiga que reaparece (ex.:
+    histórico de exercício que volta a responder) não é novidade."""
+    if not anterior:
+        return []
+    vistos = {i["id"] for i in anterior}
+    desde = max((votacoes[i["id"]]["data"] for i in anterior if i["id"] in votacoes), default=None)
+    if desde is None:
+        return []
+    novos = [i for i in atual if i["id"] not in vistos and i["id"] in votacoes and votacoes[i["id"]]["data"] >= desde]
+    if not novos:
+        return []
+    alvo, url = f"parlamentar:{m_id}", f"{SITE}/parlamentar/{m_id}"
+
+    def descricao(i: dict) -> str:
+        v = votacoes[i["id"]]
+        voto = legenda.get(i["voto"], i["voto"])
+        assunto = v.get("proposicao") or _curto(v.get("ementa") or v.get("descricao"), 90) or "votação nominal"
+        return f"{voto} em {assunto} ({v['data'][8:10]}/{v['data'][5:7]})"
+
+    if len(novos) > AVISOS_POR_PARLAMENTAR:
+        return [{
+            "alvo": alvo,
+            "chave": f"votacao:{alvo}:{novos[0]['id']}:{len(novos)}",
+            "titulo": f"Votações: {nome}",
+            "corpo": f"{len(novos)} votações nominais novas no Plenário. A mais recente: {descricao(novos[0])}.",
+            "url": url,
+        }]
+    return [
+        {"alvo": alvo, "chave": f"votacao:{alvo}:{i['id']}", "titulo": f"Votação: {nome}", "corpo": f"{descricao(i)}.", "url": url}
+        for i in novos
+    ]
+
+
 CAMPOS_CATALOGO = ("data", "proposicao", "ementa", "descricao", "resultado", "placar", "url", "url_sessao")
 
 
@@ -470,6 +512,7 @@ def run(site: Path, hoje: date | None = None) -> bool:
 
     agora = _agora()
     resumo_casas = {}
+    avisos: list[dict] = []
     for casa in ("camara", "senado"):
         membros = (pl.get(casa) or {}).get("membros") or []
         votacoes = bases.get(casa)
@@ -482,6 +525,7 @@ def run(site: Path, hoje: date | None = None) -> bool:
             print(f"camara: histórico de exercício de {len(periodos)} de {len(ids)} deputados")
         gravados = 0
         usados: set[str] = set()
+        por_id = {v["id"]: v for v in votacoes}
         for m in membros:
             cod = m["id"].split("-", 1)[1]
             destino = api / "votacoes" / "parlamentar" / f"{m['id']}.json"
@@ -491,6 +535,7 @@ def run(site: Path, hoje: date | None = None) -> bool:
                 per = anterior["exercicio"]  # histórico fora do ar: usa os períodos já publicados
             corpo = montar_parlamentar(votacoes, cod, per, legendas.get(casa, {}), casa)
             usados.update(i["id"] for i in corpo["itens"])
+            avisos.extend(novidades_parlamentar(anterior.get("itens") if anterior else None, corpo["itens"], por_id, m["id"], m.get("nome") or m["id"], legendas.get(casa, {})))
             dados = {"id": m["id"], "casa": casa, "nome": m.get("nome"), "inicio": inicio, **corpo}
             if {k: v for k, v in anterior.items() if k != "atualizado_em"} == dados:
                 continue
@@ -505,6 +550,10 @@ def run(site: Path, hoje: date | None = None) -> bool:
             cat["atualizado_em"] = agora
             mudou |= _gravar(cat_caminho, cat)
         resumo_casas[casa] = {"votacoes": len(votacoes), "ultima": votacoes[-1]["data"] if votacoes else None, "parlamentares": len(membros), "fonte": FONTES[casa], "criterio": CRITERIOS[casa]}
+
+    from .novidades import enviar as enviar_novidades
+
+    enviar_novidades(avisos)
 
     if resumo_casas:
         caminho = api / "votacoes" / "resumo.json"

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { buscarApuracao, desfechoDe, eleitosDe, finalistasComOrigem, temSegundoTurno, urlApuracao, type Apuracao, type CandidatoApurado, type CargoApuracao, type Desfecho, type Turno } from '@/data/apuracao';
+import { buscarApuracao, desfechoDe, eleitosDe, finalistasComOrigem, temSegundoTurno, type Apuracao, type CandidatoApurado, type CargoApuracao, type Desfecho, type Turno } from '@/data/apuracao';
 import { data as api } from '@/data/api';
 import { inicioDivulgacao } from '@/data/calendario';
 import { useAsync } from '@/hooks/useAsync';
@@ -17,12 +17,12 @@ export const INTERVALO_MS = 60_000;
 const recentes = new Map<string, { em: number; p: Promise<Apuracao | null> }>();
 
 function consultar(turno: Turno, cargo: CargoApuracao, uf: string, forcar = false): Promise<Apuracao | null> {
-  const url = urlApuracao(turno, cargo, uf);
-  const r = recentes.get(url);
+  const chave = `${turno}|${cargo}|${uf.toLowerCase()}`;
+  const r = recentes.get(chave);
   if (r && !forcar && Date.now() - r.em < INTERVALO_MS - 5_000) return r.p;
   const p = buscarApuracao(turno, cargo, uf);
-  recentes.set(url, { em: Date.now(), p });
-  p.catch(() => recentes.delete(url));
+  recentes.set(chave, { em: Date.now(), p });
+  p.catch(() => recentes.delete(chave));
   return p;
 }
 

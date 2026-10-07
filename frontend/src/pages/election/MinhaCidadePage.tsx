@@ -23,7 +23,7 @@ import HowToVoteRounded from '@mui/icons-material/HowToVoteRounded';
 import PaidRounded from '@mui/icons-material/PaidRounded';
 import OpenInNewRounded from '@mui/icons-material/OpenInNewRounded';
 import { Link as RouterLink, useSearchParams } from 'react-router';
-import { CARGO_APURACAO_LABEL, parseApuracao, urlApuracao, type Apuracao, type CargoApuracao, type RawUnificado, type Turno } from '@/data/apuracao';
+import { CARGO_APURACAO_LABEL, parseApuracao, prepararCodigos, urlApuracao, type Apuracao, type CargoApuracao, type RawUnificado, type Turno } from '@/data/apuracao';
 import { data, DataError } from '@/data/api';
 import { money, moneyCompact, nomeProprio, number } from '@/data/format';
 import { MUN_BRASILIA, MUN_PADRAO, useMunicipioUsuario } from '@/data/useMunicipioUsuario';
@@ -46,6 +46,7 @@ function urlMunicipal(turno: Turno, cargo: CargoApuracao, uf: string, mun: strin
 }
 
 async function votacaoMunicipal(turno: Turno, cargo: CargoApuracao, uf: string, mun: string): Promise<Apuracao | null> {
+  if (turno === 2) await prepararCodigos();
   const url = urlMunicipal(turno, cargo, uf, mun);
   const r = await fetch(url, { cache: 'no-cache' });
   if (!r.ok) return null;

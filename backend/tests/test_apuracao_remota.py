@@ -17,7 +17,7 @@ from app import queries as q
 from etl.apuracao_remota import BRT, MARCA, aplicar, assinatura
 from etl.common import DB_PATH
 
-pytestmark = pytest.mark.skipif(not DB_PATH.exists(), reason="banco não gerado")
+sem_banco = pytest.mark.skipif(not DB_PATH.exists(), reason="banco não gerado")
 
 
 @pytest.fixture()
@@ -47,6 +47,7 @@ def _final(conn):
     }]
 
 
+@sem_banco
 def test_remoto_igual_ao_banco(mem, tmp_path):
     sqs, finais = _final(mem)
     site = tmp_path / "site"
@@ -87,3 +88,15 @@ def test_finalista_do_2turno_nao_conta_como_eleito():
     assert _eleito("n", "Eleito por QP") == 1
     assert _eleito("n", "Não eleito") == 0
     assert _eleito("s", None) == 1
+
+
+def test_fase_muda_com_a_data_mesmo_sem_resultado_novo():
+    # Depois do resultado final do 2º turno não chega nada novo do TSE, mas a fase ainda passa a "encerrada".
+    from etl.apuracao_remota import _fase_hoje
+
+    t1 = {"turno": 1, "cargo": "presidente", "linhas": [(1, "BR", "presidente", "1", "13", "A", 10, 45.0, "2º turno", 0, 1)]}
+    t2 = {"turno": 2, "cargo": "presidente", "linhas": [(2, "BR", "presidente", "1", "13", "A", 10, 51.0, "Eleito", 1, 1)]}
+    assert _fase_hoje([t1], date(2026, 10, 7)) == "pre-2turno"
+    assert _fase_hoje([t1], date(2026, 10, 25)) == "apuracao-2turno"
+    assert _fase_hoje([t1, t2], date(2026, 10, 25)) == "apuracao-2turno"
+    assert _fase_hoje([t1, t2], date(2026, 10, 26)) == "encerrada"
