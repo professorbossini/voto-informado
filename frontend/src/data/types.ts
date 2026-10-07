@@ -412,6 +412,60 @@ export interface FeedNoticiasDados {
   itens: Noticia[];
 }
 
+/** Uma votação nominal do Plenário (catálogo api/votacoes/<casa>.json). */
+export interface VotacaoNominal {
+  /** AAAA-MM-DD */
+  data: string;
+  proposicao: string | null;
+  ementa: string | null;
+  descricao: string | null;
+  resultado: string | null;
+  placar: string | null;
+  url: string | null;
+  url_sessao: string | null;
+  secreta?: boolean;
+}
+
+export interface VotacoesParlamentar {
+  id: string;
+  casa: 'camara' | 'senado';
+  nome: string | null;
+  /** Início da legislatura (AAAA-MM-DD). */
+  inicio: string;
+  resumo: {
+    /** Votações nominais enquanto estava no cargo; null = sem base oficial para o total. */
+    total: number | null;
+    /** Registrou voto ou presidia a sessão. */
+    participou: number;
+    votou: number;
+    presidiu: number;
+    percentual: number | null;
+    votos: Record<string, number>;
+  };
+  por_ano: { ano: number; total: number | null; participou: number }[];
+  /** Descrição oficial dos códigos (Senado). */
+  legenda: Record<string, string>;
+  /** Câmara: períodos de exercício [início, fim] pelo histórico oficial. */
+  exercicio: [string, string | null][] | null;
+  /** true = Câmara sem histórico de exercício: total desconhecido. */
+  sem_periodo: boolean;
+  /** Mais recentes primeiro; os dados de cada votação estão no catálogo da Casa. Voto como publicado:
+   * "Sim", "Não", "Abstenção", "Obstrução", "Artigo 17", "Votou" (secreta), códigos do Senado (AP, LS,
+   * MIS, P-NRV...) ou "Sem registro" (Câmara: em exercício, mas fora da lista de votos). */
+  itens: { id: string; voto: string }[];
+  atualizado_em: string;
+}
+
+/** Catálogo das votações de uma Casa (api/votacoes/<casa>.json): dados de cada votação, critério e fonte. */
+export interface VotacoesCatalogo {
+  casa: 'camara' | 'senado';
+  inicio: string;
+  criterio: string;
+  fonte: { nome: string; url: string; pagina: string };
+  votacoes: Record<string, VotacaoNominal>;
+  atualizado_em: string;
+}
+
 /** Eleitos para Assembleias (2022) e Câmaras Municipais (2024), de api/legislativos/ (TSE). */
 export interface EleitoLegislativo {
   id: string;

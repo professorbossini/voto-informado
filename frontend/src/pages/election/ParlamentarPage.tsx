@@ -24,6 +24,7 @@ import OpenInNewRounded from '@mui/icons-material/OpenInNewRounded';
 import ArrowBackRounded from '@mui/icons-material/ArrowBackRounded';
 import { Link as RouterLink, useParams } from 'react-router';
 import { FeedNoticias } from '@/components/noticias/FeedNoticias';
+import { VotacoesNominais } from '@/components/votacoes/VotacoesNominais';
 import { BarList, ColumnChart, StatTile } from '@/components/charts/charts';
 import { CandidateCard } from '@/components/election/CandidateCard';
 import { CandidatePhoto } from '@/components/election/CandidatePhoto';
@@ -434,6 +435,7 @@ export function ParlamentarPage() {
           <SourceNote keys={fontesGastos} sx={{ mt: 2 }} />
         </CardContent>
       </Card>
+      <VotacoesNominais id={id} casa={d.casa} nome={d.nome} />
       <FeedNoticias tipo="parlamentar" id={id} nome={d.nome} />
     </Stack>
   );
