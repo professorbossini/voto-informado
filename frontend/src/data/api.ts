@@ -1,5 +1,6 @@
 import { env } from '@/config/env';
 import type { MalhaMunicipal } from '@/data/localizacao';
+import type { MapaVotos } from '@/data/mapaVotos';
 import type {
   Eleitos,
   EmendasMunicipio,
@@ -103,4 +104,6 @@ export const data = {
   emendasUf: (uf: string) => get<EmendasUf>(`emendas/uf/${uf.toUpperCase()}.json`),
   emendasMunicipio: (uf: string, cd: string) => get<EmendasMunicipio>(`emendas/municipio/${uf.toUpperCase()}/${encodeURIComponent(cd)}.json`),
   emendasParlamentar: (id: string) => get<EmendasParlamentar>(`emendas/parlamentar/${encodeURIComponent(id)}.json`),
+  /** Votação para Presidente por município (TSE, só totalização final); 404 enquanto não houver. */
+  mapaVotos: (turno: 1 | 2) => get<MapaVotos>(`mapa/presidente-${turno}t.json`),
 };

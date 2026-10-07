@@ -1,0 +1,107 @@
+# Mapa do voto por município → site, sem depender de nenhum computador.
+#
+# Lê no TSE (Divulgação de Resultados) o arquivo de votação para Presidente de cada município e de
+# cada cidade do exterior (~5.760 arquivos pequenos, 8 de cada vez) e grava api/mapa/presidente-<turno>t.json
+# no site publicado (gh-pages e R2 da Cloudflare), só com os municípios de totalização FINAL e só
+# quando muda. Turno já completo não é consultado de novo. Lógica em backend/etl/mapa_votos.py.
+#
+# Agenda: só depois de cada votação (1º turno: 1º domingo de outubro; 2º turno: último domingo de
+# outubro), algumas vezes por dia, enquanto o TSE conclui a totalização. Os códigos da eleição vêm
+# da configuração oficial do TSE (etl.calendario_tse); fora do período, a execução agendada não faz
+# nada, e a manual (ou um push nestes arquivos) usa os códigos padrão de backend/etl/common.py.
+name: Mapa do voto → site
+
+on:
+  schedule:
+    # 4 vezes por dia (UTC): 5–12/out (após o 1º turno), 26–31/out e 1–6/nov (após o 2º turno).
+    - cron: "41 1,7,13,19 5-12,26-31 10 *"
+    - cron: "41 1,7,13,19 1-6 11 *"
+  push:
+    branches: [main]
+    paths:
+      - "backend/etl/mapa_votos.py"
+      - ".github/workflows/mapa.yml"
+  workflow_dispatch:
+    inputs:
+      forcar:
+        description: "Consultar de novo mesmo o turno que já está completo"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  id-token: write # gravação no R2 da Cloudflare (etl.r2, OIDC)
+  pages: write
+  actions: write
+
+concurrency:
+  # Uma fila por automação: com uma fila só para todas, o GitHub cancela a que estava esperando.
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+jobs:
+  mapa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: backend
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Dependências
+        run: pip install -q "requests>=2.32"
+
+      - name: Eleição em divulgação (configuração oficial do TSE)
+        id: periodo
+        working-directory: backend
+        run: python -m etl.calendario_tse
+
+      - name: Site publicado (só o mapa)
+        id: site
+        if: steps.periodo.outputs.ativo == '1' || github.event_name != 'schedule'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git clone -q --depth 1 --filter=blob:none --no-checkout --branch gh-pages \
+            "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" site
+          git -C site sparse-checkout set --no-cone /api/mapa/
+          git -C site checkout -q gh-pages
+          echo "ok=1" >> "$GITHUB_OUTPUT"
+
+      - name: Votação por município (TSE)
+        id: mapa
+        if: steps.site.outputs.ok == '1'
+        working-directory: backend
+        run: python -m etl.mapa_votos ../site ${{ inputs.forcar && '--forcar' || '' }}
+
+      - name: Publicar
+        if: steps.mapa.outputs.mudou == '1'
+        working-directory: site
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A api/mapa
+          if git diff --cached --quiet; then echo "Nada mudou."; exit 0; fi
+          git commit -q -m "Mapa do voto: votação para Presidente por município (TSE)"
+          # Outra automação pode ter publicado nesse meio-tempo: incorpora e tenta de novo.
+          for i in 1 2 3 4 5; do git pull -q --rebase origin gh-pages && git push -q origin gh-pages && break; git rebase --abort 2>/dev/null; sleep $((i * 7)); done
+          gh api -X POST "repos/${{ github.repository }}/pages/builds" >/dev/null || true
+          echo "✓ mapa publicado" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Enviar ao R2 (Cloudflare)
+        if: steps.mapa.outputs.mudou == '1'
+        working-directory: backend
+        run: python -m etl.r2 enviar ../site --prefixo api/mapa/
+
+      # O GitHub desliga agendamentos de repositórios sem atividade por 60 dias.
+      - name: Manter o agendamento ligado
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh api -X PUT "repos/${{ github.repository }}/actions/workflows/mapa.yml/enable" >/dev/null || true

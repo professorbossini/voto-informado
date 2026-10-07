@@ -95,6 +95,11 @@ function shapes() {
   return cache;
 }
 
+/** Contorno de cada UF (anéis absolutos em graus × 10⁴, y = latitude), da mesma malha do IBGE. */
+export function contornosUf(): { uf: string; rings: Ring[] }[] {
+  return shapes().map((s) => ({ uf: s.id, rings: s.rings }));
+}
+
 function inside(x: number, y: number, rings: Ring[]): boolean {
   // Regra par-ímpar sobre todos os anéis (ilhas e buracos incluídos).
   let dentro = false;

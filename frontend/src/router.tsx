@@ -66,6 +66,7 @@ export const router = createBrowserRouter([
       ...(env.enablePesquisas ? [{ path: '/pesquisas', ...page(() => import('@/pages/election/PesquisasPage'), 'PesquisasPage') }] : []),
       { path: '/simulador', ...pageEleitoral(() => import('@/pages/election/SimuladorPage'), 'SimuladorPage', 'eleicao', 'O simulador de urna') },
       { path: '/resultados', ...page(() => import('@/pages/election/ResultadosPage'), 'ResultadosPage') },
+      { path: '/mapa', ...page(() => import('@/pages/election/MapaPage'), 'MapaPage') },
       { path: '/como-votar', ...pageEleitoral(() => import('@/pages/election/ComoVotarPage'), 'ComoVotarPage', 'segundo-turno', 'O guia do 2º turno') },
       { path: '/segundo-turno', ...pageEleitoral(() => import('@/pages/election/SegundoTurnoPage'), 'SegundoTurnoPage', 'segundo-turno', 'O 2º turno') },
       { path: '/gastos', ...page(() => import('@/pages/election/GastosPage'), 'GastosPage') },

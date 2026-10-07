@@ -35,6 +35,10 @@ NOVAS_ROTAS = {
         "Como votar no 2º turno · Tá na Urna",
         "Data, horário, documentos, celular, local de votação e justificativa, conforme as regras do TSE.",
     ),
+    "mapa": (
+        "Mapa do voto por município · Tá na Urna",
+        "Votação para Presidente em cada município, com a porcentagem dos votos válidos de cada candidatura. Dados oficiais do TSE.",
+    ),
     "presidentes": (
         "Presidentes do Brasil · Tá na Urna",
         "De Deodoro da Fonseca a hoje: retratos, datas, como cada um chegou e saiu do cargo e os marcos de cada período.",

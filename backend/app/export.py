@@ -113,6 +113,7 @@ def write_pages(dest: Path, site_url: str) -> None:
         "cola": "Minha cola para a urna",
         "simulador": "Simulador de urna (educativo)",
         "resultados": "Resultados ao vivo das Eleições 2026 (TSE)",
+        "mapa": "Mapa do voto por município (TSE)",
         "segundo-turno": "2º turno",
         "plenario": "Plenário da Câmara e do Senado",
         "presidentes": "Presidentes do Brasil",
