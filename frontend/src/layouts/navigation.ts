@@ -9,6 +9,7 @@ import InfoRounded from '@mui/icons-material/InfoRounded';
 import SyncAltRounded from '@mui/icons-material/SyncAltRounded';
 import PollRounded from '@mui/icons-material/PollRounded';
 import BarChartRounded from '@mui/icons-material/BarChartRounded';
+import MapRounded from '@mui/icons-material/MapRounded';
 import AccountBalanceRounded from '@mui/icons-material/AccountBalanceRounded';
 import GroupsRounded from '@mui/icons-material/GroupsRounded';
 import LocationCityRounded from '@mui/icons-material/LocationCityRounded';
@@ -25,6 +26,7 @@ export const NAV_ITEMS = [
   { to: '/', label: 'Início', icon: HomeRounded, mobile: true },
   { to: '/eleicao', label: 'Candidatos', icon: HowToVoteRounded, mobile: true },
   { to: '/resultados', label: 'Resultados', icon: BarChartRounded, mobile: false },
+  { to: '/mapa', label: 'Mapa do voto', icon: MapRounded, mobile: false },
   { to: '/comparar', label: 'Comparar', icon: CompareArrowsRounded, mobile: true },
   { to: '/cola', label: 'Minha cola', short: 'Cola', icon: ListAltRounded, mobile: true, periodo: 'eleicao' },
   // Pesquisas: pendente (ver env.enablePesquisas).

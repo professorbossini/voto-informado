@@ -1,5 +1,6 @@
 import { env } from '@/config/env';
 import type { MalhaMunicipal } from '@/data/localizacao';
+import type { MapaVotos } from '@/data/mapaVotos';
 import type {
   Eleitos,
   EmendasMunicipio,
@@ -111,4 +112,6 @@ export const data = {
   /** Texto dos planos de governo dos finalistas do 2º turno, para a busca (um arquivo por disputa). */
   planosIndice: () => get<PlanosIndice>('planos/indice.json'),
   planosDisputa: (arquivo: string) => get<PlanosDisputa>(`planos/${encodeURIComponent(arquivo)}`),
+  /** Votação para Presidente por município (TSE, só totalização final); 404 enquanto não houver. */
+  mapaVotos: (turno: 1 | 2) => get<MapaVotos>(`mapa/presidente-${turno}t.json`),
 };
