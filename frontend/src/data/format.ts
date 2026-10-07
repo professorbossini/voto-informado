@@ -47,6 +47,14 @@ export function dateTime(value: string | null | undefined): string {
   return d.toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short', timeZone: 'America/Sao_Paulo' });
 }
 
+/** ISO (com fuso) → "06/10/2026", no horário de Brasília. */
+export function dateShort(value: string | null | undefined): string {
+  if (!value) return NAO_INFORMADO;
+  const d = new Date(value);
+  if (Number.isNaN(d.getTime())) return value;
+  return d.toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo' });
+}
+
 export function dateLong(iso: string): string {
   return new Date(`${iso}T12:00:00-03:00`).toLocaleDateString('pt-BR', {
     day: 'numeric',

@@ -132,6 +132,18 @@ export interface CandidatoDetalhe extends Candidato {
   mandato: ParlamentarDetalhe | null;
   resultados: { turno: number; votos: number | null; pct: number | null; situacao: string | null; eleito: number }[];
   fontes: string[];
+  /** Data (ISO, UTC) do arquivo de prestação de contas do TSE usado nas finanças. Ausente em JSON antigos. */
+  contas_atualizadas_em?: string | null;
+  /** Só para quem foi eleito em 2026 e declarou receitas: receitas ÷ votos do turno que elegeu. */
+  custo_por_voto?: CustoPorVoto | null;
+}
+
+export interface CustoPorVoto {
+  /** R$ por voto, arredondado a centavos. */
+  valor: number;
+  receitas: number;
+  votos: number;
+  turno: number;
 }
 
 export interface ListaMajoritarios {

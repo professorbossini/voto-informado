@@ -31,9 +31,9 @@ import { SourceNote } from '@/components/election/SourceNote';
 import { DesfechoDaCandidatura } from '@/components/election/DesfechoChip';
 import { StatusChip } from '@/components/election/StatusChip';
 import { assetUrl, data, DataError } from '@/data/api';
-import { CARGO_LABEL, money, moneyCompact, nomeProprio, NAO_INFORMADO, percent, variation } from '@/data/format';
+import { CARGO_LABEL, dateShort, money, moneyCompact, nomeProprio, NAO_INFORMADO, number, percent, variation } from '@/data/format';
 import { useComparar, useCola } from '@/data/localStore';
-import type { CandidatoDetalhe } from '@/data/types';
+import type { CandidatoDetalhe, CustoPorVoto } from '@/data/types';
 import { useAsync } from '@/hooks/useAsync';
 
 /** Chips with long labels wrap instead of being cut. */
@@ -176,6 +176,11 @@ function Campanha({ c }: { c: CandidatoDetalhe }) {
       subtitle="Receitas e despesas contratadas declaradas à Justiça Eleitoral até a data do arquivo. Os dados são parciais: as campanhas continuam informando até a prestação de contas final."
       fontes={['tse_prestacao', 'tse_complementar']}
     >
+      {c.contas_atualizadas_em && (
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+          Atualizado com a prestação de contas do TSE de {dateShort(c.contas_atualizadas_em)}.
+        </Typography>
+      )}
       {!temDados ? (
         <Typography color="text.secondary">
           {ehVice
@@ -195,6 +200,7 @@ function Campanha({ c }: { c: CandidatoDetalhe }) {
           {c.limite_gastos && c.despesas != null && (
             <Meter value={c.despesas} max={c.limite_gastos} label="Despesas em relação ao limite legal de gastos do cargo" format={moneyCompact} />
           )}
+          {c.custo_por_voto && <CustoPorVotoBox cpv={c.custo_por_voto} />}
           <Box>
             <Typography variant="subtitle2" sx={{ mb: 1 }}>
               De onde veio o dinheiro (fonte)
@@ -262,6 +268,24 @@ function Campanha({ c }: { c: CandidatoDetalhe }) {
         </Stack>
       )}
     </Section>
+  );
+}
+
+/** Receitas ÷ votos de quem foi eleito: uma divisão com dados oficiais, sem juízo sobre a campanha. */
+function CustoPorVotoBox({ cpv }: { cpv: CustoPorVoto }) {
+  return (
+    <Box>
+      <StatTile
+        label="Custo por voto"
+        value={money(cpv.valor)}
+        foot={`receitas ${money(cpv.receitas)} ÷ ${number(cpv.votos)} votos`}
+      />
+      <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 1 }}>
+        Conta feita aqui com dados oficiais: receitas declaradas pela campanha à Justiça Eleitoral divididas pelos votos recebidos no {cpv.turno}º
+        turno, em que a candidatura foi eleita (apuração do TSE). É apenas uma divisão, que não avalia a campanha. As receitas ainda são parciais: a
+        prestação de contas final, entregue depois da eleição, pode mudar os valores e, com eles, este número.
+      </Typography>
+    </Box>
   );
 }
 
