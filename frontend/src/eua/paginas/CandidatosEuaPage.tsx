@@ -95,7 +95,7 @@ export function CandidatosEuaPage() {
       </Alert>
       <Grid container spacing={3}>
         <Grid size={{ xs: 12, md: 5 }}>
-          <Card variant="outlined">
+          <Card data-figura variant="outlined">
             <CardContent>
               <FormControl fullWidth size="small" sx={{ mb: 2 }}>
                 <InputLabel id="uf">Estado</InputLabel>

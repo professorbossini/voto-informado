@@ -78,7 +78,7 @@ function GastoFederal() {
           </FormControl>
         </Stack>
         <Grid container spacing={3}>
-          <Grid size={{ xs: 12, md: 7 }}>
+          <Grid data-figura size={{ xs: 12, md: 7 }}>
             <MapaEua
               faixas={faixasPorPosicao(valores)}
               rotulos={Object.fromEntries(Object.entries(valores).map(([uf, v]) => [uf, `${nomeEstado(uf)}: ${v != null ? fmt(v) : 'sem dado'}${medida === 'per_capita' ? ' por habitante' : ''}`]))}

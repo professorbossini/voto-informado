@@ -125,7 +125,7 @@ export function PartidoPage() {
       <Button component={RouterLink} to="/partidos" startIcon={<ArrowBackRounded />} size="small" sx={{ mb: 1 }}>
         Todos os partidos
       </Button>
-      <Stack direction="row" spacing={{ xs: 2, md: 3 }} sx={{ alignItems: 'center', mb: 2 }}>
+      <Stack data-figura="html" direction="row" spacing={{ xs: 2, md: 3 }} sx={{ alignItems: 'center', mb: 2 }}>
         <SimboloPartido sigla={p.sigla} logo={p.logo} fundo={p.fundo} size={96} quadrado />
         <Box sx={{ minWidth: 0 }}>
           <Typography variant="h3" component="h1" sx={{ fontSize: { xs: '1.6rem', md: '2.2rem' }, lineHeight: 1.1 }}>

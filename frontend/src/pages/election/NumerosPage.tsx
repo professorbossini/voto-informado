@@ -102,7 +102,7 @@ function Conteudo({ e, cargo }: { e: Estatisticas; cargo: CargoNumeros }) {
 
   return (
     <Stack spacing={3}>
-      <Box>
+      <Box data-figura="html">
         <Grid container spacing={2}>
           <Grid size={{ xs: 6, md: 3 }}>
             <StatTile label="Candidaturas na urna" value={number(naUrna)} foot={`Para ${CARGO_TAB_LABEL[cargo].toLowerCase()} · todo o país`} />

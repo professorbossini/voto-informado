@@ -49,7 +49,7 @@ export function PlenarioEua({ membros, vagas = 0, titulo }: { membros: MembroRes
   }, [geo, grupoDe, grupos]);
 
   return (
-    <Box>
+    <Box data-figura>
       <Box component="svg" viewBox={`0 0 ${geo.largura} ${geo.altura}`} role="img" aria-label={`${titulo}: ${grupos.map((g) => `${nomePartido(g.partido)} ${g.membros.length}`).join(', ')}${vagas ? `, ${vagas} vagas` : ''}`} sx={{ width: '100%', maxWidth: 640, display: 'block', mx: 'auto' }}>
         {geo.assentos.map((a, i) => {
           const g = grupoDe[i];
@@ -81,7 +81,7 @@ export function PlenarioEua({ membros, vagas = 0, titulo }: { membros: MembroRes
           {foco ? `${foco.nome} · ${cargoMembro(foco)} (${foco.uf})` : 'cadeiras'}
         </text>
       </Box>
-      <Stack direction="row" spacing={2} useFlexGap sx={{ flexWrap: 'wrap', justifyContent: 'center', mt: 1.5 }}>
+      <Stack data-figura-legenda direction="row" spacing={2} useFlexGap sx={{ flexWrap: 'wrap', justifyContent: 'center', mt: 1.5 }}>
         {grupos.map((g, i) => (
           <Stack key={g.partido} direction="row" spacing={0.75} sx={{ alignItems: 'center' }}>
             <Box sx={{ width: 12, height: 12, borderRadius: '50%', bgcolor: cores[i % cores.length] }} />

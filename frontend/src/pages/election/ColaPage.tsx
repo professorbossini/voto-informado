@@ -388,7 +388,7 @@ function OfficeEditor({
 
 function ColaSheet({ entries, ufNome, dataEleicao }: { entries: ColaEntry[]; ufNome: string; dataEleicao: string | null }) {
   return (
-    <Card className="vi-cola-print" sx={(theme) => ({ border: `2px solid ${theme.vars.palette.text.primary}` })}>
+    <Card data-figura="html" className="vi-cola-print" sx={(theme) => ({ border: `2px solid ${theme.vars.palette.text.primary}` })}>
       <CardContent sx={{ p: { xs: 2, sm: 2.5 } }}>
         <Typography variant="overline" color="text.secondary">
           Eleições 2026 · 1º turno{dataEleicao ? ` · ${dataEleicao}` : ''}

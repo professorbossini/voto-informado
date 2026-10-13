@@ -26,6 +26,10 @@ export const TAMANHOS: Record<Formato, { w: number; h: number }> = {
 
 export const RODAPE = 'Dados públicos oficiais · sem recomendação de voto';
 
+/** Convite para visitar o site (neutro: o que a pessoa encontra lá, sem induzir voto). */
+export const CONVITE = 'Compare candidaturas e confira os dados oficiais no Tá na Urna';
+export const CONVITE_CURTO = 'Veja mais no Tá na Urna';
+
 /** Imagens já carregadas (null = não carregou: logo omitido, foto vira silhueta). */
 export interface Imagens {
   logo: CanvasImageSource | null;
@@ -209,14 +213,28 @@ function base(ctx: Ctx, formato: Formato, d: CartaoDados, comQr = true): number 
   const hu = Math.round(p.url * 1.9);
   const yu = yf - Math.round(p.m * 0.3) - hu;
   const pad = Math.round(p.url * 0.6);
-  const au = ajustarTexto(urlCurta(d.url), { largura: largura - 2 * pad, max: p.url, min: Math.round(p.url * 0.55), maxLinhas: 1 }, medidor(ctx, 700));
+  // No formato baixo (paisagem) o convite vai junto do endereço; nos altos, numa linha própria acima.
+  const pais = formato === 'paisagem';
+  const au = ajustarTexto(`${pais ? 'Veja mais: ' : ''}${urlCurta(d.url)}`, { largura: largura - 2 * pad, max: p.url, min: Math.round(p.url * 0.55), maxLinhas: 1 }, medidor(ctx, 700));
   fonte(ctx, 700, au.tamanho);
   const wu = ctx.measureText(au.linhas[0] ?? '').width + 2 * pad;
   retangulo(ctx, p.m, yu, wu, hu, hu / 2);
   ctx.fillStyle = COR.marcaClara;
   ctx.fill();
   escrever(ctx, au, p.m + pad, yu + (hu - altura(au, 1)) / 2, 700, COR.marcaTexto, 'left', 1);
-  if (!comQr) return yu;
+
+  // Convite para visitar o site, logo acima do endereço, com um traço lima de destaque.
+  let topo = yu;
+  if (!pais) {
+    const ac = ajustarTexto(CONVITE, { largura: largura - 24, max: Math.round(p.url * 0.95), min: Math.round(p.fonte * 0.9), maxLinhas: 2, entrelinha: 1.15 }, medidor(ctx, 700));
+    const yc = yu - Math.round(p.m * 0.3) - altura(ac);
+    retangulo(ctx, p.m, yc, 8, altura(ac), 4);
+    ctx.fillStyle = COR.destaque;
+    ctx.fill();
+    escrever(ctx, ac, p.m + 22, yc, 700, COR.texto, 'left', 1.15);
+    topo = yc;
+  }
+  if (!comQr) return topo;
 
   // QR do endereço, com moldura branca, alinhado ao pé do bloco de texto.
   const xq = w - p.m - ladoQr;
@@ -228,7 +246,7 @@ function base(ctx: Ctx, formato: Formato, d: CartaoDados, comQr = true): number 
   ctx.lineWidth = 2;
   ctx.stroke();
   desenharQr(ctx, d.url, xq, yq, ladoQr, COR.texto, COR.cartao);
-  return Math.min(yu, yq - 6);
+  return Math.min(topo, yq - 6);
 }
 
 /** Quadro de um fato: rótulo pequeno em cima, valor grande embaixo (textos já ajustados). */
@@ -447,15 +465,17 @@ function painelQr(ctx: Ctx, d: CartaoDados, x: number, y: number, w: number, h: 
   ctx.fill();
   const pad = Math.round(30 * e);
   const textos = (tx: number, ty: number, tw: number, th: number) => {
-    const convite = ajustarTexto('Aponte a câmera do celular ou acesse:', { largura: tw, max: Math.round(26 * e), min: Math.round(16 * e), maxLinhas: 2 }, medidor(ctx, 500));
+    const chamada = ajustarTexto(CONVITE_CURTO, { largura: tw, max: Math.round(32 * e), min: Math.round(18 * e), maxLinhas: 1 }, medidor(ctx, 700));
+    const convite = ajustarTexto('Aponte a câmera do celular ou acesse:', { largura: tw, max: Math.round(24 * e), min: Math.round(15 * e), maxLinhas: 2 }, medidor(ctx, 500));
     // Endereço numa linha só (diminuindo a letra); duas linhas só se nem assim couber (ex.: comparação longa).
     const umaLinha = ajustarTexto(urlCurta(d.url), { largura: tw, max: Math.round(38 * e), min: Math.round(22 * e), maxLinhas: 1 }, medidor(ctx, 700));
     const end = umaLinha.linhas[0]?.endsWith('…') ? ajustarTexto(urlCurta(d.url), { largura: tw, max: Math.round(22 * e), min: Math.round(16 * e), maxLinhas: 2, entrelinha: 1.1 }, medidor(ctx, 700)) : umaLinha;
     const dados = `${d.dataDados ? `Dados de ${d.dataDados} · ` : ''}${d.fonte}`;
-    const resto = th - altura(convite) - altura(end, 1.1) - 20 * e;
+    const resto = th - altura(chamada) - 6 * e - altura(convite) - altura(end, 1.1) - 20 * e;
     const af = resto > 16 * e ? ajustarTexto(dados, { largura: tw, max: Math.round(20 * e), min: Math.round(14 * e), maxLinhas: 3, altura: resto, entrelinha: 1.25 }, medidor(ctx, 400)) : null;
-    const total = altura(convite) + 8 * e + altura(end, 1.1) + (af ? 12 * e + altura(af, 1.25) : 0);
+    const total = altura(chamada) + 6 * e + altura(convite) + 8 * e + altura(end, 1.1) + (af ? 12 * e + altura(af, 1.25) : 0);
     let yy = ty + Math.max(0, (th - total) / 2);
+    yy += escrever(ctx, chamada, tx, yy, 700, COR.texto) + 6 * e;
     yy += escrever(ctx, convite, tx, yy, 500, COR.texto3) + 8 * e;
     yy += escrever(ctx, end, tx, yy, 700, COR.marcaTexto, 'left', 1.1);
     if (af) escrever(ctx, af, tx, yy + 12 * e, 400, COR.texto2, 'left', 1.25);

@@ -70,7 +70,7 @@ export function EstadoEuaPage() {
       {!cong.data ? (
         <Carregando />
       ) : (
-        <Stack spacing={3}>
+        <Stack data-figura="mosaico" spacing={3}>
           {senadores.length > 0 && (
             <Bloco titulo="Senado" fonte={['eua-legisladores', 'eua-bioguide']}>
               <Grid container spacing={1.5}>

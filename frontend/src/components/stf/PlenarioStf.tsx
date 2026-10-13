@@ -467,7 +467,7 @@ export function PlenarioStf() {
   const vagas = stf.cadeiras - stf.ministros.length;
   return (
     <Stack spacing={3}>
-      <Card>
+      <Card data-figura>
         <CardContent sx={{ p: { xs: 1.5, md: 3 } }}>
           <Typography variant="h5" component="h2" sx={{ mb: 0.5 }}>
             Supremo Tribunal Federal

@@ -90,7 +90,7 @@ export function EuaInicioPage() {
 
       <Grid container spacing={3}>
         <Grid size={{ xs: 12, md: 7 }}>
-          <Card variant="outlined">
+          <Card data-figura variant="outlined">
             <CardContent>
               <Typography variant="h6" component="h2">
                 Escolha um estado

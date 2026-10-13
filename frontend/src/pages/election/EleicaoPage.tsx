@@ -125,7 +125,7 @@ function Majoritarios({ cargo, uf, lista, vagas, fontes }: { cargo: TabKey; uf: 
       {cargo === 'senador' && (
         <Alert severity="info">Em 2026 cada estado elege duas pessoas para o Senado: você vota duas vezes, em candidaturas diferentes.</Alert>
       )}
-      <Grid container spacing={2}>
+      <Grid data-figura="mosaico" container spacing={2}>
         {visible.map((c) => (
           <Grid key={c.sq} size={{ xs: 12, sm: 6, lg: 4 }}>
             <CandidateCard c={c} desfecho={desfechos.get(c.sq)} />
@@ -286,7 +286,7 @@ function Deputados({ uf, cargo }: { uf: string; cargo: Cargo }) {
       <Typography variant="body2" sx={{ fontWeight: 600 }}>
         {number(filtrados.length)} {filtrados.length === 1 ? 'resultado' : 'resultados'}
       </Typography>
-      <Stack spacing={1}>
+      <Stack data-figura="mosaico" spacing={1}>
         {filtrados.slice(0, limit).map((d) => (
           <DeputadoRow key={d.sq} d={d} desfecho={desfechos.get(d.sq)} />
         ))}
@@ -356,7 +356,7 @@ export function EleicaoPage() {
                 A Presidência é igual para todo o país e aparece abaixo.
               </Typography>
             </Grid>
-            <Grid size={{ xs: 12, md: 7 }} sx={{ overflowX: 'auto' }}>
+            <Grid data-figura size={{ xs: 12, md: 7 }} sx={{ overflowX: 'auto' }}>
               <UfTileMap onSelect={(u) => go(u, 'governador')} names={Object.fromEntries((meta?.ufs ?? []).map((u) => [u.uf, u.nome]))} width={500} />
             </Grid>
           </Grid>

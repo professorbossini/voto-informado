@@ -60,7 +60,7 @@ function Linha({ rotulo, valor }: { rotulo: string; valor: string | null | undef
 function Cabecalho({ m }: { m: MinistroStf }) {
   const anos = idade(m.nascimento);
   return (
-    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={3} sx={{ alignItems: { sm: 'center' }, mb: 3 }}>
+    <Stack data-figura="html" direction={{ xs: 'column', sm: 'row' }} spacing={3} sx={{ alignItems: { sm: 'center' }, mb: 3 }}>
       <Box
         component="img"
         src={fotoStf(m.foto) ?? undefined}
@@ -74,7 +74,7 @@ function Cabecalho({ m }: { m: MinistroStf }) {
         <Typography variant="h6" color="primary" sx={{ fontWeight: 700 }}>
           {cargoStf(m)}
         </Typography>
-        <Box sx={{ my: 1 }}>
+        <Box data-figura-fora sx={{ my: 1 }}>
           <BotaoSeguir alvo={`ministro:${m.id}`} nome={m.nome} />
         </Box>
         <Typography color="text.secondary">

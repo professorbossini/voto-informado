@@ -3379,5 +3379,18 @@
   "SVG não carregou": "SVG não carregou",
   "svg, canvas": "svg, canvas",
   "visibility": "visibility",
-  "xmlns": "xmlns"
+  "xmlns": "xmlns",
+  ".MuiCard-root, .MuiPaper-root": ".MuiCard-root, .MuiPaper-root",
+  "[role=\"dialog\"], header, nav": "[role=\"dialog\"], header, nav",
+  "{0} · os dois finalistas": "{0} · os dois finalistas",
+  "<svg width=\"512\" height=\"{0}\"": "<svg width=\"512\" height=\"{0}\"",
+  "Compare candidaturas e confira os dados oficiais no Tá na Urna": "Compare candidaturas e confira os dados oficiais no Tá na Urna",
+  "Finalistas": "Finalistas",
+  "html": "html",
+  "logos": "logos",
+  "mosaico": "mosaico",
+  "rgba(13, 9, 25, 0.18)": "rgba(13, 9, 25, 0.18)",
+  "svg [font-size]": "svg [font-size]",
+  "Veja mais no Tá na Urna": "Veja mais no Tá na Urna",
+  "Veja mais:": "Veja mais:"
 }

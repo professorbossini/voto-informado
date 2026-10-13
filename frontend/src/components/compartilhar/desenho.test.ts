@@ -86,7 +86,9 @@ describe('desenharCartao', () => {
         }
         const escritos = textos.map((t) => t.texto);
         expect(escritos).toContain(RODAPE);
-        expect(escritos).toContain('tanaurna.com.br/candidato/250002540578');
+        expect(escritos.join(' ')).toContain('tanaurna.com.br/candidato/250002540578');
+        // Convite para visitar o site, em todo formato.
+        expect(escritos.join(' ')).toMatch(formato === 'paisagem' ? /Veja mais/ : /no Tá na Urna/);
         expect(escritos.join(' ')).toContain('Dados de 06/10/2026');
         expect(escritos.join(' ')).toContain('Fonte: TSE');
         // Sem foto: silhueta neutra para cada pessoa.

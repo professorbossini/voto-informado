@@ -161,7 +161,7 @@ function Municipio({ m, resumo, recorte }: { m: EmendasMunicipio; resumo: Resumo
         </Grid>
       </Grid>
 
-      <Card variant="outlined">
+      <Card data-figura="html" variant="outlined">
         <CardContent>
           <Typography variant="h6" component="h3">
             Pago por ano

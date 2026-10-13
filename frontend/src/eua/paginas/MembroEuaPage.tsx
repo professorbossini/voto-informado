@@ -31,7 +31,7 @@ const REDES: Record<string, (v: string) => string> = {
 function Cabecalho({ m }: { m: MembroPerfil }) {
   const anos = idade(m.nascimento);
   return (
-    <Card variant="outlined" sx={{ mb: 3 }}>
+    <Card data-figura="html" variant="outlined" sx={{ mb: 3 }}>
       <CardContent>
         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={3}>
           <FotoMembro foto={m.foto} nome={m.nome} largura={150} />

@@ -62,7 +62,7 @@ function Rota() {
   const x = (iso: string) => (anoFrac(iso) - ANO0) * PX_ANO;
   const exercidos = PRESIDENCIAS.filter((p) => !p.naoExerceu);
   return (
-    <Card sx={{ mb: 3 }}>
+    <Card data-figura="mosaico" sx={{ mb: 3 }}>
       <CardContent sx={{ p: { xs: 1.5, md: 2.5 } }}>
         <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
           A rota no tempo, de 1889 a hoje

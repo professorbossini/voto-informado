@@ -48,6 +48,9 @@ import { CandidateSearch } from '@/components/election/CandidateSearch';
 import { SourceNote } from '@/components/election/SourceNote';
 import { BrazilMap } from '@/components/election/UfTileMap';
 import { data } from '@/data/api';
+import { cartaoLadoALado } from '@/components/compartilhar/dados';
+import { useCartaoDaPagina } from '@/components/compartilhar/cartaoPagina';
+import { publicUrl } from '@/native/platform';
 import { dateLong, DIGITOS, moneyCompact, nomeProprio, number } from '@/data/format';
 import { useMeta } from '@/data/MetaContext';
 import type { Candidato, CandidatoDetalhe, Cargo } from '@/data/types';
@@ -223,9 +226,22 @@ function DueloDeDados({ lista, final }: { lista: Candidato[]; final?: DueloFinal
   const key = par?.join(',') ?? '';
   const det = useAsync(() => (par ? Promise.all(par.map((sq) => data.candidato(sq))) : Promise.resolve(null)), [key]);
   const [a, b] = det.data ?? [];
+  const { fontes } = useMeta();
+  // Finalistas do 2º turno: o botão de compartilhar do topo usa o cartão lado a lado deles (com o
+  // link da comparação); o par sorteado fora do 2º turno não vira cartão da página.
+  useCartaoDaPagina(
+    () =>
+      cartaoLadoALado([a!, b!], {
+        titulo: `${final?.overline ?? 'Finalistas'} · os dois finalistas`,
+        url: publicUrl(`comparar?c=${a!.sq},${b!.sq}`),
+        fontes,
+      }),
+    undefined,
+    Boolean(final && a && b),
+  );
 
   return (
-    <Card
+    <Card data-figura="html"
       sx={(theme) => ({
         borderRadius: 6,
         overflow: 'visible',
@@ -689,7 +705,7 @@ function Candidaturas() {
                 </Typography>
               )}
             </Grid>
-            <Grid size={{ xs: 12, md: 7 }}>
+            <Grid data-figura size={{ xs: 12, md: 7 }}>
               <BrazilMap onSelect={(uf) => void navigate(`/eleicao/${uf}`)} names={names} width={540} />
             </Grid>
           </Grid>

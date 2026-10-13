@@ -158,7 +158,7 @@ function MapaPresidente() {
           </FormControl>
         </Stack>
         <Grid container spacing={3}>
-          <Grid size={{ xs: 12, md: 8 }}>
+          <Grid data-figura size={{ xs: 12, md: 8 }}>
             <MapaEua faixas={faixas} rotulos={rotulos} selecionado={uf} onSelect={(u) => setUf(u === uf ? null : u)} ariaLabel={`Votos de ${cand?.nome} por estado em ${ano}`} />
             <LegendaEscala min="0%" max="100%" titulo={`% dos votos de ${cand?.nome ?? ''} no estado (10 faixas de 10 pontos)`} />
           </Grid>

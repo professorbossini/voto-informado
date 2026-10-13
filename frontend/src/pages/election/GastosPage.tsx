@@ -416,7 +416,7 @@ export function GastosPage() {
             </CardContent>
           </Card>
 
-          <Card variant="outlined">
+          <Card data-figura="html" variant="outlined">
             <CardContent>
               <Typography variant="h6" component="h2">
                 Por categoria de despesa · toda a legislatura

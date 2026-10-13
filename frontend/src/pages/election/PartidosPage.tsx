@@ -30,7 +30,7 @@ export function PartidosPage() {
         }
       />
       {error != null && <Alert severity="warning">Não foi possível carregar os dados agora. Tente de novo em instantes.</Alert>}
-      <Grid container spacing={2}>
+      <Grid data-figura="logos" container spacing={2}>
         {loading &&
           Array.from({ length: 12 }, (_, i) => (
             <Grid key={i} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>

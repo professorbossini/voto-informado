@@ -426,7 +426,7 @@ function Urna({
         }}
       >
         {/* The machine body */}
-        <Box sx={corpoUrnaSx}>
+        <Box data-figura="html" sx={corpoUrnaSx}>
           <UrnaScreen office={office} digits={digits} resolution={resolution} notice={notice} fim={done} />
           <UrnaKeypad onKey={press} pressed={pressed} disabled={done} />
         </Box>
@@ -488,7 +488,7 @@ function UrnaSem2Turno({ uf }: { uf: string }) {
     ],
   };
   return (
-    <Box sx={corpoUrnaSx}>
+    <Box data-figura="html" sx={corpoUrnaSx}>
       <UrnaScreen office={null} digits="" resolution={{ kind: 'vazio' }} notice={null} mensagem={mensagem} />
       <UrnaKeypad onKey={() => undefined} pressed={null} disabled />
     </Box>

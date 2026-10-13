@@ -322,6 +322,13 @@
   ]
  },
  {
+  "texto": ".MuiCard-root, .MuiPaper-root",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/figura.ts"
+  ]
+ },
+ {
   "texto": "· {0} anos",
   "tipo": "padrao",
   "arquivos": [
@@ -1028,6 +1035,13 @@
   ]
  },
  {
+  "texto": "[role=\"dialog\"], header, nav",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/figura.ts"
+  ]
+ },
+ {
   "texto": "{0} · {1} emenda(s)",
   "tipo": "padrao",
   "arquivos": [
@@ -1060,6 +1074,13 @@
   "tipo": "padrao",
   "arquivos": [
    "components/share/ShareButton.tsx"
+  ]
+ },
+ {
+  "texto": "{0} · os dois finalistas",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/election/HomePage.tsx"
   ]
  },
  {
@@ -1834,6 +1855,13 @@
   "arquivos": [
    "components/resultados/Panorama.tsx",
    "pages/election/HomePage.tsx"
+  ]
+ },
+ {
+  "texto": "<svg width=\"512\" height=\"{0}\"",
+  "tipo": "padrao",
+  "arquivos": [
+   "components/compartilhar/figura.ts"
   ]
  },
  {
@@ -6231,6 +6259,13 @@
   ]
  },
  {
+  "texto": "Compare candidaturas e confira os dados oficiais no Tá na Urna",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/desenho.ts"
+  ]
+ },
+ {
   "texto": "Comparecimento",
   "tipo": "exato",
   "arquivos": [
@@ -10532,6 +10567,13 @@
   ]
  },
  {
+  "texto": "Finalistas",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/HomePage.tsx"
+  ]
+ },
+ {
   "texto": "Finalistas à Presidência",
   "tipo": "exato",
   "arquivos": [
@@ -11743,6 +11785,25 @@
   ]
  },
  {
+  "texto": "html",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/figura.ts",
+   "eua/paginas/MembroEuaPage.tsx",
+   "eua/paginas/SupremaCortePage.tsx",
+   "pages/election/ColaPage.tsx",
+   "pages/election/CongressoEleitoPage.tsx",
+   "pages/election/EmendasPage.tsx",
+   "pages/election/GastosPage.tsx",
+   "pages/election/HomePage.tsx",
+   "pages/election/MinistroStfPage.tsx",
+   "pages/election/NumerosPage.tsx",
+   "pages/election/PartidoPage.tsx",
+   "pages/election/SegundoTurnoPage.tsx",
+   "pages/election/SimuladorPage.tsx"
+  ]
+ },
+ {
   "texto": "HTTP {0}",
   "tipo": "padrao",
   "arquivos": [
@@ -11940,6 +12001,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/charts/charts.tsx",
+   "components/compartilhar/figura.ts",
    "components/election/UfTileMap.tsx",
    "components/mapa/MapaCanvas.tsx",
    "components/resultados/Evolucao.tsx",
@@ -13181,6 +13243,14 @@
   ]
  },
  {
+  "texto": "logos",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/figura.ts",
+   "pages/election/PartidosPage.tsx"
+  ]
+ },
+ {
   "texto": "long",
   "tipo": "exato",
   "arquivos": [
@@ -14162,6 +14232,17 @@
   "tipo": "exato",
   "arquivos": [
    "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "mosaico",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/figura.ts",
+   "eua/paginas/EstadoEuaPage.tsx",
+   "eua/paginas/SupremaCortePage.tsx",
+   "pages/election/EleicaoPage.tsx",
+   "pages/presidentes/PresidentesPage.tsx"
   ]
  },
  {
@@ -17137,7 +17218,8 @@
   "texto": "paisagem",
   "tipo": "exato",
   "arquivos": [
-   "components/compartilhar/DialogoCompartilhar.tsx"
+   "components/compartilhar/DialogoCompartilhar.tsx",
+   "components/compartilhar/desenho.ts"
   ]
  },
  {
@@ -19895,6 +19977,13 @@
   ]
  },
  {
+  "texto": "rgba(13, 9, 25, 0.18)",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/figura.ts"
+  ]
+ },
+ {
   "texto": "rgba(13, 9, 25, 0.35)",
   "tipo": "exato",
   "arquivos": [
@@ -21842,6 +21931,13 @@
   ]
  },
  {
+  "texto": "svg [font-size]",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/figura.ts"
+  ]
+ },
+ {
   "texto": "SVG não carregou",
   "tipo": "exato",
   "arquivos": [
@@ -23506,6 +23602,20 @@
    "components/urna/ballot.ts",
    "pages/election/ColaPage.tsx",
    "pages/election/SimuladorPage.tsx"
+  ]
+ },
+ {
+  "texto": "Veja mais no Tá na Urna",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/desenho.ts"
+  ]
+ },
+ {
+  "texto": "Veja mais:",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/desenho.ts"
   ]
  },
  {

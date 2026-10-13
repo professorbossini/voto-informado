@@ -108,7 +108,7 @@ export function SupremaCortePage() {
               <Typography variant="h6" component="h2" sx={{ mb: 2 }}>
                 Composição atual
               </Typography>
-              <Grid container spacing={1.5}>
+              <Grid data-figura="mosaico" container spacing={1.5}>
                 {sc.juizes.map((j) => (
                   <Grid key={j.id} size={{ xs: 12, sm: 6, md: 4 }}>
                     <Card variant="outlined" sx={{ height: 1 }}>
@@ -255,7 +255,7 @@ export function JuizPage() {
       </Breadcrumbs>
       <AvisoInformativo />
       <Stack spacing={3}>
-        <Card variant="outlined">
+        <Card data-figura="html" variant="outlined">
           <CardContent>
             <Stack direction={{ xs: 'column', sm: 'row' }} spacing={3}>
               <FotoMembro foto={j.foto} nome={j.nome} largura={150} />

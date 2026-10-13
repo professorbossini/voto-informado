@@ -254,7 +254,7 @@ function Conteudo({ p, casa, visao, onVisao }: { p: PerfilEleitos; casa: CasaPer
         </Stack>
       )}
 
-      <Grid container spacing={2}>
+      <Grid data-figura="html" container spacing={2}>
         <Grid size={{ xs: 6, md: 3 }}>
           <StatTile label={completo ? 'Senadores' : 'Eleitos'} value={number(depois.total)} foot={`${rotulos[0]}: ${number(antes.total)}`} />
         </Grid>

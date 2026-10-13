@@ -217,7 +217,7 @@ export function SegundoTurnoPage() {
                       </Stack>
                     </Stack>
                     {eleitos.length > 0 && <CartaoEleitos eleitos={eleitos} cargo={d.cargo} turno={2} local={d.cargo === 'presidente' ? null : nomeUf(d.uf)} compacto sx={{ mb: 2 }} />}
-                    <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr 1fr', md: `220px repeat(${cs.length}, 1fr)` }, gap: 2, alignItems: 'start' }}>
+                    <Box data-figura="html" sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr 1fr', md: `220px repeat(${cs.length}, 1fr)` }, gap: 2, alignItems: 'start' }}>
                       <Box sx={{ display: { xs: 'none', md: 'block' } }} />
                       {cs.map((c) => (
                         <Stack key={c.sq} spacing={1} component={RouterLink} to={`/candidato/${c.sq}`} sx={{ textDecoration: 'none', color: 'inherit', alignItems: 'center', textAlign: 'center' }}>

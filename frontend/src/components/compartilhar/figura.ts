@@ -29,8 +29,8 @@ function fundoDe(el: Element): string {
 export function acharFigura(raiz: ParentNode = document): HTMLElement | SVGElement | null {
   const main = raiz.querySelector('main');
   if (!main) return null;
-  const marcado = main.querySelector<HTMLElement>('[data-figura]');
-  if (marcado && marcado.getBoundingClientRect().width > 0) return marcado;
+  // Marcado pela página (o primeiro visível: abas escondidas não contam).
+  for (const m of Array.from(main.querySelectorAll<HTMLElement>('[data-figura]'))) if (m.getBoundingClientRect().width > 0) return m;
   let melhor: HTMLElement | SVGElement | null = null;
   let area = 0;
   for (const el of Array.from(main.querySelectorAll<HTMLElement | SVGElement>('svg, canvas'))) {
@@ -43,7 +43,14 @@ export function acharFigura(raiz: ParentNode = document): HTMLElement | SVGEleme
       melhor = el;
     }
   }
-  return melhor;
+  if (melhor) return melhor;
+  // Sem mapa nem gráfico: o primeiro quadro do conteúdo com imagens (fotos, retratos, logos).
+  for (const c of Array.from(main.querySelectorAll<HTMLElement>('.MuiCard-root, .MuiPaper-root'))) {
+    if (c.closest('[role="dialog"], header, nav')) continue;
+    const r = c.getBoundingClientRect();
+    if (r.width >= 240 && r.height >= 180 && r.height <= 1800 && c.querySelectorAll('img').length >= 2) return c;
+  }
+  return null;
 }
 
 // ── SVG: conversão própria (rápida mesmo com 513 cadeiras) ───────────────────
@@ -131,6 +138,146 @@ async function rasterizarSvg(svg: SVGSVGElement, fundo: string, largura: number)
   } finally {
     URL.revokeObjectURL(url);
   }
+}
+
+/**
+ * Quadro em HTML (fotos, linha do tempo, arco do STF...) → canvas pela html-to-image. Os rótulos de
+ * SVG dentro dele têm o tamanho de letra fixado antes (a biblioteca troca o tamanho do atributo
+ * pelo do CSS, e os rótulos saíam gigantes) e devolvido depois.
+ */
+async function rasterizarHtml(el: HTMLElement, fundo: string, largura: number): Promise<HTMLCanvasElement | null> {
+  const r = el.getBoundingClientRect();
+  const fixados: [SVGElement, string][] = [];
+  for (const t of Array.from(el.querySelectorAll<SVGElement>('svg [font-size]'))) {
+    fixados.push([t, t.style.fontSize]);
+    t.style.fontSize = `${t.getAttribute('font-size')}px`;
+  }
+  try {
+    const { toCanvas } = await import('html-to-image');
+    const c = await toCanvas(el, {
+      backgroundColor: fundo,
+      pixelRatio: Math.min(3, Math.max(1, largura / Math.max(1, r.width))),
+      // Botões e controles marcados com data-figura-fora não entram na imagem.
+      filter: (n) => !(n instanceof Element && n.hasAttribute('data-figura-fora')),
+    });
+    return c.width && c.height ? c : null;
+  } finally {
+    for (const [t, v] of fixados) t.style.fontSize = v;
+  }
+}
+
+/** Imagem do próprio site → bitmap (SVG passa por um <img>, que createImageBitmap não lê direto). */
+async function bitmap(url: string): Promise<ImageBitmap | null> {
+  try {
+    const r = await fetch(url, { cache: 'force-cache' });
+    if (!r.ok) return null;
+    const blob = await r.blob();
+    if (!/svg/i.test(blob.type)) return await createImageBitmap(blob);
+    // SVG sem largura/altura sai em branco: declara um tamanho na proporção do viewBox.
+    let texto = await blob.text();
+    if (!/<svg[^>]*\swidth=/i.test(texto)) {
+      const vb = /viewBox=["']\s*[-\d.]+[\s,]+[-\d.]+[\s,]+([\d.]+)[\s,]+([\d.]+)/i.exec(texto);
+      const proporcao = vb ? Number(vb[2]) / Number(vb[1]) || 1 : 1;
+      texto = texto.replace(/<svg/i, `<svg width="512" height="${Math.round(512 * proporcao)}"`);
+    }
+    const obj = URL.createObjectURL(new Blob([texto], { type: 'image/svg+xml' }));
+    try {
+      const img = new Image();
+      await new Promise<void>((ok, erro) => {
+        img.onload = () => ok();
+        img.onerror = () => erro(new Error('svg'));
+        img.src = obj;
+      });
+      const w = img.naturalWidth || 400;
+      const h = img.naturalHeight || 400;
+      return await createImageBitmap(img, { resizeWidth: w > 800 ? 800 : w, resizeHeight: Math.round((h * (w > 800 ? 800 : w)) / w) });
+    } finally {
+      URL.revokeObjectURL(obj);
+    }
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Mosaico com as fotos que a página mostra (retratos dos presidentes, ministros...), na ordem da
+ * página, em círculos com borda branca. Só imagens do próprio site (sem CORS, o canvas não exporta).
+ */
+async function mosaico(el: HTMLElement, fundo: string, largura: number, logos = false, max = 48): Promise<HTMLCanvasElement | null> {
+  const vistos = new Set<string>();
+  const srcs: { src: string; fundo: string }[] = [];
+  for (const img of Array.from(el.querySelectorAll('img'))) {
+    const src = img.currentSrc || img.src;
+    if (!src || vistos.has(src) || img.getBoundingClientRect().width < 20) continue;
+    vistos.add(src);
+    // Logo claro sobre fundo escuro: o quadrado leva o fundo que ele tem na página.
+    srcs.push({ src, fundo: img.parentElement ? fundoDe(img.parentElement) : '#ffffff' });
+    if (srcs.length >= max) break;
+  }
+  const imgs: ImageBitmap[] = [];
+  const fundos: string[] = [];
+  for (let i = 0; i < srcs.length; i += 12) {
+    const parte = srcs.slice(i, i + 12);
+    const lote = await Promise.all(parte.map((x) => bitmap(x.src)));
+    lote.forEach((b, k) => {
+      if (!b) return;
+      imgs.push(b);
+      fundos.push(parte[k].fundo);
+    });
+  }
+  if (imgs.length < 2) return null;
+  const n = imgs.length;
+  const cols = Math.ceil(Math.sqrt(n * 1.25));
+  const linhas = Math.ceil(n / cols);
+  const gap = Math.round(largura * 0.012);
+  const lado = Math.floor((largura - gap * (cols + 1)) / cols);
+  const c = document.createElement('canvas');
+  c.width = largura;
+  c.height = linhas * lado + (linhas + 1) * gap;
+  const ctx = c.getContext('2d')!;
+  ctx.fillStyle = fundo;
+  ctx.fillRect(0, 0, c.width, c.height);
+  imgs.forEach((b, i) => {
+    const linha = Math.floor(i / cols);
+    // Última linha incompleta: centralizada.
+    const naLinha = linha === linhas - 1 ? n - linha * cols : cols;
+    const x0 = (largura - (naLinha * lado + (naLinha - 1) * gap)) / 2;
+    const x = x0 + (i % cols) * (lado + gap);
+    const y = gap + linha * (lado + gap);
+    if (logos) {
+      // Símbolo inteiro, sem corte, num quadrado branco arredondado.
+      ctx.save();
+      ctx.beginPath();
+      ctx.roundRect?.(x, y, lado, lado, lado * 0.16);
+      if (!ctx.roundRect) ctx.rect(x, y, lado, lado);
+      ctx.fillStyle = fundos[i] ?? '#ffffff';
+      ctx.shadowColor = 'rgba(13, 9, 25, 0.18)';
+      ctx.shadowBlur = lado * 0.08;
+      ctx.fill();
+      ctx.restore();
+      const pad = lado * 0.12;
+      const s = Math.min((lado - 2 * pad) / b.width, (lado - 2 * pad) / b.height);
+      ctx.drawImage(b, x + (lado - b.width * s) / 2, y + (lado - b.height * s) / 2, b.width * s, b.height * s);
+      b.close();
+      return;
+    }
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(x + lado / 2, y + lado / 2, lado / 2, 0, Math.PI * 2);
+    ctx.clip();
+    const s = Math.max(lado / b.width, lado / b.height);
+    const sw = lado / s;
+    const sh = lado / s;
+    ctx.drawImage(b, (b.width - sw) / 2, (b.height - sh) * 0.2, sw, sh, x, y, lado, lado);
+    ctx.restore();
+    ctx.beginPath();
+    ctx.arc(x + lado / 2, y + lado / 2, lado / 2 - 2, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(255,255,255,0.9)';
+    ctx.lineWidth = Math.max(3, lado * 0.035);
+    ctx.stroke();
+    b.close();
+  });
+  return c;
 }
 
 /** Itens da legenda lidos da tela: a cor do quadradinho e o texto da linha. */
@@ -232,9 +379,13 @@ const area = (e: Element) => {
  */
 async function rasterizar(el: HTMLElement | SVGElement, fundo: string): Promise<HTMLCanvasElement | null> {
   const L = 1600;
+  // data-figura="html": o quadro inteiro como está na tela; "mosaico": as fotos dele num mosaico.
+  if (el instanceof HTMLElement && el.dataset.figura === 'html') return rasterizarHtml(el, fundo, L);
+  if (el instanceof HTMLElement && el.dataset.figura === 'mosaico') return mosaico(el, fundo, L);
+  if (el instanceof HTMLElement && el.dataset.figura === 'logos') return mosaico(el, fundo, L, true);
   const candidatos = el instanceof SVGSVGElement || el instanceof HTMLCanvasElement ? [el] : Array.from(el.querySelectorAll<SVGSVGElement | HTMLCanvasElement>('svg, canvas')).filter((x) => !x.parentElement?.closest('svg') && x.getBoundingClientRect().width >= 200);
   const principal = candidatos.sort((a, b) => area(b) - area(a))[0];
-  if (!principal) return null;
+  if (!principal) return el instanceof HTMLElement ? rasterizarHtml(el, fundo, L) : null;
   const figura = principal instanceof HTMLCanvasElement ? copiarCanvas(principal, fundo) : await rasterizarSvg(principal, fundo, L);
   if (!figura) return null;
   const leg = el.querySelector('[data-figura-legenda]');
