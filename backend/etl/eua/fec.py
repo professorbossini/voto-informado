@@ -98,10 +98,10 @@ def _num(v: str | None) -> float | None:
 
 def nome_legivel(nome_fec: str) -> str:
     """'PELTOLA, MARY S. MRS.' → 'Mary S. Peltola' (só ordem e maiúsculas; o texto oficial segue ao lado)."""
-    tratamentos = {"MR", "MRS", "MS", "DR", "HON", "MR.", "MRS.", "MS.", "DR.", "HON."}
+    tratamentos = {"MR", "MRS", "MS", "DR", "HON", "SEN", "SENATOR", "REP", "REPRESENTATIVE", "GOV", "JUDGE", "REV", "PROF", "COL", "GEN", "SGT", "CPT", "MAJ", "LT"}
     if "," in nome_fec:
         sob, resto = nome_fec.split(",", 1)
-        palavras = [p for p in resto.split() if p.upper() not in tratamentos]
+        palavras = [p for p in resto.split() if p.upper().rstrip(".") not in tratamentos]
         sufixos = [p for p in palavras if p.upper().rstrip(".") in ("JR", "SR", "II", "III", "IV")]
         palavras = [p for p in palavras if p not in sufixos]
         nome = " ".join([*palavras, sob.strip(), *sufixos])

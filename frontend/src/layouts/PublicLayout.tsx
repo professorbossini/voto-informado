@@ -39,6 +39,9 @@ import { PageTransition } from '@/components/PageTransition';
 import { env } from '@/config/env';
 import { useMeta } from '@/data/MetaContext';
 import { dateTime } from '@/data/format';
+import { PaisMenu } from '@/components/PaisMenu';
+import { naAreaEua, PAISES } from '@/components/pais';
+import { BuscaMembrosEua, RodapeEua, TrustBarEua } from '@/eua/componentes/Moldura';
 import { activeNavItem, useNavItems } from './navigation';
 
 function TrustBar() {
@@ -134,6 +137,7 @@ function Footer() {
 
 export function PublicLayout() {
   const { pathname } = useLocation();
+  const areaEua = naAreaEua(pathname);
   const navigate = useNavigate();
   const current = activeNavItem(pathname);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -146,6 +150,8 @@ export function PublicLayout() {
   const moreItems = wide ? NAV_ITEMS.filter((i) => !('topo' in i && i.topo) && i.to !== '/') : NAV_ITEMS.filter((i) => !i.mobile);
   const mobileValue = mobileItems.some((i) => i.to === current) ? current : 'mais';
   const desktop = useMediaQuery((theme: Theme) => theme.breakpoints.up('md'));
+  const smUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'));
+  const outroPais = areaEua ? PAISES[0] : PAISES[1];
 
   return (
     // env(safe-area-inset-*): status bar, notch and gesture bar in the Android/iOS apps (0 on most browsers).
@@ -153,7 +159,7 @@ export function PublicLayout() {
       <GlobalStyles styles={{ '@media print': { '.vi-chrome, .MuiAppBar-root, .MuiBottomNavigation-root': { display: 'none !important' } } }} />
       <AppBar position="sticky" sx={{ pt: 'env(safe-area-inset-top)' }}>
         <Toolbar sx={{ gap: 2, minHeight: { xs: 60, sm: 64 } }}>
-          <NavLink to="/" style={{ textDecoration: 'none', color: 'inherit' }} aria-label="Início">
+          <NavLink to={areaEua ? '/eua' : '/'} style={{ textDecoration: 'none', color: 'inherit' }} aria-label="Início">
             <BrandLogo size="small" />
           </NavLink>
           <Tabs
@@ -171,18 +177,20 @@ export function PublicLayout() {
           </Tabs>
           <Stack direction="row" spacing={0.5} sx={{ ml: 'auto', alignItems: 'center' }}>
             <ShareButton />
-            <Tooltip title="Buscar candidato">
-              <IconButton aria-label="Buscar candidato" onClick={() => setSearchOpen(true)}>
+            <Tooltip title={areaEua ? 'Buscar parlamentar dos EUA' : 'Buscar candidato'}>
+              <IconButton aria-label={areaEua ? 'Buscar parlamentar dos EUA' : 'Buscar candidato'} onClick={() => setSearchOpen(true)}>
                 <SearchRounded />
               </IconButton>
             </Tooltip>
+            {/* No celular estreito o seletor de país fica no "Mais", para o topo não mudar. */}
+            {smUp && <PaisMenu />}
             <IdiomaMenu />
             <AparenciaMenu />
             {env.enableLogin && <ContaPerfil />}
           </Stack>
         </Toolbar>
       </AppBar>
-      <TrustBar />
+      {areaEua ? <TrustBarEua /> : <TrustBar />}
 
       <AplicarIdioma />
       {/* Página nova abre no topo; "voltar" devolve a posição anterior. */}
@@ -193,7 +201,7 @@ export function PublicLayout() {
         </PageTransition>
       </Container>
 
-      <Footer />
+      {areaEua ? <RodapeEua /> : <Footer />}
 
       <Paper
         component="nav"
@@ -214,6 +222,20 @@ export function PublicLayout() {
         anchorOrigin={{ vertical: desktop ? 'bottom' : 'top', horizontal: 'right' }}
         transformOrigin={{ vertical: desktop ? 'top' : 'bottom', horizontal: 'right' }}
       >
+        {!smUp && (
+          <MenuItem
+            onClick={() => {
+              setMoreAnchor(null);
+              void navigate(outroPais.inicio);
+            }}
+            sx={{ borderBottom: 1, borderColor: 'divider' }}
+          >
+            <ListItemIcon sx={{ fontSize: 20 }} aria-hidden>
+              {outroPais.bandeira}
+            </ListItemIcon>
+            Ver {outroPais.nome}
+          </MenuItem>
+        )}
         {moreItems.map((item) => (
           <MenuItem
             key={item.to}
@@ -231,7 +253,8 @@ export function PublicLayout() {
         ))}
       </Menu>
 
-      <Dialog open={searchOpen} onClose={() => setSearchOpen(false)} fullWidth maxWidth="sm">
+      {areaEua && <BuscaMembrosEua aberto={searchOpen} fechar={() => setSearchOpen(false)} />}
+      <Dialog open={searchOpen && !areaEua} onClose={() => setSearchOpen(false)} fullWidth maxWidth="sm">
         <DialogTitle>Buscar candidatura</DialogTitle>
         <DialogContent>
           <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>

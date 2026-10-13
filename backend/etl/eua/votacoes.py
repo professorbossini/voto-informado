@@ -113,12 +113,14 @@ def ler_voto_camara(xml: bytes, ano: int) -> dict | None:
         quando = datetime.strptime(f"{data_txt} {hora_txt}", "%d-%b-%Y %H:%M").replace(tzinfo=FUSO_ET).isoformat()
     except ValueError:
         quando = None
-    votos = {}
+    votos, nomes = {}, {}
     for rv in raiz.iter("recorded-vote"):
         leg = rv.find("legislator")
         bio = leg.get("name-id") if leg is not None else None
         if bio:
             votos[bio] = _cod(rv.findtext("vote") or "")
+            nome = re.sub(r"\s*\([A-Z]{2}\)$", "", (leg.text or leg.get("unaccented-name") or bio).strip())  # "Amodei (NV)" → "Amodei"
+            nomes[bio] = f"{nome} ({leg.get('party')}-{leg.get('state')})"
     ref = (md.findtext("legis-num") or "").strip()
     ref = None if ref in ("", "0", "QUORUM", "ADJOURN") else ref
     return {
@@ -136,7 +138,15 @@ def ler_voto_camara(xml: bytes, ano: int) -> dict | None:
         "url_xml": CLERK_VOTO.format(ano=ano, n=n),
         "url_proposicao": url_proposicao(congresso, ref),
         "votos": votos,
+        "_nomes": nomes,
     }
+
+
+def _separar_nomes(votacoes: list[dict], nomes: dict[str, str]) -> list[dict]:
+    """Tira o nome de quem votou de cada votação e junta no dicionário da base (um por parlamentar)."""
+    for v in votacoes:
+        nomes.update(v.pop("_nomes", {}) or {})
+    return votacoes
 
 
 def _camara_ano(ano: int, base: list[dict]) -> tuple[list[dict], bool]:
@@ -195,12 +205,13 @@ def ler_voto_senado(xml: bytes, lis_bio: dict[str, str]) -> dict | None:
         quando = datetime.strptime(re.sub(r"\s+", " ", t("vote_date") or ""), "%B %d, %Y, %I:%M %p").replace(tzinfo=FUSO_ET).isoformat()
     except ValueError:
         quando = None
-    votos = {}
+    votos, nomes = {}, {}
     for m in raiz.iter("member"):
         lis = (m.findtext("lis_member_id") or "").strip()
         bio = lis_bio.get(lis)
         if bio:
             votos[bio] = _cod(m.findtext("vote_cast") or "")
+            nomes[bio] = (m.findtext("member_full") or bio).strip()
     doc = raiz.find("document")
     tipo_doc = (doc.findtext("document_type") or "").strip() if doc is not None else ""
     num_doc = (doc.findtext("document_number") or "").strip() if doc is not None else ""
@@ -222,6 +233,7 @@ def ler_voto_senado(xml: bytes, lis_bio: dict[str, str]) -> dict | None:
         "url_proposicao": url_proposicao(c, ref.replace(".", "") if ref else None),
         "ano": ano,
         "votos": votos,
+        "_nomes": nomes,
     }
 
 
@@ -277,20 +289,26 @@ def montar(api: Path, congresso_json: dict | None = None) -> tuple[bool, list[di
     mudou = False
     situacao = {"camara": "ok", "senado": "ok"}
 
+    todos_nomes: dict[str, str] = {}
     # Câmara: um arquivo-base por ano do Congresso atual.
     camara: list[dict] = []
     for ano in anos:
         if ano > hoje:
             continue
         caminho = pasta / "base" / f"camara-{ano}.json"
-        base = (ler(caminho) or {}).get("votacoes", [])
+        dados_base = ler(caminho) or {}
+        nomes = dados_base.get("nomes")
+        base = dados_base.get("votacoes", []) if nomes is not None else []  # base antiga sem nomes: relê o ano uma vez
+        nomes = nomes or {}
         try:
             completa, novas = _camara_ano(ano, base)
         except RuntimeError as e:
             print(f"aviso: Câmara {ano}: {e}")
-            completa, novas, situacao["camara"] = base, False, "indisponivel"
+            completa, novas, situacao["camara"] = dados_base.get("votacoes", []), False, "indisponivel"
+        completa = _separar_nomes(completa, nomes)
         if novas:
-            mudou |= gravar(caminho, {"congresso": c, "ano": ano, "votacoes": completa})
+            mudou |= gravar(caminho, {"congresso": c, "ano": ano, "votacoes": completa, "nomes": nomes})
+        todos_nomes.update(nomes)
         camara += completa
 
     # Senado: uma sessão por ano; o vínculo LIS → bioguide vem do congresso.json montado antes.
@@ -304,16 +322,21 @@ def montar(api: Path, congresso_json: dict | None = None) -> tuple[bool, list[di
         if ano > hoje:
             continue
         caminho = pasta / "base" / f"senado-{ano}.json"
-        base = (ler(caminho) or {}).get("votacoes", [])
+        dados_base = ler(caminho) or {}
+        nomes = dados_base.get("nomes")
+        base = dados_base.get("votacoes", []) if nomes is not None else []
+        nomes = nomes or {}
         try:
             completa, novas, acessivel = _senado_sessao(c, s, base, lis_bio)
         except RuntimeError as e:
             print(f"aviso: Senado {ano}: {e}")
-            completa, novas, acessivel = base, False, False
+            completa, novas, acessivel = dados_base.get("votacoes", []), False, False
         if not acessivel:
             situacao["senado"] = "indisponivel"
+        completa = _separar_nomes(completa, nomes)
         if novas:
-            mudou |= gravar(caminho, {"congresso": c, "ano": ano, "votacoes": completa})
+            mudou |= gravar(caminho, {"congresso": c, "ano": ano, "votacoes": completa, "nomes": nomes})
+        todos_nomes.update(nomes)
         senado += completa
 
     for casa, lista in (("camara", camara), ("senado", senado)):
@@ -326,6 +349,9 @@ def montar(api: Path, congresso_json: dict | None = None) -> tuple[bool, list[di
             destino = pasta / "votacao" / f"{v['id']}.json"
             if not destino.exists():
                 mudou |= gravar(destino, {**_catalogo(v), "votos": v["votos"], "url_xml": v["url_xml"]})
+
+    # Nome (como publicado na votação) de todos que votaram, para quem já saiu do cargo.
+    mudou |= gravar(pasta / "nomes.json", dict(sorted(todos_nomes.items())))
 
     # Resumo por parlamentar em exercício (cada um só nas votações da própria casa).
     membros = (congresso_json or ler(api / "congresso.json") or {})

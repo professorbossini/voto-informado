@@ -87,6 +87,12 @@ def ler_historico(pagina: str) -> list[dict]:
     return out
 
 
+def sem_familia(texto: str) -> str:
+    """Tira da biografia as frases sobre cônjuge e filhos (privacidade de quem não é agente público)."""
+    frases = re.split(r"(?<=[.])\s+(?=[A-Z])", texto)
+    return " ".join(f for f in frases if not re.search(r"\b(married|children|child|sons?|daughters?|wife|husband)\b", f, flags=re.I))
+
+
 def ler_biografias(pagina: str) -> list[dict]:
     out = []
     for bloco in re.findall(r'<div class="media">(.*?)</div>\s*</div>', pagina, flags=re.S):
@@ -104,7 +110,7 @@ def ler_biografias(pagina: str) -> list[dict]:
             "foto_url": BASE + "/about/" + src.lstrip("./") if not src.startswith("http") else src,
             "nascimento": _data_en(nasc.group(2)) if nasc else None,
             "naturalidade": nasc.group(1).strip(" ,") if nasc else None,
-            "biografia_en": texto,
+            "biografia_en": sem_familia(texto),
         })
     # Os aposentados (Retired Justices) vêm depois dos 9 em exercício: fica só a composição atual.
     return out[:9]

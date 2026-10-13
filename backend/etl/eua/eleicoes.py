@@ -55,6 +55,7 @@ DOI_PRESIDENTE = "42MVDX"
 DOI_SENADO = "PEJ5QU"
 ARQUIVOS_NARA = "https://www.archives.gov/electoral-college/{ano}"
 ESCRITORIOS = "https://www.usa.gov/state-election-office"
+OUTROS = "Outros nomes (somados na fonte)"  # linha "OTHER" do MEDSL: votos em nomes não listados
 MINIMO_PCT = 1.0  # candidaturas com menos de 1% no país (e sem voto no Colégio) entram em "Outras"
 
 
@@ -157,12 +158,12 @@ def montar_presidente(linhas: list[dict], colegios: dict[int, dict]) -> dict:
             eleitores = None
             if col:
                 sob = normal(n.split(",")[0])
-                for i, c in enumerate(col["candidatos"]):
-                    partes = c.replace("Jr.", "").replace(" Jr", "").split()
-                    if partes and normal(partes[-1]) == sob:
-                        eleitores = {uf: v[i] for uf, v in col["estados"].items() if v[i]}
+                # Soma todas as colunas que batem (ex.: duas colunas "Other" de votos infiéis em 2016).
+                cols = [i for i, c in enumerate(col["candidatos"]) if (p := c.replace("Jr.", "").replace(" Jr", "").split()) and normal(p[-1]) == sob]
+                if cols:
+                    eleitores = {uf: t for uf, v in col["estados"].items() if (t := sum(v[i] for i in cols))}
             cands.append({
-                "nome": nome_legivel(n.replace('""', '"')),
+                "nome": OUTROS if n.strip().upper() == "OTHER" else nome_legivel(n.replace('""', '"')),
                 "partido": partido.get(n) or None,
                 "votos": nac[n],
                 "pct": round(100 * nac[n] / total_nac, 2) if total_nac else None,
@@ -199,7 +200,7 @@ def montar_senado(linhas: list[dict]) -> dict:
     por_ano: dict[str, list] = defaultdict(list)
     for (ano, uf, esp), d in sorted(disputas.items()):
         cands = sorted(d["c"].items(), key=lambda kv: -kv[1])
-        top = [{"nome": nome_legivel(n) if "," in n else n.title(), "partido": d["p"][n] or None, "votos": v, "pct": round(100 * v / d["total"], 2) if d["total"] else None} for n, v in cands[:5]]
+        top = [{"nome": OUTROS if n.strip().upper() == "OTHER" else nome_legivel(n) if "," in n else n.title(), "partido": d["p"][n] or None, "votos": v, "pct": round(100 * v / d["total"], 2) if d["total"] else None} for n, v in cands[:5]]
         resto = sum(v for _, v in cands[5:])
         por_ano[str(ano)].append({"uf": uf, "especial": esp, "total": d["total"], "candidatos": top, "outros": resto or None})
     return {"anos": sorted(por_ano), "por_ano": dict(por_ano)}

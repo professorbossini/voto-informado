@@ -18,8 +18,12 @@ import HistoryEduRounded from '@mui/icons-material/HistoryEduRounded';
 import PaymentsRounded from '@mui/icons-material/PaymentsRounded';
 import Diversity3Rounded from '@mui/icons-material/Diversity3Rounded';
 import ManageSearchRounded from '@mui/icons-material/ManageSearchRounded';
+import GavelRounded from '@mui/icons-material/GavelRounded';
+import PeopleAltRounded from '@mui/icons-material/PeopleAltRounded';
+import { useLocation } from 'react-router';
 import { env } from '@/config/env';
 import { usePeriodoEleitoral } from '@/data/usePeriodoEleitoral';
+import { naAreaEua } from '@/components/pais';
 
 /**
  * Main navigation. `mobile: true` items go to the bottom bar; `topo: true` items stay in the
@@ -49,6 +53,18 @@ export const NAV_ITEMS = [
   { to: '/sobre', label: 'Fontes e método', icon: InfoRounded, mobile: false },
 ] as const;
 
+/** Menu da área dos Estados Unidos (/eua): usado só quando a pessoa está nela. */
+export const NAV_ITEMS_EUA = [
+  { to: '/eua', label: 'Início', icon: HomeRounded, mobile: true },
+  { to: '/eua/congresso', label: 'Congresso', icon: AccountBalanceRounded, mobile: true, topo: true },
+  { to: '/eua/votacoes', label: 'Votações', icon: HowToVoteRounded, mobile: true, topo: true },
+  { to: '/eua/eleicoes', label: 'Eleições', icon: MapRounded, mobile: true, topo: true },
+  { to: '/eua/candidatos', label: 'Candidaturas 2026', short: 'Candidaturas', icon: PeopleAltRounded, mobile: false, topo: true },
+  { to: '/eua/gastos', label: 'Gastos públicos', icon: ReceiptLongRounded, mobile: false, topo: true },
+  { to: '/eua/suprema-corte', label: 'Suprema Corte', icon: GavelRounded, mobile: false, topo: true },
+  { to: '/eua/sobre', label: 'Fontes e base legal', icon: InfoRounded, mobile: false },
+] as const;
+
 type NavItem = (typeof NAV_ITEMS)[number];
 /** Item com `mobile` ajustável (distribui sobre a união para manter `short` etc.). */
 type NavVisivel = NavItem extends infer T ? (T extends unknown ? Omit<T, 'mobile'> & { mobile: boolean } : never) : never;
@@ -60,11 +76,19 @@ type NavVisivel = NavItem extends infer T ? (T extends unknown ? Omit<T, 'mobile
  */
 export function useNavItems(): NavVisivel[] {
   const p = usePeriodoEleitoral();
+  const { pathname } = useLocation();
+  if (naAreaEua(pathname)) return NAV_ITEMS_EUA as unknown as NavVisivel[];
   const visivel = (i: NavItem) => !('periodo' in i) || (i.periodo === 'eleicao' ? p.eleicao : p.segundoTurno);
   return NAV_ITEMS.filter(visivel).map((i) => ({ ...i, mobile: i.mobile || (!p.eleicao && i.to === '/resultados') }) as NavVisivel);
 }
 
 export function activeNavItem(pathname: string) {
+  if (naAreaEua(pathname)) {
+    const aliasEua: Record<string, string> = { '/eua/membro': '/eua/congresso', '/eua/estado': '/eua' };
+    const caminho = Object.entries(aliasEua).reduce((c, [de, para]) => (c.startsWith(de) ? para : c), pathname);
+    const achado = [...NAV_ITEMS_EUA].sort((a, b) => b.to.length - a.to.length).find((i) => (i.to === '/eua' ? caminho === '/eua' : caminho.startsWith(i.to)));
+    return achado?.to ?? false;
+  }
   const alias: Record<string, string> = { '/candidato': '/eleicao', '/parlamentar': '/gastos', '/partido/': '/partidos', '/stf/': '/plenario' };
   const path = Object.entries(alias).reduce((p, [from, to]) => (p.startsWith(from) ? to : p), pathname);
   const match = [...NAV_ITEMS]

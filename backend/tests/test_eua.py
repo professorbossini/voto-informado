@@ -56,6 +56,7 @@ def test_voto_camara_codigos_e_links():
     v = votacoes.ler_voto_camara(VOTO_CAMARA, 2025)
     assert v["id"] == "h2025-362" and v["data"] == "2025-12-18T14:59:00-05:00"
     assert v["votos"] == {"A000370": "N", "A000055": "S", "Z000018": "A", "J000299": "O:Johnson (LA)"}
+    assert v["_nomes"]["A000370"] == "Adams (D-NC)"
     assert v["url_proposicao"] == "https://www.congress.gov/bill/119th-congress/house-bill/498"
     assert votacoes.ler_voto_camara(b'<xml>Error sanitizing file "roll999.xml".</xml>', 2025) is None  # número ainda não usado
 
@@ -89,6 +90,7 @@ def test_url_proposicao_tipos():
 def test_nomes_fec():
     assert fec.nome_legivel("PELTOLA, MARY S. MRS.") == "Mary S. Peltola"
     assert fec.nome_legivel("MCCAIN, JOHN") == "John McCain"
+    assert fec.nome_legivel("CORNYN, JOHN SEN") == "John Cornyn"
     assert fec.nome_legivel("BUSH, GEORGE H.W.") == "George H.W. Bush"
     assert fec.nome_legivel("BIDEN, JOSEPH R. JR") == "Joseph R. Biden Jr"
 
@@ -200,3 +202,9 @@ def test_congresso_atual():
     assert comum.congresso_atual(datetime(2026, 10, 12)) == 119
     assert comum.congresso_atual(datetime(2027, 1, 3)) == 120
     assert comum.anos_do_congresso(119) == (2025, 2026)
+
+
+def test_biografia_sem_familia():
+    t = "John G. Roberts, Jr., was born in Buffalo, New York, January 27, 1955. He married Jane Sullivan in 1996 and they have two children - Josephine and Jack. He received an A.B. from Harvard College in 1976."
+    out = suprema.sem_familia(t)
+    assert "Jane" not in out and "Josephine" not in out and "Harvard College" in out and "Buffalo" in out

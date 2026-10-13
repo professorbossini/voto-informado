@@ -21,7 +21,7 @@ from pathlib import Path
 from .comum import baixar
 
 URL = "https://www2.census.gov/geo/tiger/GENZ2023/shp/cb_2023_us_state_20m.zip"
-SAIDA = Path(__file__).resolve().parents[3] / "frontend" / "src" / "components" / "eua" / "usaMapData.ts"
+SAIDA = Path(__file__).resolve().parents[3] / "frontend" / "src" / "eua" / "usaMapData.ts"
 K = 1070  # escala e quadro de 960 × 600, como no d3.geoAlbersUsa
 TX, TY = 480, 250
 TOLERANCIA = 0.35  # simplificação (pixels do quadro)
