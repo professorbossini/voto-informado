@@ -1,19 +1,13 @@
 import { foiEleito, type Apuracao, type CandidatoApurado } from '@/data/apuracao';
+import { REGIOES } from '@/data/regioes';
+
+export { REGIOES };
 
 /**
  * Panorama da apuração, calculado no aparelho a partir dos arquivos oficiais do TSE que o painel
  * já baixa (um por UF): quem lidera em cada região e as disputas com a menor diferença. Sem cor de
  * partido e sem previsão: só a soma e a diferença dos votos publicados.
  */
-
-/** Regiões do IBGE. */
-export const REGIOES: { nome: string; ufs: string[] }[] = [
-  { nome: 'Norte', ufs: ['AC', 'AM', 'AP', 'PA', 'RO', 'RR', 'TO'] },
-  { nome: 'Nordeste', ufs: ['AL', 'BA', 'CE', 'MA', 'PB', 'PE', 'PI', 'RN', 'SE'] },
-  { nome: 'Centro-Oeste', ufs: ['DF', 'GO', 'MS', 'MT'] },
-  { nome: 'Sudeste', ufs: ['ES', 'MG', 'RJ', 'SP'] },
-  { nome: 'Sul', ufs: ['PR', 'RS', 'SC'] },
-];
 
 export interface LinhaRegiao {
   nome: string;

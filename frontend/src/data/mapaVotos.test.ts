@@ -6,6 +6,7 @@ import {
   caixaDe,
   decodificarAnel,
   faixa,
+  tetoRelativo,
   formaBrasilia,
   formasDaMalha,
   municipioEm,
@@ -70,6 +71,25 @@ describe('faixa', () => {
     expect(faixa(99.9)).toBe(9);
     expect(faixa(100)).toBe(9);
     expect(faixa(Number.NaN)).toBe(0);
+  });
+
+  it('com teto (escala relativa), divide de 0 ao teto e põe o que passa dele na última faixa', () => {
+    expect(faixa(1.4, 15)).toBe(0);
+    expect(faixa(1.5, 15)).toBe(1);
+    expect(faixa(7.6, 15)).toBe(5);
+    expect(faixa(40, 15)).toBe(9);
+  });
+});
+
+describe('tetoRelativo', () => {
+  it('é o primeiro número redondo que cobre 99% dos municípios', () => {
+    const pcts = Array.from({ length: 1000 }, (_, i) => (i < 990 ? ((i + 1) / 990) * 11 : 60));
+    expect(tetoRelativo(pcts)).toBe(12);
+  });
+  it('candidatura muito pequena ganha escala curta; sem votos, volta a 100%', () => {
+    expect(tetoRelativo([0.1, 0.3, 0.8, 0.5])).toBe(1);
+    expect(tetoRelativo([0, 0])).toBe(100);
+    expect(tetoRelativo([97, 99])).toBe(100);
   });
 });
 

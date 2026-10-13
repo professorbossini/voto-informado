@@ -28,6 +28,7 @@ import { useColorScheme } from '@mui/material/styles';
 import OpenInNewRounded from '@mui/icons-material/OpenInNewRounded';
 import VerifiedRounded from '@mui/icons-material/VerifiedRounded';
 import { Link as RouterLink, useSearchParams } from 'react-router';
+import { CATEGORICAL } from '@/components/charts/palette';
 import { MapaCanvas } from '@/components/mapa/MapaCanvas';
 import { data, DataError } from '@/data/api';
 import { dateTime, nomeProprio, number, normalize } from '@/data/format';
@@ -36,6 +37,7 @@ import {
   MUN_BRASILIA,
   SEM_DADO,
   faixa,
+  tetoRelativo,
   formaBrasilia,
   formasDaMalha,
   indexarMunicipios,
@@ -50,6 +52,7 @@ import {
   type FormaMunicipio,
   type MapaVotos,
 } from '@/data/mapaVotos';
+import { DEGRAUS_VANTAGEM, liderDaLinha, linhasDoNivel, pintarLider, tonsDe, type Nivel } from '@/data/mapaLider';
 import { useAsync } from '@/hooks/useAsync';
 import { ink } from '@/theme/tokens';
 import { PageHeader } from '../PageHeader';
@@ -96,13 +99,17 @@ function urlTse(mapa: MapaVotos, uf: string, cd: string) {
   return mapa.fonte.url.replaceAll('<uf>', uf.toLowerCase()).replace('<municipio>', cd);
 }
 
-function Legenda({ cores, dark }: { cores: string[]; dark: boolean }) {
+const fmtTick = (v: number) => v.toLocaleString('pt-BR', { maximumFractionDigits: 1 });
+
+function Legenda({ cores, dark, teto, relativa }: { cores: string[]; dark: boolean; teto: number; relativa: boolean }) {
   const sem = SEM_DADO[dark ? 'dark' : 'light'];
   return (
     <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1, sm: 3 }} sx={{ alignItems: { sm: 'flex-end' } }}>
       <Box sx={{ flex: 1, maxWidth: 520 }}>
         <Typography variant="caption" color="text.secondary" component="p" sx={{ mb: 0.5 }}>
-          % dos votos válidos no município (mesma escala para todas as candidaturas)
+          {relativa
+            ? `% dos válidos no município · escala de 0 a ${fmtTick(teto)}%, o teto desta candidatura`
+            : '% dos votos válidos no município (mesma escala para todas as candidaturas)'}
         </Typography>
         <Box sx={{ display: 'flex', borderRadius: 1, overflow: 'hidden', border: 1, borderColor: 'divider' }} aria-hidden>
           {cores.map((c) => (
@@ -124,12 +131,12 @@ function Legenda({ cores, dark }: { cores: string[]; dark: boolean }) {
                 display: { xs: i % 2 ? 'none' : 'block', sm: 'block' },
               }}
             >
-              {(i * 100) / FAIXAS}
+              {fmtTick((i * teto) / FAIXAS)}
             </Typography>
           ))}
         </Box>
         <Typography variant="caption" sx={{ position: 'absolute', width: 1, height: 1, overflow: 'hidden', clip: 'rect(0 0 0 0)' }}>
-          Escala de 10 faixas de 10 pontos percentuais, de 0% (cor mais {dark ? 'escura' : 'clara'}) a 100% (cor mais {dark ? 'clara' : 'escura'}).
+          Escala de 10 faixas iguais, de 0% (cor mais {dark ? 'escura' : 'clara'}) a {fmtTick(teto)}% ou mais (cor mais {dark ? 'clara' : 'escura'}).
         </Typography>
       </Box>
       <Stack direction="row" spacing={1} sx={{ alignItems: 'center', pb: { sm: 2.5 } }}>
@@ -146,6 +153,44 @@ function Legenda({ cores, dark }: { cores: string[]; dark: boolean }) {
         />
         <Typography variant="caption" color="text.secondary">
           Sem resultado final do TSE
+        </Typography>
+      </Stack>
+    </Stack>
+  );
+}
+
+/** Cor neutra para quem lidera além das cores validadas (4ª candidatura em diante). */
+const NEUTRA = { light: '#9D95B3', dark: '#6E6687' };
+
+const UNIDADE: Record<Nivel, [string, string]> = { mun: ['município', 'municípios'], uf: ['estado', 'estados'], regiao: ['região', 'regiões'] };
+
+function LegendaLider({ itens, fundo, nivel }: { itens: { nome: string; cor: string; n: number }[]; fundo: string; nivel: Nivel }) {
+  return (
+    <Stack spacing={1}>
+      <Stack direction="row" useFlexGap sx={{ flexWrap: 'wrap', gap: 1.5 }} aria-label="Legenda do mapa">
+        {itens.map((l) => (
+          <Stack key={l.nome} direction="row" spacing={0.75} sx={{ alignItems: 'center' }}>
+            <Box sx={{ width: 14, height: 14, borderRadius: '3px', bgcolor: l.cor, border: 1, borderColor: 'divider' }} />
+            <Typography variant="caption" sx={{ fontWeight: 700 }} translate="no">
+              {l.nome}
+            </Typography>
+            <Typography variant="caption" color="text.secondary">
+              {number(l.n)} {UNIDADE[nivel][l.n === 1 ? 0 : 1]}
+            </Typography>
+          </Stack>
+        ))}
+      </Stack>
+      <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
+        <Typography variant="caption" color="text.secondary">
+          Vantagem sobre o 2º:
+        </Typography>
+        <Box sx={{ display: 'flex', borderRadius: 0.5, overflow: 'hidden', border: 1, borderColor: 'divider' }} aria-hidden>
+          {tonsDe(itens[0]?.cor ?? NEUTRA.light, fundo).map((c) => (
+            <Box key={c} sx={{ width: 22, height: 12, bgcolor: c }} />
+          ))}
+        </Box>
+        <Typography variant="caption" color="text.secondary" sx={{ fontVariantNumeric: 'tabular-nums' }}>
+          até {DEGRAUS_VANTAGEM.join(' · ')} · mais pontos
         </Typography>
       </Stack>
     </Stack>
@@ -206,6 +251,11 @@ export function MapaPage() {
   const ufParam = (params.get('uf') ?? '').toUpperCase();
   const uf = UFS_NOMES[ufParam] ? ufParam : null;
   const mun = params.get('mun');
+  // Escala relativa (padrão): destaca onde cada candidatura foi mais forte, mesmo com poucos votos.
+  const relativa = params.get('escala') !== 'fixa';
+  // Nível do mapa: cada município pintado pelo resultado dele, do estado ou da região.
+  const nivelParam = params.get('nivel');
+  const nivel: Nivel = nivelParam === 'uf' || nivelParam === 'regiao' ? nivelParam : 'mun';
 
   const set = (patch: Record<string, string | null>) =>
     setParams(
@@ -235,23 +285,6 @@ export function MapaPage() {
     return out;
   }, [mapa]);
 
-  const faixas = useMemo(() => {
-    if (!mapa) return null;
-    const out = new Map<string, number>();
-    for (const [cd, { uf: u, linha }] of indexados) {
-      if (u === 'ZZ') continue;
-      // Sem candidatura escolhida, o mapa fica numa cor só (a mais clara): nada é destacado.
-      const p = escolhido ? pctNaLinha(linha, indice) : 0;
-      if (p != null) out.set(cd, faixa(p));
-    }
-    return out;
-  }, [mapa, indexados, escolhido, indice]);
-
-  const cores = useMemo(() => {
-    const r = rampa(dark ? 'dark' : 'light');
-    return escolhido ? r : r.map(() => r[0]);
-  }, [dark, escolhido]);
-
   const caixaBrasil = useMemo<Caixa>(() => unirCaixas(ufsNoMapa().map((u) => u.caixa))!, []);
   const foco = useMemo<Caixa>(() => (uf ? (ufsNoMapa().find((u) => u.uf === uf)?.caixa ?? caixaBrasil) : caixaBrasil), [uf, caixaBrasil]);
 
@@ -260,6 +293,39 @@ export function MapaPage() {
   const totalBrasil = useMemo(() => somarLinhas(resumo.filter((r) => r.uf !== 'ZZ').map((r) => r.linha), tamanho), [resumo, tamanho]);
   const totalGeral = useMemo(() => somarLinhas(resumo.map((r) => r.linha), tamanho), [resumo, tamanho]);
   const exterior = resumo.find((r) => r.uf === 'ZZ');
+
+  // Linha de votos que vale para cada município no nível escolhido.
+  const niveis = useMemo(() => linhasDoNivel(indexados, resumo, nivel, tamanho), [indexados, resumo, nivel, tamanho]);
+  const fundoMapa = dark ? ink[900] : ink[0];
+
+  const teto = useMemo(() => {
+    if (!escolhido || !relativa) return 100;
+    const pcts: number[] = [];
+    for (const { linha } of niveis.values()) {
+      const p = pctNaLinha(linha, indice);
+      if (p != null) pcts.push(p);
+    }
+    return tetoRelativo(pcts);
+  }, [niveis, escolhido, indice, relativa]);
+
+  // Sem candidatura escolhida: quem lidera (cores em ordem alfabética). Com candidatura: o % dela.
+  const lider = useMemo(
+    () => (mapa && !escolhido ? pintarLider(niveis, mapa.candidatos.map((c) => c.nome_urna), CATEGORICAL[dark ? 'dark' : 'light'], NEUTRA[dark ? 'dark' : 'light'], fundoMapa) : null),
+    [mapa, escolhido, niveis, dark, fundoMapa],
+  );
+
+  const faixas = useMemo(() => {
+    if (!mapa) return null;
+    if (lider) return lider.faixas;
+    const out = new Map<string, number>();
+    for (const [cd, { linha }] of niveis) {
+      const p = pctNaLinha(linha, indice);
+      if (p != null) out.set(cd, faixa(p, teto));
+    }
+    return out;
+  }, [mapa, lider, niveis, indice, teto]);
+
+  const cores = useMemo(() => lider?.cores ?? rampa(dark ? 'dark' : 'light'), [lider, dark]);
 
   // Municípios com resultado mas sem contorno na malha do IBGE (ex.: criados depois dela).
   const semContorno = useMemo(() => {
@@ -288,11 +354,23 @@ export function MapaPage() {
           {n ? `${n.nome} (${n.uf})` : cd}
         </Typography>
         <Typography variant="caption" color="text.secondary">
-          {!linha
-            ? 'Sem resultado final do TSE'
-            : escolhido
-              ? `${nomeProprio(escolhido.nome_urna)}: ${fmtPct(pctNaLinha(linha, indice))} dos válidos`
-              : `${number(linha[0])} votos válidos · clique para ver a votação`}
+          {(() => {
+            const ref = niveis.get(cd);
+            if (!linha || !ref) return 'Sem resultado final do TSE';
+            const nomeLocal = nivel === 'uf' ? (UFS_NOMES[ref.unidade] ?? ref.unidade) : ref.unidade;
+            if (escolhido) {
+              const p = `${nomeProprio(escolhido.nome_urna)}: ${fmtPct(pctNaLinha(ref.linha, indice))} dos válidos`;
+              return nivel === 'mun' ? `${p} neste município` : nivel === 'uf' ? `${p} em ${nomeLocal}` : `${p} em todo o ${nomeLocal}`;
+            }
+            const l = liderDaLinha(ref.linha);
+            if (!l || !mapa) return `${number(linha[0])} votos válidos`;
+            const quem = nomeProprio(mapa.candidatos[l.indice]?.nome_urna);
+            const pct = fmtPct(l.pct);
+            const pts = fmtPct(l.vantagem).replace('%', '');
+            if (nivel === 'mun') return `Lidera neste município: ${quem} com ${pct}, ${pts} pontos à frente do 2º`;
+            if (nivel === 'uf') return `Lidera em ${nomeLocal}: ${quem} com ${pct}, ${pts} pontos à frente do 2º`;
+            return `Lidera em todo o ${nomeLocal}: ${quem} com ${pct}, ${pts} pontos à frente do 2º`;
+          })()}
         </Typography>
       </>
     );
@@ -304,7 +382,7 @@ export function MapaPage() {
     <>
       <PageHeader
         title="Mapa do voto"
-        subtitle="Votação para Presidente em cada município: escolha uma candidatura para ver a porcentagem dos votos válidos que ela recebeu em cada lugar. Dados oficiais do TSE."
+        subtitle="Votação para Presidente em cada município, estado e região: quem teve mais votos em cada lugar ou, escolhendo uma candidatura, a porcentagem dos votos válidos dela. Dados oficiais do TSE."
       />
 
       {carregando ? (
@@ -336,20 +414,25 @@ export function MapaPage() {
               </ToggleButtonGroup>
             )}
             <FormControl size="small" sx={{ minWidth: 260, flex: { md: 1 } }}>
-              <InputLabel id="mapa-candidatura">{escolhido ? 'Candidatura' : 'Escolha uma candidatura'}</InputLabel>
+              <InputLabel id="mapa-candidatura">Colorir por</InputLabel>
               <Select
                 labelId="mapa-candidatura"
-                label={escolhido ? 'Candidatura' : 'Escolha uma candidatura'}
+                label="Colorir por"
                 value={escolhido?.sq ?? ''}
+                displayEmpty
                 onChange={(e) => set({ c: e.target.value || null })}
-                renderValue={() => (
-                  <span translate="no">
-                    {nomeProprio(escolhido?.nome_urna)} · {escolhido?.partido} · {escolhido?.numero}
-                  </span>
-                )}
+                renderValue={() =>
+                  escolhido ? (
+                    <span translate="no">
+                      {nomeProprio(escolhido.nome_urna)} · {escolhido.partido} · {escolhido.numero}
+                    </span>
+                  ) : (
+                    'Quem teve mais votos em cada lugar'
+                  )
+                }
               >
                 <MenuItem value="">
-                  <em>Nenhuma (mapa sem cores)</em>
+                  Quem teve mais votos em cada lugar
                 </MenuItem>
                 {candidatos.map((c) => (
                   <MenuItem key={c.sq} value={c.sq}>
@@ -387,12 +470,18 @@ export function MapaPage() {
             />
           </Stack>
 
-          {!escolhido && (
-            <Alert severity="info" variant="outlined">
-              Escolha uma candidatura para colorir o mapa. Nenhuma vem escolhida de início, e as cores mostram só a porcentagem de quem você escolher, na mesma
-              escala para todas: o mapa não aponta quem venceu em cada lugar.
-            </Alert>
-          )}
+          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5} sx={{ alignItems: { sm: 'center' } }}>
+            <ToggleButtonGroup exclusive size="small" value={nivel} onChange={(_, v: Nivel | null) => v && set({ nivel: v === 'mun' ? null : v })} aria-label="Pintar o mapa por">
+              <ToggleButton value="mun">Municípios</ToggleButton>
+              <ToggleButton value="uf">Estados</ToggleButton>
+              <ToggleButton value="regiao">Regiões</ToggleButton>
+            </ToggleButtonGroup>
+            <Typography variant="caption" color="text.secondary">
+              {escolhido
+                ? 'As cores mostram a porcentagem dos votos válidos da candidatura escolhida.'
+                : 'As cores mostram quem teve mais votos em cada lugar, em ordem alfabética do nome na urna (sem relação com partidos); quanto mais forte, maior a vantagem sobre o 2º colocado.'}
+            </Typography>
+          </Stack>
 
           <Grid container spacing={3}>
             <Grid size={{ xs: 12, md: 8 }}>
@@ -417,12 +506,30 @@ export function MapaPage() {
                       ariaLabel={
                         escolhido
                           ? `Mapa dos municípios com a porcentagem dos votos válidos de ${nomeProprio(escolhido.nome_urna)}. Os números estão na tabela por estado e na busca por município.`
-                          : 'Mapa dos municípios do Brasil. Escolha uma candidatura para colorir. Os números estão na tabela por estado e na busca por município.'
+                          : 'Mapa do Brasil pintado por quem teve mais votos em cada lugar, com cores em ordem alfabética do nome na urna. Os números estão na tabela por estado e na busca por município.'
                       }
                     />
                   )}
                   <Box sx={{ px: { xs: 1, sm: 0 }, pt: 1.5 }}>
-                    <Legenda cores={rampa(dark ? 'dark' : 'light')} dark={dark} />
+                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5} sx={{ alignItems: { sm: 'flex-start' } }}>
+                      <Box sx={{ flex: 1, minWidth: 0 }}>
+                        {lider && mapa ? (
+                          <LegendaLider nivel={nivel} fundo={fundoMapa} itens={lider.legenda.map((l) => ({ nome: nomeProprio(mapa.candidatos[l.indice]?.nome_urna), cor: l.cor, n: l.n }))} />
+                        ) : (
+                          <Legenda cores={rampa(dark ? 'dark' : 'light')} dark={dark} teto={teto} relativa={relativa && Boolean(escolhido)} />
+                        )}
+                      </Box>
+                      {escolhido && (
+                        <ToggleButtonGroup size="small" exclusive value={relativa ? 'relativa' : 'fixa'} onChange={(_, v) => v && set({ escala: v === 'fixa' ? 'fixa' : null })} aria-label="Escala de cores">
+                          <ToggleButton value="relativa" sx={{ px: 1.25, whiteSpace: 'nowrap' }}>
+                            Escala da candidatura
+                          </ToggleButton>
+                          <ToggleButton value="fixa" sx={{ px: 1.25, whiteSpace: 'nowrap' }}>
+                            0 a 100%
+                          </ToggleButton>
+                        </ToggleButtonGroup>
+                      )}
+                    </Stack>
                     <Typography variant="caption" color="text.secondary" component="p" sx={{ mt: 1 }}>
                       Toque ou clique num município para ver a votação dele. Arraste para mover; aproxime com a pinça, com os botões ou com Ctrl + roda do
                       mouse.
@@ -587,9 +694,15 @@ export function MapaPage() {
               </Typography>
               <Stack spacing={1}>
                 <Typography variant="body2">
-                  Cada município recebe a cor da faixa em que está a porcentagem dos votos válidos da candidatura escolhida: 10 faixas de 10 pontos (0 a 10%, 10 a
-                  20%... 90 a 100%). A escala é fixa e igual para todas as candidaturas, então a mesma cor quer dizer a mesma porcentagem, seja qual for a escolha. O
-                  mapa não pinta ninguém como vencedor: para comparar, troque a candidatura escolhida ou toque num município.
+                  Cada município recebe a cor da faixa em que está a porcentagem dos votos válidos da candidatura escolhida, em 10 faixas iguais. Na escala da
+                  candidatura (padrão), as faixas vão de 0% até um número redondo logo acima do que ela alcançou em 99% dos municípios: assim, quem teve poucos
+                  votos também mostra onde foi mais forte (acima do teto, a cor mais forte). A regra é a mesma para todas as candidaturas, mas a mesma cor pode
+                  significar porcentagens diferentes de uma para outra: para comparar candidaturas na mesma régua, escolha a escala de 0 a 100%.
+                </Typography>
+                <Typography variant="body2">
+                  Sem candidatura escolhida, o mapa mostra quem teve mais votos em cada município, estado ou região (escolha o nível acima). As cores são
+                  atribuídas em ordem alfabética do nome na urna, sem relação com partidos, e ficam mais fortes quanto maior a vantagem sobre o 2º colocado (até 10,
+                  25 e 45 pontos, ou mais). Nos níveis de estado e região, todos os municípios da unidade recebem a cor do resultado somado dela.
                 </Typography>
                 <Typography variant="body2">
                   O tamanho de um município no mapa não diz quantos eleitores ele tem: áreas grandes podem ter poucos votos, e capitais pequenas no mapa reúnem milhões.

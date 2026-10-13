@@ -149,17 +149,32 @@ export function municipioEm(formas: FormaMunicipio[], x: number, y: number): For
 // ── Escala de cor ────────────────────────────────────────────────────────────
 
 /**
- * Escala fixa, igual para todas as candidaturas: 10 faixas de 10 pontos percentuais dos votos
- * válidos (0–10%, 10–20%, ..., 90–100%). A mesma cor quer dizer a mesma porcentagem, seja qual for
- * a candidatura escolhida; faixas calculadas a partir dos dados (quantis) mudariam de candidatura
- * para candidatura e exagerariam diferenças pequenas.
+ * 10 faixas de largura igual entre 0% e um teto. Escala fixa: teto 100% (0–10%, ..., 90–100%), a
+ * mesma cor quer dizer a mesma porcentagem para qualquer candidatura. Escala relativa: o teto é um
+ * valor redondo logo acima do que a candidatura alcançou (ver `tetoRelativo`), para que quem teve
+ * poucos votos também mostre onde foi mais forte. A regra é a mesma para todas as candidaturas e as
+ * faixas continuam de largura igual (não são quantis, que exagerariam diferenças pequenas).
  */
 export const FAIXAS = 10;
 
-/** Faixa (0 a 9) de uma porcentagem (0 a 100). */
-export function faixa(pct: number): number {
-  if (!Number.isFinite(pct) || pct <= 0) return 0;
-  return Math.min(FAIXAS - 1, Math.floor(pct / (100 / FAIXAS)));
+/** Faixa (0 a 9) de uma porcentagem (0 a 100) numa escala de 0 até `teto`; acima do teto, a última. */
+export function faixa(pct: number, teto = 100): number {
+  if (!Number.isFinite(pct) || pct <= 0 || !(teto > 0)) return 0;
+  return Math.min(FAIXAS - 1, Math.floor(pct / (teto / FAIXAS)));
+}
+
+/** Tetos possíveis da escala relativa: números redondos, para a legenda ficar fácil de ler. */
+const TETOS = [1, 2, 3, 4, 5, 6, 8, 10, 12, 15, 20, 25, 30, 40, 50, 60, 70, 80, 90, 100];
+
+/**
+ * Teto da escala relativa: o primeiro número redondo que cobre 99% dos municípios (o 1% mais alto,
+ * em geral cidades muito pequenas, fica na última faixa e não achata o resto do mapa).
+ */
+export function tetoRelativo(pcts: number[]): number {
+  const v = pcts.filter((x) => Number.isFinite(x) && x > 0).sort((a, b) => a - b);
+  if (!v.length) return 100;
+  const p99 = v[Math.max(0, Math.ceil(v.length * 0.99) - 1)];
+  return TETOS.find((t) => t >= p99) ?? 100;
 }
 
 type Rgb = [number, number, number];
