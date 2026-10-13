@@ -3365,5 +3365,19 @@
   "Stories do Instagram, Status do WhatsApp e TikTok (1080×1920)": "Tin Instagram, Trạng thái WhatsApp và TikTok (1080×1920)",
   "Vantagem sobre o 2º:": "Cách biệt với người về thứ 2:",
   "Votação para Presidente em cada município, estado e região: quem teve mais votos em cada lugar ou, escolhendo uma candidatura, a porcentagem dos votos válidos dela. Dados oficiais do TSE.": "Kết quả bỏ phiếu Tổng thống tại mỗi thành phố, bang và vùng: ai nhận nhiều phiếu nhất ở mỗi nơi, hoặc khi chọn một ứng cử viên, tỷ lệ phần trăm phiếu hợp lệ của ứng cử viên đó. Dữ liệu chính thức của TSE.",
-  "X, LinkedIn, Facebook e WhatsApp (1200×630)": "X, LinkedIn, Facebook và WhatsApp (1200×630)"
+  "X, LinkedIn, Facebook e WhatsApp (1200×630)": "X, LinkedIn, Facebook và WhatsApp (1200×630)",
+  "[role=\"dialog\"], button, a, header, nav": "[role=\"dialog\"], button, a, header, nav",
+  "class": "class",
+  "display": "display",
+  "fill": "fill",
+  "href": "href",
+  "image": "image",
+  "opacity": "opacity",
+  "rgba(13, 9, 25, 0.35)": "rgba(13, 9, 25, 0.35)",
+  "stroke": "stroke",
+  "style": "style",
+  "SVG não carregou": "SVG não carregou",
+  "svg, canvas": "svg, canvas",
+  "visibility": "visibility",
+  "xmlns": "xmlns"
 }

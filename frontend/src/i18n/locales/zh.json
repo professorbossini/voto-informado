@@ -3365,5 +3365,19 @@
   "Stories do Instagram, Status do WhatsApp e TikTok (1080×1920)": "Instagram 快拍、WhatsApp 状态和 TikTok（1080×1920）",
   "Vantagem sobre o 2º:": "领先第二名的幅度：",
   "Votação para Presidente em cada município, estado e região: quem teve mais votos em cada lugar ou, escolhendo uma candidatura, a porcentagem dos votos válidos dela. Dados oficiais do TSE.": "各市、州和地区的总统选举投票：各地得票最多者，或在选择一位候选人后显示其有效票百分比。TSE 官方数据。",
-  "X, LinkedIn, Facebook e WhatsApp (1200×630)": "X、LinkedIn、Facebook 和 WhatsApp（1200×630）"
+  "X, LinkedIn, Facebook e WhatsApp (1200×630)": "X、LinkedIn、Facebook 和 WhatsApp（1200×630）",
+  "[role=\"dialog\"], button, a, header, nav": "[role=\"dialog\"], button, a, header, nav",
+  "class": "class",
+  "display": "display",
+  "fill": "fill",
+  "href": "href",
+  "image": "image",
+  "opacity": "opacity",
+  "rgba(13, 9, 25, 0.35)": "rgba(13, 9, 25, 0.35)",
+  "stroke": "stroke",
+  "style": "style",
+  "SVG não carregou": "SVG não carregou",
+  "svg, canvas": "svg, canvas",
+  "visibility": "visibility",
+  "xmlns": "xmlns"
 }

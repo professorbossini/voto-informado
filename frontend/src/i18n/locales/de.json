@@ -3365,5 +3365,19 @@
   "min(100%, calc(52vh * {0}))": "min(100%, calc(52vh * {0}))",
   "mun": "mun",
   "p": "p",
-  "regiao": "regiao"
+  "regiao": "regiao",
+  "[role=\"dialog\"], button, a, header, nav": "[role=\"dialog\"], button, a, header, nav",
+  "class": "class",
+  "display": "display",
+  "fill": "fill",
+  "href": "href",
+  "image": "image",
+  "opacity": "opacity",
+  "rgba(13, 9, 25, 0.35)": "rgba(13, 9, 25, 0.35)",
+  "stroke": "stroke",
+  "style": "style",
+  "SVG não carregou": "SVG não carregou",
+  "svg, canvas": "svg, canvas",
+  "visibility": "visibility",
+  "xmlns": "xmlns"
 }

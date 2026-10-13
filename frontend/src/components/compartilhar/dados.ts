@@ -3,6 +3,7 @@ import { desfechoDe } from '@/data/apuracao';
 import { CARGO_LABEL, dateShort, moneyCompact, nomeProprio, number, percent } from '@/data/format';
 import type { CandidatoDetalhe, Fonte, ParlamentarDetalhe, VotacoesParlamentar } from '@/data/types';
 import { orgaoCurto } from '@/components/election/orgao';
+import type { Figura } from './figura';
 
 /**
  * O que vai num cartão para compartilhar. Mesmo modelo para qualquer candidatura ou parlamentar:
@@ -32,6 +33,8 @@ export interface CartaoDados {
   chamada?: string | null;
   /** Capa: resumo da página, abaixo do título. */
   descricao?: string | null;
+  /** Capa: a figura principal da página (mapa, plenário, gráfico), fotografada da tela. */
+  figura?: Figura | null;
   /** Pessoas do cartão; vazio = capa da página. */
   pessoas: PessoaCartao[];
   fatos: LinhaFato[];

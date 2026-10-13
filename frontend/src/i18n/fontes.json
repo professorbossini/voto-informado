@@ -1021,6 +1021,13 @@
   ]
  },
  {
+  "texto": "[role=\"dialog\"], button, a, header, nav",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/figura.ts"
+  ]
+ },
+ {
   "texto": "{0} · {1} emenda(s)",
   "tipo": "padrao",
   "arquivos": [
@@ -3908,6 +3915,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/compartilhar/desenho.ts",
+   "components/compartilhar/figura.ts",
    "components/election/CandidatePhoto.tsx"
   ]
  },
@@ -5394,6 +5402,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/compartilhar/desenho.ts",
+   "components/compartilhar/figura.ts",
    "components/mapa/MapaCanvas.tsx"
   ]
  },
@@ -5716,6 +5725,13 @@
   "tipo": "exato",
   "arquivos": [
    "components/AparenciaMenu.tsx"
+  ]
+ },
+ {
+  "texto": "class",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/figura.ts"
   ]
  },
  {
@@ -8187,6 +8203,13 @@
   ]
  },
  {
+  "texto": "display",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/figura.ts"
+  ]
+ },
+ {
   "texto": "Disponibilidade e responsabilidade",
   "tipo": "exato",
   "arquivos": [
@@ -10432,6 +10455,13 @@
   ]
  },
  {
+  "texto": "fill",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/figura.ts"
+  ]
+ },
+ {
   "texto": "Filtrar esta lista: nome, número ou partido",
   "tipo": "exato",
   "arquivos": [
@@ -11618,6 +11648,7 @@
   "texto": "height",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/figura.ts",
    "theme/theme.ts"
   ]
  },
@@ -11702,6 +11733,13 @@
    "components/votacoes/VotacoesNominais.tsx",
    "eua/componentes/blocos.tsx",
    "theme/theme.ts"
+  ]
+ },
+ {
+  "texto": "href",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/figura.ts"
   ]
  },
  {
@@ -11846,6 +11884,13 @@
   "tipo": "exato",
   "arquivos": [
    "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "image",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/figura.ts"
   ]
  },
  {
@@ -13844,6 +13889,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/compartilhar/desenho.ts",
+   "components/compartilhar/figura.ts",
    "components/election/UfTileMap.tsx",
    "components/resultados/Evolucao.tsx",
    "components/stf/PlenarioStf.tsx",
@@ -16558,6 +16604,13 @@
   "tipo": "exato",
   "arquivos": [
    "components/resultados/ApuracaoAoVivo.tsx"
+  ]
+ },
+ {
+  "texto": "opacity",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/figura.ts"
   ]
  },
  {
@@ -19842,6 +19895,13 @@
   ]
  },
  {
+  "texto": "rgba(13, 9, 25, 0.35)",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/desenho.ts"
+  ]
+ },
+ {
   "texto": "rgba(13, 9, 25, 0.45)",
   "tipo": "exato",
   "arquivos": [
@@ -21598,6 +21658,20 @@
   ]
  },
  {
+  "texto": "stroke",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/figura.ts"
+  ]
+ },
+ {
+  "texto": "style",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/figura.ts"
+  ]
+ },
+ {
   "texto": "Sua cola",
   "tipo": "exato",
   "arquivos": [
@@ -21763,7 +21837,22 @@
   "texto": "svg",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/figura.ts",
    "config/brand.ts"
+  ]
+ },
+ {
+  "texto": "SVG não carregou",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/figura.ts"
+  ]
+ },
+ {
+  "texto": "svg, canvas",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/figura.ts"
   ]
  },
  {
@@ -22623,6 +22712,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/brand/BrandPlaceholder.tsx",
+   "components/compartilhar/figura.ts",
    "components/election/CandidateCard.tsx",
    "components/resultados/ApuracaoAoVivo.tsx",
    "components/resultados/Evolucao.tsx",
@@ -23822,6 +23912,13 @@
   ]
  },
  {
+  "texto": "visibility",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/figura.ts"
+  ]
+ },
+ {
   "texto": "visibilitychange",
   "tipo": "exato",
   "arquivos": [
@@ -24441,6 +24538,7 @@
   "texto": "width",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/figura.ts",
    "theme/theme.ts"
   ]
  },
@@ -24507,6 +24605,13 @@
   "arquivos": [
    "components/stf/PlenarioStf.tsx",
    "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "xmlns",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/figura.ts"
   ]
  },
  {

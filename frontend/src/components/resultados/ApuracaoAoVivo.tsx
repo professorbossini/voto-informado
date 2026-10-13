@@ -975,7 +975,7 @@ export function ApuracaoAoVivo({ headingLevel = 'h2' }: { headingLevel?: 'h1' | 
 
           {/* Mapa */}
           <Grid size={{ xs: 12, md: 5 }} sx={{ order: { xs: 2, md: 1 } }}>
-            <Box sx={{ position: { md: 'sticky' }, top: { md: 88 }, border: 1, borderColor: 'divider', borderRadius: 4, p: { xs: 1.5, sm: 2 } }}>
+            <Box data-figura sx={{ position: { md: 'sticky' }, top: { md: 88 }, border: 1, borderColor: 'divider', borderRadius: 4, p: { xs: 1.5, sm: 2 } }}>
               <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
                 <Typography variant="subtitle2" sx={{ fontWeight: 800 }}>
                   {cargoBase === 'presidente'
@@ -1002,7 +1002,7 @@ export function ApuracaoAoVivo({ headingLevel = 'h2' }: { headingLevel?: 'h1' | 
                 compact
               />
               {legenda.length > 0 && (
-                <Stack spacing={0.5} sx={{ mt: 1.5 }} aria-label="Legenda do mapa">
+                <Stack data-figura-legenda spacing={0.5} sx={{ mt: 1.5 }} aria-label="Legenda do mapa">
                   {legenda.map((l) => (
                     <Stack key={l.rotulo} direction="row" spacing={1} sx={{ alignItems: 'center' }}>
                       <Box sx={{ width: 14, height: 14, borderRadius: '3px', bgcolor: l.cor, flexShrink: 0, border: 1, borderColor: 'divider' }} />

@@ -472,8 +472,96 @@ function painelQr(ctx: Ctx, d: CartaoDados, x: number, y: number, w: number, h: 
   }
 }
 
+/** Figura da página num painel arredondado, centralizada e inteira ("contain"), com sombra. */
+function painelFigura(ctx: Ctx, f: NonNullable<CartaoDados['figura']>, x: number, y: number, w: number, h: number, e: number) {
+  ctx.save();
+  ctx.shadowColor = 'rgba(13, 9, 25, 0.35)';
+  ctx.shadowBlur = 36 * e;
+  ctx.shadowOffsetY = 10 * e;
+  retangulo(ctx, x, y, w, h, 28 * e);
+  ctx.fillStyle = f.fundo;
+  ctx.fill();
+  ctx.restore();
+  const pad = Math.round(20 * e);
+  const s = Math.min((w - 2 * pad) / f.w, (h - 2 * pad) / f.h);
+  const fw = f.w * s;
+  const fh = f.h * s;
+  ctx.save();
+  retangulo(ctx, x, y, w, h, 28 * e);
+  ctx.clip();
+  ctx.drawImage(f.img, x + (w - fw) / 2, y + (h - fh) / 2, fw, fh);
+  ctx.restore();
+}
+
+/** Capa com a figura da página: chamada e título em cima, a figura grande no meio e o QR embaixo (ou ao lado). */
+function capaComFigura(ctx: Ctx, formato: Formato, d: CartaoDados, logo: CanvasImageSource | null) {
+  const f = d.figura!;
+  const { w, h } = TAMANHOS[formato];
+  fundoMarca(ctx, w, h);
+  const vertical = h > w;
+  const e = formato === 'stories' ? 1.15 : formato === 'retrato' ? 1 : 0.72;
+  const m = Math.round(64 * (vertical ? 1 : 0.72));
+  const yTopo = marcaTopo(ctx, w, m, Math.round(72 * e), logo);
+  rodapeMarca(ctx, w, h, m, Math.round(22 * e), vertical ? 'center' : 'left');
+  const titulos = (x: number, y: number, lw: number, maxTit: number, linhas: number) => {
+    const gap = Math.round(18 * e);
+    let yy = y;
+    if (d.chamada) {
+      const ac = ajustarTexto(d.chamada.toLocaleUpperCase('pt-BR'), { largura: lw - 48 * e, max: Math.round(24 * e), min: Math.round(16 * e), maxLinhas: 1 }, medidor(ctx, 700));
+      const hc = Math.round(ac.tamanho * 1.9);
+      fonte(ctx, 700, ac.tamanho);
+      const cw = ctx.measureText(ac.linhas[0] ?? '').width + 40 * e;
+      retangulo(ctx, x, yy, cw, hc, hc / 2);
+      ctx.fillStyle = lime[400];
+      ctx.fill();
+      escrever(ctx, ac, x + 20 * e, yy + (hc - altura(ac, 1)) / 2, 700, ink[900], 'left', 1);
+      yy += hc + gap;
+    }
+    const at = ajustarTexto(d.titulo, { largura: lw, max: maxTit, min: Math.round(36 * e), maxLinhas: linhas, entrelinha: 1.05 }, medidor(ctx, 700));
+    yy += escrever(ctx, at, x, yy, 700, '#FFFFFF', 'left', 1.05);
+    return yy;
+  };
+  if (vertical) {
+    const yt = titulos(m, yTopo + m * 0.7, w - 2 * m, Math.round(68 * e), 2);
+    const ph = formato === 'stories' ? 300 : 230;
+    const py = h - m * 1.25 - ph;
+    painelQr(ctx, d, m, py, w - 2 * m, ph, e * 0.9);
+    // Painel da figura na proporção dela (uma figura larga, como o plenário, não deixa vazio);
+    // a sobra vai para o resumo da página, entre o título e a figura.
+    const pw = w - 2 * m;
+    const pad = Math.round(20 * e);
+    const livre = py - m * 0.6 - (yt + m * 0.6);
+    const ideal = ((pw - 2 * pad) * f.h) / f.w + 2 * pad;
+    let fh = Math.min(livre, ideal);
+    let fy = yt + m * 0.6;
+    const sobra = livre - fh;
+    if (d.descricao && sobra > 110 * e) {
+      const ad = ajustarTexto(d.descricao, { largura: pw, max: Math.round(34 * e), min: Math.round(24 * e), maxLinhas: formato === 'stories' ? 6 : 4, altura: sobra - 50 * e, entrelinha: 1.3 }, medidor(ctx, 500));
+      const ha = altura(ad, 1.3);
+      escrever(ctx, ad, m, fy, 500, violet[100], 'left', 1.3);
+      fy += ha + 36 * e;
+      fh = Math.min(fh, py - m * 0.6 - fy);
+    }
+    // O que ainda sobrar: centraliza a figura no espaço até o painel do QR.
+    fy += Math.max(0, (py - m * 0.6 - fy - fh) / 2);
+    painelFigura(ctx, f, m, fy, pw, fh, e);
+  } else {
+    const cw = 400;
+    const fx = m;
+    const fy = yTopo + m * 0.6;
+    const fwid = w - 3 * m - cw;
+    painelFigura(ctx, f, fx, fy, fwid, h - m * 1.3 - fy, e);
+    const xt = w - m - cw;
+    const yt = titulos(xt, fy, cw, Math.round(52 * e), 3);
+    const ph = 150;
+    const py = h - m * 1.3 - ph;
+    if (py > yt + 12) painelQr(ctx, d, xt, py, cw, ph, e);
+  }
+}
+
 /** Página sem pessoas: chamada, título grande e resumo sobre o fundo da marca, com o QR embaixo (ou ao lado). */
 function capa(ctx: Ctx, formato: Formato, d: CartaoDados, logo: CanvasImageSource | null) {
+  if (d.figura) return capaComFigura(ctx, formato, d, logo);
   const { w, h } = TAMANHOS[formato];
   fundoMarca(ctx, w, h);
   const vertical = h > w;

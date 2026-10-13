@@ -3365,5 +3365,19 @@
   "Stories do Instagram, Status do WhatsApp e TikTok (1080×1920)": "Instagram Hikâyeleri, WhatsApp Durumu ve TikTok (1080×1920)",
   "Vantagem sobre o 2º:": "2. sıradakine karşı fark:",
   "Votação para Presidente em cada município, estado e região: quem teve mais votos em cada lugar ou, escolhendo uma candidatura, a porcentagem dos votos válidos dela. Dados oficiais do TSE.": "Her belediye, eyalet ve bölgede Cumhurbaşkanlığı oylaması: her yerde en çok oyu kimin aldığı ya da bir adaylık seçildiğinde onun geçerli oylardaki yüzdesi. TSE resmî verileri.",
-  "X, LinkedIn, Facebook e WhatsApp (1200×630)": "X, LinkedIn, Facebook ve WhatsApp (1200×630)"
+  "X, LinkedIn, Facebook e WhatsApp (1200×630)": "X, LinkedIn, Facebook ve WhatsApp (1200×630)",
+  "[role=\"dialog\"], button, a, header, nav": "[role=\"dialog\"], button, a, header, nav",
+  "class": "class",
+  "display": "display",
+  "fill": "fill",
+  "href": "href",
+  "image": "image",
+  "opacity": "opacity",
+  "rgba(13, 9, 25, 0.35)": "rgba(13, 9, 25, 0.35)",
+  "stroke": "stroke",
+  "style": "style",
+  "SVG não carregou": "SVG não carregou",
+  "svg, canvas": "svg, canvas",
+  "visibility": "visibility",
+  "xmlns": "xmlns"
 }

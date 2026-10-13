@@ -5,6 +5,7 @@ import { useLocation } from 'react-router';
 import { useNotify } from '@/components/feedback/notificationsContext';
 import { capaDaTela, cartaoRegistrado, type MontarCartao } from '@/components/compartilhar/cartaoPagina';
 import { DialogoCompartilhar } from '@/components/compartilhar/DialogoCompartilhar';
+import { capturarFigura } from '@/components/compartilhar/figura';
 import { isNativeApp, publicUrl, shareContent } from '@/native/platform';
 import { useShareOverride } from './shareOverride';
 
@@ -37,9 +38,11 @@ export function ShareButton() {
       return;
     }
     const reg = cartaoRegistrado();
-    // A capa é lida da tela na hora do clique (o que está aberto agora).
+    // A capa é lida da tela na hora do clique (o que está aberto agora), com a figura principal
+    // da página (mapa, plenário, gráfico) fotografada antes de o diálogo cobrir a tela.
     const capa = capaDaTela(url);
-    setAberto(reg ? { montar: reg.montar, texto: reg.texto() } : { montar: () => capa, texto: tituloDaPagina() });
+    const figura = reg ? null : capturarFigura();
+    setAberto(reg ? { montar: reg.montar, texto: reg.texto() } : { montar: async () => ({ ...capa, figura: await figura }), texto: tituloDaPagina() });
   };
 
   return (

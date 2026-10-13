@@ -167,7 +167,7 @@ const UNIDADE: Record<Nivel, [string, string]> = { mun: ['município', 'municíp
 function LegendaLider({ itens, fundo, nivel }: { itens: { nome: string; cor: string; n: number }[]; fundo: string; nivel: Nivel }) {
   return (
     <Stack spacing={1}>
-      <Stack direction="row" useFlexGap sx={{ flexWrap: 'wrap', gap: 1.5 }} aria-label="Legenda do mapa">
+      <Stack data-figura-legenda direction="row" useFlexGap sx={{ flexWrap: 'wrap', gap: 1.5 }} aria-label="Legenda do mapa">
         {itens.map((l) => (
           <Stack key={l.nome} direction="row" spacing={0.75} sx={{ alignItems: 'center' }}>
             <Box sx={{ width: 14, height: 14, borderRadius: '3px', bgcolor: l.cor, border: 1, borderColor: 'divider' }} />
@@ -486,7 +486,7 @@ export function MapaPage() {
           <Grid container spacing={3}>
             <Grid size={{ xs: 12, md: 8 }}>
               <Card>
-                <CardContent sx={{ p: { xs: 1, sm: 2 }, '&:last-child': { pb: { xs: 1.5, sm: 2 } } }}>
+                <CardContent data-figura sx={{ p: { xs: 1, sm: 2 }, '&:last-child': { pb: { xs: 1.5, sm: 2 } } }}>
                   {formas.loading ? (
                     <Skeleton variant="rounded" height={380} />
                   ) : formas.error || !formas.data ? (

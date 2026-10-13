@@ -3365,5 +3365,19 @@
   "Stories do Instagram, Status do WhatsApp e TikTok (1080×1920)": "Історії Instagram, статус WhatsApp і TikTok (1080×1920)",
   "Vantagem sobre o 2º:": "Перевага над 2-м місцем:",
   "Votação para Presidente em cada município, estado e região: quem teve mais votos em cada lugar ou, escolhendo uma candidatura, a porcentagem dos votos válidos dela. Dados oficiais do TSE.": "Голосування за президента в кожному муніципалітеті, штаті й регіоні: хто отримав найбільше голосів у кожному місці або, якщо вибрати кандидатуру, її частка дійсних голосів. Офіційні дані TSE.",
-  "X, LinkedIn, Facebook e WhatsApp (1200×630)": "X, LinkedIn, Facebook і WhatsApp (1200×630)"
+  "X, LinkedIn, Facebook e WhatsApp (1200×630)": "X, LinkedIn, Facebook і WhatsApp (1200×630)",
+  "[role=\"dialog\"], button, a, header, nav": "[role=\"dialog\"], button, a, header, nav",
+  "class": "class",
+  "display": "display",
+  "fill": "fill",
+  "href": "href",
+  "image": "image",
+  "opacity": "opacity",
+  "rgba(13, 9, 25, 0.35)": "rgba(13, 9, 25, 0.35)",
+  "stroke": "stroke",
+  "style": "style",
+  "SVG não carregou": "SVG não carregou",
+  "svg, canvas": "svg, canvas",
+  "visibility": "visibility",
+  "xmlns": "xmlns"
 }

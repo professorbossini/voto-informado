@@ -3365,5 +3365,19 @@
   "Stories do Instagram, Status do WhatsApp e TikTok (1080×1920)": "Instagram Stories, WhatsApp-status och TikTok (1080×1920)",
   "Vantagem sobre o 2º:": "Försprång före tvåan:",
   "Votação para Presidente em cada município, estado e região: quem teve mais votos em cada lugar ou, escolhendo uma candidatura, a porcentagem dos votos válidos dela. Dados oficiais do TSE.": "Röstningen till president i varje kommun, delstat och region: vem som fick flest röster på varje plats eller, om du väljer en kandidatur, dess andel av de giltiga rösterna. Officiella uppgifter från TSE.",
-  "X, LinkedIn, Facebook e WhatsApp (1200×630)": "X, LinkedIn, Facebook och WhatsApp (1200×630)"
+  "X, LinkedIn, Facebook e WhatsApp (1200×630)": "X, LinkedIn, Facebook och WhatsApp (1200×630)",
+  "[role=\"dialog\"], button, a, header, nav": "[role=\"dialog\"], button, a, header, nav",
+  "class": "class",
+  "display": "display",
+  "fill": "fill",
+  "href": "href",
+  "image": "image",
+  "opacity": "opacity",
+  "rgba(13, 9, 25, 0.35)": "rgba(13, 9, 25, 0.35)",
+  "stroke": "stroke",
+  "style": "style",
+  "SVG não carregou": "SVG não carregou",
+  "svg, canvas": "svg, canvas",
+  "visibility": "visibility",
+  "xmlns": "xmlns"
 }
