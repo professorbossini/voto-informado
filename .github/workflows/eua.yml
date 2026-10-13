@@ -1,0 +1,118 @@
+# Estados Unidos → site, sozinho na nuvem (GitHub Actions), sem depender de nenhum computador.
+#
+# Congresso (composição e retratos), votações nominais da Câmara e do Senado, candidaturas e finanças
+# de campanha (FEC), gastos dos gabinetes da Câmara, gasto federal por estado (USAspending), resultados
+# de eleições (MIT/Harvard, CC0, e Colégio Eleitoral do National Archives) e Suprema Corte.
+# Lógica e agenda em backend/etl/eua/montar.py.
+#
+# Isolado do Brasil: lê e grava só api/eua/ e eua/ do site; nada do Brasil é tocado.
+#
+# Quando roda (UTC):
+#   10h17 todo dia ............... passada completa (cada fonte só baixa o que mudou)
+#   14h47/15h47/16h47, seg–sex ... votações e, de outubro a julho, decisões da Suprema Corte
+#                                  (anunciadas às 10h de Washington)
+#   23h37 e 02h37 ................ votações (fim das sessões do Congresso)
+#   e, em todas as passadas, composição, FEC e resultados de 3 a 30 de novembro dos anos pares
+#   (eleição geral) e de 1º a 10 de janeiro dos anos ímpares (posse do novo Congresso).
+name: EUA → site
+
+on:
+  schedule:
+    - cron: "17 10 * * *"
+    - cron: "47 14,15,16 * * 1-5"
+    - cron: "37 23,2 * * *"
+  push:
+    branches: [main]
+    paths:
+      - "backend/etl/eua/**"
+      - ".github/workflows/eua.yml"
+  workflow_dispatch:
+    inputs:
+      partes:
+        description: "Partes (vírgula): congresso,votacoes,fec,gastos_camara,gastos_federal,eleicoes,suprema. Vazio = todas."
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+  pages: write
+  actions: write
+  id-token: write # gravação no R2 da Cloudflare (etl.r2, OIDC)
+
+concurrency:
+  # Uma fila por automação: com uma fila só para todas, o GitHub cancela a que estava esperando.
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+jobs:
+  eua:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: backend
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Dependências
+        run: pip install -q "requests>=2.32" pillow
+
+      - name: O que consultar agora
+        id: agenda
+        working-directory: backend
+        run: |
+          if [[ -n "${{ github.event.inputs.partes }}" ]]; then partes="${{ github.event.inputs.partes }}"
+          else partes=$(python -m etl.eua.montar --agenda); fi
+          echo "Partes: $partes"
+          echo "partes=$partes" >> "$GITHUB_OUTPUT"
+
+      - name: Site publicado (só a parte dos EUA)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git clone -q --depth 1 --filter=blob:none --no-checkout --branch gh-pages \
+            "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" site
+          git -C site sparse-checkout set --no-cone /index.html /api/eua/ /eua/
+          git -C site checkout -q gh-pages
+
+      - name: Consultar as fontes oficiais dos EUA
+        id: eua
+        working-directory: backend
+        run: python -m etl.eua.montar ../site --partes "${{ steps.agenda.outputs.partes }}"
+
+      - name: Publicar
+        if: steps.eua.outputs.mudou == '1'
+        working-directory: site
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A api/eua eua
+          if git diff --cached --quiet; then echo "Nada mudou."; exit 0; fi
+          git commit -q -m "EUA: ${{ steps.agenda.outputs.partes }}"
+          # Outra automação pode ter publicado nesse meio-tempo: incorpora e tenta de novo.
+          for i in 1 2 3 4 5; do git pull -q --rebase origin gh-pages && git push -q origin gh-pages && break; git rebase --abort 2>/dev/null; sleep $((i * 7)); done
+          gh api -X POST "repos/${{ github.repository }}/pages/builds" >/dev/null || true
+          echo "✓ EUA publicado (${{ steps.agenda.outputs.partes }})" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Enviar ao R2 (Cloudflare)
+        if: steps.eua.outputs.mudou == '1'
+        working-directory: backend
+        run: python -m etl.r2 enviar ../site --prefixo api/eua/ --prefixo eua/
+
+      - name: Situação das fontes
+        if: always()
+        run: |
+          python3 -c "import json; d=json.load(open('site/api/eua/meta.json')); [print(k, 'ok' if v.get('ok') else 'FALHOU', v.get('detalhe') or v.get('erro') or '') for k, v in d['partes'].items()]" >> "$GITHUB_STEP_SUMMARY" || true
+
+      # O GitHub desliga agendamentos de repositórios sem atividade por 60 dias; reativar
+      # este workflow a cada execução mantém a atualização ligada indefinidamente.
+      - name: Manter o agendamento ligado
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh api -X PUT "repos/${{ github.repository }}/actions/workflows/eua.yml/enable" >/dev/null || true
