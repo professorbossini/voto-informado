@@ -29,6 +29,7 @@ from __future__ import annotations
 
 import os
 import re
+import time
 import xml.etree.ElementTree as ET
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
@@ -56,6 +57,7 @@ SENADO_VOTO = "https://www.senate.gov/legislative/LIS/roll_call_votes/vote{c}{s}
 SENADO_VOTO_PAGINA = "https://www.senate.gov/legislative/LIS/roll_call_votes/vote{c}{s}/vote_{c}_{s}_{n:05d}.htm"
 SENADO_PAGINA = "https://www.senate.gov/legislative/votes_new.htm"
 SENADO_PROXY = os.environ.get("EUA_PROXY", "").rstrip("/")  # intermediário opcional (infra/cloudflare/eua-proxy)
+MAX_SENADO_POR_PASSADA = 400  # votações do Senado baixadas por passada (o resto vem nas seguintes)
 MAX_ITENS = 200  # votações listadas por parlamentar (as mais recentes); o resumo conta todas
 
 # Código curto → texto publicado. S/N/P/A/O: Sim, Não, Presente, Não votou, Outro (nome na eleição do Speaker).
@@ -237,23 +239,29 @@ def ler_voto_senado(xml: bytes, lis_bio: dict[str, str]) -> dict | None:
     }
 
 
-def _senado_sessao(c: int, s: int, base: list[dict], lis_bio: dict[str, str]) -> tuple[list[dict], bool, bool]:
-    """(base completa, houve novas, senado acessível)."""
+def _senado_sessao(c: int, s: int, base: list[dict], lis_bio: dict[str, str], a_reler: set[int] | None = None) -> tuple[list[dict], set[int], bool]:
+    """(base completa, números lidos nesta passada, senado acessível).
+
+    a_reler: votações já na base que precisam ser lidas de novo (base antiga, sem o nome de quem votou);
+    são relidas aos poucos, sem descartar nada do que já existe."""
     r = _senado_get(SENADO_MENU.format(c=c, s=s))
     if r.status_code != 200 or b"<vote_summary" not in r.content[:600]:
-        return base, False, r.status_code == 404  # 404: sessão ainda não começou (acessível, só vazia)
+        return base, set(), r.status_code == 404  # 404: sessão ainda não começou (acessível, só vazia)
     menu = ET.fromstring(r.content)
     numeros = sorted({int(v.findtext("vote_number")) for v in menu.iter("vote") if v.findtext("vote_number")})
     ja = {v["n"] for v in base}
-    faltam = [n for n in numeros if n not in ja]
+    faltam = [n for n in numeros if n not in ja] + sorted(a_reler or set())
 
     def um(n: int):
+        time.sleep(0.4)
         rr = _senado_get(SENADO_VOTO.format(c=c, s=s, n=n))
         return ler_voto_senado(rr.content, lis_bio) if rr.status_code == 200 else None
 
-    with ThreadPoolExecutor(max_workers=4) as pool:
-        novas = [v for v in pool.map(um, faltam) if v]
-    return sorted(base + novas, key=lambda v: v["n"]), bool(novas), True
+    # O senate.gov limita acessos seguidos: poucos de cada vez; o que faltar fica para a próxima passada.
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        lidas = [v for v in pool.map(um, faltam[:MAX_SENADO_POR_PASSADA]) if v]
+    por_n = {v["n"]: v for v in base} | {v["n"]: v for v in lidas}
+    return sorted(por_n.values(), key=lambda v: v["n"]), {v["n"] for v in lidas}, True
 
 
 # ── montagem ─────────────────────────────────────────────────────────────────
@@ -323,19 +331,21 @@ def montar(api: Path, congresso_json: dict | None = None) -> tuple[bool, list[di
             continue
         caminho = pasta / "base" / f"senado-{ano}.json"
         dados_base = ler(caminho) or {}
-        nomes = dados_base.get("nomes")
-        base = dados_base.get("votacoes", []) if nomes is not None else []
-        nomes = nomes or {}
+        base = dados_base.get("votacoes", [])
+        nomes = dados_base.get("nomes") or {}
+        # Base antiga (sem nomes): relê as votações que ainda não foram relidas.
+        a_reler = set() if "nomes" in dados_base and "a_reler" not in dados_base else set(dados_base.get("a_reler", [v["n"] for v in base]))
         try:
-            completa, novas, acessivel = _senado_sessao(c, s, base, lis_bio)
+            completa, lidas, acessivel = _senado_sessao(c, s, base, lis_bio, a_reler)
         except RuntimeError as e:
             print(f"aviso: Senado {ano}: {e}")
-            completa, novas, acessivel = dados_base.get("votacoes", []), False, False
+            completa, lidas, acessivel = base, set(), False
         if not acessivel:
             situacao["senado"] = "indisponivel"
         completa = _separar_nomes(completa, nomes)
-        if novas:
-            mudou |= gravar(caminho, {"congresso": c, "ano": ano, "votacoes": completa, "nomes": nomes})
+        if lidas:
+            resto = sorted(a_reler - lidas)
+            mudou |= gravar(caminho, {"congresso": c, "ano": ano, "votacoes": completa, "nomes": nomes, **({"a_reler": resto} if resto else {})})
         todos_nomes.update(nomes)
         senado += completa
 
