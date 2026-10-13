@@ -23,6 +23,30 @@ deputados federais e senadores. Não produz opinião, não exibe pesquisas e nã
 | Em números | `/numeros` | Perfil das candidaturas: gênero, idade, instrução, financiamento, concorrência por vaga |
 | Fontes e método | `/sobre` | Todas as fontes com links e datas, metodologia e limitações |
 
+## Estados Unidos (`/eua`)
+
+Área própria, com seletor de país no topo (no celular estreito, no menu "Mais"). Mesmo método do Brasil: só dados
+públicos oficiais, cada bloco com a fonte, ordem alfabética, sem cores de partido (nem o vermelho e o azul americanos),
+informativo e sem pedido de voto. Base legal e limitações em `/eua/sobre`.
+
+| Página | Rota | Fonte |
+|---|---|---|
+| Início | `/eua` | contagem para a eleição geral, mapa dos estados (malha do Census Bureau) |
+| Congresso | `/eua/congresso`, `/eua/membro/:bioguide` | Clerk da Câmara, Biographical Directory (retratos), congress-legislators (CC0) |
+| Votações | `/eua/votacoes`, `/eua/votacoes/:id` | roll call votes do Clerk e do Senado (LIS) |
+| Estado | `/eua/estado/:uf` | tudo do estado: bancada, candidaturas, resultados, gasto federal |
+| Eleições | `/eua/eleicoes` | MIT Election Lab (CC0, desde 1976), Colégio Eleitoral (National Archives), órgãos eleitorais (USAGov) |
+| Candidaturas | `/eua/candidatos` | FEC (cn/weball): só totais, nunca doadores (52 U.S.C. § 30111(a)(4)) |
+| Gastos | `/eua/gastos` | Statement of Disbursements da Câmara e USAspending.gov |
+| Suprema Corte | `/eua/suprema-corte`, `/eua/suprema-corte/:id` | supremecourt.gov e uscourts.gov |
+
+Isolamento: coleta em `backend/etl/eua/` (grava só `api/eua/` e `eua/` do site), interface em `frontend/src/eua/`
+(carregada sob demanda), automação em `.github/workflows/eua.yml`. A agenda (em `etl/eua/montar.py`) acompanha cada
+fonte: passada diária completa, decisões da Suprema Corte nos dias úteis de outubro a julho, votações depois das
+sessões, e passadas reforçadas na eleição geral (novembro dos anos pares) e na posse do Congresso (janeiro dos ímpares).
+Rodar na hora: `gh workflow run eua.yml` (opcional: `-f partes=votacoes,fec`). O mapa vem de `python -m etl.eua.malha`
+(uma vez; as divisas não mudam).
+
 ## Princípios de neutralidade (aplicados no código)
 
 - Mesmos campos, mesmo layout e ordem alfabética para todos; outras ordenações só por escolha do usuário.

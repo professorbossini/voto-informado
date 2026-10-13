@@ -78,6 +78,15 @@ jobs:
           git -C site sparse-checkout set --no-cone /index.html /api/eua/ /eua/
           git -C site checkout -q gh-pages
 
+      # A gh-pages é recriada do zero numa publicação completa do Brasil (make publicar). Se a parte dos
+      # EUA sumiu de lá, volta do R2 (o site no ar), para a coleta seguir incremental.
+      - name: Recuperar a base dos EUA do R2, se faltar
+        working-directory: backend
+        run: |
+          if [[ ! -f ../site/api/eua/meta.json ]]; then
+            python -m etl.r2 baixar ../site api/eua/ || echo "R2 sem a base dos EUA: coleta completa."
+          fi
+
       - name: Consultar as fontes oficiais dos EUA
         id: eua
         working-directory: backend
