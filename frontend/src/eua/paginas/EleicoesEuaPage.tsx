@@ -41,8 +41,9 @@ function Proxima() {
         {c && (
           <>
             <Typography variant="body2" sx={{ mt: 1 }}>
-              Eleição {c.tipo}. Em disputa: {c.em_disputa.presidente ? 'Presidência e Vice-Presidência, ' : ''}as {c.em_disputa.camara} cadeiras da Câmara,{' '}
-              {c.em_disputa.delegados} delegados(as) sem voto e {c.em_disputa.senado} cadeiras do Senado ({c.em_disputa.senado_estados.map(([uf]) => uf).join(', ')}).
+              {c.em_disputa.presidente
+                ? `Eleição presidencial. Em disputa: a Presidência e a Vice-Presidência, as ${c.em_disputa.camara} cadeiras da Câmara, ${c.em_disputa.delegados} delegados(as) sem voto e ${c.em_disputa.senado} cadeiras do Senado (${c.em_disputa.senado_estados.map(([uf]) => uf).join(', ')}).`
+                : `Eleição de meio de mandato (midterm). Em disputa: as ${c.em_disputa.camara} cadeiras da Câmara, ${c.em_disputa.delegados} delegados(as) sem voto e ${c.em_disputa.senado} cadeiras do Senado (${c.em_disputa.senado_estados.map(([uf]) => uf).join(', ')}).`}
             </Typography>
             <Box component="ul" sx={{ pl: 2.5, my: 1.5 }}>
               {c.datas.map((d) => (
@@ -177,7 +178,7 @@ function MapaPresidente() {
                     </Typography>
                     <Typography variant="caption" color="text.secondary" component="p">
                       {partidoResultado(c.partido)} · {inteiro(votos)} votos ({pct(total ? (100 * votos) / total : null)})
-                      {el != null ? ` · ${el} ${el === 1 ? 'voto' : 'votos'} no Colégio Eleitoral` : ''}
+                      {el == null ? '' : el === 1 ? ' · 1 voto no Colégio Eleitoral' : ` · ${el} votos no Colégio Eleitoral`}
                     </Typography>
                   </Box>
                 );

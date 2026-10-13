@@ -14,6 +14,20 @@
   ]
  },
  {
+  "texto": ", {0} vagas",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/componentes/PlenarioEua.tsx"
+  ]
+ },
+ {
+  "texto": ", ciclo",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/MembroEuaPage.tsx"
+  ]
+ },
+ {
   "texto": ", com o exterior",
   "tipo": "exato",
   "arquivos": [
@@ -42,6 +56,13 @@
   ]
  },
  {
+  "texto": ", em ordem alfabética do sobrenome.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/CongressoEuaPage.tsx"
+  ]
+ },
+ {
   "texto": ", exatamente como publicado pela própria Casa. Dados oficiais, atualizados todos os dias.",
   "tipo": "exato",
   "arquivos": [
@@ -63,6 +84,13 @@
   ]
  },
  {
+  "texto": ", ou {0} por habitante",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/paginas/MembroEuaPage.tsx"
+  ]
+ },
+ {
   "texto": ", parte grande do valor pago no país (",
   "tipo": "exato",
   "arquivos": [
@@ -74,6 +102,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/legal/PrivacidadePage.tsx"
+  ]
+ },
+ {
+  "texto": ", por categoria",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/GastosEuaPage.tsx"
   ]
  },
  {
@@ -102,6 +137,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/legal/PrivacidadePage.tsx"
+  ]
+ },
+ {
+  "texto": ", resultados anteriores e o gasto federal no estado. Em destaque, os estados com eleição para o Senado em",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EuaInicioPage.tsx"
   ]
  },
  {
@@ -140,6 +182,20 @@
   ]
  },
  {
+  "texto": ": só os totais de cada campanha. O endereço que a candidatura informa à FEC também fica de fora.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": ". A FEC publica os totais; os nomes de doadores pessoas físicas não são reproduzidos aqui (a lei americana proíbe usá-los para pedir doações ou para fins comerciais).",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/blocos.tsx"
+  ]
+ },
+ {
   "texto": ". A lista oficial agregada traz as categorias para a legislatura inteira; o detalhamento por ano está na página de cada parlamentar. Câmara e Senado usam classificações diferentes, e os nomes são mantidos como publicados.",
   "tipo": "exato",
   "arquivos": [
@@ -175,6 +231,13 @@
   ]
  },
  {
+  "texto": ". É o gasto do governo federal no lugar, não uma verba controlada pelo(a) parlamentar.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/MembroEuaPage.tsx"
+  ]
+ },
+ {
   "texto": ". Eleição",
   "tipo": "exato",
   "arquivos": [
@@ -186,6 +249,13 @@
   "tipo": "exato",
   "arquivos": [
    "components/resultados/ApuracaoAoVivo.tsx"
+  ]
+ },
+ {
+  "texto": ". O Senado só publica em PDF:",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/GastosEuaPage.tsx"
   ]
  },
  {
@@ -231,6 +301,13 @@
   ]
  },
  {
+  "texto": ". Votos divergentes e concorrentes ficam dentro de cada PDF.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SupremaCortePage.tsx"
+  ]
+ },
+ {
   "texto": ".env",
   "tipo": "exato",
   "arquivos": [
@@ -252,10 +329,38 @@
   ]
  },
  {
+  "texto": "· {0} no Colégio Eleitoral",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/paginas/EleicoesEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "· {0} por habitante",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/paginas/EstadoEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "· {0} vagas",
   "tipo": "padrao",
   "arquivos": [
    "components/resultados/ApuracaoAoVivo.tsx"
+  ]
+ },
+ {
+  "texto": "· {0} votos no Colégio Eleitoral",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/paginas/EleicoesEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "· {0} votos no Colégio Eleitoral (maioria: 270 de 538)",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/paginas/EleicoesEuaPage.tsx"
   ]
  },
  {
@@ -277,6 +382,13 @@
   "tipo": "padrao",
   "arquivos": [
    "pages/election/MinhaCidadePage.tsx"
+  ]
+ },
+ {
+  "texto": "· 1 voto no Colégio Eleitoral",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EleicoesEuaPage.tsx"
   ]
  },
  {
@@ -302,10 +414,24 @@
   ]
  },
  {
+  "texto": "· autoria:",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SupremaCortePage.tsx"
+  ]
+ },
+ {
   "texto": "· base do TSE gerada em",
   "tipo": "exato",
   "arquivos": [
    "layouts/PublicLayout.tsx"
+  ]
+ },
+ {
+  "texto": "· Caixa",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/CandidatosEuaPage.tsx"
   ]
  },
  {
@@ -320,6 +446,13 @@
   "tipo": "padrao",
   "arquivos": [
    "components/votacoes/VotacoesNominais.tsx"
+  ]
+ },
+ {
+  "texto": "· Despesas",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/CandidatosEuaPage.tsx"
   ]
  },
  {
@@ -398,6 +531,7 @@
   "texto": "· posse em",
   "tipo": "exato",
   "arquivos": [
+   "eua/paginas/SupremaCortePage.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
  },
@@ -406,6 +540,21 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
+  "texto": "· processo",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SupremaCortePage.tsx"
+  ]
+ },
+ {
+  "texto": "· registro",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/CandidatosEuaPage.tsx",
+   "eua/paginas/MembroEuaPage.tsx"
   ]
  },
  {
@@ -500,6 +649,14 @@
   ]
  },
  {
+  "texto": "({0} anos)",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/paginas/MembroEuaPage.tsx",
+   "eua/paginas/SupremaCortePage.tsx"
+  ]
+ },
+ {
   "texto": "({0}, eleito(a) no 1º turno)",
   "tipo": "padrao",
   "arquivos": [
@@ -511,6 +668,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/ComoVotarPage.tsx"
+  ]
+ },
+ {
+  "texto": "(acumulado publicado)",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/blocos.tsx"
   ]
  },
  {
@@ -532,6 +696,20 @@
   "tipo": "padrao",
   "arquivos": [
    "pages/election/NumerosPage.tsx"
+  ]
+ },
+ {
+  "texto": "(Brasília) · votação nº",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/blocos.tsx"
+  ]
+ },
+ {
+  "texto": "(cada um começa em outubro). Mais recentes primeiro, com o PDF oficial.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SupremaCortePage.tsx"
   ]
  },
  {
@@ -584,10 +762,31 @@
   ]
  },
  {
+  "texto": "(eleição especial)",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EstadoEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "(em andamento)",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/GastosEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "(fora da urna)",
   "tipo": "exato",
   "arquivos": [
    "pages/election/CandidatoPage.tsx"
+  ]
+ },
+ {
+  "texto": "(fora do cargo hoje)",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/VotacoesEuaPage.tsx"
   ]
  },
  {
@@ -619,6 +818,13 @@
   ]
  },
  {
+  "texto": "(National Archives)",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EleicoesEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "(o dinheiro sai do Tesouro). O que fica para pagar nos anos seguintes vira",
   "tipo": "exato",
   "arquivos": [
@@ -630,6 +836,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/EmendasPage.tsx"
+  ]
+ },
+ {
+  "texto": "(out/{0} a set/{1})",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/paginas/GastosEuaPage.tsx"
   ]
  },
  {
@@ -871,6 +1084,13 @@
   ]
  },
  {
+  "texto": "{0} (em andamento)",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/paginas/EstadoEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "{0} (Fonte: TSE)",
   "tipo": "padrao",
   "arquivos": [
@@ -925,6 +1145,7 @@
   "arquivos": [
    "components/compartilhar/dados.ts",
    "components/election/CandidateCard.tsx",
+   "eua/paginas/CongressoEuaPage.tsx",
    "pages/election/CandidatoPage.tsx",
    "pages/election/CompararPage.tsx",
    "pages/election/CongressoEleitoPage.tsx",
@@ -962,6 +1183,13 @@
   ]
  },
  {
+  "texto": "{0} cadeira(s) da Câmara",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/paginas/EstadoEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "{0} cadeiras a partir de {1}: {2} senadores eleitos em {3} e {4} com mandato até 2031 (eleitos 4 anos antes), segundo o TSE e o Senado.",
   "tipo": "padrao",
   "arquivos": [
@@ -990,6 +1218,13 @@
   ]
  },
  {
+  "texto": "{0} candidaturas registradas na FEC ({1} com dinheiro declarado).",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/paginas/EstadoEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "{0} com lançamento{1}{2}",
   "tipo": "padrao",
   "arquivos": [
@@ -1001,6 +1236,13 @@
   "tipo": "padrao",
   "arquivos": [
    "pages/election/NumerosPage.tsx"
+  ]
+ },
+ {
+  "texto": "{0} de {1} votações em que estava em exercício",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/componentes/blocos.tsx"
   ]
  },
  {
@@ -1270,6 +1512,13 @@
   ]
  },
  {
+  "texto": "{0}: {1} {2} dos votos{3}",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/paginas/EleicoesEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "{0}: {1} das seções apuradas{2}",
   "tipo": "padrao",
   "arquivos": [
@@ -1319,6 +1568,13 @@
   ]
  },
  {
+  "texto": "{0}: eleição para o Senado em {1}",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/paginas/EuaInicioPage.tsx"
+  ]
+ },
+ {
   "texto": "{0}: não há 2º turno.{1}",
   "tipo": "padrao",
   "arquivos": [
@@ -1364,7 +1620,8 @@
   "texto": "{0}. Ver detalhes da fonte",
   "tipo": "padrao",
   "arquivos": [
-   "components/election/SourceNote.tsx"
+   "components/election/SourceNote.tsx",
+   "eua/componentes/comuns.tsx"
   ]
  },
  {
@@ -1389,6 +1646,21 @@
   ]
  },
  {
+  "texto": "{0}º Congresso ({1}–{2}). Composição atual, como publicada pelo Clerk da Câmara e pela compilação pública do Congresso.",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/paginas/CongressoEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "{0}º distrito",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/formato.ts",
+   "eua/paginas/EstadoEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "{0}º em antiguidade",
   "tipo": "padrao",
   "arquivos": [
@@ -1400,6 +1672,13 @@
   "tipo": "padrao",
   "arquivos": [
    "components/resultados/ApuracaoAoVivo.tsx"
+  ]
+ },
+ {
+  "texto": "{0}º tri/{1}",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/formato.ts"
   ]
  },
  {
@@ -1456,6 +1735,13 @@
   "tipo": "exato",
   "arquivos": [
    "components/resultados/CartaoEleitos.tsx"
+  ]
+ },
+ {
+  "texto": "% dos votos de {0} no estado (10 faixas de 10 pontos)",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/paginas/EleicoesEuaPage.tsx"
   ]
  },
  {
@@ -1676,6 +1962,13 @@
   ]
  },
  {
+  "texto": "11 CFR 100.22 e 100.29 (propaganda eleitoral)",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "12px 0 0",
   "tipo": "exato",
   "arquivos": [
@@ -1701,6 +1994,20 @@
   "tipo": "exato",
   "arquivos": [
    "theme/theme.ts"
+  ]
+ },
+ {
+  "texto": "17 U.S.C. § 105 (Lei de Direitos Autorais dos EUA)",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "18 U.S.C. § 713 e regras das instituições sobre selos oficiais",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
   ]
  },
  {
@@ -1732,6 +2039,7 @@
    "components/brand/PoweredByFaisca.tsx",
    "components/election/CandidateCard.tsx",
    "components/partidos/SimboloPartido.tsx",
+   "eua/componentes/Moldura.tsx",
    "layouts/PublicLayout.tsx",
    "pages/election/ColaPage.tsx",
    "pages/election/HomePage.tsx",
@@ -1911,6 +2219,20 @@
   ]
  },
  {
+  "texto": "52 U.S.C. § 30111(a)(4) e 11 CFR 104.15",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "52 U.S.C. § 30121 e 11 CFR 110.20 (estrangeiros e eleições americanas)",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "52px !important",
   "tipo": "exato",
   "arquivos": [
@@ -1935,14 +2257,18 @@
   "texto": "a",
   "tipo": "exato",
   "arquivos": [
-   "components/compartilhar/compartilhar.ts"
+   "components/compartilhar/compartilhar.ts",
+   "eua/paginas/MembroEuaPage.tsx"
   ]
  },
  {
   "texto": "A",
   "tipo": "exato",
   "arquivos": [
-   "components/stf/stf.ts"
+   "components/stf/stf.ts",
+   "eua/componentes/blocos.tsx",
+   "eua/formato.ts",
+   "eua/paginas/VotacoesEuaPage.tsx"
   ]
  },
  {
@@ -1967,6 +2293,13 @@
   ]
  },
  {
+  "texto": "A área dos Estados Unidos apenas reúne e organiza dados públicos publicados pelo governo federal americano. É informativa: não pede voto, não faz propaganda, não apoia candidaturas ou partidos e não recebe nem repassa dinheiro de campanha. Todos aparecem com os mesmos campos, na mesma ordem e com o mesmo destaque, e sem cores de partido.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/Moldura.tsx"
+  ]
+ },
+ {
   "texto": "a Assembleia Legislativa",
   "tipo": "exato",
   "arquivos": [
@@ -1988,10 +2321,24 @@
   ]
  },
  {
+  "texto": "a cadeira de delegado(a) na Câmara",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EstadoEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "a Câmara dos Deputados",
   "tipo": "exato",
   "arquivos": [
    "components/votacoes/VotacoesNominais.tsx"
+  ]
+ },
+ {
+  "texto": "A Câmara tem 435 cadeiras com voto, divididas entre os estados pela população (Censo). Todos os mandatos são de 2 anos. Há ainda 6 delegados(as) sem voto no Plenário: Distrito de Colúmbia, Porto Rico e 4 territórios.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/CongressoEuaPage.tsx"
   ]
  },
  {
@@ -2085,6 +2432,20 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/ColaPage.tsx"
+  ]
+ },
+ {
+  "texto": "A FEC não informa quem está na cédula; a lista de candidaturas inclui quem perdeu primárias ou desistiu.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "A FEC registra quem se declara candidato(a) a cargo federal e movimenta recursos; ela não diz quem está na cédula de novembro. Isso depende das primárias e das regras de cada estado, publicadas pelo órgão eleitoral estadual. Por isso a lista inclui quem perdeu primárias ou desistiu. Para a cédula oficial, consulte o órgão eleitoral do estado (lista na página",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/CandidatosEuaPage.tsx"
   ]
  },
  {
@@ -2274,6 +2635,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/CongressoEleitoPage.tsx"
+  ]
+ },
+ {
+  "texto": "A última consulta ao site oficial não respondeu; a lista abaixo é a da coleta anterior e será completada na próxima passada.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/VotacoesEuaPage.tsx"
   ]
  },
  {
@@ -2519,6 +2887,13 @@
   ]
  },
  {
+  "texto": "af",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/GastosEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Afastada com a abertura do processo de impeachment no Senado (12/05/2016) e destituída pelo Senado em 31/08/2016.",
   "tipo": "exato",
   "arquivos": [
@@ -2669,11 +3044,34 @@
   ]
  },
  {
+  "texto": "Ainda não há gastos do gabinete publicados para este mandato (a Câmara publica cerca de 2 meses depois de cada trimestre).",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/MembroEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "AK",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/MapaEua.tsx",
+   "eua/usaMapData.ts"
+  ]
+ },
+ {
   "texto": "AL",
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
-   "components/resultados/hooks.ts"
+   "components/resultados/hooks.ts",
+   "eua/usaMapData.ts"
+  ]
+ },
+ {
+  "texto": "Alabama",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
   ]
  },
  {
@@ -2685,6 +3083,13 @@
    "pages/election/MapaPage.tsx",
    "pages/election/MinhaCidadePage.tsx",
    "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Alasca",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
   ]
  },
  {
@@ -2734,6 +3139,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/legal/TermosPage.tsx"
+  ]
+ },
+ {
+  "texto": "Aluguel, comunicação e serviços públicos",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
   ]
  },
  {
@@ -2796,9 +3208,18 @@
   ]
  },
  {
+  "texto": "ano",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EleicoesEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Ano",
   "tipo": "exato",
   "arquivos": [
+   "eua/paginas/EleicoesEuaPage.tsx",
+   "eua/paginas/EstadoEuaPage.tsx",
    "pages/election/MinistroStfPage.tsx",
    "pages/election/ParlamentarPage.tsx"
   ]
@@ -2826,10 +3247,31 @@
   ]
  },
  {
+  "texto": "Ano fiscal",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/GastosEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "ano fiscal {0} (out–set)",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/paginas/MembroEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "anonymous",
   "tipo": "exato",
   "arquivos": [
    "components/compartilhar/desenho.ts"
+  ]
+ },
+ {
+  "texto": "Anos judiciários",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SupremaCortePage.tsx"
   ]
  },
  {
@@ -2967,6 +3409,13 @@
   ]
  },
  {
+  "texto": "Aprovado",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
   "texto": "Aproximar",
   "tipo": "exato",
   "arquivos": [
@@ -3016,10 +3465,52 @@
   ]
  },
  {
+  "texto": "aqui no Brasil também não são protegidos os textos de leis, decisões judiciais e demais atos oficiais (inciso IV) nem as informações de uso comum, como calendários e cadastros (inciso V).",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "AR",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
+  ]
+ },
+ {
   "texto": "Arial, Helvetica, \"Liberation Sans\", sans-serif",
   "tipo": "exato",
   "arquivos": [
    "components/urna/UrnaScreen.tsx"
+  ]
+ },
+ {
+  "texto": "Arizona",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "Arkansas",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "Arquivamento aprovado",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "Arquivamento rejeitado",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
   ]
  },
  {
@@ -3048,7 +3539,8 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/SourceNote.tsx",
-   "components/resultados/ApuracaoAoVivo.tsx"
+   "components/resultados/ApuracaoAoVivo.tsx",
+   "eua/componentes/comuns.tsx"
   ]
  },
  {
@@ -3056,6 +3548,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Arquivo XML oficial",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/VotacoesEuaPage.tsx"
   ]
  },
  {
@@ -3086,6 +3585,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "As",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/blocos.tsx"
   ]
  },
  {
@@ -3128,6 +3634,13 @@
   "tipo": "exato",
   "arquivos": [
    "components/gastos/AvisosAlerts.tsx"
+  ]
+ },
+ {
+  "texto": "as declarações financeiras de parlamentares e juízes têm limites de uso; não as reproduzimos, só indicamos onde o órgão as publica.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
   ]
  },
  {
@@ -3191,7 +3704,8 @@
   "tipo": "exato",
   "arquivos": [
    "components/gastos/RankingList.tsx",
-   "components/numeros/Concorrencia.tsx"
+   "components/numeros/Concorrencia.tsx",
+   "eua/paginas/GastosEuaPage.tsx"
   ]
  },
  {
@@ -3406,6 +3920,13 @@
   ]
  },
  {
+  "texto": "autor",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SupremaCortePage.tsx"
+  ]
+ },
+ {
   "texto": "Autor",
   "tipo": "exato",
   "arquivos": [
@@ -3424,6 +3945,13 @@
   "tipo": "padrao",
   "arquivos": [
    "pages/election/EmendasPage.tsx"
+  ]
+ },
+ {
+  "texto": "Autoria",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SupremaCortePage.tsx"
   ]
  },
  {
@@ -3488,6 +4016,13 @@
   "arquivos": [
    "components/resultados/ApuracaoAoVivo.tsx",
    "pages/election/PartidosPage.tsx"
+  ]
+ },
+ {
+  "texto": "AZ",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
   ]
  },
  {
@@ -3582,6 +4117,20 @@
   ]
  },
  {
+  "texto": "Bancada: {0}",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/paginas/MembroEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Barack Obama",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
   "texto": "barra inteira = bruto · parte escura = líquido",
   "tipo": "exato",
   "arquivos": [
@@ -3607,6 +4156,13 @@
   "tipo": "padrao",
   "arquivos": [
    "api/client.ts"
+  ]
+ },
+ {
+  "texto": "Benefícios de pessoal",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
   ]
  },
  {
@@ -3662,7 +4218,8 @@
   "texto": "bi",
   "tipo": "exato",
   "arquivos": [
-   "data/format.ts"
+   "data/format.ts",
+   "eua/formato.ts"
   ]
  },
  {
@@ -3677,6 +4234,41 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "Bill Clinton",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "Biografia oficial (Bioguide)",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/MembroEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Biografia oficial (texto da Corte, em inglês)",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SupremaCortePage.tsx"
+  ]
+ },
+ {
+  "texto": "Biografia oficial na Suprema Corte",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SupremaCortePage.tsx"
+  ]
+ },
+ {
+  "texto": "Biographical Directory of the U.S. Congress",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/Moldura.tsx"
   ]
  },
  {
@@ -3730,6 +4322,7 @@
    "components/conta/ContaPerfil.tsx",
    "components/election/SourceNote.tsx",
    "components/feedback/NotificationsProvider.tsx",
+   "eua/componentes/comuns.tsx",
    "layouts/AccountMenu.tsx",
    "layouts/PublicLayout.tsx"
   ]
@@ -3743,9 +4336,18 @@
   ]
  },
  {
+  "texto": "br",
+  "tipo": "exato",
+  "arquivos": [
+   "components/PaisMenu.tsx",
+   "components/pais.ts"
+  ]
+ },
+ {
   "texto": "BR",
   "tipo": "exato",
   "arquivos": [
+   "components/PaisMenu.tsx",
    "components/avisos/AvisoResultado.tsx",
    "components/compartilhar/dados.ts",
    "components/election/CandidateCard.tsx",
@@ -3808,6 +4410,7 @@
    "components/compartilhar/dados.ts",
    "components/election/CandidateCard.tsx",
    "components/election/CandidateSearch.tsx",
+   "components/pais.ts",
    "components/resultados/ApuracaoAoVivo.tsx",
    "pages/election/CandidatoPage.tsx",
    "pages/election/CompararPage.tsx",
@@ -3916,6 +4519,20 @@
   ]
  },
  {
+  "texto": "Buscar (nome, presidente que indicou, estado)",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SupremaCortePage.tsx"
+  ]
+ },
+ {
+  "texto": "Buscar (tema, proposição, ex.: H R 1)",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/VotacoesEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Buscar candidato",
   "tipo": "exato",
   "arquivos": [
@@ -3958,6 +4575,22 @@
   ]
  },
  {
+  "texto": "Buscar parlamentar dos EUA",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/Moldura.tsx",
+   "layouts/PublicLayout.tsx"
+  ]
+ },
+ {
+  "texto": "Buscar pelo nome",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/CongressoEuaPage.tsx",
+   "eua/paginas/GastosEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Buscar por nome",
   "tipo": "exato",
   "arquivos": [
@@ -3985,7 +4618,15 @@
   "tipo": "exato",
   "arquivos": [
    "components/conta/ContaPerfil.tsx",
-   "components/election/UfTileMap.tsx"
+   "components/election/UfTileMap.tsx",
+   "eua/componentes/MapaEua.tsx"
+  ]
+ },
+ {
+  "texto": "c",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/MapaEua.tsx"
   ]
  },
  {
@@ -3996,10 +4637,24 @@
   ]
  },
  {
+  "texto": "CA",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
+  ]
+ },
+ {
   "texto": "Cada barra usa a mesma cor e a mesma escala; a ordem é a da sua seleção. Valores de campanha são parciais e valores de patrimônio são autodeclarados. Cargos diferentes têm limites de gastos diferentes.",
   "tipo": "exato",
   "arquivos": [
    "pages/election/CompararPage.tsx"
+  ]
+ },
+ {
+  "texto": "Cada gabinete recebe uma verba anual de representação (Members' Representational Allowance), que paga equipe, escritórios no estado, viagens, correspondência e serviços. A Câmara publica os gastos a cada trimestre (Statement of Disbursements); último trimestre disponível:",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/GastosEuaPage.tsx"
   ]
  },
  {
@@ -4031,6 +4686,27 @@
   ]
  },
  {
+  "texto": "cadeira em disputa",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/CandidatosEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Cadeira em disputa em",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EstadoEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Cadeira vaga",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/PlenarioEua.tsx"
+  ]
+ },
+ {
   "texto": "Cadeira vaga{0}",
   "tipo": "padrao",
   "arquivos": [
@@ -4041,6 +4717,7 @@
   "texto": "cadeiras",
   "tipo": "exato",
   "arquivos": [
+   "eua/componentes/PlenarioEua.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
  },
@@ -4066,6 +4743,13 @@
   ]
  },
  {
+  "texto": "Cadeiras vagas na Câmara (morte, renúncia ou posse em outro cargo; o estado convoca eleição especial):",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/CongressoEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "cadeiras. Toque num partido para ver a página dele; use o botão ao lado para destacá-lo no desenho.",
   "tipo": "exato",
   "arquivos": [
@@ -4077,6 +4761,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Caixa no fim do período",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/blocos.tsx"
   ]
  },
  {
@@ -4101,12 +4792,23 @@
   ]
  },
  {
+  "texto": "Califórnia",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
   "texto": "camara",
   "tipo": "exato",
   "arquivos": [
    "components/compartilhar/dados.ts",
    "components/congresso/perfil.ts",
    "components/votacoes/VotacoesNominais.tsx",
+   "eua/componentes/comuns.tsx",
+   "eua/paginas/CongressoEuaPage.tsx",
+   "eua/paginas/MembroEuaPage.tsx",
+   "eua/paginas/VotacoesEuaPage.tsx",
    "pages/election/CandidatoPage.tsx",
    "pages/election/CongressoEleitoPage.tsx",
    "pages/election/GastosPage.tsx",
@@ -4120,8 +4822,25 @@
   "arquivos": [
    "components/congresso/perfil.ts",
    "components/gastos/gastos.ts",
+   "eua/paginas/CandidatosEuaPage.tsx",
+   "eua/paginas/MembroEuaPage.tsx",
+   "eua/paginas/VotacoesEuaPage.tsx",
    "pages/election/GastosPage.tsx",
    "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Câmara ({0} cadeiras)",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/paginas/EstadoEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Câmara (1 cadeira)",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EstadoEuaPage.tsx"
   ]
  },
  {
@@ -4134,6 +4853,21 @@
    "pages/election/CandidatoPage.tsx",
    "pages/election/PartidoPage.tsx",
    "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Câmara dos EUA · {0} (horário de Brasília)",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/paginas/VotacoesEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Câmara dos Representantes",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/CongressoEuaPage.tsx",
+   "eua/paginas/MembroEuaPage.tsx"
   ]
  },
  {
@@ -4172,10 +4906,31 @@
   ]
  },
  {
+  "texto": "Campanha para a Câmara",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/MembroEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Campanha para o Senado",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/MembroEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Campanha:",
   "tipo": "exato",
   "arquivos": [
    "pages/election/SobrePage.tsx"
+  ]
+ },
+ {
+  "texto": "Campanha: {0}",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/paginas/MembroEuaPage.tsx"
   ]
  },
  {
@@ -4231,6 +4986,13 @@
   ]
  },
  {
+  "texto": "cand",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EleicoesEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "candidato",
   "tipo": "exato",
   "arquivos": [
@@ -4279,6 +5041,7 @@
   "texto": "Candidatura",
   "tipo": "exato",
   "arquivos": [
+   "eua/paginas/EleicoesEuaPage.tsx",
    "pages/election/CompararPage.tsx",
    "pages/election/HomePage.tsx",
    "pages/election/MapaPage.tsx",
@@ -4319,6 +5082,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/numeros/Concorrencia.tsx",
+   "layouts/navigation.ts",
    "pages/election/HomePage.tsx"
   ]
  },
@@ -4337,9 +5101,25 @@
   ]
  },
  {
+  "texto": "Candidaturas (votos e %)",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EleicoesEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Candidaturas {0}",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/paginas/CandidatosEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Candidaturas 2026",
   "tipo": "exato",
   "arquivos": [
+   "eua/paginas/EuaInicioPage.tsx",
+   "layouts/navigation.ts",
    "pages/election/EleicaoPage.tsx"
   ]
  },
@@ -4380,6 +5160,13 @@
   ]
  },
  {
+  "texto": "Candidaturas e finanças de campanha (FEC)",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Candidaturas na urna",
   "tipo": "exato",
   "arquivos": [
@@ -4412,6 +5199,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/NumerosPage.tsx"
+  ]
+ },
+ {
+  "texto": "Candidaturas no estado (votos e %)",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EstadoEuaPage.tsx"
   ]
  },
  {
@@ -4448,6 +5242,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/resultados/ApuracaoAoVivo.tsx",
+   "eua/paginas/SupremaCortePage.tsx",
    "pages/election/CompararPage.tsx",
    "pages/election/NumerosPage.tsx"
   ]
@@ -4471,6 +5266,20 @@
   "tipo": "exato",
   "arquivos": [
    "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Carolina do Norte",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "Carolina do Sul",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
   ]
  },
  {
@@ -4499,7 +5308,8 @@
   "texto": "Carregando fontes…",
   "tipo": "exato",
   "arquivos": [
-   "components/election/SourceNote.tsx"
+   "components/election/SourceNote.tsx",
+   "eua/componentes/comuns.tsx"
   ]
  },
  {
@@ -4602,6 +5412,13 @@
   ]
  },
  {
+  "texto": "CC0 1.0 (dedicação ao domínio público)",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "CE",
   "tipo": "exato",
   "arquivos": [
@@ -4671,6 +5488,13 @@
   ]
  },
  {
+  "texto": "Certificados do Colégio Eleitoral de",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EleicoesEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Chapas com 5+ parlamentares (",
   "tipo": "exato",
   "arquivos": [
@@ -4727,6 +5551,13 @@
   ]
  },
  {
+  "texto": "Classe {0}",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/paginas/MembroEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Classificado(a) para o 2º turno (25/10) segundo a apuração do 1º turno.",
   "tipo": "exato",
   "arquivos": [
@@ -4759,6 +5590,20 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/ParlamentarPage.tsx"
+  ]
+ },
+ {
+  "texto": "CO",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
+  ]
+ },
+ {
+  "texto": "code",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
   ]
  },
  {
@@ -4800,7 +5645,15 @@
   "texto": "Colégio Eleitoral",
   "tipo": "exato",
   "arquivos": [
+   "eua/paginas/EstadoEuaPage.tsx",
    "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Coleta",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
   ]
  },
  {
@@ -4821,7 +5674,8 @@
   "texto": "Coletado por este site",
   "tipo": "exato",
   "arquivos": [
-   "components/election/SourceNote.tsx"
+   "components/election/SourceNote.tsx",
+   "eua/componentes/comuns.tsx"
   ]
  },
  {
@@ -4860,6 +5714,13 @@
   ]
  },
  {
+  "texto": "Colorado",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
   "texto": "column",
   "tipo": "exato",
   "arquivos": [
@@ -4868,6 +5729,15 @@
    "components/resultados/CartaoEleitos.tsx",
    "components/stf/PlenarioStf.tsx",
    "components/urna/UrnaScreen.tsx",
+   "eua/componentes/Moldura.tsx",
+   "eua/paginas/CandidatosEuaPage.tsx",
+   "eua/paginas/CongressoEuaPage.tsx",
+   "eua/paginas/EleicoesEuaPage.tsx",
+   "eua/paginas/EuaInicioPage.tsx",
+   "eua/paginas/GastosEuaPage.tsx",
+   "eua/paginas/MembroEuaPage.tsx",
+   "eua/paginas/SupremaCortePage.tsx",
+   "eua/paginas/VotacoesEuaPage.tsx",
    "layouts/PublicLayout.tsx",
    "pages/PageHeader.tsx",
    "pages/election/CandidatoPage.tsx",
@@ -4976,6 +5846,27 @@
   ]
  },
  {
+  "texto": "Comissária residente",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "Comissário residente",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "Comissões",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/MembroEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Como",
   "tipo": "exato",
   "arquivos": [
@@ -4990,10 +5881,31 @@
   ]
  },
  {
+  "texto": "como autor(a) da opinião majoritária, nos anos judiciários",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SupremaCortePage.tsx"
+  ]
+ },
+ {
+  "texto": "Como cada deputado(a) e senador(a) votou no Plenário, votação por votação.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EuaInicioPage.tsx"
+  ]
+ },
+ {
   "texto": "Como cada informação é calculada",
   "tipo": "exato",
   "arquivos": [
    "pages/election/SobrePage.tsx"
+  ]
+ },
+ {
+  "texto": "Como cada parlamentar votou",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/VotacoesEuaPage.tsx"
   ]
  },
  {
@@ -5012,10 +5924,31 @@
   ]
  },
  {
+  "texto": "Como funciona: o voto popular de cada estado escolhe os eleitores do Colégio Eleitoral (o número de eleitores de cada estado é igual ao de suas cadeiras na Câmara e no Senado; o Distrito de Colúmbia tem 3). Em 48 estados e no DC, quem vence no estado leva todos os eleitores; Maine e Nebraska dividem os seus por distrito. É eleito quem soma 270 dos 538 votos.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EleicoesEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Como ler este mapa",
   "tipo": "exato",
   "arquivos": [
    "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Como mantemos a neutralidade",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Como o estado votou para Presidente",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EstadoEuaPage.tsx"
   ]
  },
  {
@@ -5183,7 +6116,16 @@
   "texto": "Composição atual",
   "tipo": "exato",
   "arquivos": [
+   "eua/paginas/CongressoEuaPage.tsx",
+   "eua/paginas/SupremaCortePage.tsx",
    "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Composição do Congresso e retratos",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
   ]
  },
  {
@@ -5272,10 +6214,32 @@
   ]
  },
  {
+  "texto": "Congress.gov",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/MembroEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Congresso",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EuaInicioPage.tsx",
+   "layouts/navigation.ts"
+  ]
+ },
+ {
   "texto": "Congresso Constituinte",
   "tipo": "exato",
   "arquivos": [
    "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Congresso dos EUA",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/CongressoEuaPage.tsx"
   ]
  },
  {
@@ -5290,6 +6254,20 @@
   "tipo": "exato",
   "arquivos": [
    "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Congresso, eleições, votações, gastos e Suprema Corte, só com dados públicos oficiais. O mesmo método do Tá na Urna para o Brasil.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EuaInicioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Connecticut",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
   ]
  },
  {
@@ -5370,6 +6348,13 @@
   ]
  },
  {
+  "texto": "Contornos: malha oficial do",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/MapaEua.tsx"
+  ]
+ },
+ {
   "texto": "Contornos: malha oficial do IBGE",
   "tipo": "exato",
   "arquivos": [
@@ -5388,6 +6373,27 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/PesquisasPage.tsx"
+  ]
+ },
+ {
+  "texto": "Contratos, convênios, empréstimos e outros repasses do governo federal executados",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/MembroEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Contratos, convênios, empréstimos e outros repasses do governo federal executados no estado.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EstadoEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Contratos, convênios, empréstimos e outros repasses do governo federal pelo local onde são executados (USAspending.gov, do Tesouro dos EUA). Por habitante, a comparação entre estados de tamanhos diferentes é mais justa.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/GastosEuaPage.tsx"
   ]
  },
  {
@@ -5471,6 +6477,13 @@
   "tipo": "exato",
   "arquivos": [
    "components/resultados/ApuracaoAoVivo.tsx"
+  ]
+ },
+ {
+  "texto": "Correspondência oficial (franked mail)",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
   ]
  },
  {
@@ -5686,6 +6699,13 @@
   ]
  },
  {
+  "texto": "CT",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
+  ]
+ },
+ {
   "texto": "cubic-bezier(0, 0, 0, 1)",
   "tipo": "exato",
   "arquivos": [
@@ -5761,7 +6781,8 @@
   "tipo": "exato",
   "arquivos": [
    "components/stf/stf.ts",
-   "data/format.ts"
+   "data/format.ts",
+   "eua/formato.ts"
   ]
  },
  {
@@ -5782,7 +6803,8 @@
   "texto": "D",
   "tipo": "exato",
   "arquivos": [
-   "components/stf/stf.ts"
+   "components/stf/stf.ts",
+   "eua/paginas/MembroEuaPage.tsx"
   ]
  },
  {
@@ -5921,6 +6943,20 @@
   ]
  },
  {
+  "texto": "Dakota do Norte",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "Dakota do Sul",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
   "texto": "dark",
   "tipo": "exato",
   "arquivos": [
@@ -5932,6 +6968,8 @@
    "components/charts/charts.tsx",
    "components/gastos/RankingList.tsx",
    "components/resultados/ApuracaoAoVivo.tsx",
+   "eua/componentes/MapaEua.tsx",
+   "eua/componentes/PlenarioEua.tsx",
    "layouts/AuthLayout.tsx",
    "native/NativeBridge.tsx",
    "pages/election/HomePage.tsx",
@@ -5963,16 +7001,46 @@
   ]
  },
  {
+  "texto": "data fixada em lei (2 U.S.C. § 7)",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EuaInicioPage.tsx"
+  ]
+ },
+ {
+  "texto": "DC",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/VotacoesEuaPage.tsx",
+   "eua/usaMapData.ts"
+  ]
+ },
+ {
   "texto": "de",
   "tipo": "exato",
   "arquivos": [
    "components/resultados/ApuracaoAoVivo.tsx",
    "components/stf/PlenarioStf.tsx",
    "data/format.ts",
+   "eua/paginas/VotacoesEuaPage.tsx",
    "pages/election/ColaPage.tsx",
    "pages/election/GastosPage.tsx",
    "pages/election/MapaPage.tsx",
    "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "DE",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
+  ]
+ },
+ {
+  "texto": "De 3 a 30 de novembro dos anos pares (eleição geral) e de 1º a 10 de janeiro dos anos ímpares (posse do novo Congresso): composição, candidaturas e resultados a cada passada.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
   ]
  },
  {
@@ -5987,6 +7055,27 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/CandidatoPage.tsx"
+  ]
+ },
+ {
+  "texto": "De onde veio o dinheiro (totais declarados)",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/blocos.tsx"
+  ]
+ },
+ {
+  "texto": "De onde vem cada dado da parte americana do Tá na Urna, por que ele pode ser usado livremente e como mantemos tudo neutro e dentro da lei.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "De onde vem cada dado e por que ele pode ser usado livremente, dentro da lei.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EuaInicioPage.tsx"
   ]
  },
  {
@@ -6008,6 +7097,48 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/SimuladorPage.tsx"
+  ]
+ },
+ {
+  "texto": "decisões e opiniões de tribunais não podem ser objeto de direito autoral: Wheaton v. Peters (1834), Banks v. Manchester (1888) e Georgia v. Public.Resource.Org, 590 U.S. 255 (2020), decidido pela própria Suprema Corte.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Decisões em que a Corte indicou",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SupremaCortePage.tsx"
+  ]
+ },
+ {
+  "texto": "Decisões judiciais (doutrina dos government edicts)",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Decisões publicadas",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SupremaCortePage.tsx"
+  ]
+ },
+ {
+  "texto": "Declarações de bens (Ethics in Government Act, 5 U.S.C. § 13107)",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "declarado até",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/CandidatosEuaPage.tsx"
   ]
  },
  {
@@ -6038,6 +7169,8 @@
    "components/election/StatusChip.tsx",
    "components/election/UfTileMap.tsx",
    "config/brand.ts",
+   "eua/componentes/MapaEua.tsx",
+   "eua/componentes/blocos.tsx",
    "theme/theme.ts"
   ]
  },
@@ -6046,6 +7179,27 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/PartidoPage.tsx"
+  ]
+ },
+ {
+  "texto": "Delaware",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "Delegada",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "Delegado",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
   ]
  },
  {
@@ -6067,6 +7221,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Democrata",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
   ]
  },
  {
@@ -6144,6 +7305,13 @@
   ]
  },
  {
+  "texto": "Deputada",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
   "texto": "deputada distrital",
   "tipo": "exato",
   "arquivos": [
@@ -6162,6 +7330,13 @@
   "tipo": "exato",
   "arquivos": [
    "components/resultados/CartaoEleitos.tsx"
+  ]
+ },
+ {
+  "texto": "Deputado",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
   ]
  },
  {
@@ -6336,6 +7511,13 @@
   ]
  },
  {
+  "texto": "Desafiante",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
   "texto": "Desativar sons",
   "tipo": "exato",
   "arquivos": [
@@ -6354,7 +7536,8 @@
   "tipo": "exato",
   "arquivos": [
    "components/gastos/RankingList.tsx",
-   "components/numeros/Concorrencia.tsx"
+   "components/numeros/Concorrencia.tsx",
+   "eua/paginas/GastosEuaPage.tsx"
   ]
  },
  {
@@ -6494,6 +7677,13 @@
   ]
  },
  {
+  "texto": "Despesas no ciclo",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/blocos.tsx"
+  ]
+ },
+ {
   "texto": "Despesas por categoria",
   "tipo": "exato",
   "arquivos": [
@@ -6574,6 +7764,13 @@
   ]
  },
  {
+  "texto": "dia para a eleição",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EuaInicioPage.tsx"
+  ]
+ },
+ {
   "texto": "Diárias",
   "tipo": "exato",
   "arquivos": [
@@ -6608,6 +7805,20 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/HomePage.tsx"
+  ]
+ },
+ {
+  "texto": "dias para a eleição",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EuaInicioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Dias úteis, no fim da manhã de Washington (quando a Suprema Corte anuncia decisões, de outubro a julho): decisões e votações.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
   ]
  },
  {
@@ -6713,6 +7924,28 @@
   ]
  },
  {
+  "texto": "Dinheiro federal em cada estado",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/GastosEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Dinheiro federal no distrito",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/MembroEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Dinheiro federal no estado",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EstadoEuaPage.tsx",
+   "eua/paginas/MembroEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "direito",
   "tipo": "exato",
   "arquivos": [
@@ -6756,6 +7989,13 @@
   ]
  },
  {
+  "texto": "Distrito de Colúmbia",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
   "texto": "Distrito Federal",
   "tipo": "exato",
   "arquivos": [
@@ -6764,6 +8004,27 @@
    "pages/election/MapaPage.tsx",
    "pages/election/MinhaCidadePage.tsx",
    "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "distrito único",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "Dívidas da campanha na data de cobertura.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/blocos.tsx"
+  ]
+ },
+ {
+  "texto": "Dívidas declaradas",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/blocos.tsx"
   ]
  },
  {
@@ -6868,6 +8129,13 @@
   ]
  },
  {
+  "texto": "Donald Trump",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
   "texto": "dos",
   "tipo": "exato",
   "arquivos": [
@@ -6880,6 +8148,13 @@
   "tipo": "exato",
   "arquivos": [
    "components/resultados/ApuracaoAoVivo.tsx"
+  ]
+ },
+ {
+  "texto": "Duas vezes por noite: votações nominais (fim das sessões do Congresso).",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
   ]
  },
  {
@@ -6904,10 +8179,19 @@
   ]
  },
  {
+  "texto": "Dwight D. Eisenhower",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
   "texto": "e",
   "tipo": "exato",
   "arquivos": [
    "data/format.ts",
+   "eua/componentes/MapaEua.tsx",
+   "eua/paginas/SupremaCortePage.tsx",
    "pages/election/EmendasPage.tsx",
    "pages/election/MinistroStfPage.tsx",
    "pages/election/PlenarioPage.tsx"
@@ -6921,10 +8205,24 @@
   ]
  },
  {
+  "texto": "e {0} \"presente\"",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/componentes/blocos.tsx"
+  ]
+ },
+ {
   "texto": "e {0} cadeira vaga",
   "tipo": "padrao",
   "arquivos": [
    "components/stf/PlenarioStf.tsx"
+  ]
+ },
+ {
+  "texto": "e 1 cadeira do Senado",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EstadoEuaPage.tsx"
   ]
  },
  {
@@ -6960,6 +8258,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/ComoVotarPage.tsx"
+  ]
+ },
+ {
+  "texto": "e territórios incluídos).",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/VotacoesEuaPage.tsx"
   ]
  },
  {
@@ -7011,6 +8316,20 @@
   "tipo": "exato",
   "arquivos": [
    "pages/presidentes/PresidentesPage.tsx"
+  ]
+ },
+ {
+  "texto": "Eleição de {0}",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/paginas/EstadoEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Eleição de meio de mandato (midterm). Em disputa: as {0} cadeiras da Câmara, {1} delegados(as) sem voto e {2} cadeiras do Senado ({3}).",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/paginas/EleicoesEuaPage.tsx"
   ]
  },
  {
@@ -7112,6 +8431,34 @@
   ]
  },
  {
+  "texto": "eleição especial",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EleicoesEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Eleição geral (presidencial) de {0}",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/paginas/EuaInicioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Eleição geral de {0}",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/paginas/EleicoesEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Eleição geral de meio de mandato (midterm) de {0}",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/paginas/EuaInicioPage.tsx"
+  ]
+ },
+ {
   "texto": "Eleição indireta · {0}",
   "tipo": "padrao",
   "arquivos": [
@@ -7133,10 +8480,40 @@
   ]
  },
  {
+  "texto": "Eleição para Presidente: votos por estado",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EleicoesEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Eleição presidencial de outubro de 1955",
   "tipo": "exato",
   "arquivos": [
    "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Eleição presidencial. Em disputa: a Presidência e a Vice-Presidência, as {0} cadeiras da Câmara, {1} delegados(as) sem voto e {2} cadeiras do Senado ({3}).",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/paginas/EleicoesEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Eleição realizada",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EuaInicioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Eleições",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/CandidatosEuaPage.tsx",
+   "eua/paginas/EuaInicioPage.tsx",
+   "layouts/navigation.ts"
   ]
  },
  {
@@ -7179,6 +8556,41 @@
   "tipo": "exato",
   "arquivos": [
    "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Eleições e mapa",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EuaInicioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Eleições especiais para o Senado: {0}.",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/paginas/EuaInicioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Eleições nos EUA",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EleicoesEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Eleições para o Senado",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EleicoesEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Eleições para o Senado no estado",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EstadoEuaPage.tsx"
   ]
  },
  {
@@ -7415,10 +8827,46 @@
   ]
  },
  {
+  "texto": "Em cada ano, do mais votado para o menos votado no estado.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EstadoEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Em destaque, os estados com eleição para o Senado. Escolha um estado.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/CandidatosEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Em disputa no estado:",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EstadoEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Em disputa: a Presidência, todas as {0} cadeiras da Câmara (e {1} delegados sem voto no Plenário) e {2} cadeiras do Senado.",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/paginas/EuaInicioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Em disputa: todas as {0} cadeiras da Câmara (e {1} delegados sem voto no Plenário) e {2} cadeiras do Senado.",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/paginas/EuaInicioPage.tsx"
+  ]
+ },
+ {
   "texto": "Em exercício",
   "tipo": "exato",
   "arquivos": [
    "components/compartilhar/dados.ts",
+   "eua/paginas/CongressoEuaPage.tsx",
    "pages/election/CandidatoPage.tsx",
    "pages/election/ParlamentarPage.tsx",
    "pages/presidentes/PresidentesPage.tsx"
@@ -7429,6 +8877,13 @@
   "tipo": "exato",
   "arquivos": [
    "layouts/navigation.ts"
+  ]
+ },
+ {
+  "texto": "Em ordem alfabética do sobrenome, como no registro da FEC. O filtro é opcional e usa só o critério objetivo de ter declarado receita.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/CandidatosEuaPage.tsx"
   ]
  },
  {
@@ -7451,6 +8906,13 @@
   "arquivos": [
    "components/emendas/EmendasIndicadas.tsx",
    "pages/election/EmendasPage.tsx"
+  ]
+ },
+ {
+  "texto": "Emenda aprovada",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
   ]
  },
  {
@@ -7500,6 +8962,13 @@
   "tipo": "exato",
   "arquivos": [
    "components/emendas/emendas.ts"
+  ]
+ },
+ {
+  "texto": "Emenda rejeitada",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
   ]
  },
  {
@@ -7660,6 +9129,41 @@
   ]
  },
  {
+  "texto": "Empréstimos do(a) candidato(a)",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/blocos.tsx"
+  ]
+ },
+ {
+  "texto": "en",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SupremaCortePage.tsx"
+  ]
+ },
+ {
+  "texto": "Encerramento do debate aprovado",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "Encerramento do debate rejeitado",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "Encontrou algo diferente da fonte oficial? A fonte oficial sempre prevalece.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Encontrou divergência com a fonte oficial? A fonte oficial sempre prevalece. Cada bloco de dados indica o arquivo de origem e a data da coleta.",
   "tipo": "exato",
   "arquivos": [
@@ -7729,6 +9233,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/UfTileMap.tsx",
+   "eua/componentes/MapaEua.tsx",
    "pages/election/SimuladorPage.tsx"
   ]
  },
@@ -7817,6 +9322,13 @@
   ]
  },
  {
+  "texto": "Equipamento",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
   "texto": "Era Vargas",
   "tipo": "exato",
   "arquivos": [
@@ -7844,7 +9356,8 @@
   "texto": "Erro {0} ao carregar dados",
   "tipo": "padrao",
   "arquivos": [
-   "data/api.ts"
+   "data/api.ts",
+   "eua/api.ts"
   ]
  },
  {
@@ -7911,6 +9424,13 @@
   ]
  },
  {
+  "texto": "Escolha o ano e a candidatura: o mapa mostra a porcentagem dos votos que ela teve em cada estado, na mesma escala neutra para todas. Quem escolhe o que ver é você; a ordem da lista é a do total de votos no país.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EleicoesEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Escolha o estado e o município.",
   "tipo": "exato",
   "arquivos": [
@@ -7930,6 +9450,20 @@
   "tipo": "exato",
   "arquivos": [
    "components/resultados/ApuracaoAoVivo.tsx"
+  ]
+ },
+ {
+  "texto": "Escolha um estado",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EuaInicioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Escolha um estado no mapa ou na lista para ver as candidaturas.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/CandidatosEuaPage.tsx"
   ]
  },
  {
@@ -8083,6 +9617,11 @@
   "texto": "Estado",
   "tipo": "exato",
   "arquivos": [
+   "eua/paginas/CandidatosEuaPage.tsx",
+   "eua/paginas/CongressoEuaPage.tsx",
+   "eua/paginas/EleicoesEuaPage.tsx",
+   "eua/paginas/GastosEuaPage.tsx",
+   "eua/paginas/SupremaCortePage.tsx",
    "pages/election/EleicaoPage.tsx",
    "pages/election/EmendasPage.tsx",
    "pages/election/MapaPage.tsx",
@@ -8102,6 +9641,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/CandidatoPage.tsx"
+  ]
+ },
+ {
+  "texto": "Estado de origem da indicação",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SupremaCortePage.tsx"
   ]
  },
  {
@@ -8149,6 +9695,25 @@
   ]
  },
  {
+  "texto": "Estados Unidos",
+  "tipo": "exato",
+  "arquivos": [
+   "components/pais.ts",
+   "eua/paginas/EstadoEuaPage.tsx",
+   "eua/paginas/EuaInicioPage.tsx",
+   "eua/paginas/MembroEuaPage.tsx",
+   "eua/paginas/SupremaCortePage.tsx",
+   "eua/paginas/VotacoesEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Estados Unidos · só dados públicos oficiais (Congresso, FEC, Suprema Corte e outros órgãos federais) · informativo, sem pedido de voto",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/Moldura.tsx"
+  ]
+ },
+ {
   "texto": "Estágios das emendas com destino no município",
   "tipo": "exato",
   "arquivos": [
@@ -8184,6 +9749,13 @@
   ]
  },
  {
+  "texto": "Este resumo explica as regras em que o site se apoia e as escolhas feitas para cumpri-las. Não é parecer jurídico.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Este site apenas reúne e organiza dados públicos publicados por órgãos oficiais. Não produz opinião, não apoia candidatos ou partidos e não recomenda votos.",
   "tipo": "exato",
   "arquivos": [
@@ -8212,10 +9784,24 @@
   ]
  },
  {
+  "texto": "estrangeiros não podem doar nem gastar dinheiro para influenciar eleições americanas, nem dirigir essas decisões. O Tá na Urna não faz nada disso: não doa, não arrecada, não compra anúncios e não participa de campanhas. Publicar informação factual e neutra, igual para todos, não é doação nem gasto eleitoral.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Etapas da votação",
   "tipo": "exato",
   "arquivos": [
    "pages/election/SimuladorPage.tsx"
+  ]
+ },
+ {
+  "texto": "EUA",
+  "tipo": "exato",
+  "arquivos": [
+   "components/PaisMenu.tsx"
   ]
  },
  {
@@ -8301,6 +9887,8 @@
   "tipo": "exato",
   "arquivos": [
    "components/stf/stf.ts",
+   "eua/formato.ts",
+   "eua/paginas/CongressoEuaPage.tsx",
    "pages/election/MinistroStfPage.tsx"
   ]
  },
@@ -8395,6 +9983,13 @@
   ]
  },
  {
+  "texto": "falhou na última tentativa ({0}); os dados anteriores continuam no ar",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Falta configurar o ambiente",
   "tipo": "exato",
   "arquivos": [
@@ -8423,10 +10018,45 @@
   ]
  },
  {
+  "texto": "Fatos não têm dono: Feist Publications v. Rural Telephone, 499 U.S. 340 (1991)",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Faz parte da bancada democrata",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/MembroEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Faz parte da bancada republicana",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/MembroEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "FEC",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/CandidatosEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Fechar",
   "tipo": "exato",
   "arquivos": [
    "pages/election/ColaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Federal Election Commission (FEC)",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/Moldura.tsx"
   ]
  },
  {
@@ -8561,6 +10191,13 @@
   ]
  },
  {
+  "texto": "Filtros só com critérios objetivos e opcionais (por exemplo, \"candidaturas com receita declarada\").",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Fim",
   "tipo": "exato",
   "arquivos": [
@@ -8660,6 +10297,13 @@
   ]
  },
  {
+  "texto": "Finanças de campanha (FEC)",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/MembroEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Financiamento da campanha",
   "tipo": "exato",
   "arquivos": [
@@ -8686,6 +10330,13 @@
   "arquivos": [
    "components/brand/PoweredByFaisca.tsx",
    "components/urna/clipboard.ts"
+  ]
+ },
+ {
+  "texto": "FL",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
   ]
  },
  {
@@ -8724,6 +10375,13 @@
   ]
  },
  {
+  "texto": "Flórida",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
   "texto": "Foi ao 2º turno, conforme a apuração do 1º turno, e não foi eleito(a) no 2º turno.",
   "tipo": "exato",
   "arquivos": [
@@ -8746,6 +10404,13 @@
   ]
  },
  {
+  "texto": "Fonte",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Fonte (dados públicos):",
   "tipo": "exato",
   "arquivos": [
@@ -8764,7 +10429,8 @@
   "texto": "Fonte oficial",
   "tipo": "exato",
   "arquivos": [
-   "components/election/SourceNote.tsx"
+   "components/election/SourceNote.tsx",
+   "eua/componentes/comuns.tsx"
   ]
  },
  {
@@ -8808,7 +10474,8 @@
   "texto": "Fonte: {0}",
   "tipo": "padrao",
   "arquivos": [
-   "components/compartilhar/dados.ts"
+   "components/compartilhar/dados.ts",
+   "eua/componentes/comuns.tsx"
   ]
  },
  {
@@ -8834,6 +10501,23 @@
   ]
  },
  {
+  "texto": "Fontes e base legal",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/Moldura.tsx",
+   "eua/componentes/comuns.tsx",
+   "eua/paginas/EuaInicioPage.tsx",
+   "layouts/navigation.ts"
+  ]
+ },
+ {
+  "texto": "Fontes e base legal (EUA)",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Fontes e método",
   "tipo": "exato",
   "arquivos": [
@@ -8847,6 +10531,7 @@
   "texto": "Fontes oficiais",
   "tipo": "exato",
   "arquivos": [
+   "eua/componentes/Moldura.tsx",
    "layouts/PublicLayout.tsx"
   ]
  },
@@ -8855,6 +10540,20 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/PartidoPage.tsx"
+  ]
+ },
+ {
+  "texto": "Fontes usadas e situação da última coleta",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Fontes, método e base legal",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/Moldura.tsx"
   ]
  },
  {
@@ -8873,6 +10572,13 @@
   "arquivos": [
    "components/compartilhar/dados.ts",
    "pages/election/ParlamentarPage.tsx"
+  ]
+ },
+ {
+  "texto": "Fora do cargo hoje",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/VotacoesEuaPage.tsx"
   ]
  },
  {
@@ -8928,6 +10634,13 @@
   "arquivos": [
    "components/stf/PlenarioStf.tsx",
    "pages/presidentes/PresidentesPage.tsx"
+  ]
+ },
+ {
+  "texto": "Franklin D. Roosevelt",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
   ]
  },
  {
@@ -9005,10 +10718,52 @@
   ]
  },
  {
+  "texto": "GA",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
+  ]
+ },
+ {
+  "texto": "Gabinete",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/GastosEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Gabinete em Washington",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/MembroEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "gabinetes em exercício, em ordem alfabética (toque num cabeçalho para ordenar pelo valor). Quem assumiu no meio do ano tem menos meses de gasto. Valores acumulados no ano, como publicados; total de todas as categorias:",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/GastosEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Galeria dos Presidentes, Biblioteca da Presidência da República",
   "tipo": "exato",
   "arquivos": [
    "pages/presidentes/PresidentesPage.tsx"
+  ]
+ },
+ {
+  "texto": "Gasto em cada trimestre",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/blocos.tsx"
+  ]
+ },
+ {
+  "texto": "Gasto federal por estado (USAspending)",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
   ]
  },
  {
@@ -9026,6 +10781,13 @@
   ]
  },
  {
+  "texto": "Gastos da Câmara: a cada trimestre, cerca de 45 a 60 dias depois do fim do período. Resultados históricos: quando o MIT publica a eleição seguinte (meses depois da certificação).",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Gastos da cota parlamentar por parlamentar",
   "tipo": "exato",
   "arquivos": [
@@ -9037,6 +10799,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/SobrePage.tsx"
+  ]
+ },
+ {
+  "texto": "Gastos de gabinete do Senado: o Senado dos EUA publica esses gastos só em PDF semestral (Report of the Secretary of the Senate), sem arquivo aberto para cruzar.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/MembroEuaPage.tsx"
   ]
  },
  {
@@ -9068,6 +10837,44 @@
   "tipo": "padrao",
   "arquivos": [
    "pages/election/CandidatoPage.tsx"
+  ]
+ },
+ {
+  "texto": "Gastos do gabinete",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/MembroEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Gastos dos gabinetes da Câmara",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/GastosEuaPage.tsx",
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Gastos dos gabinetes da Câmara e o dinheiro federal que chega a cada estado.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EuaInicioPage.tsx"
+  ]
+ },
+ {
+  "texto": "gastos pelo gabinete em",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/blocos.tsx"
+  ]
+ },
+ {
+  "texto": "Gastos públicos",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EuaInicioPage.tsx",
+   "eua/paginas/GastosEuaPage.tsx",
+   "layouts/navigation.ts"
   ]
  },
  {
@@ -9140,10 +10947,38 @@
   ]
  },
  {
+  "texto": "George H. W. Bush",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "George W. Bush",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "Geórgia",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
   "texto": "Gerado pelo órgão",
   "tipo": "exato",
   "arquivos": [
    "components/election/SourceNote.tsx"
+  ]
+ },
+ {
+  "texto": "Gerald Ford",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
   ]
  },
  {
@@ -9233,6 +11068,13 @@
   ]
  },
  {
+  "texto": "Governadores, legislativos estaduais e cargos locais ficam fora: cada estado publica os seus dados de um jeito.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Governadores(as) e vices eleitos em 2022, mandato 2023–2026 (TSE).",
   "tipo": "exato",
   "arquivos": [
@@ -9307,6 +11149,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/PartidoPage.tsx"
+  ]
+ },
+ {
+  "texto": "Governos estaduais e cargos locais também são eleitos, mas ficam fora deste site (cada estado publica os seus).",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EuaInicioPage.tsx"
   ]
  },
  {
@@ -9399,7 +11248,15 @@
    "components/election/UfTileMap.tsx",
    "components/stf/PlenarioStf.tsx",
    "components/urna/UrnaKeypad.tsx",
+   "eua/componentes/MapaEua.tsx",
    "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Guam",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
   ]
  },
  {
@@ -9453,6 +11310,20 @@
   ]
  },
  {
+  "texto": "Harry S. Truman",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "Havaí",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
   "texto": "height",
   "tipo": "exato",
   "arquivos": [
@@ -9481,6 +11352,14 @@
   ]
  },
  {
+  "texto": "HI",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/MapaEua.tsx",
+   "eua/usaMapData.ts"
+  ]
+ },
+ {
   "texto": "hidden",
   "tipo": "exato",
   "arquivos": [
@@ -9498,7 +11377,15 @@
   "tipo": "exato",
   "arquivos": [
    "components/votacoes/VotacoesNominais.tsx",
+   "eua/paginas/SupremaCortePage.tsx",
    "pages/presidentes/PresidentesPage.tsx"
+  ]
+ },
+ {
+  "texto": "Hoje é dia de eleição",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EuaInicioPage.tsx"
   ]
  },
  {
@@ -9515,6 +11402,7 @@
    "components/gastos/RankingList.tsx",
    "components/noticias/FeedNoticias.tsx",
    "components/votacoes/VotacoesNominais.tsx",
+   "eua/componentes/blocos.tsx",
    "theme/theme.ts"
   ]
  },
@@ -9537,6 +11425,20 @@
   "tipo": "exato",
   "arquivos": [
    "components/stf/stf.ts"
+  ]
+ },
+ {
+  "texto": "IA",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
+  ]
+ },
+ {
+  "texto": "ID",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
   ]
  },
  {
@@ -9570,6 +11472,13 @@
   ]
  },
  {
+  "texto": "Idade mediana",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/CongressoEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Idade mediana na posse",
   "tipo": "exato",
   "arquivos": [
@@ -9593,6 +11502,13 @@
   ]
  },
  {
+  "texto": "Idaho",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
   "texto": "identificadores de publicidade ou de dispositivo;",
   "tipo": "exato",
   "arquivos": [
@@ -9604,6 +11520,34 @@
   "tipo": "padrao",
   "arquivos": [
    "components/IdiomaMenu.tsx"
+  ]
+ },
+ {
+  "texto": "IL",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
+  ]
+ },
+ {
+  "texto": "Ilhas Marianas do Norte",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "Ilhas Virgens Americanas",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "Illinois",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
   ]
  },
  {
@@ -9635,6 +11579,8 @@
    "components/election/UfTileMap.tsx",
    "components/mapa/MapaCanvas.tsx",
    "components/urna/DigitBoxes.tsx",
+   "eua/componentes/MapaEua.tsx",
+   "eua/componentes/PlenarioEua.tsx",
    "pages/election/MinistroStfPage.tsx"
   ]
  },
@@ -9660,10 +11606,24 @@
   ]
  },
  {
+  "texto": "Impressão e reprodução",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
   "texto": "Imprimir",
   "tipo": "exato",
   "arquivos": [
    "pages/election/ColaPage.tsx"
+  ]
+ },
+ {
+  "texto": "IN",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
   ]
  },
  {
@@ -9716,6 +11676,13 @@
   ]
  },
  {
+  "texto": "Incumbente (ocupa a cadeira)",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
   "texto": "Indenizações",
   "tipo": "exato",
   "arquivos": [
@@ -9730,10 +11697,52 @@
   ]
  },
  {
+  "texto": "Independente",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "Indiana",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "Indicação",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SupremaCortePage.tsx"
+  ]
+ },
+ {
   "texto": "Indicação ao STF",
   "tipo": "exato",
   "arquivos": [
    "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "Indicação confirmada",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "Indicação:",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SupremaCortePage.tsx"
+  ]
+ },
+ {
+  "texto": "Indicado(a) por",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SupremaCortePage.tsx"
   ]
  },
  {
@@ -9757,6 +11766,7 @@
   "arquivos": [
    "components/resultados/hooks.ts",
    "data/useMunicipioUsuario.ts",
+   "eua/paginas/VotacoesEuaPage.tsx",
    "pages/election/EmendasPage.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
@@ -9786,6 +11796,11 @@
    "components/resultados/ApuracaoAoVivo.tsx",
    "components/stf/PlenarioStf.tsx",
    "components/votacoes/VotacoesNominais.tsx",
+   "eua/componentes/comuns.tsx",
+   "eua/paginas/CandidatosEuaPage.tsx",
+   "eua/paginas/CongressoEuaPage.tsx",
+   "eua/paginas/MembroEuaPage.tsx",
+   "eua/paginas/SobreEuaPage.tsx",
    "pages/election/ColaPage.tsx",
    "pages/election/ComoVotarPage.tsx",
    "pages/election/CompararPage.tsx",
@@ -9808,9 +11823,17 @@
   ]
  },
  {
+  "texto": "informações de doadores copiadas da FEC não podem ser vendidas nem usadas para pedir doações ou para fins comerciais. Por isso",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "inherit",
   "tipo": "exato",
   "arquivos": [
+   "components/PaisMenu.tsx",
    "layouts/AppLayout.tsx",
    "layouts/PublicLayout.tsx",
    "theme/theme.ts"
@@ -9903,6 +11926,13 @@
    "components/urna/ballot.ts",
    "pages/election/ColaPage.tsx",
    "pages/election/SimuladorPage.tsx"
+  ]
+ },
+ {
+  "texto": "Iowa",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
   ]
  },
  {
@@ -10043,6 +12073,20 @@
   ]
  },
  {
+  "texto": "Joe Biden",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "John F. Kennedy",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
   "texto": "José Linhares",
   "tipo": "exato",
   "arquivos": [
@@ -10082,6 +12126,20 @@
   "tipo": "exato",
   "arquivos": [
    "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Juiz(a) associado(a)",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SupremaCortePage.tsx"
+  ]
+ },
+ {
+  "texto": "Juiz(a) associado(a), {0}",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/paginas/SupremaCortePage.tsx"
   ]
  },
  {
@@ -10133,6 +12191,13 @@
   ]
  },
  {
+  "texto": "Juramento (início do serviço)",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SupremaCortePage.tsx"
+  ]
+ },
+ {
   "texto": "Juscelino Kubitschek",
   "tipo": "exato",
   "arquivos": [
@@ -10154,10 +12219,38 @@
   ]
  },
  {
+  "texto": "Kansas",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "Kentucky",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
   "texto": "keydown",
   "tipo": "exato",
   "arquivos": [
    "pages/election/SimuladorPage.tsx"
+  ]
+ },
+ {
+  "texto": "KS",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
+  ]
+ },
+ {
+  "texto": "KY",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
   ]
  },
  {
@@ -10173,6 +12266,13 @@
   "arquivos": [
    "components/stf/stf.ts",
    "data/localizacao.ts"
+  ]
+ },
+ {
+  "texto": "LA",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
   ]
  },
  {
@@ -10228,6 +12328,7 @@
    "components/compartilhar/desenho.ts",
    "components/election/SourceNote.tsx",
    "components/mapa/MapaCanvas.tsx",
+   "eua/componentes/comuns.tsx",
    "pages/election/HomePage.tsx"
   ]
  },
@@ -10285,6 +12386,13 @@
   ]
  },
  {
+  "texto": "Lei brasileira de Direitos Autorais (Lei 9.610/1998), art. 8º",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Lei da Anistia (Lei 6.683, de 1979) e volta do pluripartidarismo (1979)",
   "tipo": "exato",
   "arquivos": [
@@ -10320,6 +12428,13 @@
   ]
  },
  {
+  "texto": "Lei Geral de Proteção de Dados (Lei 13.709/2018), art. 7º, §§ 3º e 4º",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Leve um documento oficial com foto, por exemplo:",
   "tipo": "exato",
   "arquivos": [
@@ -10330,6 +12445,7 @@
   "texto": "lg",
   "tipo": "exato",
   "arquivos": [
+   "eua/componentes/Moldura.tsx",
    "layouts/AppLayout.tsx",
    "layouts/PublicLayout.tsx"
   ]
@@ -10339,6 +12455,27 @@
   "tipo": "exato",
   "arquivos": [
    "components/conta/ContaPerfil.tsx"
+  ]
+ },
+ {
+  "texto": "Libertário",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "Licença",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "licença das duas compilações não governamentais que usamos: congress-legislators (projeto @unitedstates) e os resultados eleitorais do MIT Election Data and Science Lab (Harvard Dataverse). Os autores abriram mão de todos os direitos, inclusive de exigir citação (que fazemos mesmo assim).",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
   ]
  },
  {
@@ -10362,6 +12499,8 @@
    "components/AparenciaMenu.tsx",
    "components/ColorModeToggle.tsx",
    "components/charts/charts.tsx",
+   "eua/componentes/MapaEua.tsx",
+   "eua/componentes/PlenarioEua.tsx",
    "native/NativeBridge.tsx",
    "pages/election/MapaPage.tsx"
   ]
@@ -10370,6 +12509,7 @@
   "texto": "Limitações conhecidas",
   "tipo": "exato",
   "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx",
    "pages/election/SobrePage.tsx"
   ]
  },
@@ -10646,6 +12786,13 @@
   ]
  },
  {
+  "texto": "Luisiana",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
   "texto": "Luiz Inácio Lula da Silva",
   "tipo": "exato",
   "arquivos": [
@@ -10657,6 +12804,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Lyndon B. Johnson",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
   ]
  },
  {
@@ -10680,7 +12834,8 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
-   "components/resultados/hooks.ts"
+   "components/resultados/hooks.ts",
+   "eua/usaMapData.ts"
   ]
  },
  {
@@ -10689,6 +12844,13 @@
   "arquivos": [
    "components/gastos/gastos.ts",
    "pages/election/CandidatoPage.tsx"
+  ]
+ },
+ {
+  "texto": "Maine",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
   ]
  },
  {
@@ -10827,6 +12989,13 @@
   ]
  },
  {
+  "texto": "Mandato atual até",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/MembroEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Mandato atual e cota parlamentar:",
   "tipo": "exato",
   "arquivos": [
@@ -10868,6 +13037,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/PartidoPage.tsx"
+  ]
+ },
+ {
+  "texto": "Mandatos no Congresso",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/MembroEuaPage.tsx"
   ]
  },
  {
@@ -10918,6 +13094,20 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/ResultadosPage.tsx"
+  ]
+ },
+ {
+  "texto": "Mapa dos Estados Unidos por estado",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/MapaEua.tsx"
+  ]
+ },
+ {
+  "texto": "Mapa dos Estados Unidos: escolha um estado",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/MapaEua.tsx"
   ]
  },
  {
@@ -10998,10 +13188,24 @@
   ]
  },
  {
+  "texto": "Maryland",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
   "texto": "Masculino",
   "tipo": "exato",
   "arquivos": [
    "pages/election/EleicaoPage.tsx"
+  ]
+ },
+ {
+  "texto": "Massachusetts",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
   ]
  },
  {
@@ -11016,7 +13220,8 @@
   "texto": "Material",
   "tipo": "exato",
   "arquivos": [
-   "components/AparenciaMenu.tsx"
+   "components/AparenciaMenu.tsx",
+   "eua/formato.ts"
   ]
  },
  {
@@ -11055,6 +13260,20 @@
    "components/gastos/RankingList.tsx",
    "components/urna/DigitBoxes.tsx",
    "layouts/PublicLayout.tsx"
+  ]
+ },
+ {
+  "texto": "MD",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
+  ]
+ },
+ {
+  "texto": "ME",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
   ]
  },
  {
@@ -11155,6 +13374,7 @@
   "arquivos": [
    "components/AparenciaMenu.tsx",
    "components/IdiomaMenu.tsx",
+   "components/PaisMenu.tsx",
    "components/conta/ContaPerfil.tsx",
    "components/share/ShareButton.tsx",
    "layouts/AccountMenu.tsx"
@@ -11179,6 +13399,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "Mesmos campos, mesmo formato e mesmo destaque para todas as pessoas; ordem alfabética por padrão (outras ordens só quando você escolhe).",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
   ]
  },
  {
@@ -11228,7 +13455,15 @@
   "texto": "mi",
   "tipo": "exato",
   "arquivos": [
-   "data/format.ts"
+   "data/format.ts",
+   "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "MI",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
   ]
  },
  {
@@ -11239,12 +13474,21 @@
   ]
  },
  {
+  "texto": "Michigan",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
   "texto": "middle",
   "tipo": "exato",
   "arquivos": [
    "components/compartilhar/desenho.ts",
    "components/election/UfTileMap.tsx",
    "components/stf/PlenarioStf.tsx",
+   "eua/componentes/MapaEua.tsx",
+   "eua/componentes/PlenarioEua.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
  },
@@ -11252,7 +13496,8 @@
   "texto": "mil",
   "tipo": "exato",
   "arquivos": [
-   "data/format.ts"
+   "data/format.ts",
+   "eua/formato.ts"
   ]
  },
  {
@@ -11395,6 +13640,48 @@
   ]
  },
  {
+  "texto": "Minnesota",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "Mississippi",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "Missouri",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "MIT Election Data and Science Lab",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/Moldura.tsx"
+  ]
+ },
+ {
+  "texto": "MN",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
+  ]
+ },
+ {
+  "texto": "MO",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
+  ]
+ },
+ {
   "texto": "mock",
   "tipo": "exato",
   "arquivos": [
@@ -11413,6 +13700,13 @@
   "tipo": "exato",
   "arquivos": [
    "components/AparenciaMenu.tsx"
+  ]
+ },
+ {
+  "texto": "Montana",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
   ]
  },
  {
@@ -11490,7 +13784,10 @@
   "tipo": "exato",
   "arquivos": [
    "components/resultados/ApuracaoAoVivo.tsx",
-   "components/votacoes/VotacoesNominais.tsx"
+   "components/votacoes/VotacoesNominais.tsx",
+   "eua/componentes/blocos.tsx",
+   "eua/paginas/SupremaCortePage.tsx",
+   "eua/paginas/VotacoesEuaPage.tsx"
   ]
  },
  {
@@ -11559,7 +13856,8 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
-   "components/resultados/hooks.ts"
+   "components/resultados/hooks.ts",
+   "eua/usaMapData.ts"
   ]
  },
  {
@@ -11567,7 +13865,8 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
-   "components/resultados/hooks.ts"
+   "components/resultados/hooks.ts",
+   "eua/usaMapData.ts"
   ]
  },
  {
@@ -11581,6 +13880,7 @@
   "texto": "Mulheres",
   "tipo": "exato",
   "arquivos": [
+   "eua/paginas/CongressoEuaPage.tsx",
    "pages/election/CongressoEleitoPage.tsx",
    "pages/election/NumerosPage.tsx"
   ]
@@ -11656,7 +13956,10 @@
   "texto": "N",
   "tipo": "exato",
   "arquivos": [
-   "components/stf/stf.ts"
+   "components/stf/stf.ts",
+   "eua/componentes/blocos.tsx",
+   "eua/formato.ts",
+   "eua/paginas/VotacoesEuaPage.tsx"
   ]
  },
  {
@@ -11692,6 +13995,14 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/CandidatoPage.tsx"
+  ]
+ },
+ {
+  "texto": "Não",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/blocos.tsx",
+   "eua/formato.ts"
   ]
  },
  {
@@ -11733,7 +14044,8 @@
   "texto": "Não encontrado",
   "tipo": "exato",
   "arquivos": [
-   "data/api.ts"
+   "data/api.ts",
+   "eua/api.ts"
   ]
  },
  {
@@ -11814,6 +14126,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/PesquisasPage.tsx"
+  ]
+ },
+ {
+  "texto": "Não foi possível carregar estes dados agora. Os dados ficam disponíveis assim que a coleta automática roda (todos os dias).",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/comuns.tsx"
   ]
  },
  {
@@ -11951,6 +14270,13 @@
   ]
  },
  {
+  "texto": "não há \"express advocacy\" (pedir voto a favor ou contra alguém, com palavras como \"vote em\", \"derrote\", \"eleja\") nem \"electioneering communication\" (peça paga de rádio, TV ou satélite citando candidatura). Nenhum texto do site faz isso.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "NÃO HÁ 2º TURNO NESTE ESTADO",
   "tipo": "exato",
   "arquivos": [
@@ -11962,6 +14288,13 @@
   "tipo": "padrao",
   "arquivos": [
    "components/resultados/ApuracaoAoVivo.tsx"
+  ]
+ },
+ {
+  "texto": "Não há apuração nacional oficial nos EUA: na noite da eleição, o resultado está nos sites dos estados (links na página Eleições).",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
   ]
  },
  {
@@ -11997,7 +14330,8 @@
   "tipo": "exato",
   "arquivos": [
    "components/noticias/FeedNoticias.tsx",
-   "components/stf/PlenarioStf.tsx"
+   "components/stf/PlenarioStf.tsx",
+   "eua/paginas/SupremaCortePage.tsx"
   ]
  },
  {
@@ -12005,8 +14339,18 @@
   "tipo": "exato",
   "arquivos": [
    "data/format.ts",
+   "eua/formato.ts",
+   "eua/paginas/MembroEuaPage.tsx",
+   "eua/paginas/SupremaCortePage.tsx",
    "pages/election/GastosPage.tsx",
    "pages/election/HomePage.tsx"
+  ]
+ },
+ {
+  "texto": "Não pede voto, não faz propaganda e não apoia ninguém.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
   ]
  },
  {
@@ -12025,6 +14369,20 @@
   ]
  },
  {
+  "texto": "não publicamos nenhum doador",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Não recebe nem repassa dinheiro de campanha, não vende nem exibe anúncios, não impulsiona conteúdo pago, não faz enquetes, não publica pesquisas eleitorais nem projeções e não usa inteligência artificial para ordenar ou recomendar candidaturas.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Não se aplica",
   "tipo": "exato",
   "arquivos": [
@@ -12040,10 +14398,25 @@
   ]
  },
  {
+  "texto": "não usamos selos, brasões nem logotipos oficiais (do governo, da Câmara, do Senado ou da Suprema Corte), para ninguém achar que o site é oficial.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Não vai conseguir votar?",
   "tipo": "exato",
   "arquivos": [
    "pages/election/ComoVotarPage.tsx"
+  ]
+ },
+ {
+  "texto": "Não votou",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/blocos.tsx",
+   "eua/formato.ts"
   ]
  },
  {
@@ -12057,7 +14430,16 @@
   "texto": "Nascimento",
   "tipo": "exato",
   "arquivos": [
+   "eua/paginas/MembroEuaPage.tsx",
+   "eua/paginas/SupremaCortePage.tsx",
    "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "National Archives: Electoral College",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/Moldura.tsx"
   ]
  },
  {
@@ -12074,6 +14456,34 @@
   "arquivos": [
    "layouts/AppLayout.tsx",
    "layouts/PublicLayout.tsx"
+  ]
+ },
+ {
+  "texto": "NC",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
+  ]
+ },
+ {
+  "texto": "ND",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
+  ]
+ },
+ {
+  "texto": "NE",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
+  ]
+ },
+ {
+  "texto": "Nebraska",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
   ]
  },
  {
@@ -12195,10 +14605,24 @@
   ]
  },
  {
+  "texto": "nenhuma cadeira federal",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EstadoEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Nenhuma candidatura anterior encontrada no histórico do TSE (desde 2004).",
   "tipo": "exato",
   "arquivos": [
    "pages/election/CandidatoPage.tsx"
+  ]
+ },
+ {
+  "texto": "Nenhuma candidatura com esse filtro.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/CandidatosEuaPage.tsx"
   ]
  },
  {
@@ -12237,6 +14661,20 @@
   ]
  },
  {
+  "texto": "Nenhuma cor de partido: o vermelho e o azul associados aos partidos americanos não são usados. Mapas e gráficos usam a mesma escala neutra para todos.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Nenhuma decisão publicada no período.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SupremaCortePage.tsx"
+  ]
+ },
+ {
   "texto": "Nenhuma diária ou passagem publicada para este ministro.",
   "tipo": "exato",
   "arquivos": [
@@ -12262,6 +14700,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/PlanosPage.tsx"
+  ]
+ },
+ {
+  "texto": "Nenhuma movimentação de campanha declarada à FEC neste ciclo para os registros ligados a",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/MembroEuaPage.tsx"
   ]
  },
  {
@@ -12307,6 +14752,13 @@
   ]
  },
  {
+  "texto": "Nenhuma votação com esse filtro.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/blocos.tsx"
+  ]
+ },
+ {
   "texto": "Nenhuma votação nominal no período.",
   "tipo": "exato",
   "arquivos": [
@@ -12318,6 +14770,13 @@
   "tipo": "exato",
   "arquivos": [
    "components/votacoes/VotacoesNominais.tsx"
+  ]
+ },
+ {
+  "texto": "Nenhuma votação nominal registrada para",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/MembroEuaPage.tsx"
   ]
  },
  {
@@ -12377,12 +14836,27 @@
   ]
  },
  {
+  "texto": "Nevada",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
   "texto": "NFD",
   "tipo": "exato",
   "arquivos": [
    "components/partidos/partidos.ts",
    "components/planos/busca.ts",
-   "data/format.ts"
+   "data/format.ts",
+   "eua/componentes/Moldura.tsx"
+  ]
+ },
+ {
+  "texto": "NH",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
   ]
  },
  {
@@ -12414,14 +14888,44 @@
   ]
  },
  {
+  "texto": "NJ",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
+  ]
+ },
+ {
+  "texto": "NM",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
+  ]
+ },
+ {
   "texto": "no",
   "tipo": "exato",
   "arquivos": [
    "components/IdiomaMenu.tsx",
    "components/votacoes/VotacoesNominais.tsx",
+   "eua/componentes/Moldura.tsx",
+   "eua/componentes/comuns.tsx",
+   "eua/paginas/CandidatosEuaPage.tsx",
+   "eua/paginas/EleicoesEuaPage.tsx",
+   "eua/paginas/EstadoEuaPage.tsx",
+   "eua/paginas/GastosEuaPage.tsx",
+   "eua/paginas/MembroEuaPage.tsx",
+   "eua/paginas/SupremaCortePage.tsx",
+   "eua/paginas/VotacoesEuaPage.tsx",
    "pages/election/MapaPage.tsx",
    "pages/election/MinistroStfPage.tsx",
    "pages/election/PlanosPage.tsx"
+  ]
+ },
+ {
+  "texto": "Nº",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/VotacoesEuaPage.tsx"
   ]
  },
  {
@@ -12436,6 +14940,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/HomePage.tsx"
+  ]
+ },
+ {
+  "texto": "no ano fiscal",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/MembroEuaPage.tsx"
   ]
  },
  {
@@ -12464,6 +14975,20 @@
   "tipo": "exato",
   "arquivos": [
    "components/resultados/ApuracaoAoVivo.tsx"
+  ]
+ },
+ {
+  "texto": "No cargo desde",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/MembroEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "no Congresso atual.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/MembroEuaPage.tsx"
   ]
  },
  {
@@ -12541,11 +15066,19 @@
   "tipo": "exato",
   "arquivos": [
    "components/gastos/RankingList.tsx",
+   "eua/paginas/GastosEuaPage.tsx",
    "pages/election/EleicaoPage.tsx",
    "pages/election/EmendasPage.tsx",
    "pages/election/GastosPage.tsx",
    "pages/election/HomePage.tsx",
    "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Nome",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SupremaCortePage.tsx"
   ]
  },
  {
@@ -12561,6 +15094,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/ParlamentarPage.tsx"
+  ]
+ },
+ {
+  "texto": "Nome ou estado",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/Moldura.tsx"
   ]
  },
  {
@@ -12614,11 +15154,26 @@
   ]
  },
  {
+  "texto": "Nomes de comissões, perguntas de votação e resumos de decisões aparecem no original em inglês.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "nomes oficiais em inglês",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/MembroEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "none",
   "tipo": "exato",
   "arquivos": [
    "components/ColorModeToggle.tsx",
    "components/PageTransition.tsx",
+   "components/PaisMenu.tsx",
    "components/brand/FaiscaCredito.tsx",
    "components/brand/FaiscaMark.tsx",
    "components/brand/PoweredByFaisca.tsx",
@@ -12626,6 +15181,8 @@
    "components/mapa/MapaCanvas.tsx",
    "components/stf/PlenarioStf.tsx",
    "components/urna/UrnaScreen.tsx",
+   "eua/componentes/MapaEua.tsx",
+   "eua/componentes/PlenarioEua.tsx",
    "layouts/AppLayout.tsx",
    "layouts/PublicLayout.tsx",
    "pages/election/HomePage.tsx",
@@ -12663,6 +15220,12 @@
    "components/share/ShareButton.tsx",
    "components/stf/PlenarioStf.tsx",
    "components/votacoes/VotacoesNominais.tsx",
+   "eua/componentes/MapaEua.tsx",
+   "eua/componentes/Moldura.tsx",
+   "eua/componentes/blocos.tsx",
+   "eua/componentes/comuns.tsx",
+   "eua/paginas/SobreEuaPage.tsx",
+   "eua/paginas/SupremaCortePage.tsx",
    "layouts/PublicLayout.tsx",
    "pages/election/CandidatoPage.tsx",
    "pages/election/ComoVotarPage.tsx",
@@ -12710,6 +15273,20 @@
   ]
  },
  {
+  "texto": "Nos EUA não existe um órgão nacional de apuração como o TSE. Cada estado conta, divulga e certifica os próprios votos, e a apuração da noite da eleição é parcial e não oficial até a certificação (semanas depois). As projeções de vencedores feitas por emissoras e agências de notícias não são resultado oficial. O órgão eleitoral de cada estado, segundo o governo federal (USAGov):",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EleicoesEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Nos EUA não há um órgão nacional de apuração: cada estado conta e certifica os votos. Na noite da eleição, o resultado oficial sai no site do órgão eleitoral de cada estado (lista na página",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EuaInicioPage.tsx"
+  ]
+ },
+ {
   "texto": "nos municípios já totalizados",
   "tipo": "exato",
   "arquivos": [
@@ -12753,10 +15330,38 @@
   ]
  },
  {
+  "texto": "Nova Hampshire",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "Nova Jersey",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
   "texto": "Nova República",
   "tipo": "exato",
   "arquivos": [
    "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Nova York",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "Nove juízes(as) com cargo vitalício, indicados(as) pelo Presidente e confirmados(as) pelo Senado (Constituição, art. II, seção 2). Dados da própria Corte.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SupremaCortePage.tsx"
   ]
  },
  {
@@ -12773,6 +15378,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Novo México",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
   ]
  },
  {
@@ -12910,6 +15522,27 @@
   ]
  },
  {
+  "texto": "Números exatamente como publicados pelo órgão oficial, com o arquivo de origem e a data da coleta em cada bloco (\"Fonte\").",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "NV",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
+  ]
+ },
+ {
+  "texto": "NY",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
+  ]
+ },
+ {
   "texto": "o",
   "tipo": "exato",
   "arquivos": [
@@ -12966,6 +15599,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/legal/PrivacidadePage.tsx"
+  ]
+ },
+ {
+  "texto": "O dinheiro federal que chega a cada estado e os gastos dos gabinetes da Câmara dos EUA, como publicados pelos órgãos oficiais.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/GastosEuaPage.tsx"
   ]
  },
  {
@@ -13116,6 +15756,13 @@
   ]
  },
  {
+  "texto": "O que esta parte do site é (e o que não é)",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "O que fica guardado só no seu aparelho",
   "tipo": "exato",
   "arquivos": [
@@ -13134,6 +15781,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/EmendasPage.tsx"
+  ]
+ },
+ {
+  "texto": "O que traz",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
   ]
  },
  {
@@ -13187,10 +15841,24 @@
   ]
  },
  {
+  "texto": "O Senado publica os gastos de gabinete só em PDF semestral, sem arquivo aberto.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "O Senado renova um terço das cadeiras (27) e dois terços (54) em eleições alternadas: por isso em 2022 foram eleitos 27 senadores e em 2026, 54. As porcentagens permitem comparar grupos de tamanhos diferentes. O Senado completo soma os eleitos na eleição com os eleitos 4 anos antes, que continuam no mandato (titulares eleitos; suplentes em exercício não entram).",
   "tipo": "exato",
   "arquivos": [
    "pages/election/CongressoEleitoPage.tsx"
+  ]
+ },
+ {
+  "texto": "O Senado tem 100 cadeiras, 2 por estado, com mandatos de 6 anos; a cada 2 anos, cerca de um terço é renovado. O Vice-Presidente dos EUA preside o Senado e só vota para desempatar.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/CongressoEuaPage.tsx"
   ]
  },
  {
@@ -13336,6 +16004,27 @@
   ]
  },
  {
+  "texto": "obras do governo federal americano não têm proteção de direito autoral nos EUA. Vale para tudo o que coletamos de órgãos federais: Câmara (Clerk e Chief Administrative Officer), Senado, Biographical Directory do Congresso, Congress.gov, FEC, USAspending/Tesouro, Census Bureau, National Archives, Suprema Corte, Administrative Office of the U.S. Courts e USAGov.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Obras do governo federal dos EUA são de domínio público (17 U.S.C. § 105). Não publicamos doadores de campanha, cadastros de eleitores nem selos oficiais, e sempre citamos a fonte.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/Moldura.tsx"
+  ]
+ },
+ {
+  "texto": "obriga os órgãos federais a publicar seus dados em formato aberto e legível por máquina, justamente para que qualquer pessoa os reutilize.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "oceano",
   "tipo": "exato",
   "arquivos": [
@@ -13390,6 +16079,13 @@
   ]
  },
  {
+  "texto": "Office of the Clerk, U.S. House of Representatives",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/Moldura.tsx"
+  ]
+ },
+ {
   "texto": "oficial",
   "tipo": "exato",
   "arquivos": [
@@ -13397,10 +16093,45 @@
   ]
  },
  {
+  "texto": "OH",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
+  ]
+ },
+ {
+  "texto": "Ohio",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "OK",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
+  ]
+ },
+ {
+  "texto": "Oklahoma",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
   "texto": "on",
   "tipo": "exato",
   "arquivos": [
    "config/env.ts"
+  ]
+ },
+ {
+  "texto": "Onde sai o resultado oficial",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EleicoesEuaPage.tsx"
   ]
  },
  {
@@ -13425,6 +16156,27 @@
   ]
  },
  {
+  "texto": "OPEN Government Data Act (Lei Pública 115-435, Título II, 2019)",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Opiniões da Corte escritas por",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SupremaCortePage.tsx"
+  ]
+ },
+ {
+  "texto": "OR",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
+  ]
+ },
+ {
   "texto": "ordem",
   "tipo": "exato",
   "arquivos": [
@@ -13437,6 +16189,20 @@
   "arquivos": [
    "components/resultados/ApuracaoAoVivo.tsx",
    "pages/election/PartidosPage.tsx"
+  ]
+ },
+ {
+  "texto": "Ordem alfabética do sobrenome em cada grupo. Sigla e estado como na composição atual (",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/VotacoesEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Ordem alfabética; toque no cabeçalho para ordenar pelo valor.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/GastosEuaPage.tsx"
   ]
  },
  {
@@ -13468,11 +16234,32 @@
   ]
  },
  {
+  "texto": "Ordem oficial: a presidência da Corte e depois a antiguidade (data do juramento). Retratos: Collection of the Supreme Court of the United States.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SupremaCortePage.tsx"
+  ]
+ },
+ {
   "texto": "Ordenar por",
   "tipo": "exato",
   "arquivos": [
    "pages/election/EleicaoPage.tsx",
    "pages/election/GastosPage.tsx"
+  ]
+ },
+ {
+  "texto": "Oregon",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "Órgão eleitoral oficial do estado (cédula e resultado)",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EstadoEuaPage.tsx"
   ]
  },
  {
@@ -13508,6 +16295,13 @@
   "tipo": "exato",
   "arquivos": [
    "components/stf/PlenarioStf.tsx"
+  ]
+ },
+ {
+  "texto": "os dados pessoais exibidos são de agentes públicos e candidaturas no exercício dessas funções, publicados pelos próprios órgãos oficiais para dar transparência, e são usados com essa mesma finalidade, de boa-fé e no interesse público.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
   ]
  },
  {
@@ -13550,6 +16344,13 @@
   "tipo": "exato",
   "arquivos": [
    "components/stf/PlenarioStf.tsx"
+  ]
+ },
+ {
+  "texto": "Os nove juízes, quem os indicou, salários, a história desde 1789 e as decisões.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EuaInicioPage.tsx"
   ]
  },
  {
@@ -13620,7 +16421,8 @@
   "texto": "Outro",
   "tipo": "exato",
   "arquivos": [
-   "components/emendas/emendas.ts"
+   "components/emendas/emendas.ts",
+   "eua/formato.ts"
   ]
  },
  {
@@ -13634,7 +16436,15 @@
   "texto": "Outros",
   "tipo": "exato",
   "arquivos": [
-   "components/charts/charts.tsx"
+   "components/charts/charts.tsx",
+   "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "Outros comitês (PACs)",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/blocos.tsx"
   ]
  },
  {
@@ -13653,6 +16463,13 @@
   ]
  },
  {
+  "texto": "Outros serviços",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
   "texto": "outubro",
   "tipo": "exato",
   "arquivos": [
@@ -13665,7 +16482,10 @@
   "texto": "P",
   "tipo": "exato",
   "arquivos": [
-   "components/stf/stf.ts"
+   "components/stf/stf.ts",
+   "eua/componentes/blocos.tsx",
+   "eua/formato.ts",
+   "eua/paginas/VotacoesEuaPage.tsx"
   ]
  },
  {
@@ -13680,7 +16500,8 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
-   "components/resultados/hooks.ts"
+   "components/resultados/hooks.ts",
+   "eua/usaMapData.ts"
   ]
  },
  {
@@ -13712,6 +16533,13 @@
   ]
  },
  {
+  "texto": "Página da fonte",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/comuns.tsx"
+  ]
+ },
+ {
   "texto": "Página do conjunto de dados",
   "tipo": "exato",
   "arquivos": [
@@ -13723,6 +16551,13 @@
   "tipo": "padrao",
   "arquivos": [
    "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Página informativa com dados públicos oficiais dos Estados Unidos. O Tá na Urna não apoia candidaturas ou partidos, não pede voto e não faz propaganda: todos aparecem com os mesmos campos, na mesma ordem (alfabética, salvo quando você escolhe outra) e com o mesmo destaque. Serviço não oficial, sem vínculo com o governo dos EUA.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/comuns.tsx"
   ]
  },
  {
@@ -13802,6 +16637,20 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/EmendasPage.tsx"
+  ]
+ },
+ {
+  "texto": "País: {0}",
+  "tipo": "padrao",
+  "arquivos": [
+   "components/PaisMenu.tsx"
+  ]
+ },
+ {
+  "texto": "País: {0}. Trocar de país",
+  "tipo": "padrao",
+  "arquivos": [
+   "components/PaisMenu.tsx"
   ]
  },
  {
@@ -14025,6 +16874,7 @@
   "texto": "parlamentar",
   "tipo": "exato",
   "arquivos": [
+   "eua/paginas/CongressoEuaPage.tsx",
    "pages/election/ParlamentarPage.tsx"
   ]
  },
@@ -14041,6 +16891,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/ParlamentarPage.tsx"
+  ]
+ },
+ {
+  "texto": "parlamentares",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/CongressoEuaPage.tsx"
   ]
  },
  {
@@ -14082,7 +16939,8 @@
   "texto": "Participação",
   "tipo": "exato",
   "arquivos": [
-   "components/votacoes/VotacoesNominais.tsx"
+   "components/votacoes/VotacoesNominais.tsx",
+   "eua/componentes/blocos.tsx"
   ]
  },
  {
@@ -14105,6 +16963,9 @@
   "texto": "Partido",
   "tipo": "exato",
   "arquivos": [
+   "eua/componentes/blocos.tsx",
+   "eua/paginas/CongressoEuaPage.tsx",
+   "eua/paginas/VotacoesEuaPage.tsx",
    "pages/election/CompararPage.tsx",
    "pages/election/EleicaoPage.tsx",
    "pages/election/GastosPage.tsx"
@@ -14125,6 +16986,27 @@
   ]
  },
  {
+  "texto": "Partido de cada parlamentar nas tabelas de votação: o da composição atual.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Partido de cada parlamentar segundo a composição atual.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/VotacoesEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Partido não informado",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/CandidatosEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Partido-UF · Casa",
   "tipo": "exato",
   "arquivos": [
@@ -14142,9 +17024,17 @@
   "texto": "Partidos",
   "tipo": "exato",
   "arquivos": [
+   "eua/paginas/CongressoEuaPage.tsx",
    "layouts/navigation.ts",
    "pages/election/PartidosPage.tsx",
    "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Partidos em ordem alfabética, com cores neutras (nenhuma é cor de partido). Toque numa cadeira para ver o perfil.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/PlenarioEua.tsx"
   ]
  },
  {
@@ -14304,10 +17194,24 @@
   ]
  },
  {
+  "texto": "pela data de nascimento",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/CongressoEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Pelo menos 8 caracteres",
   "tipo": "exato",
   "arquivos": [
    "components/conta/ContaPerfil.tsx"
+  ]
+ },
+ {
+  "texto": "Pensilvânia",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
   ]
  },
  {
@@ -14383,6 +17287,13 @@
   ]
  },
  {
+  "texto": "Pergunta votada",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/VotacoesEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "periodo",
   "tipo": "exato",
   "arquivos": [
@@ -14394,6 +17305,7 @@
   "texto": "Período",
   "tipo": "exato",
   "arquivos": [
+   "eua/paginas/SupremaCortePage.tsx",
    "pages/election/GastosPage.tsx"
   ]
  },
@@ -14476,6 +17388,27 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/PesquisasPage.tsx"
+  ]
+ },
+ {
+  "texto": "pessoal",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/GastosEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Pessoal (salários da equipe)",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "Pessoas físicas (total)",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/blocos.tsx"
   ]
  },
  {
@@ -14627,6 +17560,7 @@
    "components/election/UfTileMap.tsx",
    "components/mapa/MapaCanvas.tsx",
    "components/stf/PlenarioStf.tsx",
+   "eua/componentes/MapaEua.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
  },
@@ -14643,6 +17577,7 @@
   "arquivos": [
    "components/election/UfTileMap.tsx",
    "components/resultados/ApuracaoAoVivo.tsx",
+   "eua/componentes/MapaEua.tsx",
    "pages/election/SimuladorPage.tsx"
   ]
  },
@@ -14652,6 +17587,8 @@
   "arquivos": [
    "components/avisos/AvisoResultado.tsx",
    "components/conta/ContaPerfil.tsx",
+   "eua/componentes/Moldura.tsx",
+   "eua/paginas/SobreEuaPage.tsx",
    "layouts/PublicLayout.tsx",
    "pages/election/SobrePage.tsx",
    "pages/legal/PrivacidadePage.tsx",
@@ -14677,6 +17614,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/PesquisasPage.tsx"
+  ]
+ },
+ {
+  "texto": "por ano fiscal (out–set)",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EstadoEuaPage.tsx"
   ]
  },
  {
@@ -14729,6 +17673,27 @@
   ]
  },
  {
+  "texto": "por habitante",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/GastosEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Por habitante",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/GastosEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Por que estes dados podem ser usados livremente",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Por tipo de bem",
   "tipo": "exato",
   "arquivos": [
@@ -14768,6 +17733,13 @@
   "tipo": "exato",
   "arquivos": [
    "layouts/PublicLayout.tsx"
+  ]
+ },
+ {
+  "texto": "Porto Rico",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
   ]
  },
  {
@@ -14838,7 +17810,8 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
-   "components/resultados/hooks.ts"
+   "components/resultados/hooks.ts",
+   "eua/formato.ts"
   ]
  },
  {
@@ -14860,6 +17833,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/MinhaCidadePage.tsx"
+  ]
+ },
+ {
+  "texto": "Presente",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
   ]
  },
  {
@@ -14952,6 +17932,7 @@
    "components/resultados/hooks.ts",
    "components/urna/ballot.ts",
    "data/apuracao.ts",
+   "eua/paginas/SupremaCortePage.tsx",
    "pages/election/CandidatoPage.tsx",
    "pages/election/ColaPage.tsx",
    "pages/election/ComoVotarPage.tsx",
@@ -14976,6 +17957,7 @@
    "components/stf/stf.ts",
    "data/apuracao.ts",
    "data/format.ts",
+   "eua/paginas/SupremaCortePage.tsx",
    "pages/election/PlanosPage.tsx",
    "pages/election/SegundoTurnoPage.tsx",
    "pages/election/SimuladorPage.tsx"
@@ -15028,6 +18010,20 @@
   "tipo": "exato",
   "arquivos": [
    "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Presidente da Corte (Chief Justice)",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SupremaCortePage.tsx"
+  ]
+ },
+ {
+  "texto": "Presidente da Corte, {0}",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/paginas/SupremaCortePage.tsx"
   ]
  },
  {
@@ -15147,6 +18143,7 @@
   "texto": "primary",
   "tipo": "exato",
   "arquivos": [
+   "eua/componentes/blocos.tsx",
    "theme/theme.ts"
   ]
  },
@@ -15237,6 +18234,13 @@
   ]
  },
  {
+  "texto": "Projeto aprovado",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
   "texto": "Pronto: o aviso chega neste aparelho quando houver novidade sobre {0}.",
   "tipo": "padrao",
   "arquivos": [
@@ -15248,6 +18252,34 @@
   "tipo": "exato",
   "arquivos": [
    "components/conta/ContaPerfil.tsx"
+  ]
+ },
+ {
+  "texto": "Proposição",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/VotacoesEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Proposição no Congress.gov",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/VotacoesEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Próxima eleição",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EleicoesEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Próxima eleição para a cadeira",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/MembroEuaPage.tsx"
   ]
  },
  {
@@ -15268,7 +18300,8 @@
   "texto": "Publicado no servidor oficial",
   "tipo": "exato",
   "arquivos": [
-   "components/election/SourceNote.tsx"
+   "components/election/SourceNote.tsx",
+   "eua/componentes/comuns.tsx"
   ]
  },
  {
@@ -15328,6 +18361,13 @@
   ]
  },
  {
+  "texto": "Quando os dados são atualizados",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Quantidade de candidaturas na urna de cada partido para este cargo, da maior para a menor.",
   "tipo": "exato",
   "arquivos": [
@@ -15353,6 +18393,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/legal/PrivacidadePage.tsx"
+  ]
+ },
+ {
+  "texto": "Quem está na Câmara e no Senado, com retrato oficial, partido, estado e distrito.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EuaInicioPage.tsx"
   ]
  },
  {
@@ -15447,6 +18494,20 @@
   ]
  },
  {
+  "texto": "Quem se registrou na Comissão Eleitoral Federal (FEC) para disputar a Câmara e o Senado em cada estado, com o dinheiro declarado pela campanha.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/CandidatosEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Quem se registrou na FEC para a Câmara e o Senado, com o dinheiro declarado.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EuaInicioPage.tsx"
+  ]
+ },
+ {
   "texto": "Quintino Bocaiúva",
   "tipo": "exato",
   "arquivos": [
@@ -15457,7 +18518,8 @@
   "texto": "R",
   "tipo": "exato",
   "arquivos": [
-   "components/stf/stf.ts"
+   "components/stf/stf.ts",
+   "eua/paginas/MembroEuaPage.tsx"
   ]
  },
  {
@@ -15532,6 +18594,13 @@
   ]
  },
  {
+  "texto": "Receitas",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/CandidatosEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "receitas {0} ÷ {1} votos",
   "tipo": "padrao",
   "arquivos": [
@@ -15590,6 +18659,13 @@
   ]
  },
  {
+  "texto": "Receitas no ciclo",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/blocos.tsx"
+  ]
+ },
+ {
   "texto": "Receitas por origem",
   "tipo": "exato",
   "arquivos": [
@@ -15616,6 +18692,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/CompararPage.tsx"
+  ]
+ },
+ {
+  "texto": "Recursos próprios",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/blocos.tsx"
   ]
  },
  {
@@ -15696,6 +18779,13 @@
   ]
  },
  {
+  "texto": "registros na lista oficial da Corte (quem foi juiz associado e depois presidente aparece duas vezes).",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SupremaCortePage.tsx"
+  ]
+ },
+ {
   "texto": "Registros por tipo, como publicados (toque para filtrar a lista)",
   "tipo": "exato",
   "arquivos": [
@@ -15707,6 +18797,20 @@
   "tipo": "exato",
   "arquivos": [
    "pages/legal/PrivacidadePage.tsx"
+  ]
+ },
+ {
+  "texto": "Regras que respeitamos de propósito",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Rejeitado",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
   ]
  },
  {
@@ -15722,6 +18826,13 @@
   "tipo": "exato",
   "arquivos": [
    "components/emendas/emendas.ts"
+  ]
+ },
+ {
+  "texto": "relatórios do Senado",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/GastosEuaPage.tsx"
   ]
  },
  {
@@ -15864,6 +18975,7 @@
   "texto": "repeating-linear-gradient(135deg, {0} 0 3px, {1} 3px 4px)",
   "tipo": "padrao",
   "arquivos": [
+   "eua/componentes/MapaEua.tsx",
    "pages/election/MapaPage.tsx"
   ]
  },
@@ -15878,7 +18990,16 @@
   "texto": "Reportar erro ou divergência",
   "tipo": "exato",
   "arquivos": [
+   "eua/componentes/Moldura.tsx",
+   "eua/paginas/SobreEuaPage.tsx",
    "layouts/PublicLayout.tsx"
+  ]
+ },
+ {
+  "texto": "Representação no Congresso, candidaturas, resultados anteriores e dinheiro federal no estado. Dados oficiais.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EstadoEuaPage.tsx"
   ]
  },
  {
@@ -15889,10 +19010,45 @@
   ]
  },
  {
+  "texto": "Republicano",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "Requerimento aprovado",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "Requerimento rejeitado",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
   "texto": "Request timed out after {0}ms.",
   "tipo": "padrao",
   "arquivos": [
    "api/client.ts"
+  ]
+ },
+ {
+  "texto": "Resolução aprovada",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "Resolução conjunta aprovada",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
   ]
  },
  {
@@ -15927,11 +19083,25 @@
   ]
  },
  {
+  "texto": "Resultado",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/VotacoesEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Resultado (TSE)",
   "tipo": "exato",
   "arquivos": [
    "components/compartilhar/dados.ts",
    "pages/election/CompararPage.tsx"
+  ]
+ },
+ {
+  "texto": "Resultado certificado de cada disputa, estado por estado (as até 5 candidaturas mais votadas).",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EleicoesEuaPage.tsx"
   ]
  },
  {
@@ -15989,6 +19159,13 @@
   ]
  },
  {
+  "texto": "Resultados certificados pelos estados desde 1976, Colégio Eleitoral, a próxima eleição e onde cada estado publica o resultado oficial.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EleicoesEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Resultados como divulgados pelos institutos, com todas as informações exigidas por lei. Sem média, projeção ou interpretação.",
   "tipo": "exato",
   "arquivos": [
@@ -16003,6 +19180,13 @@
   ]
  },
  {
+  "texto": "Resultados de eleição só depois de certificados pelos estados; nada de apuração parcial, projeções de emissoras ou \"quem está na frente\".",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Resultados de pesquisas com registro no TSE.",
   "tipo": "exato",
   "arquivos": [
@@ -16014,6 +19198,20 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/SegundoTurnoPage.tsx"
+  ]
+ },
+ {
+  "texto": "Resultados por estado desde 1976, Colégio Eleitoral e a eleição de 2026.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EuaInicioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Resultados, Colégio Eleitoral e calendário",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
   ]
  },
  {
@@ -16036,6 +19234,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/ComoVotarPage.tsx"
+  ]
+ },
+ {
+  "texto": "resumo oficial, em inglês",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SupremaCortePage.tsx"
   ]
  },
  {
@@ -16073,7 +19278,15 @@
   "tipo": "padrao",
   "arquivos": [
    "components/stf/PlenarioStf.tsx",
+   "eua/componentes/comuns.tsx",
    "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "Retratos: vêm do Biographical Directory do Congresso (e, na falta dele, do Clerk ou do Congress.gov) e da coleção oficial da Suprema Corte, publicados por essas instituições como material oficial. Se alguém com direitos sobre um retrato discordar do uso, removemos.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
   ]
  },
  {
@@ -16238,6 +19451,27 @@
   ]
  },
  {
+  "texto": "Rhode Island",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "RI",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
+  ]
+ },
+ {
+  "texto": "Richard Nixon",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
   "texto": "right",
   "tipo": "exato",
   "arquivos": [
@@ -16247,6 +19481,8 @@
    "components/gastos/RankingList.tsx",
    "components/numeros/Concorrencia.tsx",
    "components/stf/PlenarioStf.tsx",
+   "eua/paginas/EstadoEuaPage.tsx",
+   "eua/paginas/GastosEuaPage.tsx",
    "layouts/AccountMenu.tsx",
    "layouts/PublicLayout.tsx",
    "pages/election/CandidatoPage.tsx",
@@ -16350,6 +19586,13 @@
   ]
  },
  {
+  "texto": "Ronald Reagan",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
   "texto": "Rondônia",
   "tipo": "exato",
   "arquivos": [
@@ -16448,6 +19691,19 @@
    "components/resultados/CartaoEleitos.tsx",
    "components/stf/PlenarioStf.tsx",
    "components/votacoes/VotacoesNominais.tsx",
+   "eua/componentes/Moldura.tsx",
+   "eua/componentes/PlenarioEua.tsx",
+   "eua/componentes/blocos.tsx",
+   "eua/componentes/comuns.tsx",
+   "eua/paginas/CandidatosEuaPage.tsx",
+   "eua/paginas/CongressoEuaPage.tsx",
+   "eua/paginas/EleicoesEuaPage.tsx",
+   "eua/paginas/EstadoEuaPage.tsx",
+   "eua/paginas/EuaInicioPage.tsx",
+   "eua/paginas/GastosEuaPage.tsx",
+   "eua/paginas/MembroEuaPage.tsx",
+   "eua/paginas/SupremaCortePage.tsx",
+   "eua/paginas/VotacoesEuaPage.tsx",
    "layouts/AccountMenu.tsx",
    "layouts/AppLayout.tsx",
    "layouts/AuthLayout.tsx",
@@ -16511,7 +19767,10 @@
   "texto": "S",
   "tipo": "exato",
   "arquivos": [
-   "components/stf/stf.ts"
+   "components/stf/stf.ts",
+   "eua/componentes/blocos.tsx",
+   "eua/formato.ts",
+   "eua/paginas/VotacoesEuaPage.tsx"
   ]
  },
  {
@@ -16520,6 +19779,34 @@
   "arquivos": [
    "components/conta/ContaPerfil.tsx",
    "layouts/AccountMenu.tsx"
+  ]
+ },
+ {
+  "texto": "Salário anual (fixado em lei)",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SupremaCortePage.tsx"
+  ]
+ },
+ {
+  "texto": "Salário de juiz(a) associado(a) ano a ano, sem correção pela inflação. Os juízes também entregam declaração anual de bens e atividades (financial disclosure), publicada pelo Judiciário federal.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SupremaCortePage.tsx"
+  ]
+ },
+ {
+  "texto": "Saldo declarado na data de cobertura.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/blocos.tsx"
+  ]
+ },
+ {
+  "texto": "Samoa Americana",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
   ]
  },
  {
@@ -16598,7 +19885,15 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
-   "components/resultados/hooks.ts"
+   "components/resultados/hooks.ts",
+   "eua/usaMapData.ts"
+  ]
+ },
+ {
+  "texto": "SD",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
   ]
  },
  {
@@ -16663,6 +19958,13 @@
   "tipo": "exato",
   "arquivos": [
    "components/resultados/ApuracaoAoVivo.tsx"
+  ]
+ },
+ {
+  "texto": "secondary",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/blocos.tsx"
   ]
  },
  {
@@ -16771,6 +20073,21 @@
   ]
  },
  {
+  "texto": "sem dado",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/MapaEua.tsx",
+   "eua/paginas/GastosEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Sem eleição para o Senado neste estado em {0}.",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/paginas/CandidatosEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "sem eleição para presidente; assumiu pela linha de sucessão.",
   "tipo": "exato",
   "arquivos": [
@@ -16817,6 +20134,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/HomePage.tsx"
+  ]
+ },
+ {
+  "texto": "Sem movimentação declarada no ciclo",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/CandidatosEuaPage.tsx"
   ]
  },
  {
@@ -16879,11 +20203,29 @@
   ]
  },
  {
+  "texto": "sem vagas",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/CongressoEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "sem vínculo com o governo dos EUA, o Congresso, a FEC, a Suprema Corte ou qualquer partido ou campanha. A fonte oficial sempre prevalece.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/Moldura.tsx"
+  ]
+ },
+ {
   "texto": "senado",
   "tipo": "exato",
   "arquivos": [
    "components/compartilhar/dados.ts",
    "components/congresso/perfil.ts",
+   "eua/formato.ts",
+   "eua/paginas/CongressoEuaPage.tsx",
+   "eua/paginas/MembroEuaPage.tsx",
+   "eua/paginas/VotacoesEuaPage.tsx",
    "pages/election/CongressoEleitoPage.tsx",
    "pages/election/GastosPage.tsx",
    "pages/election/ParlamentarPage.tsx",
@@ -16898,6 +20240,11 @@
    "components/gastos/gastos.ts",
    "data/apuracao.ts",
    "data/format.ts",
+   "eua/paginas/CandidatosEuaPage.tsx",
+   "eua/paginas/CongressoEuaPage.tsx",
+   "eua/paginas/EstadoEuaPage.tsx",
+   "eua/paginas/MembroEuaPage.tsx",
+   "eua/paginas/VotacoesEuaPage.tsx",
    "pages/election/GastosPage.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
@@ -16921,6 +20268,20 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/CongressoEleitoPage.tsx"
+  ]
+ },
+ {
+  "texto": "Senado dos EUA",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/MembroEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Senado dos EUA · {0} (horário de Brasília)",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/paginas/VotacoesEuaPage.tsx"
   ]
  },
  {
@@ -16969,7 +20330,8 @@
   "texto": "Senador",
   "tipo": "exato",
   "arquivos": [
-   "components/numeros/numeros.ts"
+   "components/numeros/numeros.ts",
+   "eua/formato.ts"
   ]
  },
  {
@@ -17008,6 +20370,13 @@
   ]
  },
  {
+  "texto": "Senadora",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
   "texto": "senadores",
   "tipo": "exato",
   "arquivos": [
@@ -17027,6 +20396,20 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/PartidoPage.tsx"
+  ]
+ },
+ {
+  "texto": "Senadores(as), deputados(as) e delegados(as) em exercício. Busque pelo nome ou pelo estado.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/Moldura.tsx"
+  ]
+ },
+ {
+  "texto": "Senadores(as), deputados(as), candidaturas de",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EuaInicioPage.tsx"
   ]
  },
  {
@@ -17058,7 +20441,15 @@
   "texto": "Serviço não oficial:",
   "tipo": "exato",
   "arquivos": [
+   "eua/componentes/Moldura.tsx",
    "layouts/PublicLayout.tsx"
+  ]
+ },
+ {
+  "texto": "servicos",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/GastosEuaPage.tsx"
   ]
  },
  {
@@ -17134,8 +20525,17 @@
   "tipo": "exato",
   "arquivos": [
    "data/format.ts",
+   "eua/formato.ts",
    "layouts/PublicLayout.tsx",
    "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Sim",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/blocos.tsx",
+   "eua/formato.ts"
   ]
  },
  {
@@ -17225,6 +20625,13 @@
   ]
  },
  {
+  "texto": "Site oficial",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/MembroEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "site oficial do partido",
   "tipo": "exato",
   "arquivos": [
@@ -17305,6 +20712,7 @@
    "components/numeros/Concorrencia.tsx",
    "components/stf/PlenarioStf.tsx",
    "components/urna/UfPicker.tsx",
+   "eua/componentes/Moldura.tsx",
    "layouts/PublicLayout.tsx",
    "pages/election/ColaPage.tsx",
    "pages/election/HomePage.tsx",
@@ -17317,6 +20725,7 @@
   "arquivos": [
    "components/AparenciaMenu.tsx",
    "components/IdiomaMenu.tsx",
+   "components/PaisMenu.tsx",
    "components/conta/ContaPerfil.tsx",
    "components/election/CandidateCard.tsx",
    "components/election/DesfechoChip.tsx",
@@ -17346,6 +20755,13 @@
    "pages/election/MinistroStfPage.tsx",
    "pages/election/SegundoTurnoPage.tsx",
    "pages/election/SimuladorPage.tsx"
+  ]
+ },
+ {
+  "texto": "Só com receitas declaradas",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/CandidatosEuaPage.tsx"
   ]
  },
  {
@@ -17520,6 +20936,7 @@
    "components/election/UfTileMap.tsx",
    "components/resultados/ApuracaoAoVivo.tsx",
    "components/stf/PlenarioStf.tsx",
+   "eua/componentes/MapaEua.tsx",
    "pages/election/EleicaoPage.tsx",
    "pages/election/EmendasPage.tsx",
    "pages/election/GastosPage.tsx",
@@ -17649,6 +21066,13 @@
   ]
  },
  {
+  "texto": "Subcomissão:",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/MembroEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Subsídio",
   "tipo": "exato",
   "arquivos": [
@@ -17686,6 +21110,30 @@
   "tipo": "exato",
   "arquivos": [
    "components/numeros/numeros.ts"
+  ]
+ },
+ {
+  "texto": "Suprema Corte",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EuaInicioPage.tsx",
+   "eua/paginas/SobreEuaPage.tsx",
+   "eua/paginas/SupremaCortePage.tsx",
+   "layouts/navigation.ts"
+  ]
+ },
+ {
+  "texto": "Suprema Corte dos EUA",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SupremaCortePage.tsx"
+  ]
+ },
+ {
+  "texto": "Supreme Court of the United States",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/Moldura.tsx"
   ]
  },
  {
@@ -17731,6 +21179,7 @@
    "components/AparenciaMenu.tsx",
    "components/ColorModeToggle.tsx",
    "components/resultados/ApuracaoAoVivo.tsx",
+   "eua/componentes/MapaEua.tsx",
    "main.tsx",
    "native/NativeBridge.tsx",
    "pages/election/MapaPage.tsx"
@@ -17750,6 +21199,13 @@
   "tipo": "exato",
   "arquivos": [
    "components/compartilhar/desenho.ts"
+  ]
+ },
+ {
+  "texto": "Também não usamos cadastros de eleitores (voter files, controlados por cada estado), dados de eleitores, nomes de servidores das equipes dos gabinetes (que aparecem no detalhamento de gastos da Câmara) nem dados de sites que exigem cadastro ou aceite de termos. A coleta é automática e moderada, identificada como deste site, e só lê páginas e arquivos públicos.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
   ]
  },
  {
@@ -17802,6 +21258,13 @@
   ]
  },
  {
+  "texto": "Telefone do gabinete",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/MembroEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "telefone, CPF, título de eleitor ou qualquer cadastro (o login com Google é opcional; veja o item 4);",
   "tipo": "exato",
   "arquivos": [
@@ -17851,10 +21314,18 @@
   ]
  },
  {
+  "texto": "Tennessee",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
   "texto": "Tentar de novo",
   "tipo": "exato",
   "arquivos": [
    "components/resultados/ApuracaoAoVivo.tsx",
+   "eua/componentes/comuns.tsx",
    "pages/election/ColaPage.tsx",
    "pages/election/CongressoEleitoPage.tsx",
    "pages/election/EmendasPage.tsx",
@@ -17876,6 +21347,8 @@
   "texto": "Termos de Uso",
   "tipo": "exato",
   "arquivos": [
+   "eua/componentes/Moldura.tsx",
+   "eua/paginas/SobreEuaPage.tsx",
    "layouts/PublicLayout.tsx",
    "pages/election/SobrePage.tsx",
    "pages/legal/PrivacidadePage.tsx",
@@ -17932,6 +21405,13 @@
   ]
  },
  {
+  "texto": "Texas",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
   "texto": "text",
   "tipo": "exato",
   "arquivos": [
@@ -17967,6 +21447,13 @@
   ]
  },
  {
+  "texto": "Textos oficiais em inglês (resultado de votação, resumo de decisão) aparecem como publicados, com a tradução ao lado quando ela é literal.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "The \"{0}\" auth provider needs these variables in your .env file.",
   "tipo": "padrao",
   "arquivos": [
@@ -17988,10 +21475,24 @@
   ]
  },
  {
+  "texto": "Tipo de votação / maioria exigida",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/VotacoesEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Tirar o destaque",
   "tipo": "exato",
   "arquivos": [
    "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "TN",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
   ]
  },
  {
@@ -18011,6 +21512,13 @@
    "pages/election/MapaPage.tsx",
    "pages/election/MinhaCidadePage.tsx",
    "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Toda a Câmara em",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/GastosEuaPage.tsx"
   ]
  },
  {
@@ -18046,6 +21554,8 @@
   "texto": "Todas",
   "tipo": "exato",
   "arquivos": [
+   "eua/componentes/blocos.tsx",
+   "eua/paginas/SupremaCortePage.tsx",
    "pages/election/GastosPage.tsx"
   ]
  },
@@ -18113,9 +21623,24 @@
   ]
  },
  {
+  "texto": "Todas as votações nominais (roll call votes) do Plenário da Câmara e do Senado dos EUA no Congresso atual, com o voto de cada parlamentar, como publicadas.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/VotacoesEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Todo o país, {0}",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/paginas/EleicoesEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "todos",
   "tipo": "exato",
   "arquivos": [
+   "eua/componentes/blocos.tsx",
    "pages/election/EleicaoPage.tsx",
    "pages/election/EmendasPage.tsx",
    "pages/election/GastosPage.tsx"
@@ -18125,6 +21650,8 @@
   "texto": "Todos",
   "tipo": "exato",
   "arquivos": [
+   "eua/paginas/CongressoEuaPage.tsx",
+   "eua/paginas/VotacoesEuaPage.tsx",
    "pages/election/EleicaoPage.tsx"
   ]
  },
@@ -18157,10 +21684,24 @@
   ]
  },
  {
+  "texto": "Todos os dias, às 7h de Brasília: todas as fontes.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Todos os favorecidos do município",
   "tipo": "exato",
   "arquivos": [
    "pages/election/EmendasPage.tsx"
+  ]
+ },
+ {
+  "texto": "Todos os juízes desde 1789",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SupremaCortePage.tsx"
   ]
  },
  {
@@ -18234,7 +21775,8 @@
   "texto": "Toque ou clique em um estado",
   "tipo": "exato",
   "arquivos": [
-   "components/election/UfTileMap.tsx"
+   "components/election/UfTileMap.tsx",
+   "eua/componentes/MapaEua.tsx"
   ]
  },
  {
@@ -18252,10 +21794,31 @@
   ]
  },
  {
+  "texto": "total",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/GastosEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Total",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/GastosEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Total de descontos",
   "tipo": "exato",
   "arquivos": [
    "components/stf/stf.ts"
+  ]
+ },
+ {
+  "texto": "Total de votos:",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EleicoesEuaPage.tsx"
   ]
  },
  {
@@ -18312,6 +21875,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/ParlamentarPage.tsx"
+  ]
+ },
+ {
+  "texto": "Total no ano fiscal: estados em 10 grupos do mesmo tamanho, do menor ao maior valor",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/GastosEuaPage.tsx"
   ]
  },
  {
@@ -18456,6 +22026,13 @@
   ]
  },
  {
+  "texto": "Transporte de bens",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
   "texto": "Tratado de Petrópolis (1903): o Acre passa a integrar o Brasil",
   "tipo": "exato",
   "arquivos": [
@@ -18498,6 +22075,13 @@
   ]
  },
  {
+  "texto": "tri",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
   "texto": "Trocar",
   "tipo": "exato",
   "arquivos": [
@@ -18517,6 +22101,20 @@
   "arquivos": [
    "pages/election/ColaPage.tsx",
    "pages/election/SimuladorPage.tsx"
+  ]
+ },
+ {
+  "texto": "Trocar para Brasil",
+  "tipo": "exato",
+  "arquivos": [
+   "layouts/PublicLayout.tsx"
+  ]
+ },
+ {
+  "texto": "Trocar para Estados Unidos",
+  "tipo": "exato",
+  "arquivos": [
+   "layouts/PublicLayout.tsx"
   ]
  },
  {
@@ -18617,6 +22215,27 @@
   ]
  },
  {
+  "texto": "Tudo o que entrou na campanha principal no ciclo de 2 anos.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/blocos.tsx"
+  ]
+ },
+ {
+  "texto": "Tudo o que saiu, inclusive repasses.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/blocos.tsx"
+  ]
+ },
+ {
+  "texto": "Tudo roda sozinho, na nuvem (GitHub Actions), nos momentos em que cada órgão costuma publicar. Cada passada só baixa o que mudou.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Turno",
   "tipo": "exato",
   "arquivos": [
@@ -18639,10 +22258,38 @@
   ]
  },
  {
+  "texto": "twitter",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/MembroEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "TX",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
+  ]
+ },
+ {
   "texto": "type",
   "tipo": "exato",
   "arquivos": [
    "main.tsx"
+  ]
+ },
+ {
+  "texto": "U.S. Census Bureau",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/MapaEua.tsx"
+  ]
+ },
+ {
+  "texto": "U.S. Senate",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/Moldura.tsx"
   ]
  },
  {
@@ -18657,6 +22304,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/numeros/Concorrencia.tsx",
+   "eua/paginas/CandidatosEuaPage.tsx",
    "pages/election/GastosPage.tsx"
   ]
  },
@@ -18698,6 +22346,13 @@
   ]
  },
  {
+  "texto": "Última passada de cada parte",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Ulysses Guimarães",
   "tipo": "exato",
   "arquivos": [
@@ -18709,6 +22364,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/HomePage.tsx"
+  ]
+ },
+ {
+  "texto": "Um serviço informativo, gratuito e não oficial, que reúne e organiza dados públicos publicados pelo próprio governo dos Estados Unidos (e duas compilações em domínio público feitas a partir deles). Não tem vínculo com o governo americano, com partidos ou com campanhas.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
   ]
  },
  {
@@ -18760,6 +22422,14 @@
   ]
  },
  {
+  "texto": "us",
+  "tipo": "exato",
+  "arquivos": [
+   "components/pais.ts",
+   "layouts/PublicLayout.tsx"
+  ]
+ },
+ {
   "texto": "US Embassy Brasília",
   "tipo": "exato",
   "arquivos": [
@@ -18788,6 +22458,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/stf/stf.ts",
+   "eua/formato.ts",
    "pages/election/MinistroStfPage.tsx"
   ]
  },
@@ -18807,6 +22478,20 @@
   ]
  },
  {
+  "texto": "UT",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
+  ]
+ },
+ {
+  "texto": "Utah",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
   "texto": "v",
   "tipo": "exato",
   "arquivos": [
@@ -18821,9 +22506,17 @@
   ]
  },
  {
+  "texto": "VA",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
+  ]
+ },
+ {
   "texto": "vaga",
   "tipo": "exato",
   "arquivos": [
+   "eua/paginas/CongressoEuaPage.tsx",
    "pages/election/EleicaoPage.tsx",
    "pages/election/NumerosPage.tsx"
   ]
@@ -18836,10 +22529,25 @@
   ]
  },
  {
+  "texto": "Vaga aberta (sem incumbente)",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "Vaga:",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EstadoEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "vagas",
   "tipo": "exato",
   "arquivos": [
    "components/resultados/ApuracaoAoVivo.tsx",
+   "eua/paginas/CongressoEuaPage.tsx",
    "pages/election/EleicaoPage.tsx",
    "pages/election/NumerosPage.tsx"
   ]
@@ -18856,6 +22564,13 @@
   "tipo": "exato",
   "arquivos": [
    "components/resultados/ApuracaoAoVivo.tsx"
+  ]
+ },
+ {
+  "texto": "Vagas:",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/PlenarioEua.tsx"
   ]
  },
  {
@@ -18878,6 +22593,7 @@
   "texto": "valor",
   "tipo": "exato",
   "arquivos": [
+   "eua/paginas/GastosEuaPage.tsx",
    "pages/election/EmendasPage.tsx"
   ]
  },
@@ -18924,6 +22640,13 @@
   ]
  },
  {
+  "texto": "Valor por habitante no ano fiscal: estados em 10 grupos do mesmo tamanho, do menor ao maior valor",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/GastosEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Valores da folha de pagamento publicada pelo STF. O subsídio de ministro do STF é o teto do funcionalismo (Constituição, art. 37, XI). O bruto inclui as demais verbas do mês (como vantagens pessoais, abono de permanência, férias e 13º); o líquido é o que sobra depois de impostos, previdência e descontos pessoais. Toque num nome para ver as parcelas e os últimos meses. Ordem alfabética.",
   "tipo": "exato",
   "arquivos": [
@@ -18942,6 +22665,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/HomePage.tsx"
+  ]
+ },
+ {
+  "texto": "Valores declarados até",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/blocos.tsx"
   ]
  },
  {
@@ -19104,6 +22834,7 @@
   "texto": "Ver candidaturas",
   "tipo": "exato",
   "arquivos": [
+   "eua/paginas/EstadoEuaPage.tsx",
    "pages/NotFoundPage.tsx",
    "pages/election/CandidatoPage.tsx"
   ]
@@ -19141,6 +22872,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "ver na FEC",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/MembroEuaPage.tsx"
   ]
  },
  {
@@ -19200,6 +22938,13 @@
   ]
  },
  {
+  "texto": "Ver os relatórios oficiais",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/MembroEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Ver partidos",
   "tipo": "exato",
   "arquivos": [
@@ -19256,6 +23001,20 @@
   ]
  },
  {
+  "texto": "verba de representação (MRA), publicada a cada trimestre",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/MembroEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Verde",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
   "texto": "vereadores",
   "tipo": "exato",
   "arquivos": [
@@ -19263,11 +23022,26 @@
   ]
  },
  {
+  "texto": "Vermont",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
   "texto": "viagens",
   "tipo": "exato",
   "arquivos": [
    "components/stf/PlenarioStf.tsx",
+   "eua/paginas/GastosEuaPage.tsx",
    "pages/election/MinistroStfPage.tsx"
+  ]
+ },
+ {
+  "texto": "Viagens",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
   ]
  },
  {
@@ -19380,6 +23154,20 @@
   "tipo": "exato",
   "arquivos": [
    "theme/temas.ts"
+  ]
+ },
+ {
+  "texto": "Virgínia",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "Virgínia Ocidental",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
   ]
  },
  {
@@ -19533,6 +23321,13 @@
   ]
  },
  {
+  "texto": "Votação",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/blocos.tsx"
+  ]
+ },
+ {
   "texto": "Votação em andamento, até as 17h de Brasília",
   "tipo": "exato",
   "arquivos": [
@@ -19540,10 +23335,24 @@
   ]
  },
  {
+  "texto": "Votação nº {0}",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/paginas/VotacoesEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Votação no município ainda não publicada pelo TSE.",
   "tipo": "exato",
   "arquivos": [
    "pages/election/MinhaCidadePage.tsx"
+  ]
+ },
+ {
+  "texto": "Votação no site oficial",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/VotacoesEuaPage.tsx"
   ]
  },
  {
@@ -19561,6 +23370,14 @@
   ]
  },
  {
+  "texto": "Votações",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/VotacoesEuaPage.tsx",
+   "layouts/navigation.ts"
+  ]
+ },
+ {
   "texto": "Votações com registro",
   "tipo": "exato",
   "arquivos": [
@@ -19568,10 +23385,26 @@
   ]
  },
  {
+  "texto": "votações mais recentes (o resumo conta todas). \"Presente\" é a resposta registrada sem votar sim ou não; nas chamadas de quórum é a única opção. Resultado exibido como publicado, com a tradução ao lado.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/blocos.tsx"
+  ]
+ },
+ {
   "texto": "votações mais recentes; a contagem acima considera todas as",
   "tipo": "exato",
   "arquivos": [
    "components/votacoes/VotacoesNominais.tsx"
+  ]
+ },
+ {
+  "texto": "Votações nominais",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EuaInicioPage.tsx",
+   "eua/paginas/SobreEuaPage.tsx",
+   "eua/paginas/VotacoesEuaPage.tsx"
   ]
  },
  {
@@ -19592,7 +23425,15 @@
   "texto": "Votações nominais no Plenário",
   "tipo": "exato",
   "arquivos": [
-   "components/votacoes/VotacoesNominais.tsx"
+   "components/votacoes/VotacoesNominais.tsx",
+   "eua/paginas/MembroEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "votações, da mais recente para a mais antiga. Toque numa votação para ver como cada parlamentar votou.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/VotacoesEuaPage.tsx"
   ]
  },
  {
@@ -19696,6 +23537,13 @@
   ]
  },
  {
+  "texto": "votos (",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/EleicoesEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Votos de",
   "tipo": "exato",
   "arquivos": [
@@ -19707,6 +23555,13 @@
   "tipo": "padrao",
   "arquivos": [
    "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Votos de {0} por estado em {1}",
+  "tipo": "padrao",
+  "arquivos": [
+   "eua/paginas/EleicoesEuaPage.tsx"
   ]
  },
  {
@@ -19730,6 +23585,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/SegundoTurnoPage.tsx"
+  ]
+ },
+ {
+  "texto": "Votos por partido",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/VotacoesEuaPage.tsx"
   ]
  },
  {
@@ -19776,6 +23638,13 @@
   ]
  },
  {
+  "texto": "votos, valores, datas e resultados são fatos; nos EUA, fatos não são protegidos por direito autoral.",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Votos:",
   "tipo": "exato",
   "arquivos": [
@@ -19787,6 +23656,13 @@
   "tipo": "exato",
   "arquivos": [
    "components/resultados/ApuracaoAoVivo.tsx"
+  ]
+ },
+ {
+  "texto": "Votou Não",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/blocos.tsx"
   ]
  },
  {
@@ -19804,6 +23680,13 @@
   ]
  },
  {
+  "texto": "Votou Sim",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/componentes/blocos.tsx"
+  ]
+ },
+ {
   "texto": "vs. média {0}",
   "tipo": "padrao",
   "arquivos": [
@@ -19818,6 +23701,20 @@
   ]
  },
  {
+  "texto": "VT",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
+  ]
+ },
+ {
+  "texto": "WA",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
+  ]
+ },
+ {
   "texto": "warning",
   "tipo": "exato",
   "arquivos": [
@@ -19826,6 +23723,9 @@
    "components/election/StatusChip.tsx",
    "components/gastos/AvisosAlerts.tsx",
    "components/resultados/ApuracaoAoVivo.tsx",
+   "eua/componentes/comuns.tsx",
+   "eua/paginas/CandidatosEuaPage.tsx",
+   "eua/paginas/VotacoesEuaPage.tsx",
    "pages/election/CandidatoPage.tsx",
    "pages/election/ColaPage.tsx",
    "pages/election/CongressoEleitoPage.tsx",
@@ -19834,6 +23734,13 @@
    "pages/election/PesquisasPage.tsx",
    "pages/election/PlanosPage.tsx",
    "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Washington",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
   ]
  },
  {
@@ -19865,6 +23772,13 @@
   ]
  },
  {
+  "texto": "WI",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
+  ]
+ },
+ {
   "texto": "width",
   "tipo": "exato",
   "arquivos": [
@@ -19879,10 +23793,39 @@
   ]
  },
  {
+  "texto": "Wisconsin",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "WV",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
+  ]
+ },
+ {
+  "texto": "WY",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/usaMapData.ts"
+  ]
+ },
+ {
+  "texto": "Wyoming",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/formato.ts"
+  ]
+ },
+ {
   "texto": "X (Twitter)",
   "tipo": "exato",
   "arquivos": [
-   "components/share/ShareButton.tsx"
+   "components/share/ShareButton.tsx",
+   "eua/paginas/MembroEuaPage.tsx"
   ]
  },
  {

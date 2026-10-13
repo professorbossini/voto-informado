@@ -44,7 +44,7 @@ function Cabecalho({ m }: { m: MembroPerfil }) {
             </Typography>
             <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: 'wrap', my: 1 }}>
               <Chip label={nomePartido(m.partido)} variant="outlined" />
-              {m.bancada && m.bancada !== m.partido && <Chip label={`Vota com a bancada ${nomePartido(m.bancada).toLowerCase()}`} variant="outlined" />}
+              {m.bancada && m.bancada !== m.partido && <Chip label={m.bancada === 'D' ? 'Faz parte da bancada democrata' : m.bancada === 'R' ? 'Faz parte da bancada republicana' : `Bancada: ${nomePartido(m.bancada)}`} variant="outlined" />}
               <Chip label={nomeEstado(m.uf)} variant="outlined" component={RouterLink} to={`/eua/estado/${m.uf}`} clickable />
               {m.casa === 'camara' && !m.delegado && <Chip label={distrito(m.distrito)} variant="outlined" />}
               {m.classe && <Chip label={`Classe ${m.classe}`} variant="outlined" />}
@@ -155,7 +155,7 @@ export function MembroEuaPage() {
               {fec.data.candidaturas.map((c) => (
                 <Box key={c.fec}>
                   <Typography variant="subtitle2" sx={{ mb: 1 }}>
-                    Campanha para {c.cargo === 'Câmara' ? 'a Câmara' : c.cargo === 'Senado' ? 'o Senado' : c.cargo}
+                    <span>{c.cargo === 'Câmara' ? 'Campanha para a Câmara' : c.cargo === 'Senado' ? 'Campanha para o Senado' : `Campanha: ${c.cargo}`}</span>
                     {c.uf ? ` (${nomeEstado(c.uf)})` : ''}, ciclo {fec.data!.ciclo} · registro {c.fec} · <LinkExterno href={c.url}>ver na FEC</LinkExterno>
                   </Typography>
                   {c.financas && <BlocoFinancas f={c.financas} />}

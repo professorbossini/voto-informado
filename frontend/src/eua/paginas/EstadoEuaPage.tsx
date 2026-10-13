@@ -90,7 +90,7 @@ export function EstadoEuaPage() {
               </Grid>
             </Bloco>
           )}
-          <Bloco titulo={`Câmara (${deputados.length + vagas.length} ${deputados.length + vagas.length === 1 ? 'cadeira' : 'cadeiras'})`} fonte={['eua-clerk-membros', 'eua-bioguide']}>
+          <Bloco titulo={deputados.length + vagas.length === 1 ? 'Câmara (1 cadeira)' : `Câmara (${deputados.length + vagas.length} cadeiras)`} fonte={['eua-clerk-membros', 'eua-bioguide']}>
             <Grid container spacing={1.5}>
               {deputados.map((m) => (
                 <Grid key={m.id} size={{ xs: 12, sm: 6, md: 4 }}>

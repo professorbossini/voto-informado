@@ -233,7 +233,7 @@ export function PublicLayout() {
             <ListItemIcon sx={{ fontSize: 20 }} aria-hidden>
               {outroPais.bandeira}
             </ListItemIcon>
-            Ver {outroPais.nome}
+            {outroPais.id === 'us' ? 'Trocar para Estados Unidos' : 'Trocar para Brasil'}
           </MenuItem>
         )}
         {moreItems.map((item) => (

@@ -64,12 +64,13 @@ export function EuaInicioPage() {
               </Box>
               <Box sx={{ flex: 1 }}>
                 <Typography variant="h6" component="h2">
-                  Eleição geral de {dataBr(c.proxima)} ({c.tipo})
+                  {c.em_disputa.presidente ? `Eleição geral (presidencial) de ${dataBr(c.proxima)}` : `Eleição geral de meio de mandato (midterm) de ${dataBr(c.proxima)}`}
                 </Typography>
                 <Typography variant="body2" sx={{ mt: 0.5 }}>
-                  Em disputa: {c.em_disputa.presidente ? 'Presidência, ' : ''}todas as <strong>{c.em_disputa.camara}</strong> cadeiras da Câmara (e{' '}
-                  {c.em_disputa.delegados} delegados sem voto no Plenário) e <strong>{c.em_disputa.senado}</strong> cadeiras do Senado
-                  {c.em_disputa.senado_especiais.length ? `, ${c.em_disputa.senado_especiais.length} delas em eleição especial (${c.em_disputa.senado_especiais.map(nomeEstado).join(' e ')})` : ''}.
+                  {c.em_disputa.presidente
+                    ? `Em disputa: a Presidência, todas as ${c.em_disputa.camara} cadeiras da Câmara (e ${c.em_disputa.delegados} delegados sem voto no Plenário) e ${c.em_disputa.senado} cadeiras do Senado.`
+                    : `Em disputa: todas as ${c.em_disputa.camara} cadeiras da Câmara (e ${c.em_disputa.delegados} delegados sem voto no Plenário) e ${c.em_disputa.senado} cadeiras do Senado.`}{' '}
+                  {c.em_disputa.senado_especiais.length > 0 && `Eleições especiais para o Senado: ${c.em_disputa.senado_especiais.map(nomeEstado).join(', ')}.`}{' '}
                   Governos estaduais e cargos locais também são eleitos, mas ficam fora deste site (cada estado publica os seus).
                 </Typography>
                 <Typography variant="body2" sx={{ mt: 1 }}>

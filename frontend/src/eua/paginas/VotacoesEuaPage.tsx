@@ -141,7 +141,7 @@ export function VotacaoEuaPage() {
         </Link>
         <Typography color="text.primary">Nº {d.n}</Typography>
       </Breadcrumbs>
-      <PageHeader title={d.descricao || d.pergunta || `Votação nº ${d.n}`} subtitle={`${casa === 'senado' ? 'Senado' : 'Câmara'} dos EUA · ${dataHoraBrasilia(d.data)} (horário de Brasília)`} />
+      <PageHeader title={d.descricao || d.pergunta || `Votação nº ${d.n}`} subtitle={casa === 'senado' ? `Senado dos EUA · ${dataHoraBrasilia(d.data)} (horário de Brasília)` : `Câmara dos EUA · ${dataHoraBrasilia(d.data)} (horário de Brasília)`} />
       <AvisoInformativo />
       <Stack spacing={3}>
         <Card variant="outlined">

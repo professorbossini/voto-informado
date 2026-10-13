@@ -58,7 +58,7 @@ export function SobreEuaPage() {
       <Stack spacing={3}>
         <Secao titulo="O que esta parte do site é (e o que não é)">
           <P>
-            Um serviço <strong>informativo, gratuito e não oficial</strong> que reúne e organiza dados públicos publicados pelo próprio governo dos
+            Um serviço informativo, gratuito e não oficial, que reúne e organiza dados públicos publicados pelo próprio governo dos
             Estados Unidos (e duas compilações em domínio público feitas a partir deles). Não tem vínculo com o governo americano, com partidos ou com
             campanhas.
           </P>
@@ -149,7 +149,7 @@ export function SobreEuaPage() {
             </Lei>
           </Box>
           <P>
-            Também <strong>não usamos</strong> cadastros de eleitores (voter files, controlados por cada estado), dados de eleitores, nomes de
+            Também não usamos cadastros de eleitores (voter files, controlados por cada estado), dados de eleitores, nomes de
             servidores das equipes dos gabinetes (que aparecem no detalhamento de gastos da Câmara) nem dados de sites que exigem cadastro ou aceite de
             termos. A coleta é automática e moderada, identificada como deste site, e só lê páginas e arquivos públicos.
           </P>
@@ -249,8 +249,10 @@ export function SobreEuaPage() {
             <Link href="https://github.com/professorbossini/voto-informado/issues/new" target="_blank" rel="noopener noreferrer">
               Reportar erro ou divergência
             </Link>
-            . Veja também a <Link component={RouterLink} to="/privacidade">Política de Privacidade</Link> e os{' '}
-            <Link component={RouterLink} to="/termos">Termos de Uso</Link>.
+            {' · '}
+            <Link component={RouterLink} to="/privacidade">Política de Privacidade</Link>
+            {' · '}
+            <Link component={RouterLink} to="/termos">Termos de Uso</Link>
           </P>
         </Secao>
       </Stack>

@@ -84,7 +84,7 @@ function GastoFederal() {
               rotulos={Object.fromEntries(Object.entries(valores).map(([uf, v]) => [uf, `${nomeEstado(uf)}: ${v != null ? fmt(v) : 'sem dado'}${medida === 'per_capita' ? ' por habitante' : ''}`]))}
               onSelect={(uf) => navigate(`/eua/estado/${uf}`)}
             />
-            {nums.length > 0 && <LegendaEscala min={fmt(Math.min(...nums))} max={fmt(Math.max(...nums))} titulo={`${medida === 'valor' ? 'Total' : 'Valor por habitante'} no ano fiscal: estados em 10 grupos do mesmo tamanho, do menor ao maior valor`} />}
+            {nums.length > 0 && <LegendaEscala min={fmt(Math.min(...nums))} max={fmt(Math.max(...nums))} titulo={medida === 'valor' ? 'Total no ano fiscal: estados em 10 grupos do mesmo tamanho, do menor ao maior valor' : 'Valor por habitante no ano fiscal: estados em 10 grupos do mesmo tamanho, do menor ao maior valor'} />}
           </Grid>
           <Grid size={{ xs: 12, md: 5 }}>
             <TableContainer sx={{ maxHeight: 460 }}>
