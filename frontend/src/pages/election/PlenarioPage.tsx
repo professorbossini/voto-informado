@@ -223,6 +223,8 @@ function Desenho({
       </g>
     );
   };
+  // Cadeira sob o mouse (ou tocada): desenhada de novo, maior, por cima das vizinhas.
+  const [sobre, setSobre] = useState<{ m: MembroPlenario; x: number; y: number; r: number } | null>(null);
   const { cx, cy } = geo;
   // No celular o texto do SVG ficaria minúsculo: o nome vai para fora do desenho (PresidenciaTexto).
   const compacto = useMediaQuery(theme.breakpoints.down('sm'));
@@ -237,6 +239,7 @@ function Desenho({
   return (
     <Box
       component="svg"
+      data-figura
       viewBox={`0 0 ${geo.largura} ${geo.altura + extra}`}
       role="group"
       aria-label={`Plenário do ${info.nome}: ${casa.membros.length} cadeiras. ${lista.map((g) => `${g.sigla} ${g.total}`).join(', ')}.${pres ? ` Presidência: ${pres.nome} (${pres.partido}).` : ''}`}
@@ -245,7 +248,11 @@ function Desenho({
         height: 'auto',
         display: 'block',
         userSelect: 'none',
+        overflow: 'visible',
         '& a': { outline: 'none' },
+        '@keyframes cadeira-cresce': { from: { transform: 'scale(0.55)' }, to: { transform: 'scale(1)' } },
+        '& .cadeira-grande': { transformBox: 'fill-box', transformOrigin: 'center', animation: 'cadeira-cresce .14s ease-out', filter: 'drop-shadow(0 3px 6px rgba(0,0,0,.35))' },
+        '@media (prefers-reduced-motion: reduce)': { '& .cadeira-grande': { animation: 'none' } },
         '& a:focus-visible .anel, & a:hover .anel': { stroke: theme.vars.palette.primary.main, strokeWidth: 3 },
       }}
     >
@@ -283,7 +290,12 @@ function Desenho({
         const sel = selecionado?.id === m.id;
         return cadeira(
           m,
-          <g opacity={apagado ? 0.18 : 1} style={{ transition: 'opacity .2s' }}>
+          <g
+            opacity={apagado ? 0.18 : 1}
+            style={{ transition: 'opacity .2s' }}
+            onPointerEnter={() => setSobre({ m, x: a.x, y: a.y, r: a.r })}
+            onPointerLeave={() => setSobre((v) => (v?.m.id === m.id ? null : v))}
+          >
             {assento(m, a.x, a.y, a.r, sel ? theme.vars.palette.primary.main : linha, sel ? 3 : 1, rotulo(m))}
           </g>,
         );
@@ -318,6 +330,12 @@ function Desenho({
           <circle cx={cx} cy={cy - 70 - cadeiraR - 6} r={cadeiraR} fill="none" stroke={linha} strokeWidth={2} strokeDasharray="4 4" />
         )}
       </g>
+      {/* Cadeira sob o mouse, ampliada (só visual: o clique continua na cadeira de baixo). */}
+      {sobre && (
+        <g key={sobre.m.id} className="cadeira-grande" pointerEvents="none" aria-hidden>
+          {assento(sobre.m, sobre.x, sobre.y, Math.max(sobre.r * 2.1, 22), theme.vars.palette.primary.main, 2.5, rotulo(sobre.m))}
+        </g>
+      )}
       {!compacto && (
         <>
           <text x={cx} y={cy + 36} textAnchor="middle" fontSize={26} fontWeight={800} fill={texto}>

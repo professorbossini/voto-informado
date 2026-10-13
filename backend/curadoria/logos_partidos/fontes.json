@@ -66,11 +66,12 @@
   },
   {
     "sigla": "PL",
-    "arquivo": null,
+    "arquivo": "pl.png",
+    "fundo": "#005aab",
     "site_oficial": "https://partidoliberal.org.br/",
-    "url_logo": null,
-    "coletado_em": "2026-10-04T23:27:42-03:00",
-    "observacao": "O endereço oficial informado ao TSE (partidoliberal.org.br, também com www) exibia apenas a tela de instalação do WordPress (/wp-admin/install.php) na coleta; não há logo publicado. Nenhum outro domínio oficial foi encontrado. Não foi usado logo de terceiros."
+    "url_logo": "https://partidoliberal.org.br/wp-content/uploads/2023/04/cropped-logo_pl-270x270.png",
+    "coletado_em": "2026-10-13T19:40:00-03:00",
+    "observacao": "Ícone oficial do site do partido (270x270, PNG), já com o fundo azul próprio. Em 04/10/2026 o site exibia só a instalação do WordPress; em 13/10/2026 voltou ao ar com o logo. Não foi usado o arquivo logo-bolsonaro.png do mesmo site (traz uma pessoa, não só o símbolo)."
   },
   {
     "sigla": "PODE",
