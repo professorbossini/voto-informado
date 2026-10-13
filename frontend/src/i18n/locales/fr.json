@@ -3230,7 +3230,6 @@
   "· {0} por habitante": "· {0} par habitant",
   "· {0} votos no Colégio Eleitoral (maioria: 270 de 538)": "· {0} voix au Collège électoral (majorité : 270 sur 538)",
   "Órgão eleitoral oficial do estado (cédula e resultado)": "Autorité électorale officielle de l'État (bulletin et résultat)",
-  "Última passada de cada parte": "Dernier passage de chaque partie",
   "Bancada: {0}": "Groupe parlementaire : {0}",
   "Campanha para a Câmara": "Campagne pour la Chambre",
   "Campanha para o Senado": "Campagne pour le Sénat",
@@ -3256,5 +3255,6 @@
   "Um serviço informativo, gratuito e não oficial, que reúne e organiza dados públicos publicados pelo próprio governo dos Estados Unidos (e duas compilações em domínio público feitas a partir deles). Não tem vínculo com o governo americano, com partidos ou com campanhas.": "Un service d'information gratuit et non officiel, qui rassemble et organise des données publiques publiées par le gouvernement des États-Unis lui-même (et deux compilations du domaine public établies à partir de celles-ci). Il n'a aucun lien avec le gouvernement américain, les partis ou les campagnes.",
   "Valor por habitante no ano fiscal: estados em 10 grupos do mesmo tamanho, do menor ao maior valor": "Montant par habitant sur l'exercice budgétaire : États répartis en 10 groupes de même taille, de la plus petite à la plus grande valeur",
   "· 1 voto no Colégio Eleitoral": "· 1 voix au Collège électoral",
-  "· {0} votos no Colégio Eleitoral": "· {0} voix au Collège électoral"
+  "· {0} votos no Colégio Eleitoral": "· {0} voix au Collège électoral",
+  "Última atualização de cada parte": "Dernière mise à jour de chaque partie"
 }

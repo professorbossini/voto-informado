@@ -3230,7 +3230,6 @@
   "· {0} por habitante": "· {0} per capita",
   "· {0} votos no Colégio Eleitoral (maioria: 270 de 538)": "· {0} Electoral College votes (majority: 270 of 538)",
   "Órgão eleitoral oficial do estado (cédula e resultado)": "Official state election office (ballot and results)",
-  "Última passada de cada parte": "Latest run of each part",
   "Bancada: {0}": "Caucus: {0}",
   "Campanha para a Câmara": "House campaign",
   "Campanha para o Senado": "Senate campaign",
@@ -3256,5 +3255,6 @@
   "Um serviço informativo, gratuito e não oficial, que reúne e organiza dados públicos publicados pelo próprio governo dos Estados Unidos (e duas compilações em domínio público feitas a partir deles). Não tem vínculo com o governo americano, com partidos ou com campanhas.": "A free, unofficial informational service that gathers and organizes public data published by the United States government itself (and two public-domain compilations made from it). It is not affiliated with the U.S. government, parties or campaigns.",
   "Valor por habitante no ano fiscal: estados em 10 grupos do mesmo tamanho, do menor ao maior valor": "Per capita amount in the fiscal year: states in 10 equal-size groups, from lowest to highest value",
   "· 1 voto no Colégio Eleitoral": "· 1 Electoral College vote",
-  "· {0} votos no Colégio Eleitoral": "· {0} Electoral College votes"
+  "· {0} votos no Colégio Eleitoral": "· {0} Electoral College votes",
+  "Última atualização de cada parte": "Last update of each part"
 }

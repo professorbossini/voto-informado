@@ -3,13 +3,13 @@ import { fileURLToPath, URL } from 'node:url';
 import react from '@vitejs/plugin-react';
 import { defineConfig, loadEnv, type Plugin } from 'vite';
 
-/** Fills <title> with VITE_APP_NAME, falling back to a neutral placeholder. */
+/** Fills <title> and og:title with VITE_APP_NAME, falling back to a neutral placeholder. */
 function appTitle(mode: string): Plugin {
   const name = loadEnv(mode, process.cwd()).VITE_APP_NAME?.trim() || 'Tá na Urna';
   const escaped = name.replace(/[&<>"]/g, (c) => `&#${c.charCodeAt(0)};`);
   return {
     name: 'app-title',
-    transformIndexHtml: (html) => html.replace('%APP_TITLE%', escaped),
+    transformIndexHtml: (html) => html.replaceAll('%APP_TITLE%', escaped), // título e og:title (prévia de link)
   };
 }
 

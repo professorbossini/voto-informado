@@ -3230,7 +3230,6 @@
   "· {0} por habitante": "· kişi başına {0}",
   "· {0} votos no Colégio Eleitoral (maioria: 270 de 538)": "· Seçiciler Kurulu'nda {0} oy (çoğunluk: 538'de 270)",
   "Órgão eleitoral oficial do estado (cédula e resultado)": "Eyaletin resmî seçim kurumu (oy pusulası ve sonuç)",
-  "Última passada de cada parte": "Her bölümün son taraması",
   "Bancada: {0}": "Grup: {0}",
   "Campanha para a Câmara": "Temsilciler Meclisi kampanyası",
   "Campanha para o Senado": "Senato kampanyası",
@@ -3256,5 +3255,6 @@
   "Um serviço informativo, gratuito e não oficial, que reúne e organiza dados públicos publicados pelo próprio governo dos Estados Unidos (e duas compilações em domínio público feitas a partir deles). Não tem vínculo com o governo americano, com partidos ou com campanhas.": "Doğrudan Amerika Birleşik Devletleri hükümetinin yayımladığı kamuya açık verileri (ve bunlardan hazırlanmış, kamu malı olan iki derlemeyi) bir araya getirip düzenleyen ücretsiz ve resmî olmayan bir bilgilendirme hizmeti. ABD hükümeti, partiler veya kampanyalarla hiçbir bağı yoktur.",
   "Valor por habitante no ano fiscal: estados em 10 grupos do mesmo tamanho, do menor ao maior valor": "Mali yılda kişi başına tutar: eyaletler, en düşükten en yükseğe doğru 10 eşit büyüklükte grupta",
   "· 1 voto no Colégio Eleitoral": "· Seçiciler Kurulu'nda 1 oy",
-  "· {0} votos no Colégio Eleitoral": "· Seçiciler Kurulu'nda {0} oy"
+  "· {0} votos no Colégio Eleitoral": "· Seçiciler Kurulu'nda {0} oy",
+  "Última atualização de cada parte": "Her bölümün son güncellemesi"
 }

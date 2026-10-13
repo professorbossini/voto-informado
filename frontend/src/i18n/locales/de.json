@@ -3230,7 +3230,6 @@
   "· {0} por habitante": "· {0} pro Kopf",
   "· {0} votos no Colégio Eleitoral (maioria: 270 de 538)": "· {0} Stimmen im Wahlleutegremium (Mehrheit: 270 von 538)",
   "Órgão eleitoral oficial do estado (cédula e resultado)": "Amtliche Wahlbehörde des Bundesstaats (Stimmzettel und Ergebnis)",
-  "Última passada de cada parte": "Letzter Durchlauf je Bereich",
   "Bancada: {0}": "Fraktion: {0}",
   "Campanha para a Câmara": "Wahlkampf für das Repräsentantenhaus",
   "Campanha para o Senado": "Wahlkampf für den Senat",
@@ -3256,5 +3255,6 @@
   "Um serviço informativo, gratuito e não oficial, que reúne e organiza dados públicos publicados pelo próprio governo dos Estados Unidos (e duas compilações em domínio público feitas a partir deles). Não tem vínculo com o governo americano, com partidos ou com campanhas.": "Ein kostenloser, nicht amtlicher Informationsdienst, der öffentliche Daten sammelt und ordnet, die von der Regierung der Vereinigten Staaten selbst veröffentlicht werden (sowie zwei daraus erstellte gemeinfreie Datensammlungen). Er steht in keiner Verbindung zur US-Regierung, zu Parteien oder zu Wahlkampagnen.",
   "Valor por habitante no ano fiscal: estados em 10 grupos do mesmo tamanho, do menor ao maior valor": "Betrag pro Kopf im Haushaltsjahr: Bundesstaaten in 10 gleich großen Gruppen, vom niedrigsten zum höchsten Wert",
   "· 1 voto no Colégio Eleitoral": "· 1 Stimme im Wahlleutegremium",
-  "· {0} votos no Colégio Eleitoral": "· {0} Stimmen im Wahlleutegremium"
+  "· {0} votos no Colégio Eleitoral": "· {0} Stimmen im Wahlleutegremium",
+  "Última atualização de cada parte": "Letzte Aktualisierung jedes Teils"
 }

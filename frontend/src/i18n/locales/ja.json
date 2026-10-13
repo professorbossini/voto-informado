@@ -1866,7 +1866,6 @@
   "Última consulta à apuração do TSE": "TSE 開票結果の最終確認日時",
   "Última consulta: {0}.": "最終確認：{0}。",
   "Última eleição vencida (desde 2018)": "直近の当選 (2018年以降)",
-  "Última passada de cada parte": "各部分の最終更新",
   "Um estado tem 2º turno para governador": "1州で州知事の決選投票があります",
   "Uma ferramenta gratuita de transparência que reúne, organiza e exibe dados públicos publicados pelo Tribunal Superior Eleitoral (TSE), pela Câmara dos Deputados e pelo Senado Federal sobre as eleições de 2026 e sobre gastos de mandato.": "2026年選挙と議員活動の支出について、高等選挙裁判所（TSE）、連邦下院、連邦上院が公表した公開データを集め、整理し、表示する無料の透明性ツールです。",
   "undefined": "undefined",
@@ -3256,5 +3255,6 @@
   "Um serviço informativo, gratuito e não oficial, que reúne e organiza dados públicos publicados pelo próprio governo dos Estados Unidos (e duas compilações em domínio público feitas a partir deles). Não tem vínculo com o governo americano, com partidos ou com campanhas.": "米国政府自身が公表する公開データ（およびそれをもとに作成されたパブリックドメインの2つの編纂物）を収集・整理する、無料で非公式の情報サービスです。米国政府、政党、選挙陣営とは一切関係ありません。",
   "Valor por habitante no ano fiscal: estados em 10 grupos do mesmo tamanho, do menor ao maior valor": "会計年度の1人あたり金額：各州を値の小さい順に同数ずつ10グループに分類",
   "· 1 voto no Colégio Eleitoral": "· 選挙人団 1票",
-  "· {0} votos no Colégio Eleitoral": "· 選挙人団 {0}票"
+  "· {0} votos no Colégio Eleitoral": "· 選挙人団 {0}票",
+  "Última atualização de cada parte": "各項目の最終更新"
 }

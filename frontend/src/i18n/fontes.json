@@ -22318,6 +22318,13 @@
   ]
  },
  {
+  "texto": "Última atualização de cada parte",
+  "tipo": "exato",
+  "arquivos": [
+   "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
   "texto": "Última coleta:",
   "tipo": "exato",
   "arquivos": [
@@ -22343,13 +22350,6 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/CompararPage.tsx"
-  ]
- },
- {
-  "texto": "Última passada de cada parte",
-  "tipo": "exato",
-  "arquivos": [
-   "eua/paginas/SobreEuaPage.tsx"
   ]
  },
  {

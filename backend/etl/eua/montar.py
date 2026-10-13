@@ -21,6 +21,7 @@ Uso:
 from __future__ import annotations
 
 import argparse
+import html
 import os
 import sys
 import traceback
@@ -28,7 +29,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from . import congresso, eleicoes, fec, gastos, suprema, votacoes
-from .comum import ESTADOS, SITE_URL, TERRITORIOS, agora, gravar_se_mudou, ler
+from .comum import ESTADOS, SITE_URL, TERRITORIOS, agora, gravar, ler
 
 PARTES = ["congresso", "votacoes", "fec", "gastos_camara", "gastos_federal", "eleicoes", "suprema"]
 
@@ -72,17 +73,28 @@ def paginas(site: Path, api: Path) -> bool:
     mudou = False
 
     def criar(rel: str, titulo: str, desc: str, img: str | None = None) -> None:
+        """Cria a página da rota; refaz se o título ou a descrição mudaram (ex.: troca de cargo)."""
         nonlocal mudou
-        if not (site / rel / "index.html").exists():
-            _page(modelo, site, rel, titulo, desc, f"{SITE_URL}/{rel}", img)
-            mudou = True
+        destino = site / rel / "index.html"
+        if destino.exists():
+            atual = destino.read_text(encoding="utf-8")
+            if f"<title>{html.escape(titulo, quote=True)}</title>" in atual and html.escape(desc, quote=True) in atual:
+                return
+        _page(modelo, site, rel, titulo, desc, f"{SITE_URL}/{rel}", img)
+        mudou = True
 
     for rel, (t, d) in ROTAS_FIXAS.items():
         criar(rel, t, d)
     cong = ler(api / "congresso.json") or {}
     for casa in ("camara", "senado"):
         for m in cong.get(casa, {}).get("membros", []):
-            cargo = "Senador(a)" if casa == "senado" else ("Delegado(a)" if m.get("delegado") else "Deputado(a)")
+            f = m.get("genero") == "F"
+            if casa == "senado":
+                cargo = "Senadora" if f else "Senador"
+            elif m.get("delegado"):
+                cargo = ("Comissária residente" if f else "Comissário residente") if m["uf"] == "PR" else ("Delegada" if f else "Delegado")
+            else:
+                cargo = "Deputada" if f else "Deputado"
             onde = ESTADOS.get(m["uf"]) or TERRITORIOS.get(m["uf"]) or m["uf"]
             img = f"{SITE_URL}/api/{m['foto']}" if m.get("foto") else None
             criar(f"eua/membro/{m['id']}", f"{m['nome']} · {cargo} ({onde}) · Tá na Urna",
@@ -137,12 +149,14 @@ def montar(site: Path, partes: list[str]) -> bool:
         rodar("suprema", lambda: suprema.montar(api))
 
     mudou |= paginas(site, api)
-    lista = sorted(fontes.values(), key=lambda f: f["chave"])
-    mudou |= gravar_se_mudou(api / "fontes.json", {"fontes": lista, "coletado_em": agora()})
-    novo_meta = {"partes": situacao, "atualizado_em": meta.get("atualizado_em")}
-    if mudou or novo_meta["partes"] != meta.get("partes"):
-        novo_meta["atualizado_em"] = agora()
-        mudou |= gravar_se_mudou(api / "meta.json", novo_meta, campo_data="__")
+    # Fontes e situação só são regravadas quando algum dado mudou ou uma fonte mudou de estado (ok ↔ falha):
+    # passadas sem novidade não geram publicação nenhuma.
+    estado = lambda partes: {k: (v.get("ok"), v.get("detalhe")) for k, v in (partes or {}).items()}  # noqa: E731
+    if mudou or estado(situacao) != estado(meta.get("partes")) or not (api / "fontes.json").exists():
+        lista = sorted(fontes.values(), key=lambda f: f["chave"])
+        gravar(api / "fontes.json", {"fontes": lista, "coletado_em": agora()})
+        gravar(api / "meta.json", {"partes": situacao, "atualizado_em": agora()})
+        mudou = True
     return mudou
 
 

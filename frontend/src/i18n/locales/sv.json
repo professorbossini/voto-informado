@@ -3230,7 +3230,6 @@
   "· {0} por habitante": "· {0} per invånare",
   "· {0} votos no Colégio Eleitoral (maioria: 270 de 538)": "· {0} elektorsröster (majoritet: 270 av 538)",
   "Órgão eleitoral oficial do estado (cédula e resultado)": "Delstatens officiella valmyndighet (valsedel och resultat)",
-  "Última passada de cada parte": "Senaste körning för varje del",
   "Bancada: {0}": "Grupp: {0}",
   "Campanha para a Câmara": "Kampanj till representanthuset",
   "Campanha para o Senado": "Kampanj till senaten",
@@ -3256,5 +3255,6 @@
   "Um serviço informativo, gratuito e não oficial, que reúne e organiza dados públicos publicados pelo próprio governo dos Estados Unidos (e duas compilações em domínio público feitas a partir deles). Não tem vínculo com o governo americano, com partidos ou com campanhas.": "En kostnadsfri och inofficiell informationstjänst som samlar och ordnar offentliga uppgifter som publiceras av USA:s regering själv (och två sammanställningar i allmän egendom som gjorts utifrån dem). Den har ingen koppling till den amerikanska regeringen, partier eller kampanjer.",
   "Valor por habitante no ano fiscal: estados em 10 grupos do mesmo tamanho, do menor ao maior valor": "Belopp per invånare under budgetåret: delstaterna i 10 lika stora grupper, från lägsta till högsta värde",
   "· 1 voto no Colégio Eleitoral": "· 1 elektorsröst",
-  "· {0} votos no Colégio Eleitoral": "· {0} elektorsröster"
+  "· {0} votos no Colégio Eleitoral": "· {0} elektorsröster",
+  "Última atualização de cada parte": "Senaste uppdatering av varje del"
 }

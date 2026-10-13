@@ -1866,7 +1866,6 @@
   "Última consulta à apuração do TSE": "最近一次查询 TSE 计票",
   "Última consulta: {0}.": "最近查询：{0}。",
   "Última eleição vencida (desde 2018)": "最近一次胜选 (自2018年起)",
-  "Última passada de cada parte": "各部分最近一次更新",
   "Um estado tem 2º turno para governador": "一个州的州长选举进入第二轮",
   "Uma ferramenta gratuita de transparência que reúne, organiza e exibe dados públicos publicados pelo Tribunal Superior Eleitoral (TSE), pela Câmara dos Deputados e pelo Senado Federal sobre as eleições de 2026 e sobre gastos de mandato.": "一款免费的透明工具，汇集、整理并展示高等选举法院（TSE）、众议院和联邦参议院发布的关于2026年选举和任期支出的公开数据。",
   "undefined": "undefined",
@@ -3256,5 +3255,6 @@
   "Um serviço informativo, gratuito e não oficial, que reúne e organiza dados públicos publicados pelo próprio governo dos Estados Unidos (e duas compilações em domínio público feitas a partir deles). Não tem vínculo com o governo americano, com partidos ou com campanhas.": "一项免费、非官方的信息服务，汇集并整理美国政府自身发布的公开数据（以及据此制作的两个公有领域汇编）。与美国政府、政党或竞选活动均无关联。",
   "Valor por habitante no ano fiscal: estados em 10 grupos do mesmo tamanho, do menor ao maior valor": "财年人均金额：各州按数值从小到大分为10个规模相同的组",
   "· 1 voto no Colégio Eleitoral": "· 选举人团1票",
-  "· {0} votos no Colégio Eleitoral": "· 选举人团{0}票"
+  "· {0} votos no Colégio Eleitoral": "· 选举人团{0}票",
+  "Última atualização de cada parte": "各部分的最近更新"
 }

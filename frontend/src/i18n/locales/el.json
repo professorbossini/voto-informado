@@ -3230,7 +3230,6 @@
   "· {0} por habitante": "· {0} ανά κάτοικο",
   "· {0} votos no Colégio Eleitoral (maioria: 270 de 538)": "· {0} ψήφοι στο Σώμα Εκλεκτόρων (πλειοψηφία: 270 από 538)",
   "Órgão eleitoral oficial do estado (cédula e resultado)": "Επίσημη εκλογική αρχή της πολιτείας (ψηφοδέλτιο και αποτέλεσμα)",
-  "Última passada de cada parte": "Τελευταίο πέρασμα κάθε ενότητας",
   "Bancada: {0}": "Ομάδα: {0}",
   "Campanha para a Câmara": "Εκστρατεία για τη Βουλή των Αντιπροσώπων",
   "Campanha para o Senado": "Εκστρατεία για τη Γερουσία",
@@ -3256,5 +3255,6 @@
   "Um serviço informativo, gratuito e não oficial, que reúne e organiza dados públicos publicados pelo próprio governo dos Estados Unidos (e duas compilações em domínio público feitas a partir deles). Não tem vínculo com o governo americano, com partidos ou com campanhas.": "Μια ενημερωτική υπηρεσία, δωρεάν και μη επίσημη, που συγκεντρώνει και οργανώνει δημόσια δεδομένα που δημοσιεύει η ίδια η κυβέρνηση των Ηνωμένων Πολιτειών (και δύο συλλογές κοινού κτήματος που βασίζονται σε αυτά). Δεν έχει σχέση με την αμερικανική κυβέρνηση, με κόμματα ή με εκστρατείες.",
   "Valor por habitante no ano fiscal: estados em 10 grupos do mesmo tamanho, do menor ao maior valor": "Ποσό ανά κάτοικο στο οικονομικό έτος: πολιτείες σε 10 ισομεγέθεις ομάδες, από τη μικρότερη στη μεγαλύτερη τιμή",
   "· 1 voto no Colégio Eleitoral": "· 1 ψήφος στο Σώμα Εκλεκτόρων",
-  "· {0} votos no Colégio Eleitoral": "· {0} ψήφοι στο Σώμα Εκλεκτόρων"
+  "· {0} votos no Colégio Eleitoral": "· {0} ψήφοι στο Σώμα Εκλεκτόρων",
+  "Última atualização de cada parte": "Τελευταία ενημέρωση κάθε ενότητας"
 }

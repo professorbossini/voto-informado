@@ -3230,7 +3230,6 @@
   "· {0} por habitante": "· {0} pa moun",
   "· {0} votos no Colégio Eleitoral (maioria: 270 de 538)": "· {0} vòt nan Kolèj Elektoral (majorite: 270 sou 538)",
   "Órgão eleitoral oficial do estado (cédula e resultado)": "Biwo elektoral ofisyèl eta a (bilten vòt ak rezilta)",
-  "Última passada de cada parte": "Dènye pasaj chak pati",
   "Bancada: {0}": "Gwoup: {0}",
   "Campanha para a Câmara": "Kanpay pou Chanm nan",
   "Campanha para o Senado": "Kanpay pou Sena a",
@@ -3256,5 +3255,6 @@
   "Um serviço informativo, gratuito e não oficial, que reúne e organiza dados públicos publicados pelo próprio governo dos Estados Unidos (e duas compilações em domínio público feitas a partir deles). Não tem vínculo com o governo americano, com partidos ou com campanhas.": "Yon sèvis enfòmasyon, gratis e ki pa ofisyèl, ki rasanble epi òganize done piblik gouvènman Etazini li menm pibliye (ak de konpilasyon nan domèn piblik ki fèt apati yo). Li pa gen okenn lyen ak gouvènman ameriken an, ak pati politik oswa ak kanpay.",
   "Valor por habitante no ano fiscal: estados em 10 grupos do mesmo tamanho, do menor ao maior valor": "Valè pa moun pou ane fiskal la: eta yo nan 10 gwoup menm gwosè, soti nan pi piti valè a rive nan pi gwo a",
   "· 1 voto no Colégio Eleitoral": "· 1 vòt nan Kolèj Elektoral",
-  "· {0} votos no Colégio Eleitoral": "· {0} vòt nan Kolèj Elektoral"
+  "· {0} votos no Colégio Eleitoral": "· {0} vòt nan Kolèj Elektoral",
+  "Última atualização de cada parte": "Dènye mizajou chak pati"
 }

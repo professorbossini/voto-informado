@@ -1866,7 +1866,6 @@
   "Última consulta à apuração do TSE": "Pemeriksaan terakhir ke penghitungan suara TSE",
   "Última consulta: {0}.": "Pemeriksaan terakhir: {0}.",
   "Última eleição vencida (desde 2018)": "Kemenangan pemilu terakhir (sejak 2018)",
-  "Última passada de cada parte": "Pembaruan terakhir setiap bagian",
   "Um estado tem 2º turno para governador": "Satu negara bagian mengadakan putaran ke-2 untuk gubernur",
   "Uma ferramenta gratuita de transparência que reúne, organiza e exibe dados públicos publicados pelo Tribunal Superior Eleitoral (TSE), pela Câmara dos Deputados e pelo Senado Federal sobre as eleições de 2026 e sobre gastos de mandato.": "Alat transparansi gratis yang mengumpulkan, menata, dan menampilkan data publik yang dipublikasikan oleh Tribunal Superior Eleitoral (TSE), Dewan Perwakilan (Câmara dos Deputados), dan Senat Federal tentang pemilu 2026 dan pengeluaran selama masa jabatan.",
   "undefined": "undefined",
@@ -3256,5 +3255,6 @@
   "Um serviço informativo, gratuito e não oficial, que reúne e organiza dados públicos publicados pelo próprio governo dos Estados Unidos (e duas compilações em domínio público feitas a partir deles). Não tem vínculo com o governo americano, com partidos ou com campanhas.": "Layanan informasi gratis dan tidak resmi yang mengumpulkan dan menata data publik yang diterbitkan oleh pemerintah Amerika Serikat sendiri (serta dua kompilasi domain publik yang dibuat dari data tersebut). Tidak berafiliasi dengan pemerintah AS, partai, maupun kampanye.",
   "Valor por habitante no ano fiscal: estados em 10 grupos do mesmo tamanho, do menor ao maior valor": "Nilai per penduduk dalam tahun fiskal: negara bagian dalam 10 kelompok berukuran sama, dari nilai terendah ke tertinggi",
   "· 1 voto no Colégio Eleitoral": "· 1 suara di Electoral College",
-  "· {0} votos no Colégio Eleitoral": "· {0} suara di Electoral College"
+  "· {0} votos no Colégio Eleitoral": "· {0} suara di Electoral College",
+  "Última atualização de cada parte": "Pembaruan terakhir tiap bagian"
 }

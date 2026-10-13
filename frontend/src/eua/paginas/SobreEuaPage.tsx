@@ -199,7 +199,7 @@ export function SobreEuaPage() {
           {meta.data && (
             <Box>
               <Typography variant="subtitle2" sx={{ mb: 0.5 }}>
-                Última passada de cada parte
+                Última atualização de cada parte
               </Typography>
               {Object.entries(meta.data.partes).map(([k, v]) => (
                 <Typography key={k} variant="body2">

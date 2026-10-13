@@ -1866,7 +1866,6 @@
   "Última consulta à apuração do TSE": "TSE 개표 최근 조회",
   "Última consulta: {0}.": "최근 조회: {0}.",
   "Última eleição vencida (desde 2018)": "최근 당선 선거 (2018년 이후)",
-  "Última passada de cada parte": "각 부분의 최근 갱신",
   "Um estado tem 2º turno para governador": "1개 주에서 주지사 결선 투표가 치러집니다",
   "Uma ferramenta gratuita de transparência que reúne, organiza e exibe dados públicos publicados pelo Tribunal Superior Eleitoral (TSE), pela Câmara dos Deputados e pelo Senado Federal sobre as eleições de 2026 e sobre gastos de mandato.": "최고선거법원(TSE), 연방 하원, 연방 상원이 공개한 2026년 선거 및 의정 활동 지출에 관한 공공 데이터를 모아 정리하고 보여 주는 무료 투명성 도구입니다.",
   "undefined": "undefined",
@@ -3256,5 +3255,6 @@
   "Um serviço informativo, gratuito e não oficial, que reúne e organiza dados públicos publicados pelo próprio governo dos Estados Unidos (e duas compilações em domínio público feitas a partir deles). Não tem vínculo com o governo americano, com partidos ou com campanhas.": "미국 정부가 직접 발표한 공공 데이터(및 이를 바탕으로 만든 퍼블릭 도메인 편찬물 2종)를 모아 정리하는 무료 비공식 정보 서비스입니다. 미국 정부, 정당, 선거 캠프와 관련이 없습니다.",
   "Valor por habitante no ano fiscal: estados em 10 grupos do mesmo tamanho, do menor ao maior valor": "회계연도 1인당 금액: 각 주를 값이 작은 것부터 큰 것까지 같은 크기의 10개 그룹으로 구분",
   "· 1 voto no Colégio Eleitoral": "· 선거인단 1표",
-  "· {0} votos no Colégio Eleitoral": "· 선거인단 {0}표"
+  "· {0} votos no Colégio Eleitoral": "· 선거인단 {0}표",
+  "Última atualização de cada parte": "각 항목의 최근 업데이트"
 }

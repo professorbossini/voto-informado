@@ -3230,7 +3230,6 @@
   "· {0} por habitante": "· {0} per inwoner",
   "· {0} votos no Colégio Eleitoral (maioria: 270 de 538)": "· {0} kiesmannen in het kiescollege (meerderheid: 270 van 538)",
   "Órgão eleitoral oficial do estado (cédula e resultado)": "Officiële kiesautoriteit van de staat (stembiljet en uitslag)",
-  "Última passada de cada parte": "Laatste ronde van elk onderdeel",
   "Bancada: {0}": "Fractie: {0}",
   "Campanha para a Câmara": "Campagne voor het Huis van Afgevaardigden",
   "Campanha para o Senado": "Campagne voor de Senaat",
@@ -3256,5 +3255,6 @@
   "Um serviço informativo, gratuito e não oficial, que reúne e organiza dados públicos publicados pelo próprio governo dos Estados Unidos (e duas compilações em domínio público feitas a partir deles). Não tem vínculo com o governo americano, com partidos ou com campanhas.": "Een gratis en niet-officiële informatiedienst die openbare gegevens verzamelt en ordent die door de regering van de Verenigde Staten zelf zijn gepubliceerd (en twee daarop gebaseerde compilaties in het publieke domein). Er is geen band met de Amerikaanse regering, partijen of campagnes.",
   "Valor por habitante no ano fiscal: estados em 10 grupos do mesmo tamanho, do menor ao maior valor": "Bedrag per inwoner in het begrotingsjaar: staten in 10 even grote groepen, van de laagste tot de hoogste waarde",
   "· 1 voto no Colégio Eleitoral": "· 1 kiesman in het kiescollege",
-  "· {0} votos no Colégio Eleitoral": "· {0} kiesmannen in het kiescollege"
+  "· {0} votos no Colégio Eleitoral": "· {0} kiesmannen in het kiescollege",
+  "Última atualização de cada parte": "Laatste update per onderdeel"
 }

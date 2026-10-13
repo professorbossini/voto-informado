@@ -3230,7 +3230,6 @@
   "· {0} por habitante": "· {0} на жителя",
   "· {0} votos no Colégio Eleitoral (maioria: 270 de 538)": "· голосів у Колегії виборців: {0} (більшість: 270 із 538)",
   "Órgão eleitoral oficial do estado (cédula e resultado)": "Офіційний виборчий орган штату (бюлетень і результат)",
-  "Última passada de cada parte": "Останній прохід по кожному розділу",
   "Bancada: {0}": "Фракція: {0}",
   "Campanha para a Câmara": "Кампанія до Палати представників",
   "Campanha para o Senado": "Кампанія до Сенату",
@@ -3256,5 +3255,6 @@
   "Um serviço informativo, gratuito e não oficial, que reúne e organiza dados públicos publicados pelo próprio governo dos Estados Unidos (e duas compilações em domínio público feitas a partir deles). Não tem vínculo com o governo americano, com partidos ou com campanhas.": "Безкоштовний неофіційний інформаційний сервіс, який збирає й упорядковує відкриті дані, опубліковані самим урядом Сполучених Штатів (а також дві компіляції в суспільному надбанні, складені на їх основі). Не пов'язаний з урядом США, партіями чи виборчими кампаніями.",
   "Valor por habitante no ano fiscal: estados em 10 grupos do mesmo tamanho, do menor ao maior valor": "Сума на жителя за фінансовий рік: штати поділено на 10 однакових за кількістю груп, від найменшого значення до найбільшого",
   "· 1 voto no Colégio Eleitoral": "· 1 голос у Колегії виборців",
-  "· {0} votos no Colégio Eleitoral": "· голосів у Колегії виборців: {0}"
+  "· {0} votos no Colégio Eleitoral": "· голосів у Колегії виборців: {0}",
+  "Última atualização de cada parte": "Останнє оновлення кожного розділу"
 }

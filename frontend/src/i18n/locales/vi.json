@@ -1866,7 +1866,6 @@
   "Última consulta à apuração do TSE": "Lần truy vấn kết quả kiểm phiếu TSE gần nhất",
   "Última consulta: {0}.": "Lần truy vấn gần nhất: {0}.",
   "Última eleição vencida (desde 2018)": "Lần thắng cử gần nhất (từ 2018)",
-  "Última passada de cada parte": "Lần cập nhật gần nhất của mỗi phần",
   "Um estado tem 2º turno para governador": "Một bang có vòng 2 bầu thống đốc",
   "Uma ferramenta gratuita de transparência que reúne, organiza e exibe dados públicos publicados pelo Tribunal Superior Eleitoral (TSE), pela Câmara dos Deputados e pelo Senado Federal sobre as eleições de 2026 e sobre gastos de mandato.": "Một công cụ minh bạch miễn phí tập hợp, sắp xếp và hiển thị dữ liệu công khai do Tòa án Bầu cử Tối cao (TSE), Hạ viện và Thượng viện Liên bang công bố về cuộc bầu cử năm 2026 và về chi tiêu nhiệm kỳ.",
   "undefined": "undefined",
@@ -3256,5 +3255,6 @@
   "Um serviço informativo, gratuito e não oficial, que reúne e organiza dados públicos publicados pelo próprio governo dos Estados Unidos (e duas compilações em domínio público feitas a partir deles). Não tem vínculo com o governo americano, com partidos ou com campanhas.": "Một dịch vụ thông tin miễn phí và không chính thức, tập hợp và sắp xếp dữ liệu công khai do chính chính phủ Hoa Kỳ công bố (và hai bộ tổng hợp thuộc phạm vi công cộng được lập từ dữ liệu đó). Không liên kết với chính phủ Mỹ, các đảng phái hay các chiến dịch tranh cử.",
   "Valor por habitante no ano fiscal: estados em 10 grupos do mesmo tamanho, do menor ao maior valor": "Giá trị theo đầu người trong năm tài khóa: các bang chia thành 10 nhóm có số lượng bằng nhau, từ giá trị thấp nhất đến cao nhất",
   "· 1 voto no Colégio Eleitoral": "· 1 phiếu tại Đại cử tri đoàn",
-  "· {0} votos no Colégio Eleitoral": "· {0} phiếu tại Đại cử tri đoàn"
+  "· {0} votos no Colégio Eleitoral": "· {0} phiếu tại Đại cử tri đoàn",
+  "Última atualização de cada parte": "Lần cập nhật gần nhất của từng phần"
 }

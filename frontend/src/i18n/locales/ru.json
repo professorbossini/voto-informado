@@ -3230,7 +3230,6 @@
   "· {0} por habitante": "· {0} на жителя",
   "· {0} votos no Colégio Eleitoral (maioria: 270 de 538)": "· голосов в Коллегии выборщиков: {0} (большинство: 270 из 538)",
   "Órgão eleitoral oficial do estado (cédula e resultado)": "Официальный избирательный орган штата (бюллетень и результат)",
-  "Última passada de cada parte": "Последний проход по каждому разделу",
   "Bancada: {0}": "Фракция: {0}",
   "Campanha para a Câmara": "Кампания в Палату представителей",
   "Campanha para o Senado": "Кампания в Сенат",
@@ -3256,5 +3255,6 @@
   "Um serviço informativo, gratuito e não oficial, que reúne e organiza dados públicos publicados pelo próprio governo dos Estados Unidos (e duas compilações em domínio público feitas a partir deles). Não tem vínculo com o governo americano, com partidos ou com campanhas.": "Бесплатный неофициальный информационный сервис, который собирает и упорядочивает открытые данные, публикуемые самим правительством Соединённых Штатов (а также две компиляции в общественном достоянии, составленные на их основе). Не связан с правительством США, партиями или избирательными кампаниями.",
   "Valor por habitante no ano fiscal: estados em 10 grupos do mesmo tamanho, do menor ao maior valor": "Сумма на жителя за финансовый год: штаты разделены на 10 равных по численности групп, от наименьшего значения к наибольшему",
   "· 1 voto no Colégio Eleitoral": "· 1 голос в Коллегии выборщиков",
-  "· {0} votos no Colégio Eleitoral": "· голосов в Коллегии выборщиков: {0}"
+  "· {0} votos no Colégio Eleitoral": "· голосов в Коллегии выборщиков: {0}",
+  "Última atualização de cada parte": "Последнее обновление каждого раздела"
 }

@@ -3230,7 +3230,6 @@
   "· {0} por habitante": "· प्रति निवासी {0}",
   "· {0} votos no Colégio Eleitoral (maioria: 270 de 538)": "· इलेक्टोरल कॉलेज में {0} मत (बहुमत: 538 में से 270)",
   "Órgão eleitoral oficial do estado (cédula e resultado)": "राज्य का आधिकारिक चुनाव निकाय (मतपत्र और परिणाम)",
-  "Última passada de cada parte": "हर भाग का पिछला दौर",
   "Bancada: {0}": "कॉकस: {0}",
   "Campanha para a Câmara": "प्रतिनिधि सभा के लिए अभियान",
   "Campanha para o Senado": "सीनेट के लिए अभियान",
@@ -3256,5 +3255,6 @@
   "Um serviço informativo, gratuito e não oficial, que reúne e organiza dados públicos publicados pelo próprio governo dos Estados Unidos (e duas compilações em domínio público feitas a partir deles). Não tem vínculo com o governo americano, com partidos ou com campanhas.": "एक निःशुल्क और गैर-आधिकारिक सूचना सेवा, जो संयुक्त राज्य अमेरिका की सरकार द्वारा स्वयं प्रकाशित सार्वजनिक डेटा (और उससे तैयार किए गए सार्वजनिक डोमेन के दो संकलनों) को एकत्र और व्यवस्थित करती है। इसका अमेरिकी सरकार, दलों या अभियानों से कोई संबंध नहीं है।",
   "Valor por habitante no ano fiscal: estados em 10 grupos do mesmo tamanho, do menor ao maior valor": "वित्तीय वर्ष में प्रति निवासी राशि: राज्य 10 समान आकार के समूहों में, सबसे कम से सबसे अधिक मान तक",
   "· 1 voto no Colégio Eleitoral": "· इलेक्टोरल कॉलेज में 1 मत",
-  "· {0} votos no Colégio Eleitoral": "· इलेक्टोरल कॉलेज में {0} मत"
+  "· {0} votos no Colégio Eleitoral": "· इलेक्टोरल कॉलेज में {0} मत",
+  "Última atualização de cada parte": "हर भाग का अंतिम अपडेट"
 }
