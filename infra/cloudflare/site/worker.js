@@ -12,9 +12,10 @@
  *  - cache na borda da Cloudflare (Cache API) e no navegador: arquivos com hash (assets/) por 1 ano;
  *    fotos e PDFs por 1 dia; dados e páginas por 10 min (como o Pages);
  *  - ETag/304, Range (PDFs), CORS aberto (dados públicos, usados pelo app e pelo desenvolvimento);
- *  - cabeçalhos de segurança (os do _headers) e HSTS;
- *  - assets/ inexistente → 404 sem cache (não a interface), para um chunk que ainda está chegando
- *    não ficar quebrado na borda;
+ *  - cabeçalhos de segurança (os do _headers), HSTS, CSP mínima (sem iframe de terceiros, sem
+ *    plugins) e Permissions-Policy;
+ *  - assets/ ou api/ inexistente → 404 sem cache (não a interface), para um arquivo que ainda está
+ *    chegando não ficar quebrado na borda;
  *  - tanaurna.com.br → www.tanaurna.com.br (301).
  */
 
@@ -24,10 +25,17 @@ const SEGURANCA = {
   'X-Content-Type-Options': 'nosniff',
   'Strict-Transport-Security': 'max-age=31536000',
   'Access-Control-Allow-Origin': '*',
+  // Ninguém embute o site num iframe (clickjacking), nada de plugins nem <base> trocado; recursos
+  // sensíveis do navegador ficam desligados (a localização é usada pela apuração, só aqui).
+  'Content-Security-Policy': "object-src 'none'; base-uri 'self'; frame-ancestors 'self'",
+  'X-Frame-Options': 'SAMEORIGIN',
+  'Permissions-Policy': 'camera=(), microphone=(), payment=(), usb=(), geolocation=(self)',
 };
 
 function cacheDe(chave) {
   if (chave.startsWith('assets/')) return 'public, max-age=31536000, immutable';
+  // Histórico da apuração (Worker tanaurna-apuracao): muda a cada minuto na noite da eleição.
+  if (chave.startsWith('api/apuracao/')) return 'public, max-age=30';
   if (/^(fotos|propostas|img)\//.test(chave) || /\/(fotos|logos|presidentes)\//.test(chave)) return 'public, max-age=86400';
   return 'public, max-age=600';
 }
@@ -86,10 +94,10 @@ async function servir(req, env) {
   }
 
   if (!o) {
-    // Arquivo com hash que não existe (ainda): 404 simples e sem cache. Devolver a interface aqui
-    // faria o navegador receber HTML no lugar de JS, e o cache guardaria o erro mesmo depois de o
-    // arquivo chegar ao R2.
-    if (chave.startsWith('assets/')) {
+    // Arquivo da interface ou de dados que não existe (ainda): 404 simples e sem cache. Devolver a
+    // interface aqui faria o navegador receber HTML no lugar de JS/JSON, e o cache guardaria o erro
+    // mesmo depois de o arquivo chegar ao R2 (ex.: o histórico da apuração no começo da noite).
+    if (chave.startsWith('assets/') || chave.startsWith('api/')) {
       return new Response('Não encontrado', { status: 404, headers: { ...SEGURANCA, 'content-type': 'text/plain; charset=utf-8', 'cache-control': 'no-store' } });
     }
     const shell = await env.SITE.get('index.html');
