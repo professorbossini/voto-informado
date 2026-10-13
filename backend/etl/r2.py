@@ -51,9 +51,12 @@ def _token() -> str:
 
 
 def _pedido(metodo: str, caminho: str, **kw) -> requests.Response:
+    # Fora do laço: a nova tentativa precisa dos mesmos cabeçalhos (sem o Content-Type, o R2 gravava
+    # o arquivo como application/octet-stream e o navegador recusava o JS).
+    cabecalhos = kw.pop("headers", {})
     for tentativa in range(5):
         try:
-            r = _s.request(metodo, SYNC + caminho, headers={**kw.pop("headers", {}), "Authorization": f"Bearer {_token()}"}, timeout=(10, 120), **kw)
+            r = _s.request(metodo, SYNC + caminho, headers={**cabecalhos, "Authorization": f"Bearer {_token()}"}, timeout=(10, 120), **kw)
             if r.status_code < 500:
                 return r
         except requests.RequestException:

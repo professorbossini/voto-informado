@@ -49,10 +49,15 @@ async function objeto(env, chave, req) {
   return env.SITE.get(chave, { onlyIf: req.headers, range: req.headers });
 }
 
+const TIPOS = { js: 'text/javascript', mjs: 'text/javascript', css: 'text/css', html: 'text/html', json: 'application/json', svg: 'image/svg+xml', webp: 'image/webp', png: 'image/png', jpg: 'image/jpeg', jpeg: 'image/jpeg', woff2: 'font/woff2', pdf: 'application/pdf', txt: 'text/plain', xml: 'application/xml', webmanifest: 'application/manifest+json' };
+
 function cabecalhos(o, chave, extra = {}) {
   const h = new Headers(SEGURANCA);
   o.writeHttpMetadata(h);
-  if (!h.get('content-type')) h.set('content-type', 'application/octet-stream');
+  // Objeto gravado sem tipo (ou como octet-stream): deduz pela extensão. JS com tipo errado é
+  // recusado pelo navegador ("Failed to fetch dynamically imported module").
+  const tipo = h.get('content-type');
+  if (!tipo || tipo.startsWith('application/octet-stream')) h.set('content-type', TIPOS[/\.([a-z0-9]+)$/i.exec(chave)?.[1]?.toLowerCase()] ?? 'application/octet-stream');
   if (/\.(html|json|js|css|svg|txt|xml)$/.test(chave) && !/charset/.test(h.get('content-type'))) h.set('content-type', `${h.get('content-type')}; charset=utf-8`);
   h.set('etag', o.httpEtag);
   h.set('cache-control', cacheDe(chave));
