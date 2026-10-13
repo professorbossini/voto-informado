@@ -944,6 +944,13 @@
   ]
  },
  {
+  "texto": ") eleito(a), segundo o TSE.",
+  "tipo": "exato",
+  "arquivos": [
+   "components/resultados/Evolucao.tsx"
+  ]
+ },
+ {
   "texto": ") está em",
   "tipo": "exato",
   "arquivos": [
@@ -1239,6 +1246,13 @@
   ]
  },
  {
+  "texto": "{0} das seções",
+  "tipo": "padrao",
+  "arquivos": [
+   "components/resultados/Panorama.tsx"
+  ]
+ },
+ {
   "texto": "{0} de {1} votações em que estava em exercício",
   "tipo": "padrao",
   "arquivos": [
@@ -1481,6 +1495,13 @@
   "tipo": "padrao",
   "arquivos": [
    "pages/election/SimuladorPage.tsx"
+  ]
+ },
+ {
+  "texto": "{0}, com {1} das seções.",
+  "tipo": "padrao",
+  "arquivos": [
+   "components/resultados/Evolucao.tsx"
   ]
  },
  {
@@ -1745,6 +1766,13 @@
   ]
  },
  {
+  "texto": "% dos votos válidos a cada atualização do TSE nesta noite.",
+  "tipo": "exato",
+  "arquivos": [
+   "components/resultados/ApuracaoAoVivo.tsx"
+  ]
+ },
+ {
   "texto": "% dos votos válidos no município (mesma escala para todas as candidaturas)",
   "tipo": "exato",
   "arquivos": [
@@ -1755,6 +1783,7 @@
   "texto": "×",
   "tipo": "exato",
   "arquivos": [
+   "components/resultados/Panorama.tsx",
    "pages/election/HomePage.tsx"
   ]
  },
@@ -2293,6 +2322,13 @@
   ]
  },
  {
+  "texto": "A apuração volta a se atualizar quando a conexão voltar.",
+  "tipo": "exato",
+  "arquivos": [
+   "components/resultados/ApuracaoAoVivo.tsx"
+  ]
+ },
+ {
   "texto": "A área dos Estados Unidos apenas reúne e organiza dados públicos publicados pelo governo federal americano. É informativa: não pede voto, não faz propaganda, não apoia candidaturas ou partidos e não recebe nem repassa dinheiro de campanha. Todos aparecem com os mesmos campos, na mesma ordem e com o mesmo destaque, e sem cores de partido.",
   "tipo": "exato",
   "arquivos": [
@@ -2760,6 +2796,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
+   "components/resultados/disputas.ts",
    "components/resultados/hooks.ts"
   ]
  },
@@ -3016,6 +3053,13 @@
   ]
  },
  {
+  "texto": "Aguardando os primeiros votos",
+  "tipo": "exato",
+  "arquivos": [
+   "components/resultados/Panorama.tsx"
+  ]
+ },
+ {
   "texto": "ainda não foi publicada no site. Ela é atualizada automaticamente todos os dias.",
   "tipo": "exato",
   "arquivos": [
@@ -3063,6 +3107,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
+   "components/resultados/disputas.ts",
    "components/resultados/hooks.ts",
    "eua/usaMapData.ts"
   ]
@@ -3153,6 +3198,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
+   "components/resultados/disputas.ts",
    "components/resultados/hooks.ts"
   ]
  },
@@ -3303,6 +3349,13 @@
   ]
  },
  {
+  "texto": "Ao longo da apuração ·",
+  "tipo": "exato",
+  "arquivos": [
+   "components/resultados/ApuracaoAoVivo.tsx"
+  ]
+ },
+ {
   "texto": "Ao tocar em “Compartilhar”, o aplicativo abre a tela de compartilhamento do próprio sistema: o conteúdo vai só para o app que você escolher. Ao tocar em “Imprimir”, abre o serviço de impressão do sistema (que também permite salvar em PDF). Links para órgãos oficiais (TSE, Câmara, Senado) abrem no seu navegador e seguem as políticas desses sites.",
   "tipo": "exato",
   "arquivos": [
@@ -3328,6 +3381,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
+   "components/resultados/disputas.ts",
    "components/resultados/hooks.ts"
   ]
  },
@@ -3448,6 +3502,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/SegundoTurnoPage.tsx"
+  ]
+ },
+ {
+  "texto": "apuração concluída (100% das seções).",
+  "tipo": "exato",
+  "arquivos": [
+   "components/resultados/Evolucao.tsx"
   ]
  },
  {
@@ -4052,6 +4113,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
+   "components/resultados/disputas.ts",
    "components/resultados/hooks.ts"
   ]
  },
@@ -4276,6 +4338,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/gastos/RankingList.tsx",
+   "components/resultados/Evolucao.tsx",
    "components/urna/UrnaScreen.tsx",
    "pages/election/MapaPage.tsx"
   ]
@@ -4354,6 +4417,7 @@
    "components/election/CandidateSearch.tsx",
    "components/gastos/RankingList.tsx",
    "components/resultados/ApuracaoAoVivo.tsx",
+   "components/resultados/Evolucao.tsx",
    "components/resultados/hooks.ts",
    "components/urna/UfPicker.tsx",
    "pages/election/CandidatoPage.tsx",
@@ -4853,6 +4917,13 @@
    "pages/election/CandidatoPage.tsx",
    "pages/election/PartidoPage.tsx",
    "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Câmara dos Deputados, todo o Brasil:",
+  "tipo": "exato",
+  "arquivos": [
+   "components/resultados/ApuracaoAoVivo.tsx"
   ]
  },
  {
@@ -5423,6 +5494,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
+   "components/resultados/disputas.ts",
    "components/resultados/hooks.ts"
   ]
  },
@@ -6411,6 +6483,13 @@
   ]
  },
  {
+  "texto": "Control+K Meta+K",
+  "tipo": "exato",
+  "arquivos": [
+   "layouts/PublicLayout.tsx"
+  ]
+ },
+ {
   "texto": "Copiar link",
   "tipo": "exato",
   "arquivos": [
@@ -6987,6 +7066,14 @@
   ]
  },
  {
+  "texto": "das seções",
+  "tipo": "exato",
+  "arquivos": [
+   "components/resultados/Evolucao.tsx",
+   "components/resultados/Panorama.tsx"
+  ]
+ },
+ {
   "texto": "das seções totalizadas",
   "tipo": "exato",
   "arquivos": [
@@ -7041,6 +7128,13 @@
   "tipo": "exato",
   "arquivos": [
    "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "de 513 vagas já com eleitos(as) declarados pelo TSE.",
+  "tipo": "exato",
+  "arquivos": [
+   "components/resultados/ApuracaoAoVivo.tsx"
   ]
  },
  {
@@ -7172,6 +7266,13 @@
    "eua/componentes/MapaEua.tsx",
    "eua/componentes/blocos.tsx",
    "theme/theme.ts"
+  ]
+ },
+ {
+  "texto": "definida",
+  "tipo": "exato",
+  "arquivos": [
+   "components/resultados/Panorama.tsx"
   ]
  },
  {
@@ -7744,6 +7845,7 @@
   "arquivos": [
    "components/election/UfTileMap.tsx",
    "components/election/brazilMapData.ts",
+   "components/resultados/disputas.ts",
    "components/resultados/hooks.ts",
    "components/urna/ballot.ts",
    "data/apuracao.ts",
@@ -7833,6 +7935,20 @@
   "tipo": "exato",
   "arquivos": [
    "components/gastos/RankingList.tsx"
+  ]
+ },
+ {
+  "texto": "Diferença entre o 1º e o 2º colocados, em pontos dos votos válidos. Toque para abrir o estado.",
+  "tipo": "exato",
+  "arquivos": [
+   "components/resultados/Panorama.tsx"
+  ]
+ },
+ {
+  "texto": "Diferença entre quem ocupa a última vaga e quem vem logo atrás, em pontos dos votos válidos. Toque para abrir o estado.",
+  "tipo": "exato",
+  "arquivos": [
+   "components/resultados/Panorama.tsx"
   ]
  },
  {
@@ -7978,6 +8094,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/SegundoTurnoPage.tsx"
+  ]
+ },
+ {
+  "texto": "Disputas mais apertadas · {0}",
+  "tipo": "padrao",
+  "arquivos": [
+   "components/resultados/Panorama.tsx"
   ]
  },
  {
@@ -8632,6 +8755,7 @@
    "components/compartilhar/dados.ts",
    "components/election/DesfechoChip.tsx",
    "components/resultados/ApuracaoAoVivo.tsx",
+   "components/resultados/Evolucao.tsx",
    "data/apuracao.ts"
   ]
  },
@@ -9182,6 +9306,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/form/PasswordField.tsx",
+   "components/resultados/Evolucao.tsx",
    "components/stf/PlenarioStf.tsx",
    "layouts/PublicLayout.tsx"
   ]
@@ -9385,6 +9510,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
+   "components/resultados/disputas.ts",
    "components/resultados/hooks.ts"
   ]
  },
@@ -9827,6 +9953,13 @@
   ]
  },
  {
+  "texto": "Evolução da apuração. Agora: {0}",
+  "tipo": "padrao",
+  "arquivos": [
+   "components/resultados/Evolucao.tsx"
+  ]
+ },
+ {
   "texto": "Ex.: creche, saneamento, emprego",
   "tipo": "exato",
   "arquivos": [
@@ -9879,6 +10012,7 @@
   "texto": "Exterior",
   "tipo": "exato",
   "arquivos": [
+   "components/resultados/disputas.ts",
    "pages/election/MapaPage.tsx"
   ]
  },
@@ -10665,6 +10799,13 @@
   ]
  },
  {
+  "texto": "fullscreenchange",
+  "tipo": "exato",
+  "arquivos": [
+   "components/resultados/ApuracaoAoVivo.tsx"
+  ]
+ },
+ {
   "texto": "Função de governo da emenda, como classificada no Orçamento. “Encargos especiais” reúne as transferências especiais; “Múltiplo”, as emendas com mais de uma área.",
   "tipo": "exato",
   "arquivos": [
@@ -11007,6 +11148,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
+   "components/resultados/disputas.ts",
    "components/resultados/hooks.ts"
   ]
  },
@@ -11048,6 +11190,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/numeros/numeros.ts",
+   "components/resultados/Panorama.tsx",
    "data/apuracao.ts",
    "data/format.ts",
    "pages/election/SimuladorPage.tsx"
@@ -11389,6 +11532,13 @@
   ]
  },
  {
+  "texto": "Hora (TSE)",
+  "tipo": "exato",
+  "arquivos": [
+   "components/resultados/Evolucao.tsx"
+  ]
+ },
+ {
   "texto": "horas",
   "tipo": "exato",
   "arquivos": [
@@ -11578,6 +11728,7 @@
    "components/charts/charts.tsx",
    "components/election/UfTileMap.tsx",
    "components/mapa/MapaCanvas.tsx",
+   "components/resultados/Evolucao.tsx",
    "components/urna/DigitBoxes.tsx",
    "eua/componentes/MapaEua.tsx",
    "eua/componentes/PlenarioEua.tsx",
@@ -12212,6 +12363,13 @@
   ]
  },
  {
+  "texto": "k",
+  "tipo": "exato",
+  "arquivos": [
+   "layouts/PublicLayout.tsx"
+  ]
+ },
+ {
   "texto": "K",
   "tipo": "exato",
   "arquivos": [
@@ -12236,6 +12394,7 @@
   "texto": "keydown",
   "tipo": "exato",
   "arquivos": [
+   "layouts/PublicLayout.tsx",
    "pages/election/SimuladorPage.tsx"
   ]
  },
@@ -12355,6 +12514,13 @@
   "arquivos": [
    "pages/election/ColaPage.tsx",
    "pages/election/SimuladorPage.tsx"
+  ]
+ },
+ {
+  "texto": "Legenda do gráfico",
+  "tipo": "exato",
+  "arquivos": [
+   "components/resultados/Evolucao.tsx"
   ]
  },
  {
@@ -12834,6 +13000,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
+   "components/resultados/disputas.ts",
    "components/resultados/hooks.ts",
    "eua/usaMapData.ts"
   ]
@@ -13448,6 +13615,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
+   "components/resultados/disputas.ts",
    "components/resultados/hooks.ts"
   ]
  },
@@ -13486,6 +13654,7 @@
   "arquivos": [
    "components/compartilhar/desenho.ts",
    "components/election/UfTileMap.tsx",
+   "components/resultados/Evolucao.tsx",
    "components/stf/PlenarioStf.tsx",
    "eua/componentes/MapaEua.tsx",
    "eua/componentes/PlenarioEua.tsx",
@@ -13856,6 +14025,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
+   "components/resultados/disputas.ts",
    "components/resultados/hooks.ts",
    "eua/usaMapData.ts"
   ]
@@ -13865,6 +14035,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
+   "components/resultados/disputas.ts",
    "components/resultados/hooks.ts",
    "eua/usaMapData.ts"
   ]
@@ -15179,6 +15350,7 @@
    "components/brand/PoweredByFaisca.tsx",
    "components/election/UfTileMap.tsx",
    "components/mapa/MapaCanvas.tsx",
+   "components/resultados/Evolucao.tsx",
    "components/stf/PlenarioStf.tsx",
    "components/urna/UrnaScreen.tsx",
    "eua/componentes/MapaEua.tsx",
@@ -15256,6 +15428,13 @@
   ]
  },
  {
+  "texto": "Nordeste",
+  "tipo": "exato",
+  "arquivos": [
+   "components/resultados/disputas.ts"
+  ]
+ },
+ {
   "texto": "noreferrer",
   "tipo": "exato",
   "arquivos": [
@@ -15270,6 +15449,13 @@
    "pages/election/CandidatoPage.tsx",
    "pages/election/EleicaoPage.tsx",
    "theme/temas.ts"
+  ]
+ },
+ {
+  "texto": "Norte",
+  "tipo": "exato",
+  "arquivos": [
+   "components/resultados/disputas.ts"
   ]
  },
  {
@@ -16086,6 +16272,13 @@
   ]
  },
  {
+  "texto": "offline",
+  "tipo": "exato",
+  "arquivos": [
+   "components/resultados/ApuracaoAoVivo.tsx"
+  ]
+ },
+ {
   "texto": "oficial",
   "tipo": "exato",
   "arquivos": [
@@ -16146,6 +16339,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/ComoVotarPage.tsx"
+  ]
+ },
+ {
+  "texto": "online",
+  "tipo": "exato",
+  "arquivos": [
+   "components/resultados/ApuracaoAoVivo.tsx"
   ]
  },
  {
@@ -16354,6 +16554,13 @@
   ]
  },
  {
+  "texto": "Os números abaixo são de {0} e voltam a se atualizar quando a conexão voltar.",
+  "tipo": "padrao",
+  "arquivos": [
+   "components/resultados/ApuracaoAoVivo.tsx"
+  ]
+ },
+ {
   "texto": "Os resultados da apuração são baixados diretamente do servidor oficial de divulgação do Tribunal Superior Eleitoral (resultados.tse.jus.br), sem passar por nós. Nesse acesso, o TSE recebe tecnicamente o endereço IP e informações básicas do navegador, como em qualquer visita ao site dele, conforme a política de privacidade do próprio Tribunal. Nenhuma informação sua é enviada junto.",
   "tipo": "exato",
   "arquivos": [
@@ -16500,6 +16707,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
+   "components/resultados/disputas.ts",
    "components/resultados/hooks.ts",
    "eua/usaMapData.ts"
   ]
@@ -17168,6 +17376,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
+   "components/resultados/disputas.ts",
    "components/resultados/hooks.ts"
   ]
  },
@@ -17176,6 +17385,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
+   "components/resultados/disputas.ts",
    "components/resultados/hooks.ts"
   ]
  },
@@ -17416,6 +17626,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
+   "components/resultados/disputas.ts",
    "components/resultados/hooks.ts"
   ]
  },
@@ -17577,6 +17788,7 @@
   "arquivos": [
    "components/election/UfTileMap.tsx",
    "components/resultados/ApuracaoAoVivo.tsx",
+   "components/resultados/Evolucao.tsx",
    "eua/componentes/MapaEua.tsx",
    "pages/election/SimuladorPage.tsx"
   ]
@@ -17600,6 +17812,20 @@
   "tipo": "exato",
   "arquivos": [
    "pages/legal/PrivacidadePage.tsx"
+  ]
+ },
+ {
+  "texto": "ponto",
+  "tipo": "exato",
+  "arquivos": [
+   "components/resultados/Panorama.tsx"
+  ]
+ },
+ {
+  "texto": "pontos",
+  "tipo": "exato",
+  "arquivos": [
+   "components/resultados/Panorama.tsx"
   ]
  },
  {
@@ -17691,6 +17917,13 @@
   "tipo": "exato",
   "arquivos": [
    "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Por região",
+  "tipo": "exato",
+  "arquivos": [
+   "components/resultados/Panorama.tsx"
   ]
  },
  {
@@ -17810,6 +18043,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
+   "components/resultados/disputas.ts",
    "components/resultados/hooks.ts",
    "eua/formato.ts"
   ]
@@ -18109,6 +18343,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Presidente, por estado",
+  "tipo": "exato",
+  "arquivos": [
+   "components/resultados/Panorama.tsx"
   ]
  },
  {
@@ -19531,6 +19772,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
+   "components/resultados/disputas.ts",
    "components/resultados/hooks.ts"
   ]
  },
@@ -19539,6 +19781,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
+   "components/resultados/disputas.ts",
    "components/resultados/hooks.ts"
   ]
  },
@@ -19547,6 +19790,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
+   "components/resultados/disputas.ts",
    "components/resultados/hooks.ts"
   ]
  },
@@ -19670,6 +19914,7 @@
    "components/brand/BossiniMark.tsx",
    "components/brand/FaiscaMark.tsx",
    "components/mapa/MapaCanvas.tsx",
+   "components/resultados/Evolucao.tsx",
    "components/stf/PlenarioStf.tsx"
   ]
  },
@@ -19689,6 +19934,8 @@
    "components/noticias/FeedNoticias.tsx",
    "components/resultados/ApuracaoAoVivo.tsx",
    "components/resultados/CartaoEleitos.tsx",
+   "components/resultados/Evolucao.tsx",
+   "components/resultados/Panorama.tsx",
    "components/stf/PlenarioStf.tsx",
    "components/votacoes/VotacoesNominais.tsx",
    "eua/componentes/Moldura.tsx",
@@ -19738,6 +19985,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
+   "components/resultados/disputas.ts",
    "components/resultados/hooks.ts"
   ]
  },
@@ -19746,6 +19994,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
+   "components/resultados/disputas.ts",
    "components/resultados/hooks.ts"
   ]
  },
@@ -19779,6 +20028,13 @@
   "arquivos": [
    "components/conta/ContaPerfil.tsx",
    "layouts/AccountMenu.tsx"
+  ]
+ },
+ {
+  "texto": "Sair da tela cheia",
+  "tipo": "exato",
+  "arquivos": [
+   "components/resultados/ApuracaoAoVivo.tsx"
   ]
  },
  {
@@ -19885,6 +20141,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
+   "components/resultados/disputas.ts",
    "components/resultados/hooks.ts",
    "eua/usaMapData.ts"
   ]
@@ -19901,6 +20158,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
+   "components/resultados/disputas.ts",
    "components/resultados/hooks.ts"
   ]
  },
@@ -19944,6 +20202,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/PlanosPage.tsx"
+  ]
+ },
+ {
+  "texto": "Seções",
+  "tipo": "exato",
+  "arquivos": [
+   "components/resultados/Evolucao.tsx"
   ]
  },
  {
@@ -20109,6 +20374,13 @@
   ]
  },
  {
+  "texto": "Sem internet neste aparelho.",
+  "tipo": "exato",
+  "arquivos": [
+   "components/resultados/ApuracaoAoVivo.tsx"
+  ]
+ },
+ {
   "texto": "Sem lançamentos neste ano.",
   "tipo": "exato",
   "arquivos": [
@@ -20238,6 +20510,7 @@
   "arquivos": [
    "components/congresso/perfil.ts",
    "components/gastos/gastos.ts",
+   "components/resultados/Panorama.tsx",
    "data/apuracao.ts",
    "data/format.ts",
    "eua/paginas/CandidatosEuaPage.tsx",
@@ -20317,6 +20590,7 @@
    "components/numeros/numeros.ts",
    "components/resultados/ApuracaoAoVivo.tsx",
    "components/resultados/CartaoEleitos.tsx",
+   "components/resultados/Panorama.tsx",
    "components/urna/UrnaScreen.tsx",
    "components/urna/ballot.ts",
    "pages/election/CandidatoPage.tsx",
@@ -20856,6 +21130,13 @@
   ]
  },
  {
+  "texto": "Soma dos arquivos oficiais de cada estado da região (o exterior à parte). Percentuais sobre os votos válidos da região.",
+  "tipo": "exato",
+  "arquivos": [
+   "components/resultados/Panorama.tsx"
+  ]
+ },
+ {
   "texto": "Soma dos bens declarados ao TSE em 2026 (autodeclarado)",
   "tipo": "exato",
   "arquivos": [
@@ -20909,6 +21190,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
+   "components/resultados/disputas.ts",
    "components/resultados/hooks.ts",
    "data/useMunicipioUsuario.ts"
   ]
@@ -21098,6 +21380,20 @@
   ]
  },
  {
+  "texto": "Sudeste",
+  "tipo": "exato",
+  "arquivos": [
+   "components/resultados/disputas.ts"
+  ]
+ },
+ {
+  "texto": "Sul",
+  "tipo": "exato",
+  "arquivos": [
+   "components/resultados/disputas.ts"
+  ]
+ },
+ {
   "texto": "Superior completo",
   "tipo": "exato",
   "arquivos": [
@@ -21248,6 +21544,20 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/SimuladorPage.tsx"
+  ]
+ },
+ {
+  "texto": "Tela cheia",
+  "tipo": "exato",
+  "arquivos": [
+   "components/resultados/ApuracaoAoVivo.tsx"
+  ]
+ },
+ {
+  "texto": "Tela cheia, para deixar a apuração numa TV ou telão",
+  "tipo": "exato",
+  "arquivos": [
+   "components/resultados/ApuracaoAoVivo.tsx"
   ]
  },
  {
@@ -21500,6 +21810,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
+   "components/resultados/disputas.ts",
    "components/resultados/hooks.ts"
   ]
  },
@@ -22014,6 +22325,7 @@
    "components/brand/BrandPlaceholder.tsx",
    "components/election/CandidateCard.tsx",
    "components/resultados/ApuracaoAoVivo.tsx",
+   "components/resultados/Evolucao.tsx",
    "components/stf/PlenarioStf.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
@@ -22353,6 +22665,14 @@
   ]
  },
  {
+  "texto": "Últimas atualizações",
+  "tipo": "exato",
+  "arquivos": [
+   "components/resultados/ApuracaoAoVivo.tsx",
+   "components/resultados/Evolucao.tsx"
+  ]
+ },
+ {
   "texto": "Ulysses Guimarães",
   "tipo": "exato",
   "arquivos": [
@@ -22388,6 +22708,8 @@
    "components/compartilhar/compartilhar.ts",
    "components/compartilhar/desenho.ts",
    "components/mapa/MapaCanvas.tsx",
+   "components/resultados/ApuracaoAoVivo.tsx",
+   "components/resultados/Evolucao.tsx",
    "components/share/ShareButton.tsx",
    "native/platform.ts"
   ]
@@ -22738,6 +23060,13 @@
   ]
  },
  {
+  "texto": "var(--mui-palette-background-paper, #fff)",
+  "tipo": "exato",
+  "arquivos": [
+   "components/resultados/Evolucao.tsx"
+  ]
+ },
+ {
   "texto": "vargas",
   "tipo": "exato",
   "arquivos": [
@@ -22837,6 +23166,20 @@
    "eua/paginas/EstadoEuaPage.tsx",
    "pages/NotFoundPage.tsx",
    "pages/election/CandidatoPage.tsx"
+  ]
+ },
+ {
+  "texto": "Ver como gráfico",
+  "tipo": "exato",
+  "arquivos": [
+   "components/resultados/Evolucao.tsx"
+  ]
+ },
+ {
+  "texto": "Ver como tabela",
+  "tipo": "exato",
+  "arquivos": [
+   "components/resultados/Evolucao.tsx"
   ]
  },
  {
@@ -23183,6 +23526,7 @@
   "arquivos": [
    "components/mapa/MapaCanvas.tsx",
    "components/resultados/hooks.ts",
+   "components/resultados/serie.ts",
    "pages/election/ColaPage.tsx",
    "theme/theme.ts"
   ]
@@ -23565,6 +23909,13 @@
   ]
  },
  {
+  "texto": "votos de diferença ·",
+  "tipo": "exato",
+  "arquivos": [
+   "components/resultados/Panorama.tsx"
+  ]
+ },
+ {
   "texto": "Votos no 1º turno",
   "tipo": "exato",
   "arquivos": [
@@ -23875,6 +24226,7 @@
   "texto": "ZZ",
   "tipo": "exato",
   "arquivos": [
+   "components/resultados/ApuracaoAoVivo.tsx",
    "pages/election/MapaPage.tsx"
   ]
  }

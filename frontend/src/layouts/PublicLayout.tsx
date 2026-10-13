@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   AppBar,
   BottomNavigation,
@@ -141,6 +141,17 @@ export function PublicLayout() {
   const navigate = useNavigate();
   const current = activeNavItem(pathname);
   const [searchOpen, setSearchOpen] = useState(false);
+  // Ctrl+K (⌘K no Mac) abre a busca de qualquer página.
+  useEffect(() => {
+    const tecla = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && !e.altKey && !e.shiftKey && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setSearchOpen(true);
+      }
+    };
+    window.addEventListener('keydown', tecla);
+    return () => window.removeEventListener('keydown', tecla);
+  }, []);
   const [moreAnchor, setMoreAnchor] = useState<HTMLElement | null>(null);
   const NAV_ITEMS = useNavItems();
   const wide = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
@@ -178,7 +189,7 @@ export function PublicLayout() {
           <Stack direction="row" spacing={0.5} sx={{ ml: 'auto', alignItems: 'center' }}>
             <ShareButton />
             <Tooltip title={areaEua ? 'Buscar parlamentar dos EUA' : 'Buscar candidato'}>
-              <IconButton aria-label={areaEua ? 'Buscar parlamentar dos EUA' : 'Buscar candidato'} onClick={() => setSearchOpen(true)}>
+              <IconButton aria-label={areaEua ? 'Buscar parlamentar dos EUA' : 'Buscar candidato'} aria-keyshortcuts="Control+K Meta+K" onClick={() => setSearchOpen(true)}>
                 <SearchRounded />
               </IconButton>
             </Tooltip>

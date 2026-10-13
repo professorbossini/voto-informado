@@ -30,6 +30,8 @@ import { useColorScheme } from '@mui/material/styles';
 import CloseRounded from '@mui/icons-material/CloseRounded';
 import CompareArrowsRounded from '@mui/icons-material/CompareArrowsRounded';
 import FilterListRounded from '@mui/icons-material/FilterListRounded';
+import FullscreenExitRounded from '@mui/icons-material/FullscreenExitRounded';
+import FullscreenRounded from '@mui/icons-material/FullscreenRounded';
 import MyLocationRounded from '@mui/icons-material/MyLocationRounded';
 import OpenInNewRounded from '@mui/icons-material/OpenInNewRounded';
 import PlaceRounded from '@mui/icons-material/PlaceRounded';
@@ -37,6 +39,7 @@ import PublicRounded from '@mui/icons-material/PublicRounded';
 import RefreshRounded from '@mui/icons-material/RefreshRounded';
 import StarRounded from '@mui/icons-material/StarRounded';
 import StarBorderRounded from '@mui/icons-material/StarBorderRounded';
+import WifiOffRounded from '@mui/icons-material/WifiOffRounded';
 import VerifiedRounded from '@mui/icons-material/VerifiedRounded';
 import { Link as RouterLink, useSearchParams } from 'react-router';
 import { CATEGORICAL, SERIES } from '@/components/charts/palette';
@@ -64,6 +67,7 @@ import { useMeta } from '@/data/MetaContext';
 import {
   INTERVALO_MS,
   useAcompanhar,
+  useApuracao,
   useApuracaoDoTurno,
   useMapaApuracao,
   useUfUsuario,
@@ -71,6 +75,10 @@ import {
   type StatusLocal,
 } from './hooks';
 import { CartaoEleitos } from './CartaoEleitos';
+import { GraficoEvolucao, UltimasAtualizacoes } from './Evolucao';
+import { useSerieApuracao } from './serie';
+import { DisputasApertadas, PorRegiao } from './Panorama';
+import { disputasApertadas, somarRegioes } from './disputas';
 
 // ── Formatação ────────────────────────────────────────────────────────────────
 
@@ -394,6 +402,40 @@ function BarraLocal({ ufUsuario, nomes, onEscolher, onDetectar, status, origem }
   );
 }
 
+// ── Conexão e tela cheia ──────────────────────────────────────────────────────
+
+/** O aparelho está com internet? (O painel continua mostrando o último dado recebido.) */
+function useOnline() {
+  const [online, setOnline] = useState(() => typeof navigator === 'undefined' || navigator.onLine !== false);
+  useEffect(() => {
+    const on = () => setOnline(true);
+    const off = () => setOnline(false);
+    window.addEventListener('online', on);
+    window.addEventListener('offline', off);
+    return () => {
+      window.removeEventListener('online', on);
+      window.removeEventListener('offline', off);
+    };
+  }, []);
+  return online;
+}
+
+/** Tela cheia do painel (para deixar a apuração numa TV ou num telão). */
+function useTelaCheia(ref: React.RefObject<HTMLElement | null>) {
+  const [cheia, setCheia] = useState(false);
+  useEffect(() => {
+    const mudou = () => setCheia(document.fullscreenElement != null && document.fullscreenElement === ref.current);
+    document.addEventListener('fullscreenchange', mudou);
+    return () => document.removeEventListener('fullscreenchange', mudou);
+  }, [ref]);
+  const disponivel = typeof document !== 'undefined' && document.fullscreenEnabled === true;
+  const alternar = () => {
+    if (document.fullscreenElement) void document.exitFullscreen().catch(() => undefined);
+    else void ref.current?.requestFullscreen?.().catch(() => undefined);
+  };
+  return { cheia, disponivel, alternar };
+}
+
 // ── Painel ────────────────────────────────────────────────────────────────────
 
 const PAGINA = 30;
@@ -409,11 +451,16 @@ export function ApuracaoAoVivo({ headingLevel = 'h2' }: { headingLevel?: 'h1' | 
   const local = useUfUsuario({ detectarSozinho: true });
   const acompanhar = useAcompanhar();
   const dark = useDark();
+  const online = useOnline();
+  const painel = useRef<HTMLDivElement | null>(null);
+  const tela = useTelaCheia(painel);
   const [agora, setAgora] = useState(() => new Date());
   useEffect(() => {
     const t = setInterval(() => setAgora(new Date()), 30_000);
     return () => clearInterval(t);
   }, []);
+
+  const antesDe = (t: Turno) => agora < inicioDivulgacao(t);
 
   const nomes = useMemo(() => ({ ...UF_NOME_FALLBACK, ...Object.fromEntries((meta?.ufs ?? []).map((u) => [u.uf, u.nome])) }), [meta]);
   const nomeUf = (uf: string) => nomes[uf] ?? uf;
@@ -530,6 +577,14 @@ export function ApuracaoAoVivo({ headingLevel = 'h2' }: { headingLevel?: 'h1' | 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mapa, cargoBase, dark, turnoMapa, nomes]);
 
+  // Panorama: regiões (Presidente, com o exterior), disputas mais apertadas e histórico da noite.
+  const exterior = useApuracao(turnoMapa, 'presidente', cargoBase === 'presidente' && !antesDe(turnoMapa) ? 'ZZ' : null);
+  const regioes = useMemo(() => (cargoBase === 'presidente' ? somarRegioes(mapa, exterior.data) : []), [cargoBase, mapa, exterior.data]);
+  const apertadas = useMemo(() => (cargoBase === 'presidente' || cargoBase === 'governador' || cargoBase === 'senador' ? disputasApertadas(mapa) : []), [cargoBase, mapa]);
+  const serie = useSerieApuracao(turno, turno === 2 && !antesDe(2));
+  const disputaSerie = serie?.disputas[cargo === 'presidente' ? 'BR-presidente' : `${ufVista ?? ''}-${cargo}`];
+  const eleitosBrasil = useMemo(() => (cargoBase === 'deputado-federal' ? Object.values(mapa).reduce((n, a) => n + eleitosDe(a).length, 0) : 0), [cargoBase, mapa]);
+
   // Lista
   const [ordem, setOrdem] = useState<'oficial' | 'az'>('oficial');
   const [filtro, setFiltro] = useState('');
@@ -604,7 +659,7 @@ export function ApuracaoAoVivo({ headingLevel = 'h2' }: { headingLevel?: 'h1' | 
   }
 
   return (
-    <Card sx={{ borderRadius: 6 }}>
+    <Card ref={painel} sx={{ borderRadius: 6, '&:fullscreen': { borderRadius: 0, overflowY: 'auto', bgcolor: 'background.default' } }}>
       <CardContent sx={{ p: { xs: 2, md: 3.5 } }}>
         {/* Cabeçalho */}
         <Stack direction={{ xs: 'column', md: 'row' }} sx={{ justifyContent: 'space-between', alignItems: { md: 'flex-end' }, gap: 2, mb: 2 }}>
@@ -632,7 +687,15 @@ export function ApuracaoAoVivo({ headingLevel = 'h2' }: { headingLevel?: 'h1' | 
               Resultados das Eleições 2026
             </Typography>
           </Box>
-          <ToggleButtonGroup exclusive value={turno} onChange={(_, v: Turno | null) => v && set({ t: String(v), c: null })} aria-label="Turno" color="primary" sx={{ alignSelf: { xs: 'stretch', md: 'auto' } }}>
+          <Stack direction="row" spacing={1} sx={{ alignItems: 'center', alignSelf: { xs: 'stretch', md: 'auto' } }}>
+          {tela.disponivel && (
+            <Tooltip title={tela.cheia ? 'Sair da tela cheia' : 'Tela cheia, para deixar a apuração numa TV ou telão'}>
+              <IconButton onClick={tela.alternar} aria-label={tela.cheia ? 'Sair da tela cheia' : 'Tela cheia'} aria-pressed={tela.cheia}>
+                {tela.cheia ? <FullscreenExitRounded /> : <FullscreenRounded />}
+              </IconButton>
+            </Tooltip>
+          )}
+          <ToggleButtonGroup exclusive value={turno} onChange={(_, v: Turno | null) => v && set({ t: String(v), c: null })} aria-label="Turno" color="primary" sx={{ flex: { xs: 1, md: 'none' } }}>
             {TURNOS.map((t) => (
               <ToggleButton key={t.turno} value={t.turno} sx={{ flex: { xs: 1, md: 'none' }, px: 2.5, fontWeight: 700 }}>
                 {t.turno}º turno
@@ -642,7 +705,15 @@ export function ApuracaoAoVivo({ headingLevel = 'h2' }: { headingLevel?: 'h1' | 
               </ToggleButton>
             ))}
           </ToggleButtonGroup>
+          </Stack>
         </Stack>
+
+        {!online && (
+          <Alert severity="warning" icon={<WifiOffRounded />} sx={{ mb: 2 }} aria-live="polite">
+            Sem internet neste aparelho.{' '}
+            {r.consultadoEm ? `Os números abaixo são de ${r.consultadoEm.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })} e voltam a se atualizar quando a conexão voltar.` : 'A apuração volta a se atualizar quando a conexão voltar.'}
+          </Alert>
+        )}
 
         {/* Seu estado + busca */}
         <Grid container spacing={2} sx={{ mb: 2 }}>
@@ -765,6 +836,11 @@ export function ApuracaoAoVivo({ headingLevel = 'h2' }: { headingLevel?: 'h1' | 
                   {/* Quem o TSE já declarou eleito */}
                   {!prop && (
                     <CartaoEleitos eleitos={eleitosDe(ap)} cargo={cargo} turno={r.turnoExibido} local={cargo === 'presidente' ? (ap.uf === 'BR' ? null : `voto em ${nomeUf(ap.uf)}`) : nomeUf(ap.uf)} />
+                  )}
+                  {cargo === 'deputado-federal' && eleitosBrasil > 0 && (
+                    <Typography variant="body2" sx={{ fontWeight: 700 }}>
+                      Câmara dos Deputados, todo o Brasil: {eleitosBrasil} de 513 vagas já com eleitos(as) declarados pelo TSE.
+                    </Typography>
                   )}
                   {prop && eleitosDe(ap).length > 0 && (
                     <Alert
@@ -951,6 +1027,45 @@ export function ApuracaoAoVivo({ headingLevel = 'h2' }: { headingLevel?: 'h1' | 
             </Box>
           </Grid>
         </Grid>
+
+        {/* Panorama: histórico da noite, últimas atualizações, regiões e disputas apertadas */}
+        {(Boolean(disputaSerie && disputaSerie.pontos.length > 1) || Boolean(serie?.eventos.length) || regioes.length > 0 || apertadas.length > 0) && (
+          <Grid container spacing={2} sx={{ mt: 1 }}>
+            {disputaSerie && disputaSerie.pontos.length > 1 && (
+              <Grid size={{ xs: 12, md: serie?.eventos.length ? 7 : 12 }}>
+                <Box sx={{ border: 1, borderColor: 'divider', borderRadius: 4, p: { xs: 1.5, sm: 2 }, height: '100%' }}>
+                  <Typography variant="subtitle2" component="h3" sx={{ fontWeight: 800 }}>
+                    Ao longo da apuração · {tituloDisputa}
+                  </Typography>
+                  <Typography variant="caption" color="text.secondary" component="p" sx={{ mt: 0, mb: 1 }}>
+                    % dos votos válidos a cada atualização do TSE nesta noite.
+                  </Typography>
+                  <GraficoEvolucao disputa={disputaSerie} dark={dark} />
+                </Box>
+              </Grid>
+            )}
+            {serie && serie.eventos.length > 0 && (
+              <Grid size={{ xs: 12, md: disputaSerie && disputaSerie.pontos.length > 1 ? 5 : 12 }}>
+                <Box sx={{ border: 1, borderColor: 'divider', borderRadius: 4, p: { xs: 1.5, sm: 2 }, height: '100%' }}>
+                  <Typography variant="subtitle2" component="h3" sx={{ fontWeight: 800, mb: 0.5 }}>
+                    Últimas atualizações
+                  </Typography>
+                  <UltimasAtualizacoes eventos={serie.eventos} nomeUf={nomeUf} />
+                </Box>
+              </Grid>
+            )}
+            {regioes.length > 0 && (
+              <Grid size={{ xs: 12, md: apertadas.length ? 5 : 12 }}>
+                <PorRegiao linhas={regioes} />
+              </Grid>
+            )}
+            {apertadas.length > 0 && (
+              <Grid size={{ xs: 12, md: regioes.length ? 7 : 12 }}>
+                <DisputasApertadas disputas={apertadas} cargo={cargoBase} nomeUf={nomeUf} onAbrir={(uf) => { clicarMapa(uf); painel.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }} />
+              </Grid>
+            )}
+          </Grid>
+        )}
 
         {/* Fonte */}
         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1} sx={{ mt: 3, pt: 2, borderTop: 1, borderColor: 'divider', alignItems: { sm: 'center' }, justifyContent: 'space-between' }}>
