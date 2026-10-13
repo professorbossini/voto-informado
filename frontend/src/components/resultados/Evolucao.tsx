@@ -46,7 +46,8 @@ export function GraficoEvolucao({ disputa, dark }: { disputa: DisputaSerie; dark
 
   const { series, xs, x, y, ticksY, ticksX } = useMemo(() => {
     const pts = disputa.pontos.filter((p) => p.vv > 0);
-    const xs = pts.map((p) => dataTse(p.t)?.getTime() ?? 0);
+    // Eixo x: % das seções totalizadas (0 a 100%), como a contagem avança, e não a hora.
+    const xs = pts.map((p) => p.s);
     // Só quem tem voto; no máximo 3 linhas (as cores validadas) — no 2º turno são 2.
     const ultimo = pts.at(-1);
     const idx = disputa.candidatos
@@ -62,17 +63,14 @@ export function GraficoEvolucao({ disputa, dark }: { disputa: DisputaSerie; dark
     const folga = Math.max(1, (hi - lo) * 0.12);
     lo = Math.max(0, Math.floor(lo - folga));
     hi = Math.min(100, Math.ceil(hi + folga));
-    const x0 = xs[0] ?? 0;
-    const x1 = Math.max(xs.at(-1) ?? 1, x0 + 60_000);
+    const x0 = 0;
+    const x1 = 100;
     const x = (t: number) => M.left + ((t - x0) / (x1 - x0)) * (W - M.left - M.right);
     const y = (v: number) => M.top + (1 - (v - lo) / (hi - lo)) * (H - M.top - M.bottom);
     const passo = hi - lo > 24 ? 10 : hi - lo > 10 ? 5 : 2;
     const ticksY: number[] = [];
     for (let v = Math.ceil(lo / passo) * passo; v <= hi; v += passo) ticksY.push(v);
-    const ticksX: number[] = [];
-    const hora = 3_600_000;
-    const passoX = x1 - x0 > (estreito ? 3 : 6) * hora ? 2 * hora : hora;
-    for (let t = Math.ceil(x0 / passoX) * passoX; t <= x1; t += passoX) ticksX.push(t);
+    const ticksX = estreito ? [0, 50, 100] : [0, 25, 50, 75, 100];
     return { series, xs, x, y, ticksY, ticksX };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [disputa, cores, W, estreito]);
@@ -80,7 +78,6 @@ export function GraficoEvolucao({ disputa, dark }: { disputa: DisputaSerie; dark
   if (xs.length < 2 || !series.length) return null;
   const pts = disputa.pontos.filter((p) => p.vv > 0);
   const i = hover ?? xs.length - 1;
-  const fmtHora = (t: number) => new Date(t).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Sao_Paulo' });
   const resumo = `${series.map((s) => `${nomeProprio(s.c.nome)}: ${pct(s.vals.at(-1) ?? 0)}`).join('; ')}, com ${pct(pts.at(-1)?.s ?? 0)} das seções.`;
 
   const mover = (ev: React.PointerEvent<SVGRectElement>) => {
@@ -145,12 +142,15 @@ export function GraficoEvolucao({ disputa, dark }: { disputa: DisputaSerie; dark
               </g>
             ))}
             {ticksX.map((t) => (
-              <text key={t} x={x(t)} y={H - 8} textAnchor="middle" fontSize="11" fill="currentColor" opacity={0.6}>
-                {fmtHora(t)}
+              <text key={t} x={x(t)} y={H - 8} textAnchor={t === 0 ? 'start' : t === 100 ? 'end' : 'middle'} fontSize="11" fill="currentColor" opacity={0.6}>
+                {t === 0 ? '0% das seções' : `${t}%`}
               </text>
             ))}
             {series.map((s) => (
               <polyline key={s.c.sq} points={s.vals.map((v, k) => `${x(xs[k]).toFixed(1)},${y(v).toFixed(1)}`).join(' ')} fill="none" stroke={s.cor} strokeWidth={2} strokeLinejoin="round" strokeLinecap="round" />
+            ))}
+            {series.map((s) => (
+              <circle key={`fim-${s.c.sq}`} cx={x(xs.at(-1) ?? 0)} cy={y(s.vals.at(-1) ?? 0)} r={4.5} fill={s.cor} stroke="var(--mui-palette-background-paper, #fff)" strokeWidth={2} />
             ))}
             {fins.map(({ s, yy }) => (
               <text key={s.c.sq} x={W - M.right + 8} y={yy + 4} fontSize="12" fontWeight={700} fill="currentColor">

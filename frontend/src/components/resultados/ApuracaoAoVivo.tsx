@@ -1038,7 +1038,7 @@ export function ApuracaoAoVivo({ headingLevel = 'h2' }: { headingLevel?: 'h1' | 
                     Ao longo da apuração · {tituloDisputa}
                   </Typography>
                   <Typography variant="caption" color="text.secondary" component="p" sx={{ mt: 0, mb: 1 }}>
-                    % dos votos válidos a cada atualização do TSE nesta noite.
+                    % dos votos válidos conforme as seções foram totalizadas nesta noite.
                   </Typography>
                   <GraficoEvolucao disputa={disputaSerie} dark={dark} />
                 </Box>

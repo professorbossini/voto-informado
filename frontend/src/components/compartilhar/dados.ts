@@ -26,8 +26,13 @@ export interface LinhaFato {
 }
 
 export interface CartaoDados {
-  /** Linha de cima: cargo e UF, ou o assunto ("Comparação de candidaturas"). */
+  /** Linha de cima: cargo e UF, ou o assunto ("Comparação de candidaturas"). Na capa (sem pessoas), o título grande. */
   titulo: string;
+  /** Capa: etiqueta acima do título (a seção do site, ex.: "Plenário"). */
+  chamada?: string | null;
+  /** Capa: resumo da página, abaixo do título. */
+  descricao?: string | null;
+  /** Pessoas do cartão; vazio = capa da página. */
   pessoas: PessoaCartao[];
   fatos: LinhaFato[];
   /** Endereço completo da página (impresso curto no cartão). */

@@ -17,6 +17,11 @@ describe('tradutor da interface', () => {
     expect(traduzir('LUIZ INÁCIO')).toBeNull(); // dado oficial: fica como publicado
   });
 
+  it('trecho variável que também está no dicionário (ex.: nome de região) sai traduzido', async () => {
+    await aplicarIdioma('en', { 'Lidera em todo o {0}: {1}': 'Leads in all of the {0}: {1}', Sudeste: 'Southeast' });
+    expect(traduzir('Lidera em todo o Sudeste: Lula')).toBe('Leads in all of the Southeast: Lula');
+  });
+
   it('troca o DOM, acompanha mudanças e volta ao português', async () => {
     document.body.innerHTML = '<main><h1>Resultados</h1><button aria-label="Resultados">x</button><p translate="no">Resultados</p></main>';
     await aplicarIdioma('en', { 'Resultados': 'Results', 'Partidos': 'Parties' });

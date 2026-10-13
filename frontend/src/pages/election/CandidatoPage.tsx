@@ -514,7 +514,7 @@ export function CandidatoPage() {
             <Button variant="outlined" startIcon={<IosShareRounded />} onClick={() => void share()}>
               Compartilhar
             </Button>
-            <BotaoCompartilharImagem texto={textoShare} montar={() => cartaoCandidato(c, publicUrl(`candidato/${c.sq}`), fontes)} />
+            <BotaoCompartilharImagem daPagina texto={textoShare} montar={() => cartaoCandidato(c, publicUrl(`candidato/${c.sq}`), fontes)} />
             <Button variant="text" endIcon={<OpenInNewRounded />} href={c.divulgacand} target="_blank" rel="noopener noreferrer">
               Ver no DivulgaCandContas (TSE)
             </Button>

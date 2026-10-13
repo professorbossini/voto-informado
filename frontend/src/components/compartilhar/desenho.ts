@@ -2,20 +2,26 @@ import { brand } from '@/config/brand';
 import { fontFamily } from '@/theme';
 import { ink, lime, violet } from '@/theme/tokens';
 import type { CartaoDados } from './dados';
+import { desenharQr } from './qr';
 import { ajustarJuntos, ajustarTexto, quebrarLinhas, urlCurta, type Ajuste, type Medidor } from './texto';
 
 /**
  * Desenho dos cartões para compartilhar (PNG gerado no navegador, sem servidor). Um só modelo
  * para todo mundo: cores da marca do site (violeta e neutros, nunca de partido), mesmas medidas
  * e mesmo tamanho de letra para todas as pessoas de um cartão. O tamanho final em pixels é fixo
- * (não depende da densidade da tela do aparelho).
+ * (não depende da densidade da tela do aparelho). Todo cartão leva o endereço e um QR code dele.
+ *
+ * Formatos: retrato 4:5 (feed do Instagram/Facebook), paisagem 1,91:1 (X, LinkedIn, Facebook,
+ * WhatsApp) e stories 9:16 (Stories, Status do WhatsApp, TikTok). Página sem pessoas (resultados,
+ * plenário...) vira uma "capa": título e resumo da página sobre o fundo da marca.
  */
 
-export type Formato = 'retrato' | 'paisagem';
+export type Formato = 'retrato' | 'paisagem' | 'stories';
 
 export const TAMANHOS: Record<Formato, { w: number; h: number }> = {
   retrato: { w: 1080, h: 1350 },
   paisagem: { w: 1200, h: 630 },
+  stories: { w: 1080, h: 1920 },
 };
 
 export const RODAPE = 'Dados públicos oficiais · sem recomendação de voto';
@@ -49,7 +55,11 @@ const COR = {
 const M = {
   retrato: { m: 64, cab: 136, logo: 76, marca: 46, sub: 28, titulo: 30, rodape: 26, fonte: 24, url: 32 },
   paisagem: { m: 48, cab: 88, logo: 52, marca: 32, sub: 22, titulo: 24, rodape: 19, fonte: 18, url: 24 },
+  stories: { m: 64, cab: 136, logo: 76, marca: 46, sub: 28, titulo: 30, rodape: 26, fonte: 24, url: 32 },
 } as const;
+
+/** Lado do QR no rodapé dos cartões de pessoas. */
+const LADO_QR = { retrato: 172, paisagem: 112, stories: 172 } as const;
 
 function fonte(ctx: Ctx, peso: Peso, tamanho: number) {
   ctx.font = `${peso} ${tamanho}px ${fontFamily}`;
@@ -171,16 +181,18 @@ function cabecalho(ctx: Ctx, formato: Formato, logo: CanvasImageSource | null) {
   ctx.fillText('Eleições 2026 · dados oficiais', w - p.m, p.cab / 2);
 }
 
-/** Endereço, data, fonte e rodapé, de baixo para cima. Devolve o topo do bloco. */
-function base(ctx: Ctx, formato: Formato, d: CartaoDados): number {
+/** Endereço, data, fonte, QR e rodapé, de baixo para cima. Devolve o topo do bloco. */
+function base(ctx: Ctx, formato: Formato, d: CartaoDados, comQr = true): number {
   const { w, h } = TAMANHOS[formato];
   const p = M[formato];
-  const largura = w - 2 * p.m;
+  const ladoQr = comQr ? LADO_QR[formato] : 0;
+  // O QR fica à direita do endereço e da fonte; o texto usa o resto da largura.
+  const largura = w - 2 * p.m - (comQr ? ladoQr + Math.round(p.m * 0.5) : 0);
 
   // Rodapé neutro, separado por uma linha.
   const faixa = Math.round(p.rodape * 2.6);
   ctx.fillStyle = COR.borda;
-  ctx.fillRect(p.m, h - faixa, largura, 2);
+  ctx.fillRect(p.m, h - faixa, w - 2 * p.m, 2);
   fonte(ctx, 500, p.rodape);
   ctx.fillStyle = COR.texto3;
   ctx.textAlign = 'center';
@@ -204,7 +216,19 @@ function base(ctx: Ctx, formato: Formato, d: CartaoDados): number {
   ctx.fillStyle = COR.marcaClara;
   ctx.fill();
   escrever(ctx, au, p.m + pad, yu + (hu - altura(au, 1)) / 2, 700, COR.marcaTexto, 'left', 1);
-  return yu;
+  if (!comQr) return yu;
+
+  // QR do endereço, com moldura branca, alinhado ao pé do bloco de texto.
+  const xq = w - p.m - ladoQr;
+  const yq = h - faixa - Math.round(p.m * 0.4) - ladoQr;
+  retangulo(ctx, xq - 6, yq - 6, ladoQr + 12, ladoQr + 12, 16);
+  ctx.fillStyle = COR.cartao;
+  ctx.fill();
+  ctx.strokeStyle = COR.borda;
+  ctx.lineWidth = 2;
+  ctx.stroke();
+  desenharQr(ctx, d.url, xq, yq, ladoQr, COR.texto, COR.cartao);
+  return Math.min(yu, yq - 6);
 }
 
 /** Quadro de um fato: rótulo pequeno em cima, valor grande embaixo (textos já ajustados). */
@@ -362,14 +386,193 @@ function ladoALado(ctx: Ctx, formato: Formato, d: CartaoDados, fotos: (CanvasIma
   }
 }
 
+// ── Capa (páginas sem pessoas) e stories ─────────────────────────────────────
+
+/** Fundo da marca: degradê violeta com dois círculos discretos (um lima). */
+function fundoMarca(ctx: Ctx, w: number, h: number) {
+  const g = ctx.createLinearGradient(0, 0, w, h);
+  g.addColorStop(0, violet[600]);
+  g.addColorStop(1, violet[900]);
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, w, h);
+  ctx.save();
+  ctx.globalAlpha = 0.08;
+  ctx.fillStyle = '#FFFFFF';
+  ctx.beginPath();
+  ctx.arc(w * 1.02, h * 0.06, Math.max(w, h) * 0.34, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.globalAlpha = 0.14;
+  ctx.fillStyle = lime[400];
+  ctx.beginPath();
+  ctx.arc(-w * 0.1, h * 0.74, Math.min(w, h) * 0.4, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+}
+
+/** Logo, nome do site e "Eleições 2026 · dados oficiais" em branco no topo. Devolve o y de baixo. */
+function marcaTopo(ctx: Ctx, w: number, m: number, lado: number, logo: CanvasImageSource | null): number {
+  let x = m;
+  if (logo) {
+    ctx.drawImage(logo, x, m, lado, lado);
+    x += lado + Math.round(lado * 0.28);
+  }
+  ctx.textBaseline = 'middle';
+  fonte(ctx, 700, Math.round(lado * 0.6));
+  ctx.fillStyle = '#FFFFFF';
+  ctx.textAlign = 'left';
+  ctx.fillText(brand.name ?? 'Tá na Urna', x, m + lado / 2);
+  fonte(ctx, 500, Math.round(lado * 0.34));
+  ctx.fillStyle = violet[200];
+  ctx.textAlign = 'right';
+  ctx.fillText('Eleições 2026 · dados oficiais', w - m, m + lado / 2);
+  return m + lado;
+}
+
+/** Rodapé neutro em letra clara sobre o fundo da marca. */
+function rodapeMarca(ctx: Ctx, w: number, h: number, m: number, tamanho: number, alinhar: CanvasTextAlign = 'center') {
+  fonte(ctx, 500, tamanho);
+  ctx.fillStyle = violet[200];
+  ctx.textAlign = alinhar;
+  ctx.textBaseline = 'middle';
+  ctx.fillText(RODAPE, alinhar === 'center' ? w / 2 : m, h - m * 0.65);
+}
+
+/**
+ * Painel branco com o QR à esquerda (ou em cima, se `empilhado`) e, ao lado, o convite para
+ * abrir a página, o endereço e a fonte dos dados.
+ */
+function painelQr(ctx: Ctx, d: CartaoDados, x: number, y: number, w: number, h: number, e: number, empilhado = false) {
+  retangulo(ctx, x, y, w, h, 32 * e);
+  ctx.fillStyle = COR.cartao;
+  ctx.fill();
+  const pad = Math.round(30 * e);
+  const textos = (tx: number, ty: number, tw: number, th: number) => {
+    const convite = ajustarTexto('Aponte a câmera do celular ou acesse:', { largura: tw, max: Math.round(26 * e), min: Math.round(16 * e), maxLinhas: 2 }, medidor(ctx, 500));
+    // Endereço numa linha só (diminuindo a letra); duas linhas só se nem assim couber (ex.: comparação longa).
+    const umaLinha = ajustarTexto(urlCurta(d.url), { largura: tw, max: Math.round(38 * e), min: Math.round(22 * e), maxLinhas: 1 }, medidor(ctx, 700));
+    const end = umaLinha.linhas[0]?.endsWith('…') ? ajustarTexto(urlCurta(d.url), { largura: tw, max: Math.round(22 * e), min: Math.round(16 * e), maxLinhas: 2, entrelinha: 1.1 }, medidor(ctx, 700)) : umaLinha;
+    const dados = `${d.dataDados ? `Dados de ${d.dataDados} · ` : ''}${d.fonte}`;
+    const resto = th - altura(convite) - altura(end, 1.1) - 20 * e;
+    const af = resto > 16 * e ? ajustarTexto(dados, { largura: tw, max: Math.round(20 * e), min: Math.round(14 * e), maxLinhas: 3, altura: resto, entrelinha: 1.25 }, medidor(ctx, 400)) : null;
+    const total = altura(convite) + 8 * e + altura(end, 1.1) + (af ? 12 * e + altura(af, 1.25) : 0);
+    let yy = ty + Math.max(0, (th - total) / 2);
+    yy += escrever(ctx, convite, tx, yy, 500, COR.texto3) + 8 * e;
+    yy += escrever(ctx, end, tx, yy, 700, COR.marcaTexto, 'left', 1.1);
+    if (af) escrever(ctx, af, tx, yy + 12 * e, 400, COR.texto2, 'left', 1.25);
+  };
+  if (empilhado) {
+    const lado = Math.min(w - 2 * pad, h * 0.58);
+    desenharQr(ctx, d.url, x + (w - lado) / 2, y + pad, lado, COR.texto, COR.cartao);
+    textos(x + pad, y + pad + lado + 8 * e, w - 2 * pad, h - lado - 2 * pad - 8 * e);
+  } else {
+    const lado = h - 2 * pad;
+    desenharQr(ctx, d.url, x + pad, y + pad, lado, COR.texto, COR.cartao);
+    const tx = x + pad + lado + Math.round(pad * 1.1);
+    textos(tx, y + pad, x + w - pad - tx, lado);
+  }
+}
+
+/** Página sem pessoas: chamada, título grande e resumo sobre o fundo da marca, com o QR embaixo (ou ao lado). */
+function capa(ctx: Ctx, formato: Formato, d: CartaoDados, logo: CanvasImageSource | null) {
+  const { w, h } = TAMANHOS[formato];
+  fundoMarca(ctx, w, h);
+  const vertical = h > w;
+  const e = formato === 'stories' ? 1.15 : formato === 'retrato' ? 1 : 0.72;
+  const m = Math.round(72 * (vertical ? 1 : 0.72));
+  const yTopo = marcaTopo(ctx, w, m, Math.round(80 * e), logo);
+  rodapeMarca(ctx, w, h, m, Math.round(24 * e), vertical ? 'center' : 'left');
+
+  // Painel do QR: embaixo (vertical) ou à direita (paisagem).
+  const xt = m;
+  let lw = w - 2 * m;
+  let topo = yTopo + m * 0.9;
+  let fundo: number;
+  if (vertical) {
+    const ph = formato === 'stories' ? 400 : 320;
+    const py = h - m * 1.3 - ph;
+    painelQr(ctx, d, m, py, w - 2 * m, ph, e);
+    fundo = py - m * 0.8;
+  } else {
+    const pw = 320;
+    const py = yTopo + m * 0.6;
+    painelQr(ctx, d, w - m - pw, py, pw, h - py - m * 1.25, e, true);
+    lw = w - 3 * m - pw;
+    topo = py;
+    fundo = h - m * 1.25;
+  }
+
+  // Chamada (pílula lima), título e resumo: centralizados um pouco acima do meio do espaço livre.
+  const disponivel = fundo - topo;
+  const chamada = d.chamada ? ajustarTexto(d.chamada.toLocaleUpperCase('pt-BR'), { largura: lw - 48 * e, max: Math.round(28 * e), min: Math.round(18 * e), maxLinhas: 1 }, medidor(ctx, 700)) : null;
+  const hChamada = chamada ? Math.round(chamada.tamanho * 1.9) : 0;
+  const gap = Math.round(28 * e);
+  const tit = ajustarTexto(d.titulo, { largura: lw, max: Math.round((vertical ? 104 : 84) * e), min: Math.round(44 * e), maxLinhas: formato === 'stories' ? 6 : vertical ? 5 : 3, altura: disponivel * 0.6, entrelinha: 1.05 }, medidor(ctx, 700));
+  const descOpc = { largura: lw, max: Math.round((vertical ? 40 : 34) * e), min: Math.round(24 * e), maxLinhas: formato === 'stories' ? 7 : vertical ? 5 : 3, entrelinha: 1.3 };
+  const resto = disponivel - hChamada - (chamada ? gap : 0) - altura(tit, 1.05) - gap * 2 - 12 * e;
+  const desc = d.descricao && resto > descOpc.min * 1.3 ? ajustarTexto(d.descricao, { ...descOpc, altura: resto }, medidor(ctx, 500)) : null;
+  const total = hChamada + (chamada ? gap : 0) + altura(tit, 1.05) + gap + 12 * e + (desc ? gap + altura(desc, 1.3) : 0);
+  let y = topo + Math.max(0, (disponivel - total) * 0.4);
+  if (chamada) {
+    fonte(ctx, 700, chamada.tamanho);
+    const cw = ctx.measureText(chamada.linhas[0] ?? '').width + 48 * e;
+    retangulo(ctx, xt, y, cw, hChamada, hChamada / 2);
+    ctx.fillStyle = lime[400];
+    ctx.fill();
+    escrever(ctx, chamada, xt + 24 * e, y + (hChamada - altura(chamada, 1)) / 2, 700, ink[900], 'left', 1);
+    y += hChamada + gap;
+  }
+  y += escrever(ctx, tit, xt, y, 700, '#FFFFFF', 'left', 1.05) + gap;
+  retangulo(ctx, xt, y, 120 * e, 12 * e, 6 * e);
+  ctx.fillStyle = lime[400];
+  ctx.fill();
+  y += 12 * e;
+  if (desc) escrever(ctx, desc, xt, y + gap, 500, violet[100], 'left', 1.3);
+}
+
+/** Stories (9:16) com pessoas: o cartão retrato inteiro sobre o fundo da marca e o QR grande embaixo. */
+function storiesComPessoas(ctx: Ctx, d: CartaoDados, imagens: Imagens) {
+  const { w, h } = TAMANHOS.stories;
+  const m = 64;
+  fundoMarca(ctx, w, h);
+  const yTopo = marcaTopo(ctx, w, m, 84, imagens.logo);
+  rodapeMarca(ctx, w, h, m, 26);
+  const ph = 300;
+  const py = h - m * 1.3 - ph;
+  painelQr(ctx, d, m, py, w - 2 * m, ph, 1);
+  // Cartão retrato (sem o QR pequeno: o grande está logo abaixo), reduzido para caber entre o topo e o painel.
+  const livre = py - yTopo - 2 * 40;
+  const s = Math.min((w - 2 * 48) / TAMANHOS.retrato.w, livre / TAMANHOS.retrato.h);
+  const cw = TAMANHOS.retrato.w * s;
+  const ch = TAMANHOS.retrato.h * s;
+  const cx = (w - cw) / 2;
+  const cy = yTopo + 40 + (livre - ch) / 2;
+  ctx.save();
+  ctx.shadowColor = 'rgba(13, 9, 25, 0.45)';
+  ctx.shadowBlur = 48;
+  ctx.shadowOffsetY = 16;
+  retangulo(ctx, cx, cy, cw, ch, 36);
+  ctx.fillStyle = COR.fundo;
+  ctx.fill();
+  ctx.restore();
+  ctx.save();
+  retangulo(ctx, cx, cy, cw, ch, 36);
+  ctx.clip();
+  ctx.translate(cx, cy);
+  ctx.scale(s, s);
+  desenharCartao(ctx, d, 'retrato', imagens, { qr: false });
+  ctx.restore();
+}
+
 /** Desenha o cartão inteiro no contexto (canvas já no tamanho do formato). */
-export function desenharCartao(ctx: Ctx, d: CartaoDados, formato: Formato, imagens: Imagens) {
+export function desenharCartao(ctx: Ctx, d: CartaoDados, formato: Formato, imagens: Imagens, opcoes: { qr?: boolean } = {}) {
+  if (!d.pessoas.length) return capa(ctx, formato, d, imagens.logo);
+  if (formato === 'stories') return storiesComPessoas(ctx, d, imagens);
   const { w, h } = TAMANHOS[formato];
   const p = M[formato];
   ctx.fillStyle = COR.fundo;
   ctx.fillRect(0, 0, w, h);
   cabecalho(ctx, formato, imagens.logo);
-  const yBase = base(ctx, formato, d);
+  const yBase = base(ctx, formato, d, opcoes.qr ?? true);
 
   let y = p.cab + Math.round(p.m * (formato === 'retrato' ? 0.7 : 0.45));
   const at = ajustarTexto(d.titulo, { largura: w - 2 * p.m, max: p.titulo, min: p.titulo - 6, maxLinhas: 1 }, medidor(ctx, 600));

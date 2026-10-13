@@ -221,6 +221,7 @@ export function ParlamentarPage() {
                   )}
                   {/* Participação nas votações: o mesmo arquivo que a seção de votações já carregou (fica em cache). */}
                   <BotaoCompartilharImagem
+                    daPagina
                     size="small"
                     montar={async () => cartaoParlamentar(d, publicUrl(`parlamentar/${id}`), fontes, await data.votacoes(id).catch(() => null))}
                   />

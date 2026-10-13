@@ -43,13 +43,17 @@ describe('BotaoCompartilharImagem', () => {
     expect(img).toHaveAttribute('src', 'blob:previa');
     expect(gerarCartao).toHaveBeenCalledWith(dados, 'retrato');
 
-    await userEvent.click(screen.getByRole('button', { name: 'Paisagem · 1200×630' }));
+    await userEvent.click(screen.getByRole('button', { name: 'Post · 1,91:1' }));
     await vi.waitFor(() => expect(gerarCartao).toHaveBeenCalledWith(dados, 'paisagem'));
 
-    await userEvent.click(await screen.findByRole('button', { name: 'Baixar imagem e copiar link' }));
+    // Computador: escolher a rede baixa a imagem, copia o link e abre a rede.
+    const abrir = vi.spyOn(window, 'open').mockImplementation(() => null);
+    await userEvent.click(await screen.findByRole('button', { name: 'Baixar a imagem e abrir o X (Twitter)' }));
+    expect(abrir).toHaveBeenCalledWith(expect.stringContaining('twitter.com/intent/tweet'), '_blank', 'noopener,noreferrer');
     expect(clique).toHaveBeenCalledTimes(1);
     expect(writeText).toHaveBeenCalledWith(dados.url);
-    expect(await screen.findByText('Imagem baixada e link da página copiado.')).toBeInTheDocument();
+    expect(await screen.findByText(/Imagem baixada e link copiado: anexe a imagem/)).toBeInTheDocument();
+    abrir.mockRestore();
     clique.mockRestore();
   }, 20_000);
 });

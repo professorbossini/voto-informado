@@ -478,6 +478,13 @@
   ]
  },
  {
+  "texto": "· mais pontos",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
   "texto": "· mais votado(a): {0}",
   "tipo": "padrao",
   "arquivos": [
@@ -930,7 +937,7 @@
   ]
  },
  {
-  "texto": ") a 100% (cor mais",
+  "texto": ") a",
   "tipo": "exato",
   "arquivos": [
    "pages/election/MapaPage.tsx"
@@ -1024,7 +1031,14 @@
   "texto": "{0} · {1}: dados oficiais no Tá na Urna",
   "tipo": "padrao",
   "arquivos": [
-   "components/compartilhar/BotaoCompartilharImagem.tsx"
+   "components/compartilhar/DialogoCompartilhar.tsx"
+  ]
+ },
+ {
+  "texto": "{0} · dados oficiais no Tá na Urna",
+  "tipo": "padrao",
+  "arquivos": [
+   "components/compartilhar/DialogoCompartilhar.tsx"
   ]
  },
  {
@@ -1088,6 +1102,13 @@
   "tipo": "padrao",
   "arquivos": [
    "components/ColorModeToggle.tsx"
+  ]
+ },
+ {
+  "texto": "{0} (dica: formato {1})",
+  "tipo": "padrao",
+  "arquivos": [
+   "components/compartilhar/DialogoCompartilhar.tsx"
   ]
  },
  {
@@ -1316,6 +1337,13 @@
   ]
  },
  {
+  "texto": "{0} em todo o {1}",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
   "texto": "{0} entrou na comparação.",
   "tipo": "padrao",
   "arquivos": [
@@ -1386,6 +1414,13 @@
   ]
  },
  {
+  "texto": "{0} neste município",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
   "texto": "{0} no {1}º turno",
   "tipo": "padrao",
   "arquivos": [
@@ -1404,13 +1439,6 @@
   "tipo": "padrao",
   "arquivos": [
    "pages/election/PlanosPage.tsx"
-  ]
- },
- {
-  "texto": "{0} paisagem",
-  "tipo": "padrao",
-  "arquivos": [
-   "components/compartilhar/BotaoCompartilharImagem.tsx"
   ]
  },
  {
@@ -1484,7 +1512,7 @@
   ]
  },
  {
-  "texto": "{0} votos válidos · clique para ver a votação",
+  "texto": "{0} votos válidos",
   "tipo": "padrao",
   "arquivos": [
    "pages/election/MapaPage.tsx"
@@ -1759,6 +1787,13 @@
   ]
  },
  {
+  "texto": "% dos válidos no município · escala de 0 a {0}%, o teto desta candidatura",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
   "texto": "% dos votos de {0} no estado (10 faixas de 10 pontos)",
   "tipo": "padrao",
   "arquivos": [
@@ -1766,7 +1801,7 @@
   ]
  },
  {
-  "texto": "% dos votos válidos a cada atualização do TSE nesta noite.",
+  "texto": "% dos votos válidos conforme as seções foram totalizadas nesta noite.",
   "tipo": "exato",
   "arquivos": [
    "components/resultados/ApuracaoAoVivo.tsx"
@@ -1774,6 +1809,13 @@
  },
  {
   "texto": "% dos votos válidos no município (mesma escala para todas as candidaturas)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
+  "texto": "% ou mais (cor mais",
   "tipo": "exato",
   "arquivos": [
    "pages/election/MapaPage.tsx"
@@ -1844,10 +1886,24 @@
   ]
  },
  {
+  "texto": "0 a 100%",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
   "texto": "0.01ms !important",
   "tipo": "exato",
   "arquivos": [
    "theme/theme.ts"
+  ]
+ },
+ {
+  "texto": "0% das seções",
+  "tipo": "exato",
+  "arquivos": [
+   "components/resultados/Evolucao.tsx"
   ]
  },
  {
@@ -2506,10 +2562,10 @@
   ]
  },
  {
-  "texto": "A imagem é gerada no seu aparelho, só com os dados oficiais já mostrados nesta página, a fonte e o link para conferir.",
+  "texto": "A imagem é gerada no seu aparelho, só com os dados oficiais desta página, a fonte, o link e um QR code para conferir.",
   "tipo": "exato",
   "arquivos": [
-   "components/compartilhar/BotaoCompartilharImagem.tsx"
+   "components/compartilhar/DialogoCompartilhar.tsx"
   ]
  },
  {
@@ -2796,8 +2852,8 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
-   "components/resultados/disputas.ts",
-   "components/resultados/hooks.ts"
+   "components/resultados/hooks.ts",
+   "data/regioes.ts"
   ]
  },
  {
@@ -3107,8 +3163,8 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
-   "components/resultados/disputas.ts",
    "components/resultados/hooks.ts",
+   "data/regioes.ts",
    "eua/usaMapData.ts"
   ]
  },
@@ -3198,8 +3254,8 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
-   "components/resultados/disputas.ts",
-   "components/resultados/hooks.ts"
+   "components/resultados/hooks.ts",
+   "data/regioes.ts"
   ]
  },
  {
@@ -3381,8 +3437,8 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
-   "components/resultados/disputas.ts",
-   "components/resultados/hooks.ts"
+   "components/resultados/hooks.ts",
+   "data/regioes.ts"
   ]
  },
  {
@@ -3453,6 +3509,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/legal/PrivacidadePage.tsx"
+  ]
+ },
+ {
+  "texto": "Aponte a câmera do celular ou acesse:",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/desenho.ts"
   ]
  },
  {
@@ -3698,6 +3761,20 @@
   ]
  },
  {
+  "texto": "As cores mostram a porcentagem dos votos válidos da candidatura escolhida.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
+  "texto": "As cores mostram quem teve mais votos em cada lugar, em ordem alfabética do nome na urna (sem relação com partidos); quanto mais forte, maior a vantagem sobre o 2º colocado.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
   "texto": "as declarações financeiras de parlamentares e juízes têm limites de uso; não as reproduzimos, só indicamos onde o órgão as publica.",
   "tipo": "exato",
   "arquivos": [
@@ -3832,6 +3909,13 @@
   "arquivos": [
    "components/compartilhar/desenho.ts",
    "components/election/CandidatePhoto.tsx"
+  ]
+ },
+ {
+  "texto": "até",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -4113,8 +4197,8 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
-   "components/resultados/disputas.ts",
-   "components/resultados/hooks.ts"
+   "components/resultados/hooks.ts",
+   "data/regioes.ts"
   ]
  },
  {
@@ -4146,7 +4230,7 @@
   "texto": "baixado",
   "tipo": "exato",
   "arquivos": [
-   "components/compartilhar/BotaoCompartilharImagem.tsx",
+   "components/compartilhar/DialogoCompartilhar.tsx",
    "components/compartilhar/compartilhar.ts"
   ]
  },
@@ -4154,14 +4238,21 @@
   "texto": "Baixar",
   "tipo": "exato",
   "arquivos": [
-   "components/compartilhar/BotaoCompartilharImagem.tsx"
+   "components/compartilhar/DialogoCompartilhar.tsx"
   ]
  },
  {
-  "texto": "Baixar imagem e copiar link",
+  "texto": "Baixar a imagem e abrir o {0}",
+  "tipo": "padrao",
+  "arquivos": [
+   "components/compartilhar/DialogoCompartilhar.tsx"
+  ]
+ },
+ {
+  "texto": "Baixar a imagem e abrir:",
   "tipo": "exato",
   "arquivos": [
-   "components/compartilhar/BotaoCompartilharImagem.tsx"
+   "components/compartilhar/DialogoCompartilhar.tsx"
   ]
  },
  {
@@ -4687,6 +4778,13 @@
   ]
  },
  {
+  "texto": "Byte",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/qr.ts"
+  ]
+ },
+ {
   "texto": "c",
   "tipo": "exato",
   "arquivos": [
@@ -4722,7 +4820,7 @@
   ]
  },
  {
-  "texto": "Cada município recebe a cor da faixa em que está a porcentagem dos votos válidos da candidatura escolhida: 10 faixas de 10 pontos (0 a 10%, 10 a 20%... 90 a 100%). A escala é fixa e igual para todas as candidaturas, então a mesma cor quer dizer a mesma porcentagem, seja qual for a escolha. O mapa não pinta ninguém como vencedor: para comparar, troque a candidatura escolhida ou toque num município.",
+  "texto": "Cada município recebe a cor da faixa em que está a porcentagem dos votos válidos da candidatura escolhida, em 10 faixas iguais. Na escala da candidatura (padrão), as faixas vão de 0% até um número redondo logo acima do que ela alcançou em 99% dos municípios: assim, quem teve poucos votos também mostra onde foi mais forte (acima do teto, a cor mais forte). A regra é a mesma para todas as candidaturas, mas a mesma cor pode significar porcentagens diferentes de uma para outra: para comparar candidaturas na mesma régua, escolha a escala de 0 a 100%.",
   "tipo": "exato",
   "arquivos": [
    "pages/election/MapaPage.tsx"
@@ -5029,7 +5127,7 @@
   "texto": "cancelado",
   "tipo": "exato",
   "arquivos": [
-   "components/compartilhar/BotaoCompartilharImagem.tsx",
+   "components/compartilhar/DialogoCompartilhar.tsx",
    "components/compartilhar/compartilhar.ts"
   ]
  },
@@ -5037,7 +5135,6 @@
   "texto": "Cancelar",
   "tipo": "exato",
   "arquivos": [
-   "components/compartilhar/BotaoCompartilharImagem.tsx",
    "components/conta/ContaPerfil.tsx"
   ]
  },
@@ -5115,7 +5212,6 @@
    "eua/paginas/EleicoesEuaPage.tsx",
    "pages/election/CompararPage.tsx",
    "pages/election/HomePage.tsx",
-   "pages/election/MapaPage.tsx",
    "pages/election/PesquisasPage.tsx"
   ]
  },
@@ -5494,8 +5590,8 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
-   "components/resultados/disputas.ts",
-   "components/resultados/hooks.ts"
+   "components/resultados/hooks.ts",
+   "data/regioes.ts"
   ]
  },
  {
@@ -5790,6 +5886,13 @@
   "tipo": "exato",
   "arquivos": [
    "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "Colorir por",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -6129,7 +6232,7 @@
   "texto": "Compartilhar",
   "tipo": "exato",
   "arquivos": [
-   "components/compartilhar/BotaoCompartilharImagem.tsx",
+   "components/compartilhar/DialogoCompartilhar.tsx",
    "pages/election/CandidatoPage.tsx",
    "pages/election/ColaPage.tsx",
    "pages/election/CompararPage.tsx"
@@ -6146,14 +6249,15 @@
   "texto": "Compartilhar imagem",
   "tipo": "exato",
   "arquivos": [
-   "components/compartilhar/BotaoCompartilharImagem.tsx"
+   "components/compartilhar/BotaoCompartilharImagem.tsx",
+   "components/compartilhar/DialogoCompartilhar.tsx"
   ]
  },
  {
   "texto": "Compartilhar link",
   "tipo": "exato",
   "arquivos": [
-   "components/compartilhar/BotaoCompartilharImagem.tsx"
+   "components/compartilhar/DialogoCompartilhar.tsx"
   ]
  },
  {
@@ -6493,7 +6597,7 @@
   "texto": "Copiar link",
   "tipo": "exato",
   "arquivos": [
-   "components/share/ShareButton.tsx"
+   "components/compartilhar/DialogoCompartilhar.tsx"
   ]
  },
  {
@@ -7845,11 +7949,11 @@
   "arquivos": [
    "components/election/UfTileMap.tsx",
    "components/election/brazilMapData.ts",
-   "components/resultados/disputas.ts",
    "components/resultados/hooks.ts",
    "components/urna/ballot.ts",
    "data/apuracao.ts",
    "data/mapaVotos.ts",
+   "data/regioes.ts",
    "data/useMunicipioUsuario.ts",
    "pages/election/EleicaoPage.tsx",
    "pages/election/EmendasPage.tsx",
@@ -7870,6 +7974,13 @@
   "tipo": "exato",
   "arquivos": [
    "eua/paginas/EuaInicioPage.tsx"
+  ]
+ },
+ {
+  "texto": "dialog",
+  "tipo": "exato",
+  "arquivos": [
+   "components/share/ShareButton.tsx"
   ]
  },
  {
@@ -9472,7 +9583,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/avisos/AvisoResultado.tsx",
-   "components/compartilhar/BotaoCompartilharImagem.tsx",
+   "components/compartilhar/DialogoCompartilhar.tsx",
    "components/conta/ContaPerfil.tsx",
    "data/sync/perfil.ts"
   ]
@@ -9489,7 +9600,7 @@
   "texto": "error",
   "tipo": "exato",
   "arquivos": [
-   "components/compartilhar/BotaoCompartilharImagem.tsx",
+   "components/compartilhar/DialogoCompartilhar.tsx",
    "components/conta/ContaPerfil.tsx",
    "components/election/StatusChip.tsx",
    "pages/election/CandidatoPage.tsx",
@@ -9510,12 +9621,26 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
-   "components/resultados/disputas.ts",
-   "components/resultados/hooks.ts"
+   "components/resultados/hooks.ts",
+   "data/regioes.ts"
   ]
  },
  {
-  "texto": "Escala de 10 faixas de 10 pontos percentuais, de 0% (cor mais",
+  "texto": "Escala da candidatura",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Escala de 10 faixas iguais, de 0% (cor mais",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Escala de cores",
   "tipo": "exato",
   "arquivos": [
    "pages/election/MapaPage.tsx"
@@ -9612,20 +9737,6 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/EmendasPage.tsx"
-  ]
- },
- {
-  "texto": "Escolha uma candidatura",
-  "tipo": "exato",
-  "arquivos": [
-   "pages/election/MapaPage.tsx"
-  ]
- },
- {
-  "texto": "Escolha uma candidatura para colorir o mapa. Nenhuma vem escolhida de início, e as cores mostram só a porcentagem de quem você escolher, na mesma escala para todas: o mapa não aponta quem venceu em cada lugar.",
-  "tipo": "exato",
-  "arquivos": [
-   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -9736,6 +9847,7 @@
   "arquivos": [
    "components/resultados/ApuracaoAoVivo.tsx",
    "pages/election/ComoVotarPage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/SegundoTurnoPage.tsx"
   ]
  },
@@ -9817,7 +9929,15 @@
   "arquivos": [
    "components/resultados/ApuracaoAoVivo.tsx",
    "pages/election/ComoVotarPage.tsx",
+   "pages/election/MapaPage.tsx",
    "pages/election/SegundoTurnoPage.tsx"
+  ]
+ },
+ {
+  "texto": "Estados",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -10030,7 +10150,7 @@
   "texto": "Facebook",
   "tipo": "exato",
   "arquivos": [
-   "components/share/ShareButton.tsx"
+   "components/compartilhar/DialogoCompartilhar.tsx"
   ]
  },
  {
@@ -10112,7 +10232,7 @@
   "texto": "falhou",
   "tipo": "exato",
   "arquivos": [
-   "components/compartilhar/BotaoCompartilharImagem.tsx",
+   "components/compartilhar/DialogoCompartilhar.tsx",
    "components/compartilhar/compartilhar.ts"
   ]
  },
@@ -10183,6 +10303,7 @@
   "texto": "Fechar",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/DialogoCompartilhar.tsx",
    "pages/election/ColaPage.tsx"
   ]
  },
@@ -10191,6 +10312,20 @@
   "tipo": "exato",
   "arquivos": [
    "eua/componentes/Moldura.tsx"
+  ]
+ },
+ {
+  "texto": "Feed · 4:5",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/DialogoCompartilhar.tsx"
+  ]
+ },
+ {
+  "texto": "Feed do Instagram e do Facebook (1080×1350)",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/DialogoCompartilhar.tsx"
   ]
  },
  {
@@ -10459,6 +10594,13 @@
   ]
  },
  {
+  "texto": "fixa",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
   "texto": "fixed",
   "tipo": "exato",
   "arquivos": [
@@ -10670,6 +10812,13 @@
   ]
  },
  {
+  "texto": "Fontes oficiais citadas na página (TSE, Câmara, Senado, STF)",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/cartaoPagina.ts"
+  ]
+ },
+ {
   "texto": "Fontes oficiais: Câmara dos Deputados e Senado Federal (composição em exercício, atualizada todos os dias); TSE (eleitos em 2022 e registros de candidatura de 2026).",
   "tipo": "exato",
   "arquivos": [
@@ -10726,7 +10875,7 @@
   "texto": "Formato da imagem",
   "tipo": "exato",
   "arquivos": [
-   "components/compartilhar/BotaoCompartilharImagem.tsx"
+   "components/compartilhar/DialogoCompartilhar.tsx"
   ]
  },
  {
@@ -10824,7 +10973,6 @@
   "tipo": "exato",
   "arquivos": [
    "components/compartilhar/compartilhar.ts",
-   "components/share/ShareButton.tsx",
    "data/localStore.ts",
    "native/platform.ts"
   ]
@@ -11133,7 +11281,7 @@
   "texto": "Gerando a imagem",
   "tipo": "exato",
   "arquivos": [
-   "components/compartilhar/BotaoCompartilharImagem.tsx"
+   "components/compartilhar/DialogoCompartilhar.tsx"
   ]
  },
  {
@@ -11148,8 +11296,8 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
-   "components/resultados/disputas.ts",
-   "components/resultados/hooks.ts"
+   "components/resultados/hooks.ts",
+   "data/regioes.ts"
   ]
  },
  {
@@ -11701,24 +11849,45 @@
   ]
  },
  {
+  "texto": "Imagem baixada e link copiado: anexe a imagem na publicação do {0}.",
+  "tipo": "padrao",
+  "arquivos": [
+   "components/compartilhar/DialogoCompartilhar.tsx"
+  ]
+ },
+ {
+  "texto": "Imagem baixada e link copiado: publique a imagem pelo app do Instagram (o QR code leva à página).",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/DialogoCompartilhar.tsx"
+  ]
+ },
+ {
   "texto": "Imagem baixada e link da página copiado.",
   "tipo": "exato",
   "arquivos": [
-   "components/compartilhar/BotaoCompartilharImagem.tsx"
+   "components/compartilhar/DialogoCompartilhar.tsx"
+  ]
+ },
+ {
+  "texto": "Imagem baixada: anexe a imagem na publicação do {0}.",
+  "tipo": "padrao",
+  "arquivos": [
+   "components/compartilhar/DialogoCompartilhar.tsx"
+  ]
+ },
+ {
+  "texto": "Imagem baixada: publique a imagem pelo app do Instagram (o QR code leva à página).",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/DialogoCompartilhar.tsx"
   ]
  },
  {
   "texto": "Imagem baixada.",
   "tipo": "exato",
   "arquivos": [
-   "components/compartilhar/BotaoCompartilharImagem.tsx"
-  ]
- },
- {
-  "texto": "Imagem para compartilhar",
-  "tipo": "exato",
-  "arquivos": [
-   "components/compartilhar/BotaoCompartilharImagem.tsx"
+   "components/compartilhar/DialogoCompartilhar.tsx"
   ]
  },
  {
@@ -11941,7 +12110,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/avisos/AvisoResultado.tsx",
-   "components/compartilhar/BotaoCompartilharImagem.tsx",
+   "components/compartilhar/DialogoCompartilhar.tsx",
    "components/election/CandidateCard.tsx",
    "components/gastos/AvisosAlerts.tsx",
    "components/resultados/ApuracaoAoVivo.tsx",
@@ -12032,6 +12201,13 @@
   "tipo": "padrao",
   "arquivos": [
    "components/resultados/ApuracaoAoVivo.tsx"
+  ]
+ },
+ {
+  "texto": "Instagram",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/DialogoCompartilhar.tsx"
   ]
  },
  {
@@ -12527,7 +12703,8 @@
   "texto": "Legenda do mapa",
   "tipo": "exato",
   "arquivos": [
-   "components/resultados/ApuracaoAoVivo.tsx"
+   "components/resultados/ApuracaoAoVivo.tsx",
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -12649,6 +12826,27 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/SobrePage.tsx"
+  ]
+ },
+ {
+  "texto": "Lidera em {0}: {1} com {2}, {3} pontos à frente do 2º",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Lidera em todo o {0}: {1} com {2}, {3} pontos à frente do 2º",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Lidera neste município: {0} com {1}, {2} pontos à frente do 2º",
+  "tipo": "padrao",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -12797,7 +12995,7 @@
   "texto": "Link copiado.",
   "tipo": "exato",
   "arquivos": [
-   "components/compartilhar/BotaoCompartilharImagem.tsx",
+   "components/compartilhar/DialogoCompartilhar.tsx",
    "components/share/ShareButton.tsx",
    "pages/election/CandidatoPage.tsx"
   ]
@@ -12813,7 +13011,7 @@
   "texto": "Link desta página copiado.",
   "tipo": "exato",
   "arquivos": [
-   "components/share/ShareButton.tsx"
+   "components/compartilhar/DialogoCompartilhar.tsx"
   ]
  },
  {
@@ -12990,6 +13188,7 @@
   "texto": "M",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/qr.ts",
    "components/stf/stf.ts",
    "data/localizacao.ts",
    "pages/election/MinistroStfPage.tsx"
@@ -13000,8 +13199,8 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
-   "components/resultados/disputas.ts",
    "components/resultados/hooks.ts",
+   "data/regioes.ts",
    "eua/usaMapData.ts"
   ]
  },
@@ -13104,13 +13303,6 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/PartidosPage.tsx"
-  ]
- },
- {
-  "texto": "Mais opções…",
-  "tipo": "exato",
-  "arquivos": [
-   "components/share/ShareButton.tsx"
   ]
  },
  {
@@ -13235,6 +13427,13 @@
   ]
  },
  {
+  "texto": "Mapa do Brasil pintado por quem teve mais votos em cada lugar, com cores em ordem alfabética do nome na urna. Os números estão na tabela por estado e na busca por município.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
   "texto": "Mapa do Brasil por estado",
   "tipo": "exato",
   "arquivos": [
@@ -13280,13 +13479,6 @@
  {
   "texto": "Mapa dos municípios com a porcentagem dos votos válidos de {0}. Os números estão na tabela por estado e na busca por município.",
   "tipo": "padrao",
-  "arquivos": [
-   "pages/election/MapaPage.tsx"
-  ]
- },
- {
-  "texto": "Mapa dos municípios do Brasil. Escolha uma candidatura para colorir. Os números estão na tabela por estado e na busca por município.",
-  "tipo": "exato",
   "arquivos": [
    "pages/election/MapaPage.tsx"
   ]
@@ -13543,7 +13735,6 @@
    "components/IdiomaMenu.tsx",
    "components/PaisMenu.tsx",
    "components/conta/ContaPerfil.tsx",
-   "components/share/ShareButton.tsx",
    "layouts/AccountMenu.tsx"
   ]
  },
@@ -13615,8 +13806,8 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
-   "components/resultados/disputas.ts",
-   "components/resultados/hooks.ts"
+   "components/resultados/hooks.ts",
+   "data/regioes.ts"
   ]
  },
  {
@@ -13674,6 +13865,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/HomePage.tsx"
+  ]
+ },
+ {
+  "texto": "min(100%, calc(52vh * {0}))",
+  "tipo": "padrao",
+  "arquivos": [
+   "components/compartilhar/DialogoCompartilhar.tsx"
   ]
  },
  {
@@ -14025,8 +14223,8 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
-   "components/resultados/disputas.ts",
    "components/resultados/hooks.ts",
+   "data/regioes.ts",
    "eua/usaMapData.ts"
   ]
  },
@@ -14035,8 +14233,8 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
-   "components/resultados/disputas.ts",
    "components/resultados/hooks.ts",
+   "data/regioes.ts",
    "eua/usaMapData.ts"
   ]
  },
@@ -14057,10 +14255,25 @@
   ]
  },
  {
+  "texto": "mun",
+  "tipo": "exato",
+  "arquivos": [
+   "data/mapaLider.ts",
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
   "texto": "municipal",
   "tipo": "exato",
   "arquivos": [
    "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "município",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -14100,6 +14313,13 @@
   "tipo": "exato",
   "arquivos": [
    "components/emendas/EmendasIndicadas.tsx"
+  ]
+ },
+ {
+  "texto": "municípios",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -14381,7 +14601,7 @@
   "texto": "Não foi possível compartilhar agora.",
   "tipo": "exato",
   "arquivos": [
-   "components/compartilhar/BotaoCompartilharImagem.tsx"
+   "components/compartilhar/DialogoCompartilhar.tsx"
   ]
  },
  {
@@ -14402,7 +14622,7 @@
   "texto": "Não foi possível copiar o link.",
   "tipo": "exato",
   "arquivos": [
-   "components/share/ShareButton.tsx"
+   "components/compartilhar/DialogoCompartilhar.tsx"
   ]
  },
  {
@@ -14420,10 +14640,10 @@
   ]
  },
  {
-  "texto": "Não foi possível gerar a imagem neste aparelho. O link da página continua disponível no botão de compartilhar.",
+  "texto": "Não foi possível gerar a imagem neste aparelho. O link continua disponível abaixo.",
   "tipo": "exato",
   "arquivos": [
-   "components/compartilhar/BotaoCompartilharImagem.tsx"
+   "components/compartilhar/DialogoCompartilhar.tsx"
   ]
  },
  {
@@ -14766,13 +14986,6 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/PartidoPage.tsx"
-  ]
- },
- {
-  "texto": "Nenhuma (mapa sem cores)",
-  "tipo": "exato",
-  "arquivos": [
-   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -15131,7 +15344,7 @@
   "texto": "No aplicativo, o compartilhamento envia o link desta página, que abre com a prévia própria.",
   "tipo": "exato",
   "arquivos": [
-   "components/compartilhar/BotaoCompartilharImagem.tsx"
+   "components/compartilhar/DialogoCompartilhar.tsx"
   ]
  },
  {
@@ -15389,7 +15602,6 @@
    "components/emendas/EmendasIndicadas.tsx",
    "components/emendas/FonteEmendasNota.tsx",
    "components/resultados/ApuracaoAoVivo.tsx",
-   "components/share/ShareButton.tsx",
    "components/stf/PlenarioStf.tsx",
    "components/votacoes/VotacoesNominais.tsx",
    "eua/componentes/MapaEua.tsx",
@@ -15431,7 +15643,7 @@
   "texto": "Nordeste",
   "tipo": "exato",
   "arquivos": [
-   "components/resultados/disputas.ts"
+   "data/regioes.ts"
   ]
  },
  {
@@ -15455,7 +15667,7 @@
   "texto": "Norte",
   "tipo": "exato",
   "arquivos": [
-   "components/resultados/disputas.ts"
+   "data/regioes.ts"
   ]
  },
  {
@@ -16686,6 +16898,13 @@
   ]
  },
  {
+  "texto": "p",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/cartaoPagina.ts"
+  ]
+ },
+ {
   "texto": "P",
   "tipo": "exato",
   "arquivos": [
@@ -16707,8 +16926,8 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
-   "components/resultados/disputas.ts",
    "components/resultados/hooks.ts",
+   "data/regioes.ts",
    "eua/usaMapData.ts"
   ]
  },
@@ -16865,14 +17084,7 @@
   "texto": "paisagem",
   "tipo": "exato",
   "arquivos": [
-   "components/compartilhar/BotaoCompartilharImagem.tsx"
-  ]
- },
- {
-  "texto": "Paisagem · 1200×630",
-  "tipo": "exato",
-  "arquivos": [
-   "components/compartilhar/BotaoCompartilharImagem.tsx"
+   "components/compartilhar/DialogoCompartilhar.tsx"
   ]
  },
  {
@@ -17376,8 +17588,8 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
-   "components/resultados/disputas.ts",
-   "components/resultados/hooks.ts"
+   "components/resultados/hooks.ts",
+   "data/regioes.ts"
   ]
  },
  {
@@ -17385,8 +17597,8 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
-   "components/resultados/disputas.ts",
-   "components/resultados/hooks.ts"
+   "components/resultados/hooks.ts",
+   "data/regioes.ts"
   ]
  },
  {
@@ -17626,8 +17838,8 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
-   "components/resultados/disputas.ts",
-   "components/resultados/hooks.ts"
+   "components/resultados/hooks.ts",
+   "data/regioes.ts"
   ]
  },
  {
@@ -17639,6 +17851,13 @@
    "pages/election/MapaPage.tsx",
    "pages/election/MinhaCidadePage.tsx",
    "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Pintar o mapa por",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -18025,6 +18244,13 @@
   ]
  },
  {
+  "texto": "Post · 1,91:1",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/DialogoCompartilhar.tsx"
+  ]
+ },
+ {
   "texto": "Powered by",
   "tipo": "exato",
   "arquivos": [
@@ -18043,8 +18269,8 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
-   "components/resultados/disputas.ts",
    "components/resultados/hooks.ts",
+   "data/regioes.ts",
    "eua/formato.ts"
   ]
  },
@@ -18374,10 +18600,10 @@
   ]
  },
  {
-  "texto": "Prévia da imagem com os dados oficiais desta página",
+  "texto": "Prévia da imagem desta página, com o link e o QR code",
   "tipo": "exato",
   "arquivos": [
-   "components/compartilhar/BotaoCompartilharImagem.tsx"
+   "components/compartilhar/DialogoCompartilhar.tsx"
   ]
  },
  {
@@ -18749,6 +18975,13 @@
   ]
  },
  {
+  "texto": "Quem teve mais votos em cada lugar",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
   "texto": "Quintino Bocaiúva",
   "tipo": "exato",
   "arquivos": [
@@ -18999,6 +19232,35 @@
   ]
  },
  {
+  "texto": "regiao",
+  "tipo": "exato",
+  "arquivos": [
+   "data/mapaLider.ts",
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
+  "texto": "região",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
+  "texto": "regiões",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Regiões",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
   "texto": "region",
   "tipo": "exato",
   "arquivos": [
@@ -19052,6 +19314,13 @@
   "tipo": "exato",
   "arquivos": [
    "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "relativa",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -19496,15 +19765,8 @@
   "texto": "retrato",
   "tipo": "exato",
   "arquivos": [
-   "components/compartilhar/BotaoCompartilharImagem.tsx",
+   "components/compartilhar/DialogoCompartilhar.tsx",
    "components/compartilhar/desenho.ts"
-  ]
- },
- {
-  "texto": "Retrato · 1080×1350",
-  "tipo": "exato",
-  "arquivos": [
-   "components/compartilhar/BotaoCompartilharImagem.tsx"
   ]
  },
  {
@@ -19577,6 +19839,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "rgba(13, 9, 25, 0.45)",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/desenho.ts"
   ]
  },
  {
@@ -19772,8 +20041,8 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
-   "components/resultados/disputas.ts",
-   "components/resultados/hooks.ts"
+   "components/resultados/hooks.ts",
+   "data/regioes.ts"
   ]
  },
  {
@@ -19781,8 +20050,8 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
-   "components/resultados/disputas.ts",
-   "components/resultados/hooks.ts"
+   "components/resultados/hooks.ts",
+   "data/regioes.ts"
   ]
  },
  {
@@ -19790,8 +20059,8 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
-   "components/resultados/disputas.ts",
-   "components/resultados/hooks.ts"
+   "components/resultados/hooks.ts",
+   "data/regioes.ts"
   ]
  },
  {
@@ -19925,6 +20194,7 @@
    "components/avisos/AvisoResultado.tsx",
    "components/brand/BrandLogo.tsx",
    "components/charts/charts.tsx",
+   "components/compartilhar/DialogoCompartilhar.tsx",
    "components/conta/ContaPerfil.tsx",
    "components/election/CandidateCard.tsx",
    "components/election/SourceNote.tsx",
@@ -19985,8 +20255,8 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
-   "components/resultados/disputas.ts",
-   "components/resultados/hooks.ts"
+   "components/resultados/hooks.ts",
+   "data/regioes.ts"
   ]
  },
  {
@@ -19994,8 +20264,8 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
-   "components/resultados/disputas.ts",
-   "components/resultados/hooks.ts"
+   "components/resultados/hooks.ts",
+   "data/regioes.ts"
   ]
  },
  {
@@ -20141,8 +20411,8 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
-   "components/resultados/disputas.ts",
    "components/resultados/hooks.ts",
+   "data/regioes.ts",
    "eua/usaMapData.ts"
   ]
  },
@@ -20158,8 +20428,8 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
-   "components/resultados/disputas.ts",
-   "components/resultados/hooks.ts"
+   "components/resultados/hooks.ts",
+   "data/regioes.ts"
   ]
  },
  {
@@ -20314,6 +20584,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/NumerosPage.tsx"
+  ]
+ },
+ {
+  "texto": "Sem candidatura escolhida, o mapa mostra quem teve mais votos em cada município, estado ou região (escolha o nível acima). As cores são atribuídas em ordem alfabética do nome na urna, sem relação com partidos, e ficam mais fortes quanto maior a vantagem sobre o 2º colocado (até 10, 25 e 45 pontos, ou mais). Nos níveis de estado e região, todos os municípios da unidade recebem a cor do resultado somado dela.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -20981,7 +21258,7 @@
   "texto": "sm",
   "tipo": "exato",
   "arquivos": [
-   "components/compartilhar/BotaoCompartilharImagem.tsx",
+   "components/compartilhar/DialogoCompartilhar.tsx",
    "components/conta/ContaPerfil.tsx",
    "components/numeros/Concorrencia.tsx",
    "components/stf/PlenarioStf.tsx",
@@ -21008,7 +21285,6 @@
    "components/mapa/MapaCanvas.tsx",
    "components/resultados/ApuracaoAoVivo.tsx",
    "components/resultados/CartaoEleitos.tsx",
-   "components/share/ShareButton.tsx",
    "layouts/AccountMenu.tsx",
    "layouts/PublicLayout.tsx",
    "pages/election/CompararPage.tsx",
@@ -21190,8 +21466,8 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
-   "components/resultados/disputas.ts",
    "components/resultados/hooks.ts",
+   "data/regioes.ts",
    "data/useMunicipioUsuario.ts"
   ]
  },
@@ -21217,6 +21493,7 @@
    "components/election/CandidateSearch.tsx",
    "components/election/UfTileMap.tsx",
    "components/resultados/ApuracaoAoVivo.tsx",
+   "components/resultados/Evolucao.tsx",
    "components/stf/PlenarioStf.tsx",
    "eua/componentes/MapaEua.tsx",
    "pages/election/EleicaoPage.tsx",
@@ -21287,6 +21564,28 @@
   "tipo": "exato",
   "arquivos": [
    "data/localStore.ts"
+  ]
+ },
+ {
+  "texto": "stories",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/DialogoCompartilhar.tsx",
+   "components/compartilhar/desenho.ts"
+  ]
+ },
+ {
+  "texto": "Stories · 9:16",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/DialogoCompartilhar.tsx"
+  ]
+ },
+ {
+  "texto": "Stories do Instagram, Status do WhatsApp e TikTok (1080×1920)",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/DialogoCompartilhar.tsx"
   ]
  },
  {
@@ -21383,14 +21682,14 @@
   "texto": "Sudeste",
   "tipo": "exato",
   "arquivos": [
-   "components/resultados/disputas.ts"
+   "data/regioes.ts"
   ]
  },
  {
   "texto": "Sul",
   "tipo": "exato",
   "arquivos": [
-   "components/resultados/disputas.ts"
+   "data/regioes.ts"
   ]
  },
  {
@@ -21485,6 +21784,7 @@
   "texto": "Tá na Urna",
   "tipo": "exato",
   "arquivos": [
+   "components/compartilhar/cartaoPagina.ts",
    "components/compartilhar/desenho.ts",
    "components/share/ShareButton.tsx",
    "config/legal.ts"
@@ -21585,7 +21885,7 @@
   "texto": "Telegram",
   "tipo": "exato",
   "arquivos": [
-   "components/share/ShareButton.tsx"
+   "components/compartilhar/DialogoCompartilhar.tsx"
   ]
  },
  {
@@ -21810,8 +22110,8 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/brazilMapData.ts",
-   "components/resultados/disputas.ts",
-   "components/resultados/hooks.ts"
+   "components/resultados/hooks.ts",
+   "data/regioes.ts"
   ]
  },
  {
@@ -22616,8 +22916,10 @@
   "tipo": "exato",
   "arquivos": [
    "components/numeros/Concorrencia.tsx",
+   "data/mapaLider.ts",
    "eua/paginas/CandidatosEuaPage.tsx",
-   "pages/election/GastosPage.tsx"
+   "pages/election/GastosPage.tsx",
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -22710,7 +23012,6 @@
    "components/mapa/MapaCanvas.tsx",
    "components/resultados/ApuracaoAoVivo.tsx",
    "components/resultados/Evolucao.tsx",
-   "components/share/ShareButton.tsx",
    "native/platform.ts"
   ]
  },
@@ -23036,6 +23337,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/SobrePage.tsx"
+  ]
+ },
+ {
+  "texto": "Vantagem sobre o 2º:",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/MapaPage.tsx"
   ]
  },
  {
@@ -23700,7 +24008,7 @@
   ]
  },
  {
-  "texto": "Votação para Presidente em cada município: escolha uma candidatura para ver a porcentagem dos votos válidos que ela recebeu em cada lugar. Dados oficiais do TSE.",
+  "texto": "Votação para Presidente em cada município, estado e região: quem teve mais votos em cada lugar ou, escolhendo uma candidatura, a porcentagem dos votos válidos dela. Dados oficiais do TSE.",
   "tipo": "exato",
   "arquivos": [
    "pages/election/MapaPage.tsx"
@@ -24175,8 +24483,15 @@
   "texto": "X (Twitter)",
   "tipo": "exato",
   "arquivos": [
-   "components/share/ShareButton.tsx",
+   "components/compartilhar/DialogoCompartilhar.tsx",
    "eua/paginas/MembroEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "X, LinkedIn, Facebook e WhatsApp (1200×630)",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/DialogoCompartilhar.tsx"
   ]
  },
  {
@@ -24227,6 +24542,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/resultados/ApuracaoAoVivo.tsx",
+   "data/mapaLider.ts",
    "pages/election/MapaPage.tsx"
   ]
  }

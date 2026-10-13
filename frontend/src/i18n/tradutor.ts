@@ -56,7 +56,12 @@ export function traduzir(original: string): string | null {
     for (const p of padroes) {
       const r = p.re.exec(nucleo);
       if (r) {
-        tr = p.alvo.replace(/\uE000(\d+)\uE000/g, (_, i: string) => r[Number(i) + 1] ?? '');
+        // Trecho capturado que também é um texto do dicionário (ex.: o nome de uma região) sai traduzido.
+        tr = p.alvo.replace(/\uE000(\d+)\uE000/g, (_, i: string) => {
+          const cap = r[Number(i) + 1] ?? '';
+          const t = exatos.get(cap.trim());
+          return t ? cap.replace(cap.trim(), t) : cap;
+        });
         break;
       }
     }

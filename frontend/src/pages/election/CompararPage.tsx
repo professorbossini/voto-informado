@@ -179,7 +179,7 @@ export function CompararPage() {
               <Button variant="outlined" startIcon={<IosShareRounded />} onClick={() => void share()}>
                 Compartilhar
               </Button>
-              {cands.length >= 2 && <BotaoCompartilharImagem montar={cartao} />}
+              {cands.length >= 2 && <BotaoCompartilharImagem daPagina montar={cartao} />}
               <Button onClick={() => set([])}>Limpar</Button>
             </>
           )

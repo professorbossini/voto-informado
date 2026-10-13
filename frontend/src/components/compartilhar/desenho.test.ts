@@ -39,6 +39,13 @@ function contextoFalso() {
     clip: vi.fn(),
     save: vi.fn(),
     restore: vi.fn(),
+    translate: vi.fn(),
+    scale: vi.fn(),
+    createLinearGradient: vi.fn(() => ({ addColorStop: vi.fn() })),
+    globalAlpha: 1,
+    shadowColor: '',
+    shadowBlur: 0,
+    shadowOffsetY: 0,
   };
   return { ctx, textos };
 }
@@ -89,6 +96,55 @@ describe('desenharCartao', () => {
       });
     }
   }
+
+  it('cartões de pessoas levam o QR code do endereço (quadradinhos desenhados)', () => {
+    const { ctx } = contextoFalso();
+    desenharCartao(ctx as unknown as CanvasRenderingContext2D, casos[0][1], 'retrato', { logo: null, fotos: [] });
+    const comQr = ctx.fillRect.mock.calls.length;
+    const { ctx: semQr } = contextoFalso();
+    desenharCartao(semQr as unknown as CanvasRenderingContext2D, casos[0][1], 'retrato', { logo: null, fotos: [] }, { qr: false });
+    expect(comQr - semQr.fillRect.mock.calls.length).toBeGreaterThan(100);
+  });
+
+  for (const formato of ['retrato', 'paisagem', 'stories'] as Formato[]) {
+    it(`${formato}: capa de página sem pessoas — título, chamada, resumo, endereço e rodapé dentro da imagem`, () => {
+      const { ctx, textos } = contextoFalso();
+      const capa: CartaoDados = {
+        titulo: 'Plenário: como votou cada parlamentar nas votações nominais da Câmara e do Senado',
+        chamada: 'Congresso',
+        descricao: 'Todas as votações nominais do ano, com o voto de cada deputado e senador, direto dos dados abertos da Câmara e do Senado, sem nenhuma interpretação.',
+        pessoas: [],
+        fatos: [],
+        url: 'https://www.tanaurna.com.br/plenario',
+        fonte: 'Fontes oficiais citadas na página (TSE, Câmara, Senado, STF)',
+        dataDados: null,
+      };
+      desenharCartao(ctx as unknown as CanvasRenderingContext2D, capa, formato, { logo: null, fotos: [] });
+      const { w, h } = TAMANHOS[formato];
+      for (const t of textos) {
+        const x0 = t.alinhar === 'center' ? t.x - t.largura / 2 : t.alinhar === 'right' ? t.x - t.largura : t.x;
+        expect(x0, t.texto).toBeGreaterThanOrEqual(0);
+        expect(x0 + t.largura, t.texto).toBeLessThanOrEqual(w);
+        expect(t.y, t.texto).toBeGreaterThan(0);
+        expect(t.y, t.texto).toBeLessThan(h);
+      }
+      const tudo = textos.map((t) => t.texto).join(' ');
+      expect(tudo).toContain('CONGRESSO');
+      expect(tudo).toContain('Plenário');
+      expect(tudo).toContain('tanaurna.com.br/plenario');
+      expect(tudo).toContain(RODAPE);
+      expect(ctx.createLinearGradient).toHaveBeenCalled();
+    });
+  }
+
+  it('stories com pessoas: o cartão retrato inteiro, reduzido, sobre o fundo da marca', () => {
+    const { ctx, textos } = contextoFalso();
+    desenharCartao(ctx as unknown as CanvasRenderingContext2D, casos[2][1], 'stories', { logo: null, fotos: [] });
+    expect(ctx.scale).toHaveBeenCalledTimes(1);
+    const escritos = textos.map((t) => t.texto);
+    expect(escritos).toContain('Flavio Bolsonaro');
+    expect(escritos.join(' ')).toContain('tanaurna.com.br/candidato/250002540578');
+  });
 
   it('lado a lado, todos os nomes saem com o mesmo tamanho de letra', () => {
     const { ctx } = contextoFalso();
