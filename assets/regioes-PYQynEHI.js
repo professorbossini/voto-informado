@@ -1,0 +1,2 @@
+var e=[{nome:`Norte`,ufs:[`AC`,`AM`,`AP`,`PA`,`RO`,`RR`,`TO`]},{nome:`Nordeste`,ufs:[`AL`,`BA`,`CE`,`MA`,`PB`,`PE`,`PI`,`RN`,`SE`]},{nome:`Centro-Oeste`,ufs:[`DF`,`GO`,`MS`,`MT`]},{nome:`Sudeste`,ufs:[`ES`,`MG`,`RJ`,`SP`]},{nome:`Sul`,ufs:[`PR`,`RS`,`SC`]}],t=Object.fromEntries(e.flatMap(e=>e.ufs.map(t=>[t,e.nome])));export{e as n,t};
+//# sourceMappingURL=regioes-PYQynEHI.js.map
