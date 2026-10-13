@@ -10,6 +10,12 @@ import { ConfigErrorScreen } from './components/ConfigErrorScreen';
 import { brand } from './config/brand';
 import { assertValidEnv, ConfigError } from './config/env';
 import { theme } from './theme';
+import { recarregarUmaVez } from './utils/chunk';
+
+// Pré-carregamento de um pedaço da interface que sumiu (publicação nova): recarrega a página.
+window.addEventListener('vite:preloadError', (e) => {
+  if (recarregarUmaVez()) e.preventDefault();
+});
 
 const root = createRoot(document.getElementById('root')!);
 

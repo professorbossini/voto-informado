@@ -7,16 +7,17 @@ import { AccountPage } from '@/pages/AccountPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
 import { SplashScreen } from '@/components/SplashScreen';
 import { SomenteNoPeriodo } from '@/components/SomenteNoPeriodo';
+import { importarComRecarga } from '@/utils/chunk';
 
 /** Lazy route helper: each page is its own chunk. */
 const page = (load: () => Promise<Record<string, React.ComponentType>>, name: string) => ({
-  lazy: async () => ({ Component: (await load())[name] }),
+  lazy: async () => ({ Component: (await importarComRecarga(load))[name] }),
 });
 
 /** Página que só existe no período eleitoral (simulador, cola, 2º turno): fora dele, um aviso. */
 const pageEleitoral = (load: () => Promise<Record<string, React.ComponentType>>, name: string, periodo: 'eleicao' | 'segundo-turno', nome: string) => ({
   lazy: async () => {
-    const Page = (await load())[name];
+    const Page = (await importarComRecarga(load))[name];
     return {
       Component: () => (
         <SomenteNoPeriodo periodo={periodo} nome={nome}>

@@ -13,6 +13,8 @@
  *    fotos e PDFs por 1 dia; dados e páginas por 10 min (como o Pages);
  *  - ETag/304, Range (PDFs), CORS aberto (dados públicos, usados pelo app e pelo desenvolvimento);
  *  - cabeçalhos de segurança (os do _headers) e HSTS;
+ *  - assets/ inexistente → 404 sem cache (não a interface), para um chunk que ainda está chegando
+ *    não ficar quebrado na borda;
  *  - tanaurna.com.br → www.tanaurna.com.br (301).
  */
 
@@ -79,6 +81,12 @@ async function servir(req, env) {
   }
 
   if (!o) {
+    // Arquivo com hash que não existe (ainda): 404 simples e sem cache. Devolver a interface aqui
+    // faria o navegador receber HTML no lugar de JS, e o cache guardaria o erro mesmo depois de o
+    // arquivo chegar ao R2.
+    if (chave.startsWith('assets/')) {
+      return new Response('Não encontrado', { status: 404, headers: { ...SEGURANCA, 'content-type': 'text/plain; charset=utf-8', 'cache-control': 'no-store' } });
+    }
     const shell = await env.SITE.get('index.html');
     if (!shell) return new Response('Site em manutenção', { status: 503, headers: SEGURANCA });
     return new Response(req.method === 'HEAD' ? null : shell.body, {
@@ -130,7 +138,7 @@ export default {
       if (salvo) return salvo;
     }
     const resp = await servir(req, env);
-    if (simples && (resp.status === 200 || resp.status === 404)) ctx.waitUntil(cache.put(req, resp.clone()));
+    if (simples && (resp.status === 200 || resp.status === 404) && resp.headers.get('cache-control') !== 'no-store') ctx.waitUntil(cache.put(req, resp.clone()));
     return resp;
   },
 };

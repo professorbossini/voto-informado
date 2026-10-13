@@ -131,8 +131,13 @@ def enviar(pasta: Path, prefixos: list[str] | None = None) -> int:
         r.raise_for_status()
         return 1
 
+    # HTML por último: o index.html novo só pode aparecer depois de todos os assets que ele cita,
+    # senão quem abre o site nesse meio-tempo pede um chunk que ainda não existe.
+    paginas = [x for x in pendentes if x[0].endswith(".html")]
+    demais = [x for x in pendentes if not x[0].endswith(".html")]
     with ThreadPoolExecutor(max_workers=24) as pool:
-        n = sum(pool.map(um, pendentes))
+        n = sum(pool.map(um, demais))
+        n += sum(pool.map(um, paginas))
     print(f"r2: {n} de {len(chaves)} arquivos enviados (os demais já estavam iguais)")
     if os.environ.get("GITHUB_OUTPUT"):
         with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as f:
