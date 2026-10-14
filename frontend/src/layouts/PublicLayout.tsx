@@ -29,6 +29,7 @@ import MoreHorizRounded from '@mui/icons-material/MoreHorizRounded';
 import VerifiedRounded from '@mui/icons-material/VerifiedRounded';
 import { Link as RouterLink, NavLink, Outlet, useLocation, useNavigate, ScrollRestoration } from 'react-router';
 import { FaiscaCredito } from '@/components/brand/FaiscaCredito';
+import { AvisoMedicao, ContagemDePaginas, LinkPreferenciasMedicao } from '@/components/AvisoMedicao';
 import { ShareButton } from '@/components/share/ShareButton';
 import { ContaPerfil } from '@/components/conta/ContaPerfil';
 import { BrandLogo } from '@/components/brand/BrandLogo';
@@ -123,6 +124,7 @@ function Footer() {
             <Link component={RouterLink} to="/termos" variant="body2">
               Termos de Uso
             </Link>
+            <LinkPreferenciasMedicao />
           </Stack>
         </Stack>
         {/* Crédito do template Faísca: centralizado, no fim da página. */}
@@ -213,6 +215,8 @@ export function PublicLayout() {
       </Container>
 
       {areaEua ? <RodapeEua /> : <Footer />}
+      <AvisoMedicao />
+      <ContagemDePaginas />
 
       <Paper
         component="nav"

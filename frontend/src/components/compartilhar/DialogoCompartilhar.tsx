@@ -9,6 +9,7 @@ import ShareRounded from '@mui/icons-material/ShareRounded';
 import TelegramIcon from '@mui/icons-material/Telegram';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import XIcon from '@mui/icons-material/X';
+import { evento } from '@/analytics/medicao';
 import { useNotify } from '@/components/feedback/notificationsContext';
 import { copyText } from '@/components/urna/clipboard';
 import { isNativeApp } from '@/native/platform';
@@ -113,6 +114,7 @@ export function DialogoCompartilhar({ aberto, fechar: aoFechar, montar, texto, u
     const r = await compartilharImagem(pronta?.arquivo ?? null, { titulo: d.titulo, texto: texto ?? textoPadrao(d), url: d.url });
     setEnviando(false);
     if (r === 'cancelado') return;
+    if (r !== 'falhou') registrar(nativo ? 'app' : 'folha do sistema');
     if (r === 'falhou') return notify('Não foi possível compartilhar agora.', 'error');
     if (r === 'baixado-e-copiado') notify('Imagem baixada e link da página copiado.');
     else if (r === 'baixado') notify('Imagem baixada.');
@@ -120,9 +122,13 @@ export function DialogoCompartilhar({ aberto, fechar: aoFechar, montar, texto, u
     fechar();
   };
 
+  /** Compartilhamento contado na medição (só o meio e o formato, nunca quem compartilhou). */
+  const registrar = (meio: string) => evento('share', { method: meio, content_type: formato, item_id: new URL(link || location.href, location.href).pathname });
+
   /** Computador: abre a rede (antes de tudo, para o navegador não bloquear a janela), baixa a imagem e copia o link. */
   const abrirRede = async (rede: ReturnType<typeof redes>[number]) => {
     if (!pronta) return;
+    registrar(rede.nome);
     if (rede.href) window.open(rede.href, '_blank', 'noopener,noreferrer');
     baixarArquivo(pronta.arquivo);
     const copiou = await copyText(link);
@@ -196,11 +202,11 @@ export function DialogoCompartilhar({ aberto, fechar: aoFechar, montar, texto, u
       </DialogContent>
       <DialogActions sx={{ flexWrap: 'wrap', gap: 1 }}>
         <Button onClick={fechar}>Fechar</Button>
-        <Button startIcon={<LinkRounded />} disabled={!link} onClick={async () => notify((await copyText(link)) ? 'Link desta página copiado.' : 'Não foi possível copiar o link.')}>
+        <Button startIcon={<LinkRounded />} disabled={!link} onClick={async () => (registrar('copiar link'), notify((await copyText(link)) ? 'Link desta página copiado.' : 'Não foi possível copiar o link.'))}>
           Copiar link
         </Button>
         {!nativo && (
-          <Button startIcon={<DownloadRounded />} disabled={!pronta} onClick={() => pronta && (baixarArquivo(pronta.arquivo), notify('Imagem baixada.'))}>
+          <Button startIcon={<DownloadRounded />} disabled={!pronta} onClick={() => pronta && (registrar('baixar'), baixarArquivo(pronta.arquivo), notify('Imagem baixada.'))}>
             Baixar
           </Button>
         )}

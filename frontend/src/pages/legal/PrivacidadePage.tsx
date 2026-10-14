@@ -8,8 +8,10 @@ export function PrivacidadePage() {
       title="Política de Privacidade"
       resumo={
         <>
-          <strong>Resumo:</strong> o {LEGAL.projeto} funciona sem cadastro. Sem anúncios, sem rastreamento, sem
-          ferramentas de análise de audiência. O que você anota (como a sua cola) fica no seu aparelho. Se você quiser,
+          <strong>Resumo:</strong> o {LEGAL.projeto} funciona sem cadastro e sem anúncios personalizados. Para saber
+          quantas pessoas usam o site, contamos visitas em números agregados: a Cloudflare, sem cookies, e o Google
+          Analytics, só se você aceitar no aviso do site (nunca no aplicativo; item 7). O que você anota (como a sua
+          cola) fica no seu aparelho. Se você quiser,
           pode entrar com o Google para guardar suas escolhas: elas são criptografadas no seu aparelho com uma frase que
           só você conhece, e ninguém mais consegue lê-las. A localização, se você permitir, serve só para achar o seu
           estado e o seu município, e não sai do aparelho. Como em todo site, a hospedagem guarda por até 7 dias
@@ -32,7 +34,7 @@ export function PrivacidadePage() {
           <li>telefone, CPF, título de eleitor ou qualquer cadastro (o login com Google é opcional; veja o item 4);</li>
           <li>a localização do seu aparelho (veja abaixo como o site descobre o seu estado e o seu município sem recebê-la), contatos, fotos, câmera, microfone ou arquivos do aparelho;</li>
           <li>identificadores de publicidade ou de dispositivo;</li>
-          <li>dados de navegação para estatística, perfil ou publicidade: não usamos Google Analytics, Firebase Analytics, pixels, cookies de rastreamento nem ferramentas parecidas.</li>
+          <li>dados de navegação para perfil ou publicidade direcionada: não usamos pixels de anúncio, identificadores de publicidade nem cookies que acompanham você em outros sites. A medição de audiência, em números agregados e com Google Analytics só se você aceitar, está no item 7.</li>
         </ul>
         <P>
           Também não vendemos, alugamos nem compartilhamos dados com terceiros. Não perguntamos em quem você pretende votar
@@ -147,6 +149,32 @@ export function PrivacidadePage() {
           com as garantias contratuais da empresa (LGPD, art. 33). A base legal é o legítimo interesse em manter o
           serviço seguro e funcionando (LGPD, art. 7º, IX).
         </P>
+        <P>
+          <strong>Medição de audiência (só no site; o aplicativo não tem nenhuma).</strong> Para saber quantas pessoas
+          usam o site e quais páginas mais ajudam, usamos duas medições, sempre em números agregados:
+        </P>
+        <ul>
+          <li>
+            Cloudflare Web Analytics: conta visitas, páginas, país, tipo de aparelho e de onde a visita veio, sem cookies
+            e sem identificar quem visita. Base legal: legítimo interesse em saber se o serviço está sendo útil (LGPD,
+            art. 7º, IX).
+          </li>
+          <li>
+            Google Analytics 4 (Google LLC): só é carregado se você clicar em “Aceitar” no aviso de medição. Usa cookies
+            próprios (_ga) para contar visitas, páginas vistas, tempo na página, cidade aproximada (calculada pelo Google
+            a partir do IP, que não fica guardado), tipo de aparelho, a página de onde você veio e quantas vezes o
+            compartilhar é usado. Os sinais do Google e a personalização de anúncios ficam desligados; nome, e-mail e as
+            candidaturas que você marca nunca são enviados. Os números servem para acompanhar o uso do site e para
+            mostrar a audiência, sempre agregada, a possíveis anunciantes. Base legal: o seu consentimento (LGPD, art.
+            7º, I), que você pode retirar a qualquer momento em “Preferências de medição”, no rodapé; ao recusar, os
+            cookies do Google Analytics são apagados. O Google pode tratar esses dados fora do Brasil (LGPD, art. 33),
+            conforme a{' '}
+            <Link href="https://policies.google.com/privacy?hl=pt-BR" target="_blank" rel="noopener noreferrer">
+              política de privacidade do Google
+            </Link>
+            .
+          </li>
+        </ul>
         <P>
           Os resultados da apuração são baixados diretamente do servidor oficial de divulgação do Tribunal Superior
           Eleitoral (resultados.tse.jus.br), sem passar por nós. Nesse acesso, o TSE recebe tecnicamente o endereço IP e

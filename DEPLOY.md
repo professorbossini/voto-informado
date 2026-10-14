@@ -90,7 +90,12 @@ npx vite build
 
 ## Cuidados no período eleitoral
 
-- Não publicar conteúdo novo sobre candidaturas nem fazer anúncios pagos em 4/10 (dia da votação);
-  atualizar resultados oficiais após as 17h é informação, não propaganda.
+- Não publicar conteúdo novo sobre candidaturas nos dias de votação (4/10 e 25/10); atualizar
+  resultados oficiais após as 17h é informação, não propaganda.
+- Espaço publicitário (decisão do responsável em 13/10/2026): só anúncio comercial, de empresas,
+  inclusive na noite da apuração. Nunca de candidato, partido, coligação, governo ou causa
+  política, nem conteúdo que favoreça ou critique candidatura (Lei 9.504/97, art. 57-C: é vedada
+  propaganda eleitoral paga na internet). O anúncio fica separado e identificado como "Anúncio",
+  sem misturar com os dados oficiais.
 - O site não tem enquetes, rankings de "mais acessados" nem uso de IA para ordenar ou recomendar
   candidaturas (Res. TSE 23.755/2026).

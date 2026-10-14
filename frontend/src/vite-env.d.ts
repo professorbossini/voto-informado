@@ -2,6 +2,8 @@
 
 interface ImportMetaEnv {
   readonly VITE_APP_NAME?: string;
+  /** ID do fluxo do Google Analytics 4 (só no site, com consentimento). */
+  readonly VITE_GA_ID?: string;
   readonly VITE_AUTH_PROVIDER?: string;
   readonly VITE_ENABLE_EMAIL_PASSWORD?: string;
   readonly VITE_API_URL?: string;

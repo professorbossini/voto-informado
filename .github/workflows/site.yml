@@ -63,6 +63,8 @@ jobs:
           VITE_BASE_PATH: /
           VITE_DATA_URL: ""
           VITE_ASSETS_URL: ""
+          # Medição de audiência (GA4, só com consentimento; ID público do fluxo "Tá na Urna (site)").
+          VITE_GA_ID: G-ZGPL2KX5K3
         run: |
           npm ci
           npx tsc -b --noEmit

@@ -168,6 +168,20 @@
   ]
  },
  {
+  "texto": "; domain=.{0}",
+  "tipo": "padrao",
+  "arquivos": [
+   "analytics/medicao.ts"
+  ]
+ },
+ {
+  "texto": "; domain={0}",
+  "tipo": "padrao",
+  "arquivos": [
+   "analytics/medicao.ts"
+  ]
+ },
+ {
   "texto": "; return",
   "tipo": "exato",
   "arquivos": [
@@ -1091,6 +1105,13 @@
   ]
  },
  {
+  "texto": "{0} · Tá na Urna",
+  "tipo": "padrao",
+  "arquivos": [
+   "components/AvisoMedicao.tsx"
+  ]
+ },
+ {
   "texto": "{0} · voto na legenda {1}",
   "tipo": "padrao",
   "arquivos": [
@@ -1720,6 +1741,13 @@
   "tipo": "padrao",
   "arquivos": [
    "pages/election/PlenarioPage.tsx"
+  ]
+ },
+ {
+  "texto": "{0}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/{1}",
+  "tipo": "padrao",
+  "arquivos": [
+   "analytics/medicao.ts"
   ]
  },
  {
@@ -2899,6 +2927,21 @@
   ]
  },
  {
+  "texto": "Aceitar",
+  "tipo": "exato",
+  "arquivos": [
+   "components/AvisoMedicao.tsx"
+  ]
+ },
+ {
+  "texto": "aceito",
+  "tipo": "exato",
+  "arquivos": [
+   "analytics/medicao.ts",
+   "components/AvisoMedicao.tsx"
+  ]
+ },
+ {
   "texto": "Acentos e maiúsculas não fazem diferença. A busca acha palavras que começam pelo termo (“escola” acha “escolas”).",
   "tipo": "exato",
   "arquivos": [
@@ -3551,6 +3594,13 @@
   "tipo": "exato",
   "arquivos": [
    "components/compartilhar/desenho.ts"
+  ]
+ },
+ {
+  "texto": "app",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/DialogoCompartilhar.tsx"
   ]
  },
  {
@@ -4271,6 +4321,13 @@
   ]
  },
  {
+  "texto": "baixar",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/DialogoCompartilhar.tsx"
+  ]
+ },
+ {
   "texto": "Baixar",
   "tipo": "exato",
   "arquivos": [
@@ -4808,6 +4865,7 @@
   "texto": "button",
   "tipo": "exato",
   "arquivos": [
+   "components/AvisoMedicao.tsx",
    "components/conta/ContaPerfil.tsx",
    "components/election/UfTileMap.tsx",
    "eua/componentes/MapaEua.tsx"
@@ -5791,6 +5849,13 @@
   ]
  },
  {
+  "texto": "Cloudflare Web Analytics: conta visitas, páginas, país, tipo de aparelho e de onde a visita veio, sem cookies e sem identificar quem visita. Base legal: legítimo interesse em saber se o serviço está sendo útil (LGPD, art. 7º, IX).",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/legal/PrivacidadePage.tsx"
+  ]
+ },
+ {
   "texto": "CNPJ/CPF exatamente como publicado pela fonte oficial. Lista limitada aos maiores fornecedores do ano.",
   "tipo": "exato",
   "arquivos": [
@@ -5978,6 +6043,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/SegundoTurnoPage.tsx"
+  ]
+ },
+ {
+  "texto": "Com a sua permissão, o Google Analytics conta visitas e páginas vistas, em números agregados, sem anúncios personalizados. Nada do que você consulta é ligado a você.",
+  "tipo": "exato",
+  "arquivos": [
+   "components/AvisoMedicao.tsx"
   ]
  },
  {
@@ -6398,6 +6470,13 @@
   ]
  },
  {
+  "texto": "config",
+  "tipo": "exato",
+  "arquivos": [
+   "analytics/medicao.ts"
+  ]
+ },
+ {
   "texto": "confirma",
   "tipo": "exato",
   "arquivos": [
@@ -6495,6 +6574,13 @@
   "tipo": "exato",
   "arquivos": [
    "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "consent",
+  "tipo": "exato",
+  "arquivos": [
+   "analytics/medicao.ts"
   ]
  },
  {
@@ -6642,6 +6728,13 @@
   "tipo": "exato",
   "arquivos": [
    "layouts/PublicLayout.tsx"
+  ]
+ },
+ {
+  "texto": "copiar link",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/DialogoCompartilhar.tsx"
   ]
  },
  {
@@ -7114,7 +7207,7 @@
   ]
  },
  {
-  "texto": "dados de navegação para estatística, perfil ou publicidade: não usamos Google Analytics, Firebase Analytics, pixels, cookies de rastreamento nem ferramentas parecidas.",
+  "texto": "dados de navegação para perfil ou publicidade direcionada: não usamos pixels de anúncio, identificadores de publicidade nem cookies que acompanham você em outros sites. A medição de audiência, em números agregados e com Google Analytics só se você aceitar, está no item 7.",
   "tipo": "exato",
   "arquivos": [
    "pages/legal/PrivacidadePage.tsx"
@@ -7415,6 +7508,7 @@
   "texto": "default",
   "tipo": "exato",
   "arquivos": [
+   "analytics/medicao.ts",
    "components/election/StatusChip.tsx",
    "components/election/UfTileMap.tsx",
    "config/brand.ts",
@@ -7490,6 +7584,7 @@
   "texto": "denied",
   "tipo": "exato",
   "arquivos": [
+   "analytics/medicao.ts",
    "components/avisos/AvisoResultado.tsx",
    "components/resultados/hooks.ts",
    "data/useMunicipioUsuario.ts"
@@ -10123,6 +10218,13 @@
   ]
  },
  {
+  "texto": "event",
+  "tipo": "exato",
+  "arquivos": [
+   "analytics/medicao.ts"
+  ]
+ },
+ {
   "texto": "eventual",
   "tipo": "exato",
   "arquivos": [
@@ -10744,6 +10846,13 @@
   ]
  },
  {
+  "texto": "folha do sistema",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/DialogoCompartilhar.tsx"
+  ]
+ },
+ {
   "texto": "fonte",
   "tipo": "exato",
   "arquivos": [
@@ -11034,7 +11143,7 @@
   ]
  },
  {
-  "texto": "funciona sem cadastro. Sem anúncios, sem rastreamento, sem ferramentas de análise de audiência. O que você anota (como a sua cola) fica no seu aparelho. Se você quiser, pode entrar com o Google para guardar suas escolhas: elas são criptografadas no seu aparelho com uma frase que só você conhece, e ninguém mais consegue lê-las. A localização, se você permitir, serve só para achar o seu estado e o seu município, e não sai do aparelho. Como em todo site, a hospedagem guarda por até 7 dias registros técnicos de acesso (item 7), usados só para segurança e correção de erros.",
+  "texto": "funciona sem cadastro e sem anúncios personalizados. Para saber quantas pessoas usam o site, contamos visitas em números agregados: a Cloudflare, sem cookies, e o Google Analytics, só se você aceitar no aviso do site (nunca no aplicativo; item 7). O que você anota (como a sua cola) fica no seu aparelho. Se você quiser, pode entrar com o Google para guardar suas escolhas: elas são criptografadas no seu aparelho com uma frase que só você conhece, e ninguém mais consegue lê-las. A localização, se você permitir, serve só para achar o seu estado e o seu município, e não sai do aparelho. Como em todo site, a hospedagem guarda por até 7 dias registros técnicos de acesso (item 7), usados só para segurança e correção de erros.",
   "tipo": "exato",
   "arquivos": [
    "pages/legal/PrivacidadePage.tsx"
@@ -11384,6 +11493,13 @@
   ]
  },
  {
+  "texto": "Google Analytics 4 (Google LLC): só é carregado se você clicar em “Aceitar” no aviso de medição. Usa cookies próprios (_ga) para contar visitas, páginas vistas, tempo na página, cidade aproximada (calculada pelo Google a partir do IP, que não fica guardado), tipo de aparelho, a página de onde você veio e quantas vezes o compartilhar é usado. Os sinais do Google e a personalização de anúncios ficam desligados; nome, e-mail e as candidaturas que você marca nunca são enviados. Os números servem para acompanhar o uso do site e para mostrar a audiência, sempre agregada, a possíveis anunciantes. Base legal: o seu consentimento (LGPD, art. 7º, I), que você pode retirar a qualquer momento em “Preferências de medição”, no rodapé; ao recusar, os cookies do Google Analytics são apagados. O Google pode tratar esses dados fora do Brasil (LGPD, art. 33), conforme a",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/legal/PrivacidadePage.tsx"
+  ]
+ },
+ {
   "texto": "governador",
   "tipo": "exato",
   "arquivos": [
@@ -11561,6 +11677,7 @@
   "texto": "granted",
   "tipo": "exato",
   "arquivos": [
+   "analytics/medicao.ts",
    "components/avisos/push.ts",
    "data/useMunicipioUsuario.ts"
   ]
@@ -12553,6 +12670,13 @@
   "tipo": "exato",
   "arquivos": [
    "config/brand.ts"
+  ]
+ },
+ {
+  "texto": "js",
+  "tipo": "exato",
+  "arquivos": [
+   "analytics/medicao.ts"
   ]
  },
  {
@@ -13797,6 +13921,20 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/NumerosPage.tsx"
+  ]
+ },
+ {
+  "texto": "Medição de audiência",
+  "tipo": "exato",
+  "arquivos": [
+   "components/AvisoMedicao.tsx"
+  ]
+ },
+ {
+  "texto": "Medição de audiência (só no site; o aplicativo não tem nenhuma).",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/legal/PrivacidadePage.tsx"
   ]
  },
  {
@@ -17327,6 +17465,13 @@
   ]
  },
  {
+  "texto": "Para saber quantas pessoas usam o site e quais páginas mais ajudam, usamos duas medições, sempre em números agregados:",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/legal/PrivacidadePage.tsx"
+  ]
+ },
+ {
   "texto": "Para seguir, permita as notificações deste site no navegador.",
   "tipo": "exato",
   "arquivos": [
@@ -18119,6 +18264,13 @@
   ]
  },
  {
+  "texto": "Podemos contar a sua visita?",
+  "tipo": "exato",
+  "arquivos": [
+   "components/AvisoMedicao.tsx"
+  ]
+ },
+ {
   "texto": "pointer",
   "tipo": "exato",
   "arquivos": [
@@ -18151,6 +18303,7 @@
   "texto": "Política de Privacidade",
   "tipo": "exato",
   "arquivos": [
+   "components/AvisoMedicao.tsx",
    "components/avisos/AvisoResultado.tsx",
    "components/conta/ContaPerfil.tsx",
    "eua/componentes/Moldura.tsx",
@@ -18163,6 +18316,13 @@
  },
  {
   "texto": "política de privacidade dele",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/legal/PrivacidadePage.tsx"
+  ]
+ },
+ {
+  "texto": "política de privacidade do Google",
   "tipo": "exato",
   "arquivos": [
    "pages/legal/PrivacidadePage.tsx"
@@ -18428,6 +18588,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/MinhaCidadePage.tsx"
+  ]
+ },
+ {
+  "texto": "Preferências de medição",
+  "tipo": "exato",
+  "arquivos": [
+   "components/AvisoMedicao.tsx"
   ]
  },
  {
@@ -19311,6 +19478,21 @@
   ]
  },
  {
+  "texto": "recusado",
+  "tipo": "exato",
+  "arquivos": [
+   "analytics/medicao.ts",
+   "components/AvisoMedicao.tsx"
+  ]
+ },
+ {
+  "texto": "Recusar",
+  "tipo": "exato",
+  "arquivos": [
+   "components/AvisoMedicao.tsx"
+  ]
+ },
+ {
   "texto": "Reeleito é quem já tinha sido eleito para a mesma Casa, pelo mesmo estado, na eleição anterior (no Senado, em qualquer das duas anteriores, porque o mandato é de 8 anos). O critério é o mesmo nos dois anos. Quem foi parlamentar em outra Casa, em mandatos mais antigos ou como suplente conta como novo.",
   "tipo": "exato",
   "arquivos": [
@@ -19399,6 +19581,7 @@
   "texto": "region",
   "tipo": "exato",
   "arquivos": [
+   "components/AvisoMedicao.tsx",
    "components/urna/UrnaScreen.tsx"
   ]
  },
@@ -20340,6 +20523,7 @@
   "texto": "row",
   "tipo": "exato",
   "arquivos": [
+   "components/AvisoMedicao.tsx",
    "components/avisos/AvisoResultado.tsx",
    "components/brand/BrandLogo.tsx",
    "components/charts/charts.tsx",
@@ -20563,6 +20747,13 @@
    "components/resultados/hooks.ts",
    "data/regioes.ts",
    "eua/usaMapData.ts"
+  ]
+ },
+ {
+  "texto": "script",
+  "tipo": "exato",
+  "arquivos": [
+   "analytics/medicao.ts"
   ]
  },
  {
@@ -21213,6 +21404,13 @@
   ]
  },
  {
+  "texto": "share",
+  "tipo": "exato",
+  "arquivos": [
+   "components/compartilhar/DialogoCompartilhar.tsx"
+  ]
+ },
+ {
   "texto": "shared",
   "tipo": "exato",
   "arquivos": [
@@ -21424,6 +21622,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/AparenciaMenu.tsx",
+   "components/AvisoMedicao.tsx",
    "components/IdiomaMenu.tsx",
    "components/PaisMenu.tsx",
    "components/conta/ContaPerfil.tsx",
@@ -23192,6 +23391,7 @@
   "texto": "undefined",
   "tipo": "exato",
   "arquivos": [
+   "analytics/medicao.ts",
    "components/avisos/push.ts",
    "components/compartilhar/compartilhar.ts",
    "components/compartilhar/desenho.ts",
@@ -23199,6 +23399,13 @@
    "components/resultados/ApuracaoAoVivo.tsx",
    "components/resultados/Evolucao.tsx",
    "native/platform.ts"
+  ]
+ },
+ {
+  "texto": "update",
+  "tipo": "exato",
+  "arquivos": [
+   "analytics/medicao.ts"
   ]
  },
  {

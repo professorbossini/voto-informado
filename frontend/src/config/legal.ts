@@ -8,7 +8,7 @@ export const LEGAL = {
   responsavel: 'Rodrigo Bossini',
   email: 'professorbossini@gmail.com',
   /** Data da versão vigente dos dois textos (AAAA-MM-DD). */
-  vigencia: '2026-10-07',
+  vigencia: '2026-10-13',
   hospedagem: {
     nome: 'Cloudflare (Workers, R2), serviço da Cloudflare, Inc.',
     privacidade: 'https://www.cloudflare.com/pt-br/privacypolicy/',

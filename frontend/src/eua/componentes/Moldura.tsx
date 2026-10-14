@@ -2,6 +2,7 @@
  * Moldura da área dos EUA no layout comum: faixa de confiança, rodapé e busca de parlamentares.
  * Fica no pacote principal (é pequena); as páginas dos EUA continuam carregadas sob demanda.
  */
+import { LinkPreferenciasMedicao } from '@/components/AvisoMedicao';
 import { useEffect, useState } from 'react';
 import { Autocomplete, Box, Container, Dialog, DialogContent, DialogTitle, Link, Stack, TextField, Typography } from '@mui/material';
 import VerifiedRounded from '@mui/icons-material/VerifiedRounded';
@@ -76,6 +77,7 @@ export function RodapeEua() {
             <Link component={RouterLink} to="/privacidade" variant="body2">
               Política de Privacidade
             </Link>
+            <LinkPreferenciasMedicao />
             <Link component={RouterLink} to="/termos" variant="body2">
               Termos de Uso
             </Link>
