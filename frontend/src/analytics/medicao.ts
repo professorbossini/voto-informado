@@ -78,8 +78,15 @@ export function escolher(e: Escolha) {
     /* sem armazenamento: vale só nesta visita */
   }
   avisoAberto = false;
-  if (e === 'aceito') carregar();
-  else {
+  if (e === 'aceito') {
+    const antes = carregado;
+    carregar();
+    // A página em que a pessoa aceitou também conta (a contagem dela, antes do aceite, foi descartada).
+    if (!antes) {
+      const h1 = document.querySelector('main h1')?.textContent?.trim();
+      paginaVista(`${location.pathname}${location.search}`, h1 ? `${h1} · Tá na Urna` : document.title);
+    }
+  } else {
     if (carregado) gtag('consent', 'update', { analytics_storage: 'denied' });
     apagarCookies();
   }

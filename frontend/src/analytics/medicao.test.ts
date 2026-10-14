@@ -34,6 +34,8 @@ describe('medição de audiência', () => {
     const chamadas = (window.dataLayer ?? []).map((a) => Array.from(a as ArrayLike<unknown>));
     expect(chamadas).toContainEqual(['consent', 'default', { analytics_storage: 'granted', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' }]);
     expect(chamadas).toContainEqual(['config', 'G-TESTE123', { send_page_view: false, allow_google_signals: false, allow_ad_personalization_signals: false }]);
+    // A página em que a pessoa aceitou já foi contada.
+    expect(chamadas.some((c) => c[0] === 'event' && c[1] === 'page_view')).toBe(true);
     m.paginaVista('/plenario', 'Plenário');
     const ultima = Array.from(window.dataLayer!.at(-1) as ArrayLike<unknown>);
     expect(ultima.slice(0, 2)).toEqual(['event', 'page_view']);
