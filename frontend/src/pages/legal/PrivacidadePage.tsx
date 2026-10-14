@@ -8,7 +8,8 @@ export function PrivacidadePage() {
       title="Política de Privacidade"
       resumo={
         <>
-          <strong>Resumo:</strong> o {LEGAL.projeto} funciona sem cadastro e sem anúncios personalizados. Para saber
+          <strong>Resumo:</strong> o {LEGAL.projeto} funciona sem cadastro. O site pode mostrar anúncios comerciais,
+          iguais para todo mundo e sem rastrear você (o aplicativo não tem anúncios). Para saber
           quantas pessoas usam o site, contamos visitas em números agregados: a Cloudflare, sem cookies, e o Google
           Analytics, só se você aceitar no aviso do site (nunca no aplicativo; item 7). O que você anota (como a sua
           cola) fica no seu aparelho. Se você quiser,
@@ -22,7 +23,7 @@ export function PrivacidadePage() {
     >
       <Secao n={1} title="Quem é o responsável">
         <P>
-          O {LEGAL.projeto} (site e aplicativos para celular) é um projeto independente, gratuito e sem anúncios, mantido
+          O {LEGAL.projeto} (site e aplicativos para celular) é um projeto independente e gratuito, mantido
           por {LEGAL.responsavel}, pessoa física, que atua como controlador nos termos da Lei Geral de Proteção de Dados
           (Lei nº 13.709/2018, LGPD). Contato: <Contato />.
         </P>
@@ -175,6 +176,15 @@ export function PrivacidadePage() {
             .
           </li>
         </ul>
+        <P>
+          <strong>Anúncios (só no site; o aplicativo não tem nenhum).</strong> O site pode exibir espaços publicitários de
+          empresas, sempre identificados como “Anúncio” e separados dos dados oficiais. Os anúncios são iguais para todos
+          os visitantes: não usam o seu perfil, o seu histórico nem a sua localização, e não carregam pixels nem cookies
+          de anunciantes. Se você clicar num anúncio, vai para o site do anunciante, que tem a própria política de
+          privacidade. Os anunciantes recebem só números agregados de audiência, nunca dados de quem visita. Nunca
+          exibimos propaganda de candidaturas, partidos, coligações, governos ou causas políticas (Lei nº 9.504/1997,
+          art. 57-C).
+        </P>
         <P>
           Os resultados da apuração são baixados diretamente do servidor oficial de divulgação do Tribunal Superior
           Eleitoral (resultados.tse.jus.br), sem passar por nós. Nesse acesso, o TSE recebe tecnicamente o endereço IP e

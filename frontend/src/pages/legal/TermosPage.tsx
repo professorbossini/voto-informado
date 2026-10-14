@@ -55,7 +55,10 @@ export function TermosPage() {
         <P>
           O serviço não produz opinião, não apoia nem critica candidaturas ou partidos e não recomenda votos. Todas as
           candidaturas aparecem com os mesmos campos, na mesma ordem (alfabética) e com o mesmo destaque. Não é propaganda
-          eleitoral, não tem anúncios e não usa inteligência artificial para resumir, ordenar ou recomendar candidaturas.
+          eleitoral e não usa inteligência artificial para resumir, ordenar ou recomendar candidaturas. O site pode exibir
+          anúncios comerciais de empresas, sempre identificados como “Anúncio” e separados dos dados; anúncio nenhum
+          influencia o conteúdo, e nunca aceitamos propaganda de candidaturas, partidos ou causas políticas. O aplicativo
+          não exibe anúncios.
         </P>
       </Secao>
 
