@@ -30,6 +30,8 @@ import VerifiedRounded from '@mui/icons-material/VerifiedRounded';
 import { Link as RouterLink, NavLink, Outlet, useLocation, useNavigate, ScrollRestoration } from 'react-router';
 import { FaiscaCredito } from '@/components/brand/FaiscaCredito';
 import { AvisoMedicao, ContagemDePaginas, LinkPreferenciasMedicao } from '@/components/AvisoMedicao';
+import { Anuncio } from '@/components/anuncios/Anuncio';
+import { ApoioPix } from '@/components/apoio/ApoioPix';
 import { ShareButton } from '@/components/share/ShareButton';
 import { ContaPerfil } from '@/components/conta/ContaPerfil';
 import { BrandLogo } from '@/components/brand/BrandLogo';
@@ -42,6 +44,7 @@ import { useMeta } from '@/data/MetaContext';
 import { dateTime } from '@/data/format';
 import { PaisMenu } from '@/components/PaisMenu';
 import { naAreaEua, PAISES } from '@/components/pais';
+import { isNativeApp } from '@/native/platform';
 import { BuscaMembrosEua, RodapeEua, TrustBarEua } from '@/eua/componentes/Moldura';
 import { activeNavItem, useNavItems } from './navigation';
 
@@ -137,6 +140,40 @@ function Footer() {
   );
 }
 
+/**
+ * Tela bem larga: sobra espaço dos dois lados do conteúdo (lg, 1200px) para uma coluna fixa de
+ * 160 a 300px, a 32px do conteúdo e da borda: à direita o anúncio, à esquerda o Pix.
+ */
+const LATERAIS = '(min-width:1680px) and (min-height:760px)';
+const largura = 'min(300px, calc(50% - 600px - 64px))';
+const distancia = 'calc(50% + 600px + 32px)';
+
+/**
+ * Anúncio e pedido de Pix em todas as páginas do site (nunca no app; o Pix só na área do Brasil).
+ * Nas telas bem largas ficam em colunas fixas ao lado do conteúdo; nas outras, no fim da página,
+ * antes do rodapé. A cada página nova, um anúncio novo.
+ */
+function ApoioEPublicidade({ comPix }: { comPix: boolean }) {
+  const { pathname } = useLocation();
+  const laterais = useMediaQuery(LATERAIS, { noSsr: true });
+  if (isNativeApp) return null;
+  if (laterais)
+    return (
+      <>
+        <Anuncio key={pathname} lateral sx={{ position: 'fixed', top: 96, left: distancia, width: largura }} />
+        {comPix && <ApoioPix sx={{ position: 'fixed', bottom: 32, right: distancia, width: largura }} />}
+      </>
+    );
+  return (
+    <Container maxWidth="lg" sx={{ pb: 2 }}>
+      <Stack direction={{ xs: 'column', md: 'row' }} spacing={3} sx={{ alignItems: { md: 'flex-start' } }}>
+        <Anuncio key={pathname} sx={{ flex: 1, minWidth: 0 }} />
+        {comPix && <ApoioPix sx={{ width: { md: 300 }, flexShrink: 0 }} />}
+      </Stack>
+    </Container>
+  );
+}
+
 export function PublicLayout() {
   const { pathname } = useLocation();
   const areaEua = naAreaEua(pathname);
@@ -214,6 +251,7 @@ export function PublicLayout() {
         </PageTransition>
       </Container>
 
+      <ApoioEPublicidade comPix={!areaEua} />
       {areaEua ? <RodapeEua /> : <Footer />}
       <AvisoMedicao />
       <ContagemDePaginas />

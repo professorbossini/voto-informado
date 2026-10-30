@@ -97,5 +97,12 @@ npx vite build
   política, nem conteúdo que favoreça ou critique candidatura (Lei 9.504/97, art. 57-C: é vedada
   propaganda eleitoral paga na internet). O anúncio fica separado e identificado como "Anúncio",
   sem misturar com os dados oficiais.
+- Anúncios (desde 30/10/2026): Google AdSense, editor `ca-pub-5385535548377883` (o mesmo do Rabisco),
+  em todas as páginas do site e nunca no app (a política do AdSense proíbe WebView). Ids em
+  `frontend/src/config/anuncios.ts`, `frontend/public/ads.txt` e na meta `google-adsense-account` do
+  `index.html`; bloco vazio desliga tudo. Sempre não personalizados (`requestNonPersonalizedAds`).
+  No painel do AdSense: anúncios automáticos **desligados** e a categoria sensível de política bloqueada.
+- Apoio por Pix (chave aleatória da Faísca, `frontend/src/components/apoio/pix.ts`): cartão com QR
+  Code ao lado do anúncio, só na área do Brasil do site.
 - O site não tem enquetes, rankings de "mais acessados" nem uso de IA para ordenar ou recomendar
   candidaturas (Res. TSE 23.755/2026).
