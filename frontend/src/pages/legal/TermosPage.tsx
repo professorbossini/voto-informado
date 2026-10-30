@@ -55,10 +55,11 @@ export function TermosPage() {
         <P>
           O serviço não produz opinião, não apoia nem critica candidaturas ou partidos e não recomenda votos. Todas as
           candidaturas aparecem com os mesmos campos, na mesma ordem (alfabética) e com o mesmo destaque. Não é propaganda
-          eleitoral e não usa inteligência artificial para resumir, ordenar ou recomendar candidaturas. O site pode exibir
-          anúncios comerciais de empresas, sempre identificados como “Anúncio” e separados dos dados; anúncio nenhum
-          influencia o conteúdo, e nunca aceitamos propaganda de candidaturas, partidos ou causas políticas. O aplicativo
-          não exibe anúncios.
+          eleitoral e não usa inteligência artificial para resumir, ordenar ou recomendar candidaturas. O site exibe
+          anúncios comerciais (Google AdSense), sempre identificados como “Publicidade” e separados dos dados; anúncio
+          nenhum influencia o conteúdo, e não aceitamos propaganda de candidaturas, partidos ou causas políticas. O
+          aplicativo não exibe anúncios. Quem quiser pode apoiar o projeto com um Pix de qualquer valor, para ajudar a pagar
+          os servidores; o apoio é voluntário, não dá vantagem nenhuma e não influencia o conteúdo.
         </P>
       </Secao>
 

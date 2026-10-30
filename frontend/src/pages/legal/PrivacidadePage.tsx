@@ -8,8 +8,8 @@ export function PrivacidadePage() {
       title="Política de Privacidade"
       resumo={
         <>
-          <strong>Resumo:</strong> o {LEGAL.projeto} funciona sem cadastro. O site pode mostrar anúncios comerciais,
-          iguais para todo mundo e sem rastrear você (o aplicativo não tem anúncios). Para saber
+          <strong>Resumo:</strong> o {LEGAL.projeto} funciona sem cadastro. O site mostra anúncios comerciais do Google,
+          não personalizados: não usam o seu perfil nem o seu histórico (o aplicativo não tem anúncios; item 7). Para saber
           quantas pessoas usam o site, contamos visitas em números agregados: a Cloudflare, sem cookies, e o Google
           Analytics, só se você aceitar no aviso do site (nunca no aplicativo; item 7). O que você anota (como a sua
           cola) fica no seu aparelho. Se você quiser,
@@ -34,8 +34,8 @@ export function PrivacidadePage() {
         <ul>
           <li>telefone, CPF, título de eleitor ou qualquer cadastro (o login com Google é opcional; veja o item 4);</li>
           <li>a localização do seu aparelho (veja abaixo como o site descobre o seu estado e o seu município sem recebê-la), contatos, fotos, câmera, microfone ou arquivos do aparelho;</li>
-          <li>identificadores de publicidade ou de dispositivo;</li>
-          <li>dados de navegação para perfil ou publicidade direcionada: não usamos pixels de anúncio, identificadores de publicidade nem cookies que acompanham você em outros sites. A medição de audiência, em números agregados e com Google Analytics só se você aceitar, está no item 7.</li>
+          <li>identificadores de dispositivo;</li>
+          <li>dados de navegação para perfil ou publicidade direcionada: os anúncios do site não são personalizados e não usamos pixels de anunciantes. Os cookies que o Google usa para servir esses anúncios e a medição de audiência, em números agregados e com Google Analytics só se você aceitar, estão no item 7.</li>
         </ul>
         <P>
           Também não vendemos, alugamos nem compartilhamos dados com terceiros. Não perguntamos em quem você pretende votar
@@ -177,13 +177,26 @@ export function PrivacidadePage() {
           </li>
         </ul>
         <P>
-          <strong>Anúncios (só no site; o aplicativo não tem nenhum).</strong> O site pode exibir espaços publicitários de
-          empresas, sempre identificados como “Anúncio” e separados dos dados oficiais. Os anúncios são iguais para todos
-          os visitantes: não usam o seu perfil, o seu histórico nem a sua localização, e não carregam pixels nem cookies
-          de anunciantes. Se você clicar num anúncio, vai para o site do anunciante, que tem a própria política de
-          privacidade. Os anunciantes recebem só números agregados de audiência, nunca dados de quem visita. Nunca
-          exibimos propaganda de candidaturas, partidos, coligações, governos ou causas políticas (Lei nº 9.504/1997,
-          art. 57-C).
+          <strong>Anúncios (só no site; o aplicativo não tem nenhum).</strong> O site exibe anúncios comerciais servidos
+          pelo Google AdSense (Google LLC), sempre identificados como “Publicidade” e separados dos dados oficiais. Pedimos
+          ao Google só anúncios não personalizados: eles não usam o seu perfil nem o seu histórico de navegação, apenas o
+          conteúdo da página e a localização aproximada (cidade ou região). Mesmo assim, o Google usa cookies e
+          identificadores próprios para limitar quantas vezes um anúncio aparece, evitar fraudes e contar resultados em
+          números agregados, e pode tratar esses dados fora do Brasil (LGPD, art. 33), conforme a{' '}
+          <Link href="https://policies.google.com/technologies/ads?hl=pt-BR" target="_blank" rel="noopener noreferrer">
+            explicação do Google sobre publicidade
+          </Link>
+          . Base legal: o legítimo interesse em manter o serviço gratuito (LGPD, art. 7º, IX); um bloqueador de anúncios
+          impede tudo isso sem atrapalhar o site. Se você clicar num anúncio, vai para o site do anunciante, que tem a
+          própria política de privacidade. Não aceitamos propaganda de candidaturas, partidos, coligações, governos ou
+          causas políticas (Lei nº 9.504/1997, art. 57-C): os anúncios de política ficam bloqueados no AdSense e, se algum
+          escapar, avise pelo contato do item 1 para bloquearmos.
+        </P>
+        <P>
+          <strong>Apoio por Pix (só no site).</strong> O QR Code e o código “copia e cola” levam ao aplicativo do seu banco;
+          o site não recebe nada desse pagamento. Como em qualquer Pix, quem recebe (a Faísca, que mantém o projeto) vê o
+          nome de quem pagou e a instituição, informados pelo banco. Esses dados não são ligados ao uso do site, não são
+          compartilhados e servem só para a contabilidade. O apoio é voluntário e não dá vantagem nenhuma.
         </P>
         <P>
           Os resultados da apuração são baixados diretamente do servidor oficial de divulgação do Tribunal Superior

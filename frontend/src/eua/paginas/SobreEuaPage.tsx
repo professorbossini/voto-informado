@@ -63,8 +63,8 @@ export function SobreEuaPage() {
             campanhas.
           </P>
           <P>
-            <strong>Não pede voto, não faz propaganda e não apoia ninguém.</strong> Não recebe nem repassa dinheiro de campanha, não vende nem
-            exibe anúncios, não impulsiona conteúdo pago, não faz enquetes, não publica pesquisas eleitorais nem projeções e não usa inteligência
+            <strong>Não pede voto, não faz propaganda e não apoia ninguém.</strong> Não recebe nem repassa dinheiro de campanha, não aceita
+            anúncios políticos (os anúncios do site são comerciais, do Google AdSense), não impulsiona conteúdo pago, não faz enquetes, não publica pesquisas eleitorais nem projeções e não usa inteligência
             artificial para ordenar ou recomendar candidaturas.
           </P>
         </Secao>

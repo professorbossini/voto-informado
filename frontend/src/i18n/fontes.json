@@ -231,6 +231,13 @@
   ]
  },
  {
+  "texto": ". Base legal: o legítimo interesse em manter o serviço gratuito (LGPD, art. 7º, IX); um bloqueador de anúncios impede tudo isso sem atrapalhar o site. Se você clicar num anúncio, vai para o site do anunciante, que tem a própria política de privacidade. Não aceitamos propaganda de candidaturas, partidos, coligações, governos ou causas políticas (Lei nº 9.504/1997, art. 57-C): os anúncios de política ficam bloqueados no AdSense e, se algum escapar, avise pelo contato do item 1 para bloquearmos.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/legal/PrivacidadePage.tsx"
+  ]
+ },
+ {
   "texto": ". Coletado pelo Tá na Urna em {0}.",
   "tipo": "padrao",
   "arquivos": [
@@ -843,6 +850,13 @@
   "tipo": "exato",
   "arquivos": [
    "api/client.ts"
+  ]
+ },
+ {
+  "texto": "(min-width:1680px) and (min-height:760px)",
+  "tipo": "exato",
+  "arquivos": [
+   "layouts/PublicLayout.tsx"
   ]
  },
  {
@@ -3445,6 +3459,7 @@
   "texto": "anonymous",
   "tipo": "exato",
   "arquivos": [
+   "components/anuncios/Anuncio.tsx",
    "components/compartilhar/desenho.ts"
   ]
  },
@@ -3592,6 +3607,20 @@
  },
  {
   "texto": "Aplicativo: permissões",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/legal/PrivacidadePage.tsx"
+  ]
+ },
+ {
+  "texto": "Apoie o Tá na Urna",
+  "tipo": "exato",
+  "arquivos": [
+   "components/apoio/ApoioPix.tsx"
+  ]
+ },
+ {
+  "texto": "Apoio por Pix (só no site).",
   "tipo": "exato",
   "arquivos": [
    "pages/legal/PrivacidadePage.tsx"
@@ -4115,6 +4144,7 @@
   "texto": "auto",
   "tipo": "exato",
   "arquivos": [
+   "components/anuncios/Anuncio.tsx",
    "components/election/CandidateCard.tsx",
    "components/resultados/ApuracaoAoVivo.tsx",
    "pages/election/CandidatoPage.tsx",
@@ -4529,6 +4559,7 @@
   "texto": "block",
   "tipo": "exato",
   "arquivos": [
+   "components/anuncios/Anuncio.tsx",
    "components/gastos/RankingList.tsx",
    "components/resultados/Evolucao.tsx",
    "components/urna/UrnaScreen.tsx",
@@ -4603,6 +4634,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/PaisMenu.tsx",
+   "components/apoio/pix.ts",
    "components/avisos/AvisoResultado.tsx",
    "components/compartilhar/dados.ts",
    "components/election/CandidateCard.tsx",
@@ -5046,6 +5078,13 @@
   "tipo": "padrao",
   "arquivos": [
    "components/mapa/MapaCanvas.tsx"
+  ]
+ },
+ {
+  "texto": "calc(50% + 600px + 32px)",
+  "tipo": "exato",
+  "arquivos": [
+   "layouts/PublicLayout.tsx"
   ]
  },
  {
@@ -5773,6 +5812,13 @@
   ]
  },
  {
+  "texto": "Chave aleatória: {0}",
+  "tipo": "padrao",
+  "arquivos": [
+   "components/apoio/ApoioPix.tsx"
+  ]
+ },
+ {
   "texto": "chaves",
   "tipo": "exato",
   "arquivos": [
@@ -5896,6 +5942,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/presidentes/presidentes.ts"
+  ]
+ },
+ {
+  "texto": "Código copiado!",
+  "tipo": "exato",
+  "arquivos": [
+   "components/apoio/ApoioPix.tsx"
   ]
  },
  {
@@ -6739,6 +6792,13 @@
   ]
  },
  {
+  "texto": "Copiar código Pix",
+  "tipo": "exato",
+  "arquivos": [
+   "components/apoio/ApoioPix.tsx"
+  ]
+ },
+ {
   "texto": "copiar link",
   "tipo": "exato",
   "arquivos": [
@@ -7215,7 +7275,7 @@
   ]
  },
  {
-  "texto": "dados de navegação para perfil ou publicidade direcionada: não usamos pixels de anúncio, identificadores de publicidade nem cookies que acompanham você em outros sites. A medição de audiência, em números agregados e com Google Analytics só se você aceitar, está no item 7.",
+  "texto": "dados de navegação para perfil ou publicidade direcionada: os anúncios do site não são personalizados e não usamos pixels de anunciantes. Os cookies que o Google usa para servir esses anúncios e a medição de audiência, em números agregados e com Google Analytics só se você aceitar, estão no item 7.",
   "tipo": "exato",
   "arquivos": [
    "pages/legal/PrivacidadePage.tsx"
@@ -7334,6 +7394,13 @@
   "tipo": "exato",
   "arquivos": [
    "components/resultados/ApuracaoAoVivo.tsx"
+  ]
+ },
+ {
+  "texto": "dashed",
+  "tipo": "exato",
+  "arquivos": [
+   "components/anuncios/Anuncio.tsx"
   ]
  },
  {
@@ -8420,6 +8487,13 @@
   "tipo": "exato",
   "arquivos": [
    "eua/componentes/blocos.tsx"
+  ]
+ },
+ {
+  "texto": "divider",
+  "tipo": "exato",
+  "arquivos": [
+   "components/anuncios/Anuncio.tsx"
   ]
  },
  {
@@ -10297,6 +10371,13 @@
   ]
  },
  {
+  "texto": "explicação do Google sobre publicidade",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/legal/PrivacidadePage.tsx"
+  ]
+ },
+ {
   "texto": "Exterior",
   "tipo": "exato",
   "arquivos": [
@@ -10400,6 +10481,7 @@
   "texto": "falhou",
   "tipo": "exato",
   "arquivos": [
+   "components/apoio/ApoioPix.tsx",
    "components/compartilhar/DialogoCompartilhar.tsx",
    "components/compartilhar/compartilhar.ts"
   ]
@@ -10409,6 +10491,13 @@
   "tipo": "padrao",
   "arquivos": [
    "eua/paginas/SobreEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "false",
+  "tipo": "exato",
+  "arquivos": [
+   "components/anuncios/Anuncio.tsx"
   ]
  },
  {
@@ -10511,6 +10600,13 @@
   ]
  },
  {
+  "texto": "feita",
+  "tipo": "exato",
+  "arquivos": [
+   "components/apoio/ApoioPix.tsx"
+  ]
+ },
+ {
   "texto": "feito com",
   "tipo": "exato",
   "arquivos": [
@@ -10604,6 +10700,13 @@
   "tipo": "exato",
   "arquivos": [
    "components/compartilhar/figura.ts"
+  ]
+ },
+ {
+  "texto": "filled",
+  "tipo": "exato",
+  "arquivos": [
+   "components/anuncios/Anuncio.tsx"
   ]
  },
  {
@@ -11151,7 +11254,7 @@
   ]
  },
  {
-  "texto": "funciona sem cadastro. O site pode mostrar anúncios comerciais, iguais para todo mundo e sem rastrear você (o aplicativo não tem anúncios). Para saber quantas pessoas usam o site, contamos visitas em números agregados: a Cloudflare, sem cookies, e o Google Analytics, só se você aceitar no aviso do site (nunca no aplicativo; item 7). O que você anota (como a sua cola) fica no seu aparelho. Se você quiser, pode entrar com o Google para guardar suas escolhas: elas são criptografadas no seu aparelho com uma frase que só você conhece, e ninguém mais consegue lê-las. A localização, se você permitir, serve só para achar o seu estado e o seu município, e não sai do aparelho. Como em todo site, a hospedagem guarda por até 7 dias registros técnicos de acesso (item 7), usados só para segurança e correção de erros.",
+  "texto": "funciona sem cadastro. O site mostra anúncios comerciais do Google, não personalizados: não usam o seu perfil nem o seu histórico (o aplicativo não tem anúncios; item 7). Para saber quantas pessoas usam o site, contamos visitas em números agregados: a Cloudflare, sem cookies, e o Google Analytics, só se você aceitar no aviso do site (nunca no aplicativo; item 7). O que você anota (como a sua cola) fica no seu aparelho. Se você quiser, pode entrar com o Google para guardar suas escolhas: elas são criptografadas no seu aparelho com uma frase que só você conhece, e ninguém mais consegue lê-las. A localização, se você permitir, serve só para achar o seu estado e o seu município, e não sai do aparelho. Como em todo site, a hospedagem guarda por até 7 dias registros técnicos de acesso (item 7), usados só para segurança e correção de erros.",
   "tipo": "exato",
   "arquivos": [
    "pages/legal/PrivacidadePage.tsx"
@@ -11698,6 +11801,13 @@
   ]
  },
  {
+  "texto": "Gratuito e sem cadastro. Um Pix de qualquer valor ajuda a manter os servidores no ar.",
+  "tipo": "exato",
+  "arquivos": [
+   "components/apoio/ApoioPix.tsx"
+  ]
+ },
+ {
   "texto": "Grau de instrução",
   "tipo": "exato",
   "arquivos": [
@@ -12031,7 +12141,7 @@
   ]
  },
  {
-  "texto": "identificadores de publicidade ou de dispositivo;",
+  "texto": "identificadores de dispositivo;",
   "tipo": "exato",
   "arquivos": [
    "pages/legal/PrivacidadePage.tsx"
@@ -12125,6 +12235,7 @@
   "texto": "img",
   "tipo": "exato",
   "arquivos": [
+   "components/apoio/ApoioPix.tsx",
    "components/charts/charts.tsx",
    "components/compartilhar/figura.ts",
    "components/election/UfTileMap.tsx",
@@ -14137,6 +14248,13 @@
   ]
  },
  {
+  "texto": "min(300px, calc(50% - 600px - 64px))",
+  "tipo": "exato",
+  "arquivos": [
+   "layouts/PublicLayout.tsx"
+  ]
+ },
+ {
   "texto": "Minas Gerais",
   "tipo": "exato",
   "arquivos": [
@@ -14662,6 +14780,13 @@
   ]
  },
  {
+  "texto": "nada",
+  "tipo": "exato",
+  "arquivos": [
+   "components/apoio/ApoioPix.tsx"
+  ]
+ },
+ {
   "texto": "Não",
   "tipo": "exato",
   "arquivos": [
@@ -15040,7 +15165,7 @@
   ]
  },
  {
-  "texto": "Não recebe nem repassa dinheiro de campanha, não vende nem exibe anúncios, não impulsiona conteúdo pago, não faz enquetes, não publica pesquisas eleitorais nem projeções e não usa inteligência artificial para ordenar ou recomendar candidaturas.",
+  "texto": "Não recebe nem repassa dinheiro de campanha, não aceita anúncios políticos (os anúncios do site são comerciais, do Google AdSense), não impulsiona conteúdo pago, não faz enquetes, não publica pesquisas eleitorais nem projeções e não usa inteligência artificial para ordenar ou recomendar candidaturas.",
   "tipo": "exato",
   "arquivos": [
    "eua/paginas/SobreEuaPage.tsx"
@@ -16406,6 +16531,13 @@
   ]
  },
  {
+  "texto": "O QR Code e o código “copia e cola” levam ao aplicativo do seu banco; o site não recebe nada desse pagamento. Como em qualquer Pix, quem recebe (a Faísca, que mantém o projeto) vê o nome de quem pagou e a instituição, informados pelo banco. Esses dados não são ligados ao uso do site, não são compartilhados e servem só para a contabilidade. O apoio é voluntário e não dá vantagem nenhuma.",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/legal/PrivacidadePage.tsx"
+  ]
+ },
+ {
   "texto": "O que comparar no Senado",
   "tipo": "exato",
   "arquivos": [
@@ -16540,7 +16672,7 @@
   ]
  },
  {
-  "texto": "O serviço não produz opinião, não apoia nem critica candidaturas ou partidos e não recomenda votos. Todas as candidaturas aparecem com os mesmos campos, na mesma ordem (alfabética) e com o mesmo destaque. Não é propaganda eleitoral e não usa inteligência artificial para resumir, ordenar ou recomendar candidaturas. O site pode exibir anúncios comerciais de empresas, sempre identificados como “Anúncio” e separados dos dados; anúncio nenhum influencia o conteúdo, e nunca aceitamos propaganda de candidaturas, partidos ou causas políticas. O aplicativo não exibe anúncios.",
+  "texto": "O serviço não produz opinião, não apoia nem critica candidaturas ou partidos e não recomenda votos. Todas as candidaturas aparecem com os mesmos campos, na mesma ordem (alfabética) e com o mesmo destaque. Não é propaganda eleitoral e não usa inteligência artificial para resumir, ordenar ou recomendar candidaturas. O site exibe anúncios comerciais (Google AdSense), sempre identificados como “Publicidade” e separados dos dados; anúncio nenhum influencia o conteúdo, e não aceitamos propaganda de candidaturas, partidos ou causas políticas. O aplicativo não exibe anúncios. Quem quiser pode apoiar o projeto com um Pix de qualquer valor, para ajudar a pagar os servidores; o apoio é voluntário, não dá vantagem nenhuma e não influencia o conteúdo.",
   "tipo": "exato",
   "arquivos": [
    "pages/legal/TermosPage.tsx"
@@ -16568,7 +16700,7 @@
   ]
  },
  {
-  "texto": "O site pode exibir espaços publicitários de empresas, sempre identificados como “Anúncio” e separados dos dados oficiais. Os anúncios são iguais para todos os visitantes: não usam o seu perfil, o seu histórico nem a sua localização, e não carregam pixels nem cookies de anunciantes. Se você clicar num anúncio, vai para o site do anunciante, que tem a própria política de privacidade. Os anunciantes recebem só números agregados de audiência, nunca dados de quem visita. Nunca exibimos propaganda de candidaturas, partidos, coligações, governos ou causas políticas (Lei nº 9.504/1997, art. 57-C).",
+  "texto": "O site exibe anúncios comerciais servidos pelo Google AdSense (Google LLC), sempre identificados como “Publicidade” e separados dos dados oficiais. Pedimos ao Google só anúncios não personalizados: eles não usam o seu perfil nem o seu histórico de navegação, apenas o conteúdo da página e a localização aproximada (cidade ou região). Mesmo assim, o Google usa cookies e identificadores próprios para limitar quantas vezes um anúncio aparece, evitar fraudes e contar resultados em números agregados, e pode tratar esses dados fora do Brasil (LGPD, art. 33), conforme a",
   "tipo": "exato",
   "arquivos": [
    "pages/legal/PrivacidadePage.tsx"
@@ -18156,6 +18288,13 @@
   ]
  },
  {
+  "texto": "Pix para a Faísca, que mantém o Tá na Urna.",
+  "tipo": "exato",
+  "arquivos": [
+   "components/apoio/ApoioPix.tsx"
+  ]
+ },
+ {
   "texto": "Plano Collor (1990)",
   "tipo": "exato",
   "arquivos": [
@@ -19089,6 +19228,13 @@
   ]
  },
  {
+  "texto": "Publicidade",
+  "tipo": "exato",
+  "arquivos": [
+   "components/anuncios/Anuncio.tsx"
+  ]
+ },
+ {
   "texto": "q",
   "tipo": "exato",
   "arquivos": [
@@ -19100,6 +19246,13 @@
   "tipo": "exato",
   "arquivos": [
    "components/stf/stf.ts"
+  ]
+ },
+ {
+  "texto": "QR Code do Pix para apoiar o Tá na Urna",
+  "tipo": "exato",
+  "arquivos": [
+   "components/apoio/ApoioPix.tsx"
   ]
  },
  {
@@ -20709,6 +20862,13 @@
   ]
  },
  {
+  "texto": "SAO PAULO",
+  "tipo": "exato",
+  "arquivos": [
+   "components/apoio/pix.ts"
+  ]
+ },
+ {
   "texto": "São Paulo",
   "tipo": "exato",
   "arquivos": [
@@ -20768,7 +20928,8 @@
   "texto": "script",
   "tipo": "exato",
   "arquivos": [
-   "analytics/medicao.ts"
+   "analytics/medicao.ts",
+   "components/anuncios/Anuncio.tsx"
   ]
  },
  {
@@ -23133,6 +23294,7 @@
   "texto": "true",
   "tipo": "exato",
   "arquivos": [
+   "components/anuncios/Anuncio.tsx",
    "components/brand/BossiniMark.tsx",
    "components/brand/FaiscaMark.tsx",
    "config/env.ts",
@@ -24099,6 +24261,13 @@
   "tipo": "exato",
   "arquivos": [
    "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "vertical",
+  "tipo": "exato",
+  "arquivos": [
+   "components/anuncios/Anuncio.tsx"
   ]
  },
  {
