@@ -186,7 +186,9 @@ export function PrivacidadePage() {
           <Link href="https://policies.google.com/technologies/ads?hl=pt-BR" target="_blank" rel="noopener noreferrer">
             explicação do Google sobre publicidade
           </Link>
-          . Base legal: o legítimo interesse em manter o serviço gratuito (LGPD, art. 7º, IX); um bloqueador de anúncios
+          . Quem acessa do Espaço Econômico Europeu, do Reino Unido ou da Suíça vê antes uma mensagem do Google pedindo
+          consentimento para esses cookies; sem ele, o Google exibe só anúncios limitados. Base legal: o legítimo
+          interesse em manter o serviço gratuito (LGPD, art. 7º, IX); um bloqueador de anúncios
           impede tudo isso sem atrapalhar o site. Se você clicar num anúncio, vai para o site do anunciante, que tem a
           própria política de privacidade. Não aceitamos propaganda de candidaturas, partidos, coligações, governos ou
           causas políticas (Lei nº 9.504/1997, art. 57-C): os anúncios de política ficam bloqueados no AdSense e, se algum
