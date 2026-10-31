@@ -150,8 +150,9 @@ const distancia = 'calc(50% + 600px + 32px)';
 
 /**
  * Anúncio e pedido de Pix em todas as páginas do site (nunca no app; o Pix só na área do Brasil).
- * Nas telas bem largas ficam em colunas fixas ao lado do conteúdo; nas outras, no fim da página,
- * antes do rodapé. A cada página nova, um anúncio novo.
+ * Nas telas bem largas ficam em colunas fixas ao lado do conteúdo, no alto; nas outras, o Pix vai
+ * numa faixa logo abaixo do topo (`PixNoTopo`), à vista sem rolar, e o anúncio fica no fim da
+ * página, antes do rodapé. A cada página nova, um anúncio novo.
  */
 function ApoioEPublicidade({ comPix }: { comPix: boolean }) {
   const { pathname } = useLocation();
@@ -161,15 +162,22 @@ function ApoioEPublicidade({ comPix }: { comPix: boolean }) {
     return (
       <>
         <Anuncio key={pathname} lateral sx={{ position: 'fixed', top: 96, left: distancia, width: largura }} />
-        {comPix && <ApoioPix sx={{ position: 'fixed', bottom: 32, right: distancia, width: largura }} />}
+        {comPix && <ApoioPix sx={{ position: 'fixed', top: 96, right: distancia, width: largura }} />}
       </>
     );
   return (
     <Container maxWidth="lg" sx={{ pb: 2 }}>
-      <Stack direction={{ xs: 'column', md: 'row' }} spacing={3} sx={{ alignItems: { md: 'flex-start' } }}>
-        <Anuncio key={pathname} sx={{ flex: 1, minWidth: 0 }} />
-        {comPix && <ApoioPix sx={{ width: { md: 300 }, flexShrink: 0 }} />}
-      </Stack>
+      <Anuncio key={pathname} />
+    </Container>
+  );
+}
+
+function PixNoTopo() {
+  const laterais = useMediaQuery(LATERAIS, { noSsr: true });
+  if (isNativeApp || laterais) return null;
+  return (
+    <Container maxWidth="lg" sx={{ pt: { xs: 2, md: 3 } }}>
+      <ApoioPix faixa />
     </Container>
   );
 }
@@ -245,6 +253,7 @@ export function PublicLayout() {
       <AplicarIdioma />
       {/* Página nova abre no topo; "voltar" devolve a posição anterior. */}
       <ScrollRestoration />
+      {!areaEua && <PixNoTopo />}
       <Container component="main" maxWidth="lg" sx={{ pt: { xs: 3, md: 4 }, pb: 6, flex: 1 }}>
         <PageTransition>
           <Outlet />

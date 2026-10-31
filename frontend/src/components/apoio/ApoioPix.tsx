@@ -8,7 +8,7 @@ import { PIX, codigoPix } from './pix';
 const CODIGO = codigoPix(PIX);
 
 /** QR em SVG (módulos escuros num fundo branco, com a margem de 4 módulos), legível também no tema escuro. */
-function QrPix({ lado }: { lado: number }) {
+function QrPix({ lado, sx }: { lado: number; sx?: object }) {
   const caminho = useMemo(() => {
     const m = matrizQr(CODIGO);
     let d = '';
@@ -22,18 +22,14 @@ function QrPix({ lado }: { lado: number }) {
       role="img"
       aria-label="QR Code do Pix para apoiar o Tá na Urna"
       shapeRendering="crispEdges"
-      sx={{ width: lado, height: lado, display: 'block', mx: 'auto', borderRadius: 2, bgcolor: '#FFFFFF' }}
+      sx={{ width: lado, height: lado, display: 'block', mx: 'auto', borderRadius: 2, bgcolor: '#FFFFFF', flexShrink: 0, ...sx }}
     >
       <path d={caminho.d} fill="#2A1263" />
     </Box>
   );
 }
 
-/**
- * Cartão "Apoie o Tá na Urna": QR Code e botão de copiar o Pix (de qualquer valor) para ajudar a
- * pagar os servidores. Só no site (o PublicLayout não o mostra no aplicativo).
- */
-export function ApoioPix({ sx }: { sx?: object }) {
+function useCopiaPix() {
   const [copia, setCopia] = useState<'nada' | 'feita' | 'falhou'>('nada');
 
   useEffect(() => {
@@ -50,6 +46,70 @@ export function ApoioPix({ sx }: { sx?: object }) {
       setCopia('falhou');
     }
   };
+  return { copia, copiar };
+}
+
+function BotaoCopiar({ copia, copiar, size, sx }: ReturnType<typeof useCopiaPix> & { size?: 'small'; sx?: object }) {
+  return (
+    <Button
+      variant="outlined"
+      size={size}
+      onClick={() => void copiar()}
+      startIcon={copia === 'feita' ? <CheckRounded /> : <ContentCopyRounded />}
+      sx={{ whiteSpace: 'nowrap', ...sx }}
+    >
+      {copia === 'feita' ? 'Código copiado!' : 'Copiar código Pix'}
+    </Button>
+  );
+}
+
+const legenda = (copia: string) =>
+  copia === 'falhou' ? `Chave aleatória: ${PIX.chave}` : 'Pix para a Faísca, que mantém o Tá na Urna.';
+
+/**
+ * Cartão "Apoie o Tá na Urna": QR Code e botão de copiar o Pix (de qualquer valor) para ajudar a
+ * pagar os servidores. Só no site (o PublicLayout não o mostra no aplicativo). `faixa` é a versão
+ * baixa, em linha, do alto das páginas: no celular sem o QR (ninguém escaneia a própria tela), só o
+ * botão de copiar.
+ */
+export function ApoioPix({ faixa = false, sx }: { faixa?: boolean; sx?: object }) {
+  const pix = useCopiaPix();
+
+  if (faixa)
+    return (
+      <Box
+        component="aside"
+        aria-labelledby="apoio-pix-titulo"
+        className="vi-chrome"
+        sx={{
+          display: 'flex',
+          flexWrap: { xs: 'wrap', sm: 'nowrap' },
+          alignItems: 'center',
+          gap: { xs: 1, sm: 2 },
+          px: 2,
+          py: 1.25,
+          borderRadius: 4,
+          border: 1,
+          borderColor: 'divider',
+          bgcolor: 'background.paper',
+          ...sx,
+        }}
+      >
+        <QrPix lado={64} sx={{ display: { xs: 'none', sm: 'block' }, mx: 0 }} />
+        <Box sx={{ flex: 1, minWidth: 0 }}>
+          <Typography id="apoio-pix-titulo" variant="subtitle2" component="h2" sx={{ fontWeight: 700 }}>
+            Apoie o Tá na Urna
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Gratuito e sem cadastro. Um Pix de qualquer valor ajuda a manter os servidores no ar.
+          </Typography>
+          <Typography variant="caption" color="text.secondary" component="p" sx={{ display: { xs: pix.copia === 'falhou' ? 'block' : 'none', md: 'block' } }}>
+            {legenda(pix.copia)}
+          </Typography>
+        </Box>
+        <BotaoCopiar {...pix} size="small" sx={{ width: { xs: '100%', sm: 'auto' } }} />
+      </Box>
+    );
 
   return (
     <Box
@@ -65,17 +125,9 @@ export function ApoioPix({ sx }: { sx?: object }) {
         Gratuito e sem cadastro. Um Pix de qualquer valor ajuda a manter os servidores no ar.
       </Typography>
       <QrPix lado={132} />
-      <Button
-        variant="outlined"
-        fullWidth
-        onClick={() => void copiar()}
-        startIcon={copia === 'feita' ? <CheckRounded /> : <ContentCopyRounded />}
-        sx={{ mt: 1.5 }}
-      >
-        {copia === 'feita' ? 'Código copiado!' : 'Copiar código Pix'}
-      </Button>
+      <BotaoCopiar {...pix} sx={{ mt: 1.5, width: '100%' }} />
       <Typography variant="caption" color="text.secondary" component="p" sx={{ mt: 1 }}>
-        {copia === 'falhou' ? `Chave aleatória: ${PIX.chave}` : 'Pix para a Faísca, que mantém o Tá na Urna.'}
+        {legenda(pix.copia)}
       </Typography>
     </Box>
   );

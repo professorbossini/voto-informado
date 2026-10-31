@@ -4560,6 +4560,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/anuncios/Anuncio.tsx",
+   "components/apoio/ApoioPix.tsx",
    "components/gastos/RankingList.tsx",
    "components/resultados/Evolucao.tsx",
    "components/urna/UrnaScreen.tsx",
@@ -15956,6 +15957,7 @@
    "components/ColorModeToggle.tsx",
    "components/PageTransition.tsx",
    "components/PaisMenu.tsx",
+   "components/apoio/ApoioPix.tsx",
    "components/brand/FaiscaCredito.tsx",
    "components/brand/FaiscaMark.tsx",
    "components/brand/PoweredByFaisca.tsx",
