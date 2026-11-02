@@ -18,3 +18,5 @@ frontend/coverage/
 
 # Apps (Capacitor)
 frontend/dist-app/
+.claude/settings.local.json
+.claude/worktrees/
