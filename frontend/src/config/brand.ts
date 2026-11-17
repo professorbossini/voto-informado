@@ -1,7 +1,7 @@
 import { env } from './env';
 
-/** Where the template lives, for the "feito com Faísca" badge. */
-export const FAISCA_REPO_URL = 'https://github.com/professorbossini/faisca-auth-starter';
+/** Where the "Powered by Faísca" credit points: Bossini Labs, the home of the Faísca template. */
+export const FAISCA_URL = 'https://bossinilabs.com.br';
 
 /** Accepted logo files in src/brand/, in order of preference. */
 export const LOGO_EXTENSIONS = ['svg', 'png', 'webp', 'avif', 'jpg', 'jpeg'] as const;

@@ -1,35 +1,25 @@
-import { useState } from 'react';
-import { Box, Link, Tooltip, Typography, type SxProps, type Theme } from '@mui/material';
-import { brand, FAISCA_REPO_URL } from '@/config/brand';
+import { Link, Tooltip, Typography, type SxProps, type Theme } from '@mui/material';
+import { brand, FAISCA_URL } from '@/config/brand';
 import { duration, easing } from '@/theme/motion';
-import { BossiniMark } from './BossiniMark';
-import { FaiscaMark } from './FaiscaMark';
+import { BossiniLabsMark } from './BossiniLabsMark';
 
 /**
- * "feito com Faísca" badge pinned to a bottom corner: a reminder that this app
- * was born from the Faísca template, with the Faísca and Bossini marks side by side.
+ * "Powered by Faísca" badge pinned to a bottom corner: a reminder that this app
+ * was born from the Faísca template, with the Bossini Labs icon; links to Bossini Labs.
  * VITE_SHOW_POWERED_BY=false hides it, but the LICENSE then requires an equivalent
  * visible credit elsewhere (e.g. a footer or an "About" page).
  */
 export function PoweredByFaisca({ sx }: { sx?: SxProps<Theme> }) {
-  const [hover, setHover] = useState(false);
   if (!brand.showPoweredBy) return null;
 
   return (
-    <Tooltip
-      title="Este app nasceu do template Faísca, de Rodrigo Bossini. Ver no GitHub"
-      placement="top-end"
-    >
+    <Tooltip title="Este app nasceu do template Faísca, da Bossini Labs" placement="top-end">
       <Link
-        href={FAISCA_REPO_URL}
+        href={FAISCA_URL}
         target="_blank"
         rel="noopener noreferrer"
         underline="none"
-        aria-label="Feito com Faísca, de Rodrigo Bossini (abre o repositório no GitHub)"
-        onMouseEnter={() => setHover(true)}
-        onMouseLeave={() => setHover(false)}
-        onFocus={() => setHover(true)}
-        onBlur={() => setHover(false)}
+        aria-label="Powered by Faísca, da Bossini Labs"
         sx={[
           (theme) => ({
             position: 'fixed',
@@ -41,7 +31,7 @@ export function PoweredByFaisca({ sx }: { sx?: SxProps<Theme> }) {
             gap: 1,
             height: 36,
             pl: 0.625,
-            // Compact (spark only) on phones so it doesn't cover content.
+            // Compact (icon only) on phones so it doesn't cover content.
             pr: { xs: 0.625, sm: 1.5 },
             borderRadius: 99,
             overflow: 'hidden',
@@ -82,35 +72,18 @@ export function PoweredByFaisca({ sx }: { sx?: SxProps<Theme> }) {
           ...(Array.isArray(sx) ? sx : [sx]),
         ]}
       >
-        <FaiscaMark size={26} animated={hover} />
+        <BossiniLabsMark size={26} />
         <Typography
           component="span"
           sx={{
             display: { xs: 'none', sm: 'inline' },
             fontSize: '0.8125rem',
-            fontWeight: 500,
+            fontWeight: 600,
             whiteSpace: 'nowrap',
           }}
         >
-          feito com{' '}
-          <Box
-            component="strong"
-            sx={(theme) => ({
-              fontWeight: 700,
-              fontVariationSettings: "'ROND' 100",
-              backgroundImage: `linear-gradient(90deg, ${theme.vars.palette.primary.main}, #7649CF)`,
-              backgroundClip: 'text',
-              WebkitBackgroundClip: 'text',
-              color: 'transparent',
-              ...theme.applyStyles('dark', {
-                backgroundImage: 'linear-gradient(90deg, #D4F45E, #BBA4EE)',
-              }),
-            })}
-          >
-            Faísca
-          </Box>
+          Powered by Faísca
         </Typography>
-        <BossiniMark size={22} />
       </Link>
     </Tooltip>
   );

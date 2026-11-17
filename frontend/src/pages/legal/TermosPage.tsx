@@ -1,6 +1,6 @@
 import { Link } from '@mui/material';
 import { Link as RouterLink } from 'react-router';
-import { FAISCA_REPO_URL } from '@/config/brand';
+import { FAISCA_URL } from '@/config/brand';
 import { LEGAL } from '@/config/legal';
 import { Contato, LegalDoc, P, Secao } from './LegalDoc';
 
@@ -83,7 +83,7 @@ export function TermosPage() {
         <P>
           Os dados vêm de portais de dados abertos e podem ser reutilizados conforme as regras de cada órgão. A interface
           foi construída com o template{' '}
-          <Link href={FAISCA_REPO_URL} target="_blank" rel="noopener noreferrer">
+          <Link href={FAISCA_URL} target="_blank" rel="noopener noreferrer">
             Faísca
           </Link>
           , de Rodrigo Bossini, sujeito à licença dele.

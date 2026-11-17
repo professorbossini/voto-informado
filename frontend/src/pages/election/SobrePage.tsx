@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import { Alert, Box, Card, CardContent, Divider, Grid, Link, Skeleton, Stack, Typography } from '@mui/material';
 import { Link as RouterLink } from 'react-router';
 import { FonteDetalhe } from '@/components/election/SourceNote';
-import { FAISCA_REPO_URL } from '@/config/brand';
+import { FAISCA_URL } from '@/config/brand';
 import { env } from '@/config/env';
 import { dateTime } from '@/data/format';
 import { useMeta } from '@/data/MetaContext';
@@ -170,7 +170,7 @@ export function SobrePage() {
         <Divider />
         <Typography variant="caption" color="text.secondary">
           Interface construída a partir do template{' '}
-          <Link href={FAISCA_REPO_URL} target="_blank" rel="noopener noreferrer">
+          <Link href={FAISCA_URL} target="_blank" rel="noopener noreferrer">
             Faísca
           </Link>{' '}
           de Rodrigo Bossini.

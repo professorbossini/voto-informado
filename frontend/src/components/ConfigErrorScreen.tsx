@@ -1,5 +1,6 @@
 import { Alert, AlertTitle, Box, Card, CardContent, Link, Stack, Typography } from '@mui/material';
 import type { ConfigError } from '@/config/env';
+import { FAISCA_URL } from '@/config/brand';
 import { FaiscaMark } from './brand/FaiscaMark';
 
 /** Friendly screen for misconfigured forks: tells exactly which variables are missing. */
@@ -28,12 +29,8 @@ export function ConfigErrorScreen({ error }: { error: ConfigError }) {
               reinicie o <code>npm run dev</code>. Para testar sem credenciais, use{' '}
               <code>VITE_AUTH_PROVIDER=mock</code>.
             </Typography>
-            <Link
-              href="https://github.com/professorbossini/faisca-auth-starter#configuração"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Ver o guia de configuração
+            <Link href={FAISCA_URL} target="_blank" rel="noopener noreferrer">
+              Conhecer a Bossini Labs
             </Link>
           </Stack>
         </CardContent>
