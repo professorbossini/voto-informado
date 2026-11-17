@@ -26,29 +26,33 @@ describe('brand placeholders', () => {
     expect(screen.getByText(/VITE_APP_LOGO_URL=/)).toBeInTheDocument();
   });
 
-  it('links the "Powered by Faísca" badge to Bossini Labs', () => {
+  it('links the corner badge to Bossini Labs, as the single image with the text embedded', () => {
     renderThemed(<PoweredByFaisca />);
     const link = screen.getByRole('link', { name: 'Powered by Faísca, da Bossini Labs' });
     expect(link).toHaveAttribute('href', FAISCA_URL);
     expect(FAISCA_URL).toBe('https://bossinilabs.com.br');
     expect(link).toHaveAttribute('target', '_blank');
     expect(link).toHaveAttribute('rel', expect.stringContaining('noopener'));
-    expect(link).toHaveTextContent('Powered by Faísca');
+    const img = screen.getByRole('img', { name: 'Bossini Labs · Powered by Faísca' });
+    expect(link).toContainElement(img);
+    expect(img).toHaveAttribute('height', '40');
+    expect(img).toHaveAttribute('width', '114');
+    expect(link).toHaveTextContent('');
   });
 
-  it('shows the Bossini Labs icon in the badge', () => {
-    renderThemed(<PoweredByFaisca />);
-    const link = screen.getByRole('link', { name: 'Powered by Faísca, da Bossini Labs' });
-    expect(link.querySelector('[data-marca="bossini-labs"]')).not.toBeNull();
-  });
-
-  it('credits Faísca in the footer as the Bossini Labs icon + "Powered by Faísca", linking to Bossini Labs', () => {
+  it('credits Faísca in the footer with only the Bossini Labs image, linking to Bossini Labs', () => {
     renderThemed(<FaiscaCredito />);
     const link = screen.getByRole('link', { name: 'Powered by Faísca, da Bossini Labs' });
     expect(link).toHaveAttribute('href', FAISCA_URL);
     expect(link).toHaveAttribute('target', '_blank');
     expect(link).toHaveAttribute('rel', expect.stringContaining('noopener'));
-    expect(link).toHaveTextContent('Powered by Faísca');
-    expect(link.querySelector('[data-marca="bossini-labs"]')).not.toBeNull();
+    const img = screen.getByRole('img', { name: 'Bossini Labs · Powered by Faísca' });
+    expect(link).toContainElement(img);
+    expect(img).toHaveAttribute('height', '48');
+    expect(img).toHaveAttribute('width', '137');
+    expect(img).toHaveAttribute('loading', 'lazy');
+    expect(img).toHaveAttribute('decoding', 'async');
+    expect(img.getAttribute('src')).toMatch(/bossini-labs-powered-by-faisca/);
+    expect(link).toHaveTextContent('');
   });
 });
