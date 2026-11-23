@@ -3,38 +3,44 @@
  *
  * O site chama POST /visita a cada página vista (carregamento e cada troca de rota). O Worker grava o
  * caminho (sem query nem fragmento), a origem de onde a pessoa veio, o IP e o local aproximado como a
- * própria Cloudflare os vê (request.cf: país, estado, cidade; ninguém consegue informar outro), o
- * navegador e um código anônimo do dia (hash de sal + dia + IP + navegador, sem cookie). Com login, guarda
- * só que a visita tinha login: NUNCA a conta (a Política de Privacidade promete não acompanhar o que cada
- * pessoa consulta, item 2). Nada de corpo, query, cookie ou token.
+ * própria Cloudflare os vê (request.cf: país, estado, cidade; ninguém consegue informar outro), o user
+ * agent e, já reconhecidos, navegador e sistema ("Chrome 142", "Windows 10"), mais um código anônimo do dia
+ * (hash de sal + dia + IP + navegador, sem cookie). Com login, guarda só que a visita tinha login: NUNCA a
+ * conta (a Política de Privacidade promete não acompanhar o que cada pessoa consulta, item 2). Nada de
+ * corpo, query, cookie ou token.
  *
  *   POST /visita          {caminho, origem?}  (Authorization: Bearer <ID token do Firebase>, opcional)
  *   GET  /eu              → {admin}           (com token)
- *   GET  /admin/visitas   ?caminho=&quem=todos|login → {visitas, resumo, top, retencaoMeses}  (só admin)
- *   cron (de hora em hora): apaga o que passou de RETENCAO_MESES.
+ *   GET  /admin/visitas   ?caminho=&quem=todos|login → {visitas, resumo, top, retencao}  (só admin)
+ *   cron (de hora em hora): aplica a retenção (aposentar, abaixo).
  *
  * Admins: e-mails verificados da variável ADMIN_EMAILS (wrangler.jsonc), com login Google no Firebase
  * do site (projeto FIREBASE_PROJECT).
  */
+import { describeAgent } from '../../../frontend/src/analytics/visitante.ts';
 
 /**
- * Por quantos meses as visitas ficam guardadas (decisão do responsável em 23/11/2026, o mesmo prazo do
- * registro de acessos dos outros projetos). É o prazo que a Política de Privacidade (item 7) informa:
- * mudar aqui exige mudar a política junto.
+ * Retenção das visitas (decisão do responsável em 23/11/2026), o que a Política de Privacidade (item 7)
+ * informa; mudar aqui exige mudar a política junto:
+ *  - MESES_COM_IP: depois disso a visita perde o IP e o user agent bruto (ficam caminho, local, navegador,
+ *    sistema, origem, "com login" e data);
+ *  - MESES_DETALHADA: depois disso a visita é somada na tabela anônima visitas_estatistica (por dia,
+ *    caminho, local, navegador, sistema, origem e "com login"; sem IP nem código de visitante), que fica
+ *    para sempre, e apagada.
  */
-export const RETENCAO_MESES = 12;
+export const RETENCAO = { MESES_COM_IP: 7, MESES_DETALHADA: 12 };
 
-/** Momento antes do qual uma visita já passou do prazo. */
-export function limiteRetencao(agora = new Date()) {
+/** O mesmo instante, `meses` meses antes, como texto ISO comparável. */
+export function mesesAntes(agora, meses) {
   const d = new Date(agora.getTime());
-  d.setUTCMonth(d.getUTCMonth() - RETENCAO_MESES);
-  return d;
+  d.setUTCMonth(d.getUTCMonth() - meses);
+  return isoSegundos(d);
 }
 
 const SITE = 'https://www.tanaurna.com.br';
 const ORIGENS = [/^https:\/\/(www\.)?tanaurna\.com\.br$/, /^https:\/\/tanaurna-site\.insta-publisher\.workers\.dev$/, /^http:\/\/localhost(:\d+)?$/];
 
-const ESQUEMA = [
+export const ESQUEMA = [
   'CREATE TABLE IF NOT EXISTS config (chave TEXT PRIMARY KEY, valor TEXT)',
   `CREATE TABLE IF NOT EXISTS visitas (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -46,11 +52,49 @@ const ESQUEMA = [
     pais TEXT,
     regiao TEXT,
     cidade TEXT,
+    user_agent TEXT,
     navegador TEXT,
+    sistema TEXT,
     criado_em TEXT NOT NULL
   )`,
   'CREATE INDEX IF NOT EXISTS ix_visitas_criado ON visitas (criado_em)',
+  // Estatística anônima e permanente. Campos sem valor ficam '' (NULL não conta como igual na chave).
+  `CREATE TABLE IF NOT EXISTS visitas_estatistica (
+    dia TEXT NOT NULL,
+    caminho TEXT NOT NULL,
+    pais TEXT NOT NULL DEFAULT '',
+    regiao TEXT NOT NULL DEFAULT '',
+    cidade TEXT NOT NULL DEFAULT '',
+    navegador TEXT NOT NULL DEFAULT '',
+    sistema TEXT NOT NULL DEFAULT '',
+    origem TEXT NOT NULL DEFAULT '',
+    com_login INTEGER NOT NULL DEFAULT 0,
+    visitas INTEGER NOT NULL,
+    PRIMARY KEY (dia, caminho, pais, regiao, cidade, navegador, sistema, origem, com_login)
+  )`,
 ];
+
+/**
+ * Aplica a retenção. A soma e o apagamento das visitas antigas vão num único batch do D1 (uma transação),
+ * com o mesmo limite: rodar de novo não acha mais nada para somar, então nada conta em dobro.
+ */
+export async function aposentar(env, agora = new Date()) {
+  const semIp = mesesAntes(agora, RETENCAO.MESES_COM_IP);
+  const limite = mesesAntes(agora, RETENCAO.MESES_DETALHADA);
+  await env.DB.batch([
+    env.DB.prepare('UPDATE visitas SET ip = NULL, user_agent = NULL WHERE criado_em < ? AND (ip IS NOT NULL OR user_agent IS NOT NULL)').bind(semIp),
+    env.DB.prepare(
+      `INSERT INTO visitas_estatistica (dia, caminho, pais, regiao, cidade, navegador, sistema, origem, com_login, visitas)
+       SELECT substr(criado_em, 1, 10), caminho, coalesce(pais, ''), coalesce(regiao, ''), coalesce(cidade, ''),
+              coalesce(navegador, ''), coalesce(sistema, ''), coalesce(origem, ''), com_login, COUNT(*)
+       FROM visitas WHERE criado_em < ?
+       GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9
+       ON CONFLICT (dia, caminho, pais, regiao, cidade, navegador, sistema, origem, com_login)
+       DO UPDATE SET visitas = visitas_estatistica.visitas + excluded.visitas`,
+    ).bind(limite),
+    env.DB.prepare('DELETE FROM visitas WHERE criado_em < ?').bind(limite),
+  ]);
+}
 
 /* ------------------------------------------------------------------ utilidades puras (testadas) */
 
@@ -207,22 +251,19 @@ async function registrar(req, env) {
   const ip = req.headers.get('cf-connecting-ip');
   if (ip && excedeu(ip)) return json(req, { ok: true, ignorado: true });
   const ua = texto(req.headers.get('user-agent'), 300);
+  const reconhecido = describeAgent(ua);
+  const agente = { browser: reconhecido.browser === '–' ? null : reconhecido.browser, os: reconhecido.os === '–' ? null : reconhecido.os };
   const cf = req.cf ?? {};
   const token = tokenDe(req);
   const comLogin = token ? Boolean(await verificarToken(token, env.FIREBASE_PROJECT)) : false;
   const agora = new Date();
   const visitante = await codigoVisitante(await sal(env), agora.toISOString().slice(0, 10), ip, ua);
   await env.DB.prepare(
-    'INSERT INTO visitas (visitante, com_login, caminho, origem, ip, pais, regiao, cidade, navegador, criado_em) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+    'INSERT INTO visitas (visitante, com_login, caminho, origem, ip, pais, regiao, cidade, user_agent, navegador, sistema, criado_em) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
   )
-    .bind(visitante, comLogin ? 1 : 0, caminho, origemDe(b?.origem), ip, texto(cf.country, 8), texto(cf.region), texto(cf.city), ua, isoSegundos(agora))
+    .bind(visitante, comLogin ? 1 : 0, caminho, origemDe(b?.origem), ip, texto(cf.country, 8), texto(cf.region), texto(cf.city), ua, agente.browser, agente.os, isoSegundos(agora))
     .run();
   return json(req, { ok: true });
-}
-
-export async function apagarAntigas(env, agora = new Date()) {
-  const limite = isoSegundos(limiteRetencao(agora));
-  await env.DB.prepare('DELETE FROM visitas WHERE criado_em < ?').bind(limite).run();
 }
 
 async function listar(req, env, url) {
@@ -233,7 +274,7 @@ async function listar(req, env, url) {
   const soLogin = url.searchParams.get('quem') === 'login' ? 1 : 0;
   const [visitas, resumo, top] = await env.DB.batch([
     env.DB.prepare(
-      `SELECT id, visitante, com_login AS comLogin, caminho, origem, ip, pais, regiao, cidade, navegador, criado_em AS criadoEm
+      `SELECT id, visitante, com_login AS comLogin, caminho, origem, ip, pais, regiao, cidade, navegador, sistema, criado_em AS criadoEm
        FROM visitas WHERE lower(caminho) LIKE ? AND (? = 0 OR com_login = 1) ORDER BY id DESC LIMIT 200`,
     ).bind(caminho, soLogin),
     env.DB.prepare(
@@ -258,7 +299,7 @@ async function listar(req, env, url) {
       comLogin7d: r.comLogin7d ?? 0,
     },
     top: top.results,
-    retencaoMeses: RETENCAO_MESES,
+    retencao: RETENCAO,
   });
 }
 
@@ -285,6 +326,6 @@ export default {
 
   async scheduled(_evento, env) {
     await preparar(env);
-    await apagarAntigas(env);
+    await aposentar(env);
   },
 };

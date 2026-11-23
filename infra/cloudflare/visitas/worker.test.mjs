@@ -1,7 +1,8 @@
 // Testes do Worker de visitas: node --test infra/cloudflare/visitas
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import worker, { codigoVisitante, ehAdmin, limiteRetencao, limparCaminho, listaAdmins, origemDe, RETENCAO_MESES, verificarToken } from './worker.js';
+import { DatabaseSync } from 'node:sqlite';
+import worker, { aposentar, codigoVisitante, ehAdmin, ESQUEMA, limparCaminho, listaAdmins, mesesAntes, origemDe, RETENCAO, verificarToken } from './worker.js';
 
 test('caminho sem query nem fragmento, só do próprio site', () => {
   assert.equal(limparCaminho('/candidato/123?x=1#y'), '/candidato/123');
@@ -27,9 +28,66 @@ test('código do visitante muda com o dia e não revela o IP', async () => {
   assert.ok(!a.includes('1.2.3.4'));
 });
 
-test('retenção de 12 meses', () => {
-  assert.equal(RETENCAO_MESES, 12);
-  assert.equal(limiteRetencao(new Date('2026-11-23T10:00:00Z')).toISOString(), '2025-11-23T10:00:00.000Z');
+test('prazos: 7 meses com IP, 12 meses detalhada', () => {
+  assert.deepEqual(RETENCAO, { MESES_COM_IP: 7, MESES_DETALHADA: 12 });
+  assert.equal(mesesAntes(new Date('2026-11-23T10:00:00Z'), 12), '2025-11-23T10:00:00Z');
+  assert.equal(mesesAntes(new Date('2026-11-23T10:00:00Z'), 7), '2026-04-23T10:00:00Z');
+});
+
+// D1 de verdade o bastante: SQLite do Node, com batch numa transação (como o D1).
+function sqlite() {
+  const db = new DatabaseSync(':memory:');
+  const prepare = (sql) => {
+    let args = [];
+    const st = {
+      bind: (...a) => ((args = a), st),
+      run: async () => db.prepare(sql).run(...args),
+      first: async () => db.prepare(sql).get(...args) ?? null,
+      all: async () => ({ results: db.prepare(sql).all(...args) }),
+      _exec: () => (/^\s*(SELECT|WITH)/i.test(sql) ? { results: db.prepare(sql).all(...args) } : (db.prepare(sql).run(...args), { results: [] })),
+    };
+    return st;
+  };
+  const batch = async (l) => {
+    db.exec('BEGIN');
+    try {
+      const r = l.map((s) => s._exec());
+      db.exec('COMMIT');
+      return r;
+    } catch (e) {
+      db.exec('ROLLBACK');
+      throw e;
+    }
+  };
+  return { db, prepare, batch };
+}
+
+test('retenção: tira IP aos 7 meses, soma e apaga aos 12, sem contar em dobro', async () => {
+  const DB = sqlite();
+  await DB.batch(ESQUEMA.map((s) => DB.prepare(s)));
+  const ins = DB.db.prepare('INSERT INTO visitas (visitante, com_login, caminho, origem, ip, pais, regiao, cidade, user_agent, navegador, sistema, criado_em) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+  const linha = (quando, v = 'a', login = 0) => ins.run(v, login, '/mapa', null, '1.2.3.4', 'BR', 'São Paulo', 'Campinas', 'UA', 'Chrome 142', 'Windows 10', quando);
+  linha('2025-10-01T10:00:00Z', 'a');
+  linha('2025-10-01T11:00:00Z', 'b');
+  linha('2025-10-01T12:00:00Z', 'c', 1);
+  linha('2026-03-01T10:00:00Z'); // 8 meses: perde IP
+  linha('2026-11-01T10:00:00Z'); // recente: intacta
+  const agora = new Date('2026-11-23T10:00:00Z');
+  await aposentar({ DB }, agora);
+  await aposentar({ DB }, agora); // de novo: idempotente
+  const restantes = DB.db.prepare('SELECT criado_em, ip, user_agent, navegador, cidade FROM visitas ORDER BY criado_em').all();
+  assert.equal(restantes.length, 2);
+  assert.deepEqual({ ...restantes[0] }, { criado_em: '2026-03-01T10:00:00Z', ip: null, user_agent: null, navegador: 'Chrome 142', cidade: 'Campinas' });
+  assert.equal(restantes[1].ip, '1.2.3.4');
+  const stats = DB.db.prepare('SELECT * FROM visitas_estatistica ORDER BY com_login').all().map((r) => ({ ...r }));
+  assert.deepEqual(stats, [
+    { dia: '2025-10-01', caminho: '/mapa', pais: 'BR', regiao: 'São Paulo', cidade: 'Campinas', navegador: 'Chrome 142', sistema: 'Windows 10', origem: '', com_login: 0, visitas: 2 },
+    { dia: '2025-10-01', caminho: '/mapa', pais: 'BR', regiao: 'São Paulo', cidade: 'Campinas', navegador: 'Chrome 142', sistema: 'Windows 10', origem: '', com_login: 1, visitas: 1 },
+  ]);
+  // Mais visitas do mesmo dia somam na mesma linha.
+  linha('2025-10-01T13:00:00Z', 'd');
+  await aposentar({ DB }, agora);
+  assert.equal(DB.db.prepare('SELECT visitas FROM visitas_estatistica WHERE com_login = 0').get().visitas, 3);
 });
 
 test('admins: só e-mails da lista, verificados', () => {
@@ -87,15 +145,17 @@ test('POST /visita grava caminho limpo e local da Cloudflare, sem query', async 
   const DB = d1();
   const req = new Request('https://w/visita', {
     method: 'POST',
-    headers: { origin: 'https://www.tanaurna.com.br', 'cf-connecting-ip': '200.1.2.3', 'user-agent': 'Mozilla/5.0', 'content-type': 'application/json' },
+    headers: { origin: 'https://www.tanaurna.com.br', 'cf-connecting-ip': '200.1.2.3', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', 'content-type': 'application/json' },
     body: JSON.stringify({ caminho: '/candidato/1?cpf=x', origem: 'https://t.co/abc?x=1' }),
   });
   Object.defineProperty(req, 'cf', { value: { country: 'BR', region: 'São Paulo', city: 'Campinas' } });
   const r = await worker.fetch(req, { DB, FIREBASE_PROJECT: 'p1', ADMIN_EMAILS: '' });
   assert.equal(r.status, 200);
-  const [visitante, comLogin, caminho, origem, ip, pais, regiao, cidade] = DB.gravados[0];
+  const [visitante, comLogin, caminho, origem, ip, pais, regiao, cidade, ua, navegador, sistema] = DB.gravados[0];
   assert.equal(visitante.length, 16);
   assert.deepEqual([comLogin, caminho, origem, ip, pais, regiao, cidade], [0, '/candidato/1', 'https://t.co', '200.1.2.3', 'BR', 'São Paulo', 'Campinas']);
+  assert.ok(ua.startsWith('Mozilla/5.0 (Windows'));
+  assert.deepEqual([navegador, sistema], ['Chrome 142', 'Windows 10']);
 });
 
 test('POST /visita de outra origem é recusado; admin exige login', async () => {
