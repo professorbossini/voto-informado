@@ -9,7 +9,8 @@
  * conta (a Política de Privacidade promete não acompanhar o que cada pessoa consulta, item 2). Nada de
  * corpo, query, cookie ou token.
  *
- *   POST /visita          {caminho, origem?}  (Authorization: Bearer <ID token do Firebase>, opcional)
+ *   POST /visita          {caminho, origem?, dicas?}  (Authorization: Bearer <ID token do Firebase>, opcional;
+ *                         dicas = Client Hints do navegador, para a versão exata do sistema e do navegador)
  *   GET  /eu              → {admin}           (com token)
  *   GET  /admin/visitas   ?caminho=&quem=todos|login → {visitas, resumo, top, retencao}  (só admin)
  *   cron (de hora em hora): aplica a retenção (aposentar, abaixo).
@@ -136,6 +137,49 @@ export const listaAdmins = (v) =>
     .map((e) => e.trim().toLowerCase())
     .filter(Boolean);
 
+/* ------------------------------------------------------------------ Client Hints (versão exata) */
+
+const curto = (v, max) => (typeof v === 'string' && v.trim() && v.length <= max && /^[\w .,()\-;:/+]*$/.test(v) ? v.trim() : null);
+
+/** Valida as dicas que o navegador mandou (navigator.userAgentData). Qualquer coisa estranha é ignorada. */
+export function dicasValidas(d) {
+  if (!d || typeof d !== 'object') return null;
+  const marcas = Array.isArray(d.marcas)
+    ? d.marcas
+        .slice(0, 6)
+        .map((m) => ({ brand: curto(m?.brand, 40), version: curto(m?.version, 32) }))
+        .filter((m) => m.brand && m.version)
+    : [];
+  return { platform: curto(d.platform, 32), platformVersion: curto(d.platformVersion, 32), model: curto(d.model, 64), marcas };
+}
+
+const NOMES_MARCA = { 'Google Chrome': 'Chrome', 'Microsoft Edge': 'Edge', 'Opera': 'Opera', 'Brave': 'Brave', 'Samsung Internet': 'Samsung Internet', 'YaBrowser': 'Yandex' };
+
+/**
+ * Navegador e sistema com a versão exata quando há Client Hints: o user agent não separa Windows 10 de 11,
+ * congela o macOS em 10.15.7 e não traz o modelo do Android. Sem dicas, fica o que o user agent diz.
+ */
+export function refinarAgente(base, dicas) {
+  const d = dicasValidas(dicas);
+  if (!d || !base.browser || base.browser.startsWith('Robô')) return base;
+  let { browser, os } = base;
+  const reais = d.marcas.filter((m) => !/not.?a.?brand/i.test(m.brand));
+  const marca = reais.find((m) => m.brand !== 'Chromium') ?? reais[0];
+  if (marca) browser = `${NOMES_MARCA[marca.brand] ?? marca.brand} ${marca.version}`;
+  const major = Number.parseInt(d.platformVersion ?? '', 10);
+  if (d.platform === 'Windows' && Number.isFinite(major)) {
+    if (major >= 13) os = 'Windows 11';
+    else if (major >= 1) os = 'Windows 10';
+  } else if (d.platform === 'macOS' && d.platformVersion) {
+    os = `macOS ${d.platformVersion.replace(/(\.0)+$/, '')}`;
+  } else if (d.platform === 'Android') {
+    const versao = d.platformVersion ? d.platformVersion.replace(/(\.0)+$/, '') : null;
+    const sistema = versao ? `Android ${versao}` : (os ?? 'Android');
+    os = d.model ? `${sistema} (${d.model})` : sistema;
+  }
+  return { browser, os };
+}
+
 /* ------------------------------------------------------------------ ID token do Firebase */
 
 const JWKS_FIREBASE = 'https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com';
@@ -251,7 +295,7 @@ async function registrar(req, env) {
   const ip = req.headers.get('cf-connecting-ip');
   if (ip && excedeu(ip)) return json(req, { ok: true, ignorado: true });
   const ua = texto(req.headers.get('user-agent'), 300);
-  const reconhecido = describeAgent(ua);
+  const reconhecido = refinarAgente(describeAgent(ua), b?.dicas);
   const agente = { browser: reconhecido.browser === '–' ? null : reconhecido.browser, os: reconhecido.os === '–' ? null : reconhecido.os };
   const cf = req.cf ?? {};
   const token = tokenDe(req);
@@ -266,6 +310,28 @@ async function registrar(req, env) {
   return json(req, { ok: true });
 }
 
+/**
+ * Ordenação da tabela da página Visitas, no servidor: só estas colunas (lista branca), cada uma já em SQL.
+ * Quem: com login ou não (a conta não é guardada; decrescente põe os com login primeiro), depois o código. Local: país, estado, cidade.
+ * Campos vazios vão sempre para o fim.
+ */
+const ORDENS = {
+  quando: ['criado_em'],
+  quem: ['com_login', 'visitante'],
+  pagina: ['caminho'],
+  origem: ['origem'],
+  local: ['pais', 'regiao', 'cidade'],
+  navegador: ['navegador'],
+  sistema: ['sistema'],
+  ip: ['ip'],
+};
+
+export function ordemSql(sort, dir) {
+  const cols = ORDENS[sort] ?? ORDENS.quando;
+  const sentido = dir === 'asc' ? 'ASC' : 'DESC';
+  return `${cols.map((c) => `${c} IS NULL, ${c} ${sentido}`).join(', ')}, id ${sentido}`;
+}
+
 async function listar(req, env, url) {
   const agora = new Date();
   const h24 = isoSegundos(new Date(agora.getTime() - 86_400_000));
@@ -275,7 +341,8 @@ async function listar(req, env, url) {
   const [visitas, resumo, top] = await env.DB.batch([
     env.DB.prepare(
       `SELECT id, visitante, com_login AS comLogin, caminho, origem, ip, pais, regiao, cidade, navegador, sistema, criado_em AS criadoEm
-       FROM visitas WHERE lower(caminho) LIKE ? AND (? = 0 OR com_login = 1) ORDER BY id DESC LIMIT 200`,
+       FROM visitas WHERE lower(caminho) LIKE ? AND (? = 0 OR com_login = 1)
+       ORDER BY ${ordemSql(url.searchParams.get('sort'), url.searchParams.get('dir'))} LIMIT 200`,
     ).bind(caminho, soLogin),
     env.DB.prepare(
       `SELECT

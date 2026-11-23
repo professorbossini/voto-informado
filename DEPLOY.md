@@ -106,3 +106,16 @@ npx vite build
   Code ao lado do anúncio, só na área do Brasil do site.
 - O site não tem enquetes, rankings de "mais acessados" nem uso de IA para ordenar ou recomendar
   candidaturas (Res. TSE 23.755/2026).
+
+## Registro de visitas e página Visitas (admin)
+
+- Worker `tanaurna-visitas` (`infra/cloudflare/visitas`, banco D1 `tanaurna-visitas`), publicado com
+  `make visitas` (testes + `wrangler deploy`; precisa do `wrangler login` na conta da Cloudflare do projeto).
+  Endereço: https://tanaurna-visitas.insta-publisher.workers.dev (o site usa esse por padrão; `VITE_VISITAS_URL` troca).
+- O site manda `POST /visita` a cada página vista (só no site, nunca no app). Local aproximado vem de
+  `request.cf` da própria Cloudflare. A conta de quem está com login nunca é gravada, só que havia login.
+- Página **Visitas** em https://www.tanaurna.com.br/admin/visitas (menu da conta, só para admin). Admins:
+  `ADMIN_EMAILS` em `infra/cloudflare/visitas/wrangler.jsonc` (login Google do Firebase do site).
+- Retenção em `RETENCAO` no `worker.js` (cron de hora em hora): IP e user agent saem aos 7 meses; aos 12 a
+  visita vira estatística anônima em `visitas_estatistica` (para sempre) e é apagada. Mudou o prazo, mude o
+  item 7 da Política de Privacidade e `VISITAS_RESUMO` em `frontend/src/config/legal.ts`.

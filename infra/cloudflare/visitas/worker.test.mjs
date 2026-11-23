@@ -2,7 +2,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { DatabaseSync } from 'node:sqlite';
-import worker, { aposentar, codigoVisitante, ehAdmin, ESQUEMA, limparCaminho, listaAdmins, mesesAntes, origemDe, RETENCAO, verificarToken } from './worker.js';
+import worker, { refinarAgente, ordemSql, aposentar, codigoVisitante, ehAdmin, ESQUEMA, limparCaminho, listaAdmins, mesesAntes, origemDe, RETENCAO, verificarToken } from './worker.js';
 
 test('caminho sem query nem fragmento, só do próprio site', () => {
   assert.equal(limparCaminho('/candidato/123?x=1#y'), '/candidato/123');
@@ -165,4 +165,37 @@ test('POST /visita de outra origem é recusado; admin exige login', async () => 
   assert.equal(fora.status, 403);
   assert.equal(DB.gravados.length, 0);
   assert.equal((await worker.fetch(new Request('https://w/admin/visitas'), env)).status, 401);
+});
+
+test('ordenação: só colunas da lista branca, padrão Quando desc', () => {
+  assert.equal(ordemSql(undefined, undefined), 'criado_em IS NULL, criado_em DESC, id DESC');
+  assert.equal(ordemSql('local', 'asc'), 'pais IS NULL, pais ASC, regiao IS NULL, regiao ASC, cidade IS NULL, cidade ASC, id ASC');
+  assert.equal(ordemSql('ip; DROP TABLE visitas', 'asc; --'), 'criado_em IS NULL, criado_em DESC, id DESC');
+});
+
+test('ordenação: todo SQL gerado roda no SQLite', async () => {
+  const DB = sqlite();
+  await DB.batch(ESQUEMA.map((s) => DB.prepare(s)));
+  DB.db.prepare("INSERT INTO visitas (visitante, com_login, caminho, pais, criado_em) VALUES ('a', 0, '/x', 'BR', '2026-11-01T00:00:00Z'), ('b', 1, '/y', NULL, '2026-11-02T00:00:00Z')").run();
+  for (const sort of ['quando', 'quem', 'pagina', 'origem', 'local', 'navegador', 'sistema', 'ip'])
+    for (const dir of ['asc', 'desc']) assert.equal(DB.db.prepare(`SELECT id FROM visitas ORDER BY ${ordemSql(sort, dir)}`).all().length, 2);
+  assert.equal(DB.db.prepare(`SELECT visitante FROM visitas ORDER BY ${ordemSql('quem', 'desc')}`).get().visitante, 'b');
+  assert.equal(DB.db.prepare(`SELECT visitante FROM visitas ORDER BY ${ordemSql('local', 'desc')}`).get().visitante, 'a');
+});
+
+test('Client Hints: versão exata do sistema e do navegador', () => {
+  const chrome = { browser: 'Chrome 142', os: 'Windows 10' };
+  const marcas = [{ brand: 'Not_A Brand', version: '99.0.0.0' }, { brand: 'Chromium', version: '142.0.7444.60' }, { brand: 'Google Chrome', version: '142.0.7444.60' }];
+  assert.deepEqual(refinarAgente(chrome, { platform: 'Windows', platformVersion: '19.0.0', marcas }), { browser: 'Chrome 142.0.7444.60', os: 'Windows 11' });
+  assert.equal(refinarAgente(chrome, { platform: 'Windows', platformVersion: '10.0.0' }).os, 'Windows 10');
+  assert.equal(refinarAgente({ browser: 'Chrome 142', os: 'macOS' }, { platform: 'macOS', platformVersion: '15.1.0' }).os, 'macOS 15.1');
+  assert.equal(refinarAgente({ browser: 'Chrome 142', os: 'Android 10' }, { platform: 'Android', platformVersion: '14.0.0', model: 'Pixel 8' }).os, 'Android 14 (Pixel 8)');
+  assert.equal(
+    refinarAgente(chrome, { marcas: [{ brand: 'Chromium', version: '141.0.1' }, { brand: 'Microsoft Edge', version: '141.0.3537.71' }, { brand: 'Not?A_Brand', version: '8' }] }).browser,
+    'Edge 141.0.3537.71',
+  );
+  // Sem dicas (Firefox, Safari), dicas inválidas ou robô: fica o user agent.
+  assert.deepEqual(refinarAgente(chrome, undefined), chrome);
+  assert.deepEqual(refinarAgente(chrome, { platform: '<script>', platformVersion: 'x'.repeat(50) }), chrome);
+  assert.deepEqual(refinarAgente({ browser: 'Robô curl', os: '–' }, { platform: 'Windows', platformVersion: '19' }), { browser: 'Robô curl', os: '–' });
 });
