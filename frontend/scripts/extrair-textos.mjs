@@ -7,7 +7,7 @@ import path from 'path';
 import ts from 'typescript';
 
 const RAIZ = path.resolve(import.meta.dirname, '../src');
-const IGNORAR = /(\.test\.|__fixtures__|\/i18n\/|\/auth\/|\/pages\/auth\/|ComponentsPage|AccountPage|brand\/BrandSetupDialog)/;
+const IGNORAR = /(\.test\.|__fixtures__|\/i18n\/|\/auth\/|\/pages\/auth\/|\/pages\/admin\/|\/analytics\/visita|ComponentsPage|AccountPage|brand\/BrandSetupDialog)/;
 const textos = new Map(); // texto → {tipo, arquivos}
 
 const pareceTexto = (s) => /[A-Za-zÀ-ÿ]{2,}/.test(s) && !/^[a-z0-9_.:/#?=&@-]+$/i.test(s.trim()) && !/^(https?:|\/|#|vi:|mui-|[A-Z_]+$)/.test(s.trim()) && /\s|[À-ÿ]/.test(s.trim());

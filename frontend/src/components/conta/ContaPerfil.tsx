@@ -26,12 +26,14 @@ import LogoutRounded from '@mui/icons-material/LogoutRounded';
 import DeleteForeverRounded from '@mui/icons-material/DeleteForeverRounded';
 import KeyRounded from '@mui/icons-material/KeyRounded';
 import CloudDoneRounded from '@mui/icons-material/CloudDoneRounded';
-import { Link as RouterLink } from 'react-router';
+import InsightsRounded from '@mui/icons-material/InsightsRounded';
+import { Link as RouterLink, useNavigate } from 'react-router';
 import { useAuth } from '@/auth';
 import { GoogleIcon } from '@/components/GoogleIcon';
 import { UserAvatar } from '@/components/UserAvatar';
 import { useNotify } from '@/components/feedback/notificationsContext';
 import { Sincronizador, type EstadoSync } from '@/data/sync/perfil';
+import { useEhAdmin } from '@/analytics/visitas';
 
 const CONSENT_KEY = 'vi:consentimento-login';
 
@@ -160,6 +162,8 @@ export function ContaPerfil() {
   const [fraseAberta, setFraseAberta] = useState(true);
   const [menu, setMenu] = useState<HTMLElement | null>(null);
   const sync = useRef<Sincronizador | null>(null);
+  const admin = useEhAdmin();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (status !== 'authenticated' || !user) return;
@@ -280,6 +284,19 @@ export function ContaPerfil() {
               <KeyRounded fontSize="small" />
             </ListItemIcon>
             {estado.fase === 'criar-frase' ? 'Criar frase e sincronizar' : 'Digitar a frase neste aparelho'}
+          </MenuItem>
+        )}
+        {admin && (
+          <MenuItem
+            onClick={() => {
+              setMenu(null);
+              void navigate('/admin/visitas');
+            }}
+          >
+            <ListItemIcon>
+              <InsightsRounded fontSize="small" />
+            </ListItemIcon>
+            Visitas
           </MenuItem>
         )}
         <MenuItem onClick={() => void apagar()}>

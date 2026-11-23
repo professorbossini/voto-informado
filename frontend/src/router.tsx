@@ -102,6 +102,20 @@ export const router = createBrowserRouter([
       ...(env.enableLogin
         ? [
             {
+              // Página Visitas: só os admins recebem os dados (o Worker tanaurna-visitas confere o e-mail).
+              path: '/admin/visitas',
+              lazy: async () => {
+                const { VisitasPage } = await importarComRecarga(() => import('@/pages/admin/VisitasPage'));
+                return {
+                  Component: () => (
+                    <RequireAuth>
+                      <VisitasPage />
+                    </RequireAuth>
+                  ),
+                };
+              },
+            },
+            {
               path: '/account',
               element: (
                 <RequireAuth>

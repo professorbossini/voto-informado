@@ -30,6 +30,7 @@ import VerifiedRounded from '@mui/icons-material/VerifiedRounded';
 import { Link as RouterLink, NavLink, Outlet, useLocation, useNavigate, ScrollRestoration } from 'react-router';
 import { FaiscaCredito } from '@/components/brand/FaiscaCredito';
 import { AvisoMedicao, ContagemDePaginas, LinkPreferenciasMedicao } from '@/components/AvisoMedicao';
+import { RegistroDeVisitas } from '@/analytics/visitas';
 import { Anuncio } from '@/components/anuncios/Anuncio';
 import { ApoioPix } from '@/components/apoio/ApoioPix';
 import { ShareButton } from '@/components/share/ShareButton';
@@ -264,6 +265,7 @@ export function PublicLayout() {
       {areaEua ? <RodapeEua /> : <Footer />}
       <AvisoMedicao />
       <ContagemDePaginas />
+      <RegistroDeVisitas />
 
       <Paper
         component="nav"

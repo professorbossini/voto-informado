@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Button, Link, Paper, Stack, Typography } from '@mui/material';
 import InsightsRounded from '@mui/icons-material/InsightsRounded';
 import { Link as RouterLink, useLocation } from 'react-router';
+import { VISITAS_RESUMO } from '@/config/legal';
 import { abrirPreferencias, escolher, medicaoDisponivel, paginaVista, useAvisoMedicao } from '@/analytics/medicao';
 
 /**
@@ -32,6 +33,9 @@ export function AvisoMedicao() {
             Política de Privacidade
           </Link>
           .
+        </Typography>
+        <Typography variant="caption" color="text.secondary">
+          {VISITAS_RESUMO}
         </Typography>
         <Stack direction="row" spacing={1} sx={{ justifyContent: 'flex-end' }}>
           <Button variant="outlined" onClick={() => escolher('recusado')}>

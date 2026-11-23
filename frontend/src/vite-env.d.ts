@@ -4,6 +4,8 @@ interface ImportMetaEnv {
   readonly VITE_APP_NAME?: string;
   /** ID do fluxo do Google Analytics 4 (só no site, com consentimento). */
   readonly VITE_GA_ID?: string;
+  /** Worker do registro de visitas (padrão: tanaurna-visitas no workers.dev). */
+  readonly VITE_VISITAS_URL?: string;
   readonly VITE_AUTH_PROVIDER?: string;
   readonly VITE_ENABLE_EMAIL_PASSWORD?: string;
   readonly VITE_API_URL?: string;

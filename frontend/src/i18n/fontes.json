@@ -2199,7 +2199,6 @@
   "texto": "1px solid {0}",
   "tipo": "padrao",
   "arquivos": [
-   "components/brand/PoweredByFaisca.tsx",
    "components/election/CandidateCard.tsx",
    "components/partidos/SimboloPartido.tsx",
    "eua/componentes/Moldura.tsx",
@@ -2332,6 +2331,7 @@
   "tipo": "padrao",
   "arquivos": [
    "components/brand/FaiscaCredito.tsx",
+   "components/brand/PoweredByFaisca.tsx",
    "components/resultados/ApuracaoAoVivo.tsx",
    "components/resultados/CartaoEleitos.tsx",
    "components/urna/DigitBoxes.tsx",
@@ -2661,7 +2661,7 @@
   ]
  },
  {
-  "texto": "A LGPD (art. 18) garante, entre outros, os direitos de confirmação, acesso, correção e eliminação de dados pessoais. Sem login, guardamos só os registros técnicos de acesso do item 7, que se apagam sozinhos em até 7 dias. Com login, você mesmo pode apagar a conta e os dados no menu da conta; qualquer outro pedido ou dúvida pode ser enviado para",
+  "texto": "A LGPD (art. 18) garante, entre outros, os direitos de confirmação, acesso, correção e eliminação de dados pessoais. Sem login, guardamos só os registros técnicos de acesso e de visitas do item 7, que se apagam sozinhos nos prazos de lá. Com login, você mesmo pode apagar a conta e os dados no menu da conta; qualquer outro pedido ou dúvida pode ser enviado para",
   "tipo": "exato",
   "arquivos": [
    "pages/legal/PrivacidadePage.tsx"
@@ -2911,7 +2911,6 @@
   "tipo": "exato",
   "arquivos": [
    "components/AuroraBackground.tsx",
-   "components/brand/PoweredByFaisca.tsx",
    "components/charts/charts.tsx",
    "components/mapa/MapaCanvas.tsx",
    "components/urna/DigitBoxes.tsx",
@@ -4029,6 +4028,7 @@
   "texto": "async",
   "tipo": "exato",
   "arquivos": [
+   "components/brand/SeloBossiniLabs.tsx",
    "components/compartilhar/desenho.ts",
    "components/compartilhar/figura.ts",
    "components/election/CandidatePhoto.tsx"
@@ -4561,6 +4561,7 @@
   "arquivos": [
    "components/anuncios/Anuncio.tsx",
    "components/apoio/ApoioPix.tsx",
+   "components/brand/PoweredByFaisca.tsx",
    "components/gastos/RankingList.tsx",
    "components/resultados/Evolucao.tsx",
    "components/urna/UrnaScreen.tsx",
@@ -4572,13 +4573,6 @@
   "tipo": "exato",
   "arquivos": [
    "pages/presidentes/presidentes.ts"
-  ]
- },
- {
-  "texto": "border-color {0}ms {1}",
-  "tipo": "padrao",
-  "arquivos": [
-   "components/brand/PoweredByFaisca.tsx"
   ]
  },
  {
@@ -4603,6 +4597,13 @@
   ]
  },
  {
+  "texto": "Bossini Labs · Powered by Faísca",
+  "tipo": "exato",
+  "arquivos": [
+   "components/brand/SeloBossiniLabs.tsx"
+  ]
+ },
+ {
   "texto": "bottom",
   "tipo": "exato",
   "arquivos": [
@@ -4612,14 +4613,6 @@
    "eua/componentes/comuns.tsx",
    "layouts/AccountMenu.tsx",
    "layouts/PublicLayout.tsx"
-  ]
- },
- {
-  "texto": "box-shadow {0}ms {1}",
-  "tipo": "padrao",
-  "arquivos": [
-   "components/brand/FaiscaCredito.tsx",
-   "components/brand/PoweredByFaisca.tsx"
   ]
  },
  {
@@ -4959,6 +4952,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/MapaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Cada página aberta no site gera, sem cookies, um registro da visita: data e hora, endereço da página (sem o que vem depois do “?”), domínio do site de onde você veio, endereço IP, localização aproximada calculada pela Cloudflare a partir do IP (país, estado e cidade), navegador e sistema do aparelho com a versão (e o modelo do celular, quando o navegador informa) e um código anônimo que muda todo dia. Com login, fica só a indicação de que havia login: a conta, o nome e o e-mail nunca entram nesse registro. Serve para saber quais páginas mais ajudam e de onde vêm as visitas, e para a segurança do site; só o responsável pelo projeto tem acesso. O IP e a identificação completa do navegador são apagados depois de 7 meses, e o registro inteiro depois de 12 meses, quando as visitas viram só estatística anônima (contagem por dia, página, local, navegador, sistema e site de origem), guardada sem prazo. Base legal: legítimo interesse (LGPD, art. 7º, IX).",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/legal/PrivacidadePage.tsx"
   ]
  },
  {
@@ -5781,9 +5781,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/IdiomaMenu.tsx",
-   "components/brand/FaiscaCredito.tsx",
    "components/brand/FaiscaMark.tsx",
-   "components/brand/PoweredByFaisca.tsx",
    "components/compartilhar/desenho.ts",
    "components/feedback/NotificationsProvider.tsx",
    "components/partidos/SimboloPartido.tsx",
@@ -6070,7 +6068,6 @@
   "texto": "column",
   "tipo": "exato",
   "arquivos": [
-   "components/brand/FaiscaCredito.tsx",
    "components/resultados/ApuracaoAoVivo.tsx",
    "components/resultados/CartaoEleitos.tsx",
    "components/stf/PlenarioStf.tsx",
@@ -6629,6 +6626,13 @@
   "tipo": "exato",
   "arquivos": [
    "eua/paginas/EuaInicioPage.tsx"
+  ]
+ },
+ {
+  "texto": "Conhecer a Bossini Labs",
+  "tipo": "exato",
+  "arquivos": [
+   "components/ConfigErrorScreen.tsx"
   ]
  },
  {
@@ -7359,8 +7363,6 @@
    "components/AparenciaMenu.tsx",
    "components/AuroraBackground.tsx",
    "components/ColorModeToggle.tsx",
-   "components/brand/FaiscaCredito.tsx",
-   "components/brand/PoweredByFaisca.tsx",
    "components/charts/charts.tsx",
    "components/gastos/RankingList.tsx",
    "components/resultados/ApuracaoAoVivo.tsx",
@@ -10210,13 +10212,6 @@
   ]
  },
  {
-  "texto": "Este app nasceu do template Faísca, de Rodrigo Bossini. Ver no GitHub",
-  "tipo": "exato",
-  "arquivos": [
-   "components/brand/PoweredByFaisca.tsx"
-  ]
- },
- {
   "texto": "Este é só um resumo do treino (",
   "tipo": "exato",
   "arquivos": [
@@ -10422,8 +10417,6 @@
   "texto": "Faísca",
   "tipo": "exato",
   "arquivos": [
-   "components/brand/FaiscaCredito.tsx",
-   "components/brand/PoweredByFaisca.tsx",
    "pages/election/SobrePage.tsx",
    "pages/legal/TermosPage.tsx"
   ]
@@ -10605,20 +10598,6 @@
   "tipo": "exato",
   "arquivos": [
    "components/apoio/ApoioPix.tsx"
-  ]
- },
- {
-  "texto": "feito com",
-  "tipo": "exato",
-  "arquivos": [
-   "components/brand/PoweredByFaisca.tsx"
-  ]
- },
- {
-  "texto": "Feito com Faísca, de Rodrigo Bossini (abre o repositório no GitHub)",
-  "tipo": "exato",
-  "arquivos": [
-   "components/brand/PoweredByFaisca.tsx"
   ]
  },
  {
@@ -11963,7 +11942,6 @@
   "texto": "hidden",
   "tipo": "exato",
   "arquivos": [
-   "components/brand/PoweredByFaisca.tsx",
    "components/charts/charts.tsx",
    "components/mapa/MapaCanvas.tsx",
    "components/partidos/SimboloPartido.tsx",
@@ -12993,6 +12971,7 @@
   "texto": "lazy",
   "tipo": "exato",
   "arquivos": [
+   "components/brand/SeloBossiniLabs.tsx",
    "components/election/CandidatePhoto.tsx",
    "components/partidos/SimboloPartido.tsx",
    "components/stf/PlenarioStf.tsx",
@@ -13271,13 +13250,6 @@
   ]
  },
  {
-  "texto": "linear-gradient(105deg, transparent 35%, {0} 50%, transparent 65%)",
-  "tipo": "padrao",
-  "arquivos": [
-   "components/brand/PoweredByFaisca.tsx"
-  ]
- },
- {
   "texto": "linear-gradient(135deg, {0}, {1} 70%), {2}",
   "tipo": "padrao",
   "arquivos": [
@@ -13303,22 +13275,6 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/SimuladorPage.tsx"
-  ]
- },
- {
-  "texto": "linear-gradient(90deg, {0}, #7649CF)",
-  "tipo": "padrao",
-  "arquivos": [
-   "components/brand/FaiscaCredito.tsx",
-   "components/brand/PoweredByFaisca.tsx"
-  ]
- },
- {
-  "texto": "linear-gradient(90deg, #D4F45E, #BBA4EE)",
-  "tipo": "exato",
-  "arquivos": [
-   "components/brand/FaiscaCredito.tsx",
-   "components/brand/PoweredByFaisca.tsx"
   ]
  },
  {
@@ -15996,6 +15952,7 @@
   "texto": "noopener noreferrer",
   "tipo": "exato",
   "arquivos": [
+   "components/ConfigErrorScreen.tsx",
    "components/brand/FaiscaCredito.tsx",
    "components/brand/PoweredByFaisca.tsx",
    "components/election/SourceNote.tsx",
@@ -16044,13 +16001,6 @@
   "tipo": "exato",
   "arquivos": [
    "data/regioes.ts"
-  ]
- },
- {
-  "texto": "noreferrer",
-  "tipo": "exato",
-  "arquivos": [
-   "components/ConfigErrorScreen.tsx"
   ]
  },
  {
@@ -16530,6 +16480,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/CongressoEleitoPage.tsx"
+  ]
+ },
+ {
+  "texto": "O próprio site também registra as páginas vistas, sem cookies e sem ligar à sua conta: o IP fica 7 meses e, depois de 12, sobra só estatística anônima.",
+  "tipo": "exato",
+  "arquivos": [
+   "config/legal.ts"
   ]
  },
  {
@@ -18702,17 +18659,11 @@
   ]
  },
  {
-  "texto": "Powered by",
+  "texto": "Powered by Faísca, da Bossini Labs",
   "tipo": "exato",
   "arquivos": [
-   "components/brand/FaiscaCredito.tsx"
-  ]
- },
- {
-  "texto": "Powered by Faísca (abre o repositório do template no GitHub)",
-  "tipo": "exato",
-  "arquivos": [
-   "components/brand/FaiscaCredito.tsx"
+   "components/brand/FaiscaCredito.tsx",
+   "components/brand/PoweredByFaisca.tsx"
   ]
  },
  {
@@ -19753,6 +19704,13 @@
   "arquivos": [
    "components/AvisoMedicao.tsx",
    "components/urna/UrnaScreen.tsx"
+  ]
+ },
+ {
+  "texto": "Registro de visitas do próprio site (só no site; o aplicativo não tem).",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/legal/PrivacidadePage.tsx"
   ]
  },
  {
@@ -20886,13 +20844,6 @@
   "tipo": "exato",
   "arquivos": [
    "pages/presidentes/presidentes.ts"
-  ]
- },
- {
-  "texto": "saturate(180%) blur(12px)",
-  "tipo": "exato",
-  "arquivos": [
-   "components/brand/PoweredByFaisca.tsx"
   ]
  },
  {
@@ -22367,7 +22318,7 @@
   ]
  },
  {
-  "texto": "Também não vendemos, alugamos nem compartilhamos dados com terceiros. Não perguntamos em quem você pretende votar e não acompanhamos quais candidaturas você consulta: as que você marca para acompanhar vão criptografadas, mesmo com login, e os registros técnicos de acesso (item 7) não são usados para isso.",
+  "texto": "Também não vendemos, alugamos nem compartilhamos dados com terceiros. Não perguntamos em quem você pretende votar e não acompanhamos quais candidaturas você consulta: as que você marca para acompanhar vão criptografadas, mesmo com login, e os registros de acesso e de visitas (item 7) não são ligados à sua conta nem usados para isso.",
   "tipo": "exato",
   "arquivos": [
    "pages/legal/PrivacidadePage.tsx"
@@ -23112,9 +23063,15 @@
   "texto": "transform {0}ms {1}",
   "tipo": "padrao",
   "arquivos": [
-   "components/brand/FaiscaCredito.tsx",
-   "components/brand/PoweredByFaisca.tsx",
    "theme/theme.ts"
+  ]
+ },
+ {
+  "texto": "transform {0}ms {1}, opacity {2}ms {3}",
+  "tipo": "padrao",
+  "arquivos": [
+   "components/brand/FaiscaCredito.tsx",
+   "components/brand/PoweredByFaisca.tsx"
   ]
  },
  {
@@ -23150,13 +23107,6 @@
   "tipo": "exato",
   "arquivos": [
    "components/AuroraBackground.tsx"
-  ]
- },
- {
-  "texto": "translateY(-6px) rotate(-8deg) scale(1.06)",
-  "tipo": "exato",
-  "arquivos": [
-   "components/brand/FaiscaCredito.tsx"
   ]
  },
  {
@@ -24147,13 +24097,6 @@
   ]
  },
  {
-  "texto": "Ver o guia de configuração",
-  "tipo": "exato",
-  "arquivos": [
-   "components/ConfigErrorScreen.tsx"
-  ]
- },
- {
   "texto": "Ver os {0} por partido",
   "tipo": "padrao",
   "arquivos": [
@@ -24437,6 +24380,13 @@
    "components/resultados/serie.ts",
    "pages/election/ColaPage.tsx",
    "theme/theme.ts"
+  ]
+ },
+ {
+  "texto": "Visitas",
+  "tipo": "exato",
+  "arquivos": [
+   "components/conta/ContaPerfil.tsx"
   ]
  },
  {

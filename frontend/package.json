@@ -35,12 +35,14 @@
     "@fontsource/google-sans-code": "^5.3.1",
     "@mui/icons-material": "^9.4.0",
     "@mui/material": "^9.4.0",
+    "country-flag-icons": "^1.6.20",
     "firebase": "^12.19.0",
     "html-to-image": "1.11.13",
     "qrcode-generator": "2.0.4",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
-    "react-router": "^8.4.0"
+    "react-router": "^8.4.0",
+    "ua-parser-js": "^1.0.41"
   },
   "devDependencies": {
     "@capacitor/assets": "^3.0.5",
@@ -53,6 +55,7 @@
     "@types/node": "^22.20.4",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
+    "@types/ua-parser-js": "^0.7.39",
     "@vitejs/plugin-react": "^6.1.1",
     "eslint": "^10.11.0",
     "eslint-plugin-react-hooks": "^7.1.1",

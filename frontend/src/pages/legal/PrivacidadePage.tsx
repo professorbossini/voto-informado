@@ -1,6 +1,7 @@
 import { Link } from '@mui/material';
 import { LEGAL } from '@/config/legal';
 import { Contato, LegalDoc, P, Secao } from './LegalDoc';
+import { VISITAS_RESUMO } from '@/config/legal';
 
 export function PrivacidadePage() {
   return (
@@ -16,7 +17,8 @@ export function PrivacidadePage() {
           pode entrar com o Google para guardar suas escolhas: elas são criptografadas no seu aparelho com uma frase que
           só você conhece, e ninguém mais consegue lê-las. A localização, se você permitir, serve só para achar o seu
           estado e o seu município, e não sai do aparelho. Como em todo site, a hospedagem guarda por até 7 dias
-          registros técnicos de acesso (item 7), usados só para segurança e correção de erros.
+          registros técnicos de acesso (item 7), usados só para segurança e correção de erros.{' '}
+          <span>{VISITAS_RESUMO}</span>
         </>
       }
       outro={{ to: '/termos', label: 'Termos de Uso' }}
@@ -40,7 +42,7 @@ export function PrivacidadePage() {
         <P>
           Também não vendemos, alugamos nem compartilhamos dados com terceiros. Não perguntamos em quem você pretende votar
           e não acompanhamos quais candidaturas você consulta: as que você marca para acompanhar vão criptografadas, mesmo
-          com login, e os registros técnicos de acesso (item 7) não são usados para isso.
+          com login, e os registros de acesso e de visitas (item 7) não são ligados à sua conta nem usados para isso.
         </P>
       </Secao>
 
@@ -151,6 +153,18 @@ export function PrivacidadePage() {
           serviço seguro e funcionando (LGPD, art. 7º, IX).
         </P>
         <P>
+          <strong>Registro de visitas do próprio site (só no site; o aplicativo não tem).</strong> Cada página aberta no
+          site gera, sem cookies, um registro da visita: data e hora, endereço da página (sem o que vem depois do “?”),
+          domínio do site de onde você veio, endereço IP, localização aproximada calculada pela Cloudflare a partir do IP
+          (país, estado e cidade), navegador e sistema do aparelho com a versão (e o modelo do celular, quando o
+          navegador informa) e um código anônimo que muda todo dia. Com login, fica só a indicação de que havia login: a
+          conta, o nome e o e-mail nunca entram nesse registro. Serve para saber quais páginas mais ajudam e de onde vêm
+          as visitas, e para a segurança do site; só o responsável pelo projeto tem acesso. O IP e a identificação
+          completa do navegador são apagados depois de 7 meses, e o registro inteiro depois de 12 meses, quando as
+          visitas viram só estatística anônima (contagem por dia, página, local, navegador, sistema e site de origem),
+          guardada sem prazo. Base legal: legítimo interesse (LGPD, art. 7º, IX).
+        </P>
+        <P>
           <strong>Medição de audiência (só no site; o aplicativo não tem nenhuma).</strong> Para saber quantas pessoas
           usam o site e quais páginas mais ajudam, usamos duas medições, sempre em números agregados:
         </P>
@@ -250,7 +264,7 @@ export function PrivacidadePage() {
       <Secao n={11} title="Seus direitos">
         <P>
           A LGPD (art. 18) garante, entre outros, os direitos de confirmação, acesso, correção e eliminação de dados
-          pessoais. Sem login, guardamos só os registros técnicos de acesso do item 7, que se apagam sozinhos em até 7 dias. Com login, você mesmo pode apagar a conta e os dados no menu da
+          pessoais. Sem login, guardamos só os registros técnicos de acesso e de visitas do item 7, que se apagam sozinhos nos prazos de lá. Com login, você mesmo pode apagar a conta e os dados no menu da
           conta; qualquer outro pedido ou dúvida pode ser enviado para <Contato />. Você também pode
           procurar a Autoridade Nacional de Proteção de Dados (ANPD).
         </P>
