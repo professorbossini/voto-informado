@@ -6,7 +6,9 @@ API_PORT ?= 8077
 # Domínio próprio do site (GitHub Pages). Vazio = professorbossini.dev/voto-informado.
 SITE_DOMAIN ?= www.tanaurna.com.br
 
-.PHONY: help setup dados api web dev apuracao apuracao-remota site-remoto plenario-remoto exportar build testes publicar nuvem neon api-pg app app-release app-loja
+WRANGLER ?= npx -y wrangler@4.158.0
+
+.PHONY: visitas help setup dados api web dev apuracao apuracao-remota site-remoto plenario-remoto exportar build testes publicar nuvem neon api-pg app app-release app-loja
 
 help:
 	@echo "make setup     instala dependências (venv Python + npm)"
@@ -22,6 +24,7 @@ help:
 	@echo "make testes    testes do backend e do frontend"
 	@echo "make publicar  publica no GitHub Pages (branch gh-pages)"
 	@echo "make nuvem     Neon + API no Cloud Run, de ponta a ponta (GCP_PROJECT=..., DEPLOY.md)"
+	@echo "make visitas   publica o Worker de visitas (tanaurna-visitas, D1; página Visitas do admin)"
 	@echo "make neon      publica o banco no Postgres/Neon (DATABASE_URL)"
 	@echo "make api-pg    API local lendo do Postgres (DATABASE_URL)"
 	@echo "make app       build do app e abre o projeto Android (Android Studio)"
@@ -64,6 +67,11 @@ exportar:
 testes:
 	cd $(BACK) && .venv/bin/python -m pytest -q
 	cd $(FRONT) && npx tsc -b --noEmit && npm test
+	node --test infra/cloudflare/visitas/worker.test.mjs
+
+visitas:
+	node --test infra/cloudflare/visitas/worker.test.mjs
+	cd infra/cloudflare/visitas && $(WRANGLER) deploy
 
 publicar:
 	SITE_DOMAIN=$(SITE_DOMAIN) scripts/deploy-pages.sh

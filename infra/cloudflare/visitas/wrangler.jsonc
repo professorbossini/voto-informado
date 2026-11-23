@@ -1,0 +1,19 @@
+// Worker tanaurna-visitas: registro de visitas do site e página Visitas do admin (worker.js).
+// Publicar: make visitas (wrangler deploy com esta configuração).
+{
+  "name": "tanaurna-visitas",
+  "main": "worker.js",
+  "compatibility_date": "2026-10-20",
+  "workers_dev": true,
+  "observability": { "enabled": true },
+  "triggers": { "crons": ["23 * * * *"] },
+  "d1_databases": [
+    { "binding": "DB", "database_name": "tanaurna-visitas", "database_id": "387679f3-7d7e-4a65-bf1f-a555a27f948d" }
+  ],
+  "vars": {
+    // Projeto do Firebase do login com Google do site (frontend: VITE_FIREBASE_PROJECT_ID).
+    "FIREBASE_PROJECT": "controle-politicos",
+    // Quem vê a página Visitas (e-mail verificado do Google, separados por vírgula).
+    "ADMIN_EMAILS": "rod.bossini@gmail.com,professorbossini@gmail.com,rodrigobossini@bossinilabs.com.br"
+  }
+}

@@ -22,6 +22,9 @@ jobs:
       - run: npx tsc -b --noEmit
       - run: npx eslint .
       - run: npx vitest run
+      - name: Worker de visitas (infra/cloudflare/visitas)
+        working-directory: .
+        run: node --test infra/cloudflare/visitas/worker.test.mjs
 
   backend:
     runs-on: ubuntu-latest
