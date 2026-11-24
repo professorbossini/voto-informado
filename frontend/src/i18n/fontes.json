@@ -3963,6 +3963,7 @@
    "components/tabela/ordenacao.ts",
    "eua/paginas/EleicoesEuaPage.tsx",
    "eua/paginas/GastosEuaPage.tsx",
+   "pages/election/CandidatoPage.tsx",
    "pages/election/EmendasPage.tsx",
    "pages/election/MapaPage.tsx",
    "pages/election/ParlamentarPage.tsx"
@@ -7912,6 +7913,7 @@
    "eua/paginas/EstadoEuaPage.tsx",
    "eua/paginas/GastosEuaPage.tsx",
    "eua/paginas/SobreEuaPage.tsx",
+   "pages/election/CandidatoPage.tsx",
    "pages/election/EmendasPage.tsx",
    "pages/election/MapaPage.tsx",
    "pages/election/MinistroStfPage.tsx",
@@ -8507,6 +8509,13 @@
   "tipo": "exato",
   "arquivos": [
    "components/AparenciaMenu.tsx"
+  ]
+ },
+ {
+  "texto": "Doador ou repasse",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/CandidatoPage.tsx"
   ]
  },
  {
@@ -11090,6 +11099,7 @@
   "texto": "Fornecedor",
   "tipo": "exato",
   "arquivos": [
+   "pages/election/CandidatoPage.tsx",
    "pages/election/ParlamentarPage.tsx"
   ]
  },
@@ -16928,6 +16938,13 @@
   "tipo": "exato",
   "arquivos": [
    "eua/paginas/EstadoEuaPage.tsx"
+  ]
+ },
+ {
+  "texto": "Origem",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/CandidatoPage.tsx"
   ]
  },
  {
@@ -23547,6 +23564,7 @@
   "texto": "Valor",
   "tipo": "exato",
   "arquivos": [
+   "pages/election/CandidatoPage.tsx",
    "pages/election/ParlamentarPage.tsx"
   ]
  },

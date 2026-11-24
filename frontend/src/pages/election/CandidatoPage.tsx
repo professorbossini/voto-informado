@@ -13,6 +13,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableHead,
   TableRow,
   Typography,
 } from '@mui/material';
@@ -38,6 +39,8 @@ import { BotaoCompartilharImagem } from '@/components/compartilhar/BotaoComparti
 import { cartaoCandidato } from '@/components/compartilhar/dados';
 import type { CandidatoDetalhe, CustoPorVoto } from '@/data/types';
 import { useAsync } from '@/hooks/useAsync';
+import { CabecalhosOrdenaveis } from '@/components/tabela/CabecalhoOrdenavel';
+import { ordenarPor, useOrdem } from '@/components/tabela/ordenacao';
 
 /** Chips with long labels wrap instead of being cut. */
 const WRAP_CHIP = { height: 'auto', maxWidth: '100%', '& .MuiChip-label': { whiteSpace: 'normal', py: 0.5 } } as const;
@@ -173,6 +176,9 @@ function Campanha({ c }: { c: CandidatoDetalhe }) {
   const f = c.financas;
   const temDados = (c.receitas ?? 0) > 0 || (c.despesas ?? 0) > 0;
   const ehVice = Boolean(c.titular_sq);
+  // Sem clique, a ordem publicada (maior valor primeiro).
+  const ordDoadores = useOrdem<'doador' | 'origem' | 'valor'>(null, (col) => (col === 'valor' ? 'desc' : 'asc'));
+  const ordFornecedores = useOrdem<'fornecedor' | 'valor'>(null, (col) => (col === 'valor' ? 'desc' : 'asc'));
   return (
     <Section
       title="Financiamento da campanha"
@@ -232,12 +238,31 @@ function Campanha({ c }: { c: CandidatoDetalhe }) {
               <Typography variant="subtitle2" sx={{ mb: 1 }}>
                 Maiores doadores e repasses
               </Typography>
-              <Table size="small">
+              <Table size="small" sx={{ tableLayout: 'fixed', width: '100%', '& td, & th': { overflowWrap: 'anywhere' } }}>
+                <TableHead>
+                  <TableRow>
+                    <CabecalhosOrdenaveis
+                      ordem={ordDoadores.ordem}
+                      onOrdenar={ordDoadores.ordenar}
+                      colunas={[
+                        { coluna: 'doador', rotulo: 'Doador ou repasse', sx: { pl: 0 } },
+                        { coluna: 'origem', rotulo: 'Origem', sx: { width: '28%', display: { xs: 'none', sm: 'table-cell' } } },
+                        { coluna: 'valor', rotulo: 'Valor', align: 'right', sx: { pr: 0, width: { xs: '42%', sm: '30%' } } },
+                      ]}
+                    />
+                  </TableRow>
+                </TableHead>
                 <TableBody>
-                  {f.maiores_doadores.map((d, i) => (
+                  {ordenarPor(f.maiores_doadores, { doador: (d) => d.doador, origem: (d) => d.origem, valor: (d) => d.valor }, ordDoadores.ordem).map((d, i) => (
                     <TableRow key={i}>
                       <TableCell sx={{ pl: 0 }}>
                         <Typography variant="body2">{d.doador}</Typography>
+                        {/* Na tela estreita a coluna Origem some: a origem vai embaixo do nome. */}
+                        <Typography variant="caption" color="text.secondary" sx={{ display: { xs: 'block', sm: 'none' } }}>
+                          {d.origem}
+                        </Typography>
+                      </TableCell>
+                      <TableCell sx={{ display: { xs: 'none', sm: 'table-cell' } }}>
                         <Typography variant="caption" color="text.secondary">
                           {d.origem}
                         </Typography>
@@ -254,9 +279,21 @@ function Campanha({ c }: { c: CandidatoDetalhe }) {
               <Typography variant="subtitle2" sx={{ mb: 1 }}>
                 Maiores fornecedores contratados
               </Typography>
-              <Table size="small">
+              <Table size="small" sx={{ tableLayout: 'fixed', width: '100%', '& td, & th': { overflowWrap: 'anywhere' } }}>
+                <TableHead>
+                  <TableRow>
+                    <CabecalhosOrdenaveis
+                      ordem={ordFornecedores.ordem}
+                      onOrdenar={ordFornecedores.ordenar}
+                      colunas={[
+                        { coluna: 'fornecedor', rotulo: 'Fornecedor', sx: { pl: 0 } },
+                        { coluna: 'valor', rotulo: 'Valor', align: 'right', sx: { pr: 0, width: { xs: '42%', sm: '30%' } } },
+                      ]}
+                    />
+                  </TableRow>
+                </TableHead>
                 <TableBody>
-                  {f.maiores_fornecedores.map((d, i) => (
+                  {ordenarPor(f.maiores_fornecedores, { fornecedor: (d) => d.fornecedor, valor: (d) => d.valor }, ordFornecedores.ordem).map((d, i) => (
                     <TableRow key={i}>
                       <TableCell sx={{ pl: 0 }}>{d.fornecedor}</TableCell>
                       <TableCell align="right" sx={{ pr: 0, whiteSpace: 'nowrap', fontVariantNumeric: 'tabular-nums' }}>
