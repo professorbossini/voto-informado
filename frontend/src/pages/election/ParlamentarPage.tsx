@@ -1,4 +1,6 @@
 import { useMemo, useState } from 'react';
+import { CabecalhosOrdenaveis } from '@/components/tabela/CabecalhoOrdenavel';
+import { ordenarPor, useOrdem } from '@/components/tabela/ordenacao';
 import {
   Alert,
   Box,
@@ -99,6 +101,7 @@ export function ParlamentarPage() {
   const { id = '' } = useParams();
   const { data: d, error, loading, reload } = useAsync(() => data.parlamentar(id), [id]);
   const [anoTab, setAnoTab] = useState<number | null>(null);
+  const ordFornecedores = useOrdem<'fornecedor' | 'valor' | 'docs'>(null, (c) => (c === 'fornecedor' ? 'asc' : 'desc'));
   const desfechos = useDesfechos(d?.candidato ? cargoDaBusca(d.candidato.cargo) : null, d?.candidato?.uf ?? null);
   const { fontes } = useMeta();
 
@@ -171,7 +174,11 @@ export function ParlamentarPage() {
     .filter((c) => c.ano === anoSel)
     .sort((a, b) => b.valor - a.valor)
     .map((c) => ({ label: c.categoria, value: c.valor, hint: `${c.categoria}: ${money(c.valor)} · ${number(c.n)} documento(s)` }));
-  const fornecedoresAno = d.fornecedores.filter((f) => f.ano === anoSel).sort((a, b) => b.valor - a.valor);
+  const fornecedoresAno = ordenarPor(
+    d.fornecedores.filter((f) => f.ano === anoSel).sort((a, b) => b.valor - a.valor),
+    { fornecedor: (f) => f.fornecedor, valor: (f) => f.valor, docs: (f) => f.n_documentos },
+    ordFornecedores.ordem,
+  );
   const resumoAno = anoSel != null ? porAno.get(anoSel) : undefined;
 
   const comparacoes = [...d.media_uf_por_ano].sort((a, b) => a.ano - b.ano);
@@ -348,9 +355,15 @@ export function ParlamentarPage() {
                       <Table size="small" stickyHeader aria-label={`Maiores fornecedores em ${anoSel}`}>
                         <TableHead>
                           <TableRow>
-                            <TableCell>Fornecedor</TableCell>
-                            <TableCell align="right">Valor</TableCell>
-                            <TableCell align="right">Docs.</TableCell>
+                            <CabecalhosOrdenaveis
+                              ordem={ordFornecedores.ordem}
+                              onOrdenar={ordFornecedores.ordenar}
+                              colunas={[
+                                { coluna: 'fornecedor', rotulo: 'Fornecedor' },
+                                { coluna: 'valor', rotulo: 'Valor', align: 'right' },
+                                { coluna: 'docs', rotulo: 'Docs.', align: 'right' },
+                              ]}
+                            />
                           </TableRow>
                         </TableHead>
                         <TableBody>

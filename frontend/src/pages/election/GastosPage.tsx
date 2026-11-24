@@ -38,7 +38,8 @@ import {
   valorNoPeriodo,
   type CasaFiltro,
 } from '@/components/gastos/gastos';
-import { RankingList, type Ordem, type RankingRow } from '@/components/gastos/RankingList';
+import { RankingList, type RankingRow } from '@/components/gastos/RankingList';
+import { ordenarRanking, type Ordem } from '@/components/gastos/rankingOrdem';
 import { data } from '@/data/api';
 import { money, moneyCompact, normalize, number } from '@/data/format';
 import { useMeta } from '@/data/MetaContext';
@@ -47,13 +48,18 @@ import { PageHeader } from '../PageHeader';
 
 const POR_PAGINA = 50;
 const CASAS: CasaFiltro[] = ['todas', 'camara', 'senado'];
-const ORDENS: Ordem[] = ['valor-desc', 'valor-asc', 'mensal-desc', 'mensal-asc', 'nome'];
+const ORDENS: Ordem[] = ['valor-desc', 'valor-asc', 'mensal-desc', 'mensal-asc', 'comparacao-desc', 'comparacao-asc', 'nome', 'nome-desc', 'partido', 'partido-desc'];
 const ORDEM_LABEL: Record<Ordem, string> = {
   'valor-desc': 'Maior valor primeiro',
   'valor-asc': 'Menor valor primeiro',
   'mensal-desc': 'Maior média por mês primeiro',
   'mensal-asc': 'Menor média por mês primeiro',
+  'comparacao-desc': 'Mais acima da média primeiro',
+  'comparacao-asc': 'Mais abaixo da média primeiro',
   nome: 'Nome (A–Z)',
+  'nome-desc': 'Nome (Z–A)',
+  partido: 'Partido-UF (A–Z)',
+  'partido-desc': 'Partido-UF (Z–A)',
 };
 
 function periodoLabel(periodo: string): string {
@@ -149,15 +155,7 @@ export function GastosPage() {
     return { rows: ranked, semLancamento: filtrados.length - base.length };
   }, [lista, casa, uf, partido, emExercicio, q, periodo, semPassagens, medias]);
 
-  const ordenadas = useMemo(() => {
-    if (ordem === 'valor-desc') return rows;
-    if (ordem === 'valor-asc') return [...rows].reverse();
-    if (ordem === 'mensal-desc' || ordem === 'mensal-asc') {
-      const dir = ordem === 'mensal-desc' ? -1 : 1;
-      return [...rows].sort((a, b) => dir * ((a.mediaMensal ?? 0) - (b.mediaMensal ?? 0)) || a.p.nome.localeCompare(b.p.nome, 'pt-BR'));
-    }
-    return [...rows].sort((a, b) => a.p.nome.localeCompare(b.p.nome, 'pt-BR'));
-  }, [rows, ordem]);
+  const ordenadas = useMemo(() => ordenarRanking(rows, ordem), [rows, ordem]);
 
   // "Carregar mais" resets whenever the filtered set changes.
   const filtroKey = [casa, periodo, uf, partido, emExercicio, semPassagens, q, ordem].join('|');

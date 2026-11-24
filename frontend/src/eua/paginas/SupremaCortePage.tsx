@@ -27,6 +27,8 @@ import { PageHeader } from '@/pages/PageHeader';
 import { ColumnChart, StatTile } from '@/components/charts/charts';
 import { normalize } from '@/data/format';
 import { useAsync } from '@/hooks/useAsync';
+import { CabecalhosOrdenaveis } from '@/components/tabela/CabecalhoOrdenavel';
+import { useOrdenacao } from '@/components/tabela/ordenacao';
 import { eua, type Decisao, type Juiz, type SupremaCorte } from '../api';
 import { LinkExterno } from '../componentes/blocos';
 import { AvisoInformativo, Carregando, Erro, FonteNota, FotoMembro } from '../componentes/comuns';
@@ -78,6 +80,15 @@ function ListaDecisoes({ decisoes, limite: lim = 15 }: { decisoes: Decisao[]; li
   );
 }
 
+type Historico = SupremaCorte['historico'][number];
+const COLUNAS_HISTORICO = {
+  nome: (h: Historico) => h.nome,
+  cargo: (h: Historico) => (h.cargo === 'presidente' ? 'Presidente' : 'Associado(a)'),
+  indicacao: (h: Historico) => presidenteQueNomeou(h.nomeado_por),
+  estado: (h: Historico) => h.estado,
+  periodo: (h: Historico) => h.juramento,
+};
+
 export function SupremaCortePage() {
   const r = useAsync(() => eua.supremaCorte(), []);
   const [autor, setAutor] = useState('');
@@ -86,6 +97,8 @@ export function SupremaCortePage() {
     const q = normalize(busca);
     return (r.data?.historico ?? []).filter((h) => !q || normalize(`${h.nome} ${h.nomeado_por} ${h.estado}`).includes(q));
   }, [r.data, busca]);
+  // Sem clique, a ordem da lista oficial (por data do juramento). Período ordena pelo juramento.
+  const { ordenadas: historicoOrdenado, ordem, alternar } = useOrdenacao(historico, COLUNAS_HISTORICO);
   if (r.error) return <Erro onRetry={r.reload} />;
   const sc = r.data;
   const sal = sc?.salarios.at(-1);
@@ -202,15 +215,21 @@ export function SupremaCortePage() {
                 <Table size="small" stickyHeader>
                   <TableHead>
                     <TableRow>
-                      <TableCell>Nome</TableCell>
-                      <TableCell>Cargo</TableCell>
-                      <TableCell>Indicação</TableCell>
-                      <TableCell>Estado</TableCell>
-                      <TableCell>Período</TableCell>
+                      <CabecalhosOrdenaveis
+                        ordem={ordem}
+                        onOrdenar={alternar}
+                        colunas={[
+                          { coluna: 'nome', rotulo: 'Nome' },
+                          { coluna: 'cargo', rotulo: 'Cargo' },
+                          { coluna: 'indicacao', rotulo: 'Indicação' },
+                          { coluna: 'estado', rotulo: 'Estado' },
+                          { coluna: 'periodo', rotulo: 'Período' },
+                        ]}
+                      />
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {historico.map((h) => (
+                    {historicoOrdenado.map((h) => (
                       <TableRow key={`${h.nome_oficial}-${h.cargo}`}>
                         <TableCell translate="no">{h.nome}</TableCell>
                         <TableCell>{h.cargo === 'presidente' ? 'Presidente' : 'Associado(a)'}</TableCell>

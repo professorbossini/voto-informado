@@ -33,6 +33,8 @@ import { data } from '@/data/api';
 import { money } from '@/data/format';
 import type { FolhaStf, MinistroStf, MinistroStfDetalhe, Stf } from '@/data/types';
 import { useAsync } from '@/hooks/useAsync';
+import { CabecalhosOrdenaveis } from '@/components/tabela/CabecalhoOrdenavel';
+import { ordenarPor, useOrdem } from '@/components/tabela/ordenacao';
 
 /** "PRESIDENTE DO STF" → "Presidente do STF" (siglas e preposições como na língua). */
 function tituloFolha(t: string) {
@@ -146,6 +148,8 @@ function Trajetoria({ m, stf }: { m: MinistroStf; stf: Stf }) {
 function Remuneracao({ det, stf }: { det: MinistroStfDetalhe; stf: Stf }) {
   const folhas = det.remuneracao;
   const [sel, setSel] = useState(0);
+  // Sem clique, a ordem publicada (mês mais recente primeiro). O índice original segue a linha (gráfico e detalhe).
+  const ordFolhas = useOrdem<'mes' | 'subsidio' | 'bruto' | 'descontos' | 'liquido'>(null, () => 'desc');
   const f: FolhaStf | undefined = folhas[sel];
   const max = Math.max(...folhas.map((x) => x.bruto ?? 0), 1);
   const cronologico = useMemo(() => [...folhas].reverse(), [folhas]);
@@ -198,7 +202,17 @@ function Remuneracao({ det, stf }: { det: MinistroStfDetalhe; stf: Stf }) {
           <FormControl size="small" sx={{ minWidth: 220 }}>
             <InputLabel id="folha-mes">Mês da folha</InputLabel>
             <Select labelId="folha-mes" label="Mês da folha" value={sel} onChange={(e) => setSel(Number(e.target.value))}>
-              {folhas.map((x, i) => (
+              {ordenarPor(
+                folhas.map((x, i) => ({ x, i })),
+                {
+                  mes: ({ x }) => x.ref,
+                  subsidio: ({ x }) => x.parcelas.A,
+                  bruto: ({ x }) => x.bruto,
+                  descontos: ({ x }) => (x.parcelas.M == null ? null : Math.abs(x.parcelas.M)),
+                  liquido: ({ x }) => x.liquido,
+                },
+                ordFolhas.ordem,
+              ).map(({ x, i }) => (
                 <MenuItem key={`${x.ref}-${x.folha}`} value={i}>
                   {mesRef(x.ref)}
                   {folhas.filter((y) => y.ref === x.ref).length > 1 ? ` · ${x.folha}` : ''}
@@ -277,11 +291,17 @@ function Remuneracao({ det, stf }: { det: MinistroStfDetalhe; stf: Stf }) {
           <Table size="small" stickyHeader>
             <TableHead>
               <TableRow>
-                <TableCell>Mês</TableCell>
-                <TableCell align="right">Subsídio</TableCell>
-                <TableCell align="right">Bruto</TableCell>
-                <TableCell align="right">Descontos</TableCell>
-                <TableCell align="right">Líquido</TableCell>
+                <CabecalhosOrdenaveis
+                  ordem={ordFolhas.ordem}
+                  onOrdenar={ordFolhas.ordenar}
+                  colunas={[
+                    { coluna: 'mes', rotulo: 'Mês' },
+                    { coluna: 'subsidio', rotulo: 'Subsídio', align: 'right' },
+                    { coluna: 'bruto', rotulo: 'Bruto', align: 'right' },
+                    { coluna: 'descontos', rotulo: 'Descontos', align: 'right' },
+                    { coluna: 'liquido', rotulo: 'Líquido', align: 'right' },
+                  ]}
+                />
               </TableRow>
             </TableHead>
             <TableBody>
@@ -314,7 +334,19 @@ function Remuneracao({ det, stf }: { det: MinistroStfDetalhe; stf: Stf }) {
 function Viagens({ det, stf }: { det: MinistroStfDetalhe; stf: Stf }) {
   const [verP, setVerP] = useState(10);
   const [verD, setVerD] = useState(10);
-  const anos = Object.entries(det.resumo_viagens);
+  const ordAnos = useOrdem<'ano' | 'passagens' | 'custo' | 'diarias' | 'valor'>(null, () => 'desc');
+  // Valor das diárias: pelos reais (as em dólar desempatam).
+  const anos = ordenarPor(
+    Object.entries(det.resumo_viagens),
+    {
+      ano: ([ano]) => Number(ano),
+      passagens: ([, a]) => a.passagens || null,
+      custo: ([, a]) => a.passagens_valor || null,
+      diarias: ([, a]) => a.diarias || null,
+      valor: ([, a]) => a.diarias_brl + a.diarias_usd / 1e6 || null,
+    },
+    ordAnos.ordem,
+  );
   const { passagens, diarias } = det.viagens;
   const periodo = (ida: string | null, volta: string | null, mes: string | null) =>
     ida ? `${diaBr(ida)}${volta && volta !== ida ? ` a ${diaBr(volta)}` : ''}` : mes ? mesRef(mes) : '—';
@@ -336,11 +368,17 @@ function Viagens({ det, stf }: { det: MinistroStfDetalhe; stf: Stf }) {
             <Table size="small">
               <TableHead>
                 <TableRow>
-                  <TableCell>Ano</TableCell>
-                  <TableCell align="right">Passagens</TableCell>
-                  <TableCell align="right">Custo das passagens</TableCell>
-                  <TableCell align="right">Diárias</TableCell>
-                  <TableCell align="right">Valor das diárias</TableCell>
+                  <CabecalhosOrdenaveis
+                    ordem={ordAnos.ordem}
+                    onOrdenar={ordAnos.ordenar}
+                    colunas={[
+                      { coluna: 'ano', rotulo: 'Ano' },
+                      { coluna: 'passagens', rotulo: 'Passagens', align: 'right' },
+                      { coluna: 'custo', rotulo: 'Custo das passagens', align: 'right' },
+                      { coluna: 'diarias', rotulo: 'Diárias', align: 'right' },
+                      { coluna: 'valor', rotulo: 'Valor das diárias', align: 'right' },
+                    ]}
+                  />
                 </TableRow>
               </TableHead>
               <TableBody>

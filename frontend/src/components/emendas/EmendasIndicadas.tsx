@@ -21,6 +21,8 @@ import { BarList, StatTile } from '@/components/charts/charts';
 import { data, DataError } from '@/data/api';
 import { money, moneyCompact, nomeProprio, number } from '@/data/format';
 import { useAsync } from '@/hooks/useAsync';
+import { CabecalhosOrdenaveis } from '@/components/tabela/CabecalhoOrdenavel';
+import { ordenarPor, useOrdem } from '@/components/tabela/ordenacao';
 import { FonteEmendasNota } from './FonteEmendasNota';
 import { linkEmenda, rotaMunicipio, TIPO_EMENDA, textoPublicado } from './emendas';
 
@@ -37,6 +39,8 @@ export function EmendasIndicadas({ id, nome }: { id: string; nome: string }) {
     [id],
   );
   const [verEmendas, setVerEmendas] = useState(false);
+  const anos = useOrdem<'ano' | 'emendas' | 'empenhado' | 'liquidado' | 'pago' | 'rp'>({ coluna: 'ano', sentido: 'desc' }, () => 'desc');
+  const lista = useOrdem<'emenda' | 'funcao' | 'localidade' | 'empenhado' | 'pago'>(null, (c) => (c === 'empenhado' || c === 'pago' ? 'desc' : 'asc'));
 
   if (loading) return <Skeleton variant="rounded" height={240} />;
   if (error != null) return null; // falha de rede: o restante da página continua
@@ -58,7 +62,12 @@ export function EmendasIndicadas({ id, nome }: { id: string; nome: string }) {
 
   const pagoTotal = d.total.pago + d.total.rp_pago;
   const destinos = d.destinos_municipio.slice(0, 12);
-  const emendas = verEmendas ? d.emendas : d.emendas.slice(0, 8);
+  const todas = ordenarPor(
+    d.emendas,
+    { emenda: (e) => e.codigo, funcao: (e) => e.funcao, localidade: (e) => e.localidade, empenhado: (e) => e.empenhado, pago: (e) => e.pago + e.rp_pago },
+    lista.ordem,
+  );
+  const emendas = verEmendas ? todas : todas.slice(0, 8);
 
   return (
     <Card variant="outlined">
@@ -90,16 +99,26 @@ export function EmendasIndicadas({ id, nome }: { id: string; nome: string }) {
             <Table size="small" aria-label="Emendas indicadas por ano">
               <TableHead>
                 <TableRow>
-                  <TableCell>Ano da emenda</TableCell>
-                  <TableCell align="right">Emendas</TableCell>
-                  <TableCell align="right">Empenhado</TableCell>
-                  <TableCell align="right">Liquidado</TableCell>
-                  <TableCell align="right">Pago no ano</TableCell>
-                  <TableCell align="right">Restos a pagar pagos</TableCell>
+                  <CabecalhosOrdenaveis
+                    ordem={anos.ordem}
+                    onOrdenar={anos.ordenar}
+                    colunas={[
+                      { coluna: 'ano', rotulo: 'Ano da emenda' },
+                      { coluna: 'emendas', rotulo: 'Emendas', align: 'right' },
+                      { coluna: 'empenhado', rotulo: 'Empenhado', align: 'right' },
+                      { coluna: 'liquidado', rotulo: 'Liquidado', align: 'right' },
+                      { coluna: 'pago', rotulo: 'Pago no ano', align: 'right' },
+                      { coluna: 'rp', rotulo: 'Restos a pagar pagos', align: 'right' },
+                    ]}
+                  />
                 </TableRow>
               </TableHead>
               <TableBody>
-                {[...d.por_ano].reverse().map((a) => (
+                {ordenarPor(
+                  d.por_ano,
+                  { ano: (a) => a.ano, emendas: (a) => a.emendas, empenhado: (a) => a.empenhado, liquidado: (a) => a.liquidado, pago: (a) => a.pago, rp: (a) => a.rp_pago },
+                  anos.ordem,
+                ).map((a) => (
                   <TableRow key={a.ano}>
                     <TableCell>{a.ano}</TableCell>
                     <TableCell align="right">{number(a.emendas)}</TableCell>
@@ -170,11 +189,17 @@ export function EmendasIndicadas({ id, nome }: { id: string; nome: string }) {
               <Table size="small" aria-label={`Emendas de ${nome}`}>
                 <TableHead>
                   <TableRow>
-                    <TableCell>Emenda</TableCell>
-                    <TableCell>Para quê</TableCell>
-                    <TableCell>Localidade</TableCell>
-                    <TableCell align="right">Empenhado</TableCell>
-                    <TableCell align="right">Pago</TableCell>
+                    <CabecalhosOrdenaveis
+                      ordem={lista.ordem}
+                      onOrdenar={lista.ordenar}
+                      colunas={[
+                        { coluna: 'emenda', rotulo: 'Emenda' },
+                        { coluna: 'funcao', rotulo: 'Para quê' },
+                        { coluna: 'localidade', rotulo: 'Localidade' },
+                        { coluna: 'empenhado', rotulo: 'Empenhado', align: 'right' },
+                        { coluna: 'pago', rotulo: 'Pago', align: 'right' },
+                      ]}
+                    />
                   </TableRow>
                 </TableHead>
                 <TableBody>

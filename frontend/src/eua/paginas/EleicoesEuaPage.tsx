@@ -21,6 +21,8 @@ import {
 import { Link as RouterLink, useSearchParams } from 'react-router';
 import { PageHeader } from '@/pages/PageHeader';
 import { useAsync } from '@/hooks/useAsync';
+import { CabecalhoOrdenavel } from '@/components/tabela/CabecalhoOrdenavel';
+import { ordenarPor, useOrdem } from '@/components/tabela/ordenacao';
 import { faixa } from '@/data/mapaVotos';
 import { eua, type EleicaoPresidente } from '../api';
 import { LegendaEscala, MapaEua } from '../componentes/MapaEua';
@@ -206,10 +208,12 @@ function ResultadosSenado() {
   const r = useAsync(() => eua.senadoEleicoes(), []);
   const anos = r.data?.anos ?? [];
   const [ano, setAno] = useState<string | null>(null);
+  const { ordem, ordenar } = useOrdem<'estado' | 'votos'>({ coluna: 'estado', sentido: 'asc' }, { votos: 'desc' });
   const a = ano ?? anos[anos.length - 1];
   if (r.error) return <Erro onRetry={r.reload} />;
   if (!r.data) return <Carregando linhas={1} />;
-  const disputas = [...(r.data.por_ano[a] ?? [])].sort((x, y) => nomeEstado(x.uf).localeCompare(nomeEstado(y.uf), 'pt-BR'));
+  // Candidaturas: pelo total de votos da disputa.
+  const disputas = ordenarPor(r.data.por_ano[a] ?? [], { estado: (x) => nomeEstado(x.uf), votos: (x) => x.candidatos.reduce((t, c) => t + (c.votos ?? 0), 0) }, ordem);
   return (
     <Card variant="outlined">
       <CardContent>
@@ -237,8 +241,12 @@ function ResultadosSenado() {
           <Table size="small">
             <TableHead>
               <TableRow>
-                <TableCell>Estado</TableCell>
-                <TableCell>Candidaturas (votos e %)</TableCell>
+                <CabecalhoOrdenavel coluna="estado" ordem={ordem} onOrdenar={ordenar}>
+                  Estado
+                </CabecalhoOrdenavel>
+                <CabecalhoOrdenavel coluna="votos" ordem={ordem} onOrdenar={ordenar}>
+                  Candidaturas (votos e %)
+                </CabecalhoOrdenavel>
               </TableRow>
             </TableHead>
             <TableBody>

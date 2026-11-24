@@ -15,7 +15,6 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  TableSortLabel,
   TextField,
   Typography,
   useMediaQuery,
@@ -26,6 +25,8 @@ import { useAuth } from '@/auth';
 import { pedirVisitas } from '@/analytics/visitas';
 import { placeName } from '@/analytics/visitante';
 import { PageHeader } from '@/pages/PageHeader';
+import { CabecalhosOrdenaveis } from '@/components/tabela/CabecalhoOrdenavel';
+import { proximaOrdem, ordenarPor, useOrdem } from '@/components/tabela/ordenacao';
 
 /**
  * Página Visitas, só para os admins (o Worker tanaurna-visitas confere o e-mail). Tela de administração:
@@ -216,12 +217,18 @@ export function VisitasPage() {
     };
   }, [caminho, quem, ordem, getAccessToken]);
 
+  // A tabela das visitas ordena no servidor (vale para todas, não só as 200 que chegam).
   const ordenar = (c: Chave) =>
-    setOrdem((o) =>
-      o.sort === c
-        ? { sort: c, dir: o.dir === 'asc' ? 'desc' : 'asc' }
-        : { sort: c, dir: c === 'quando' ? 'desc' : 'asc' },
-    );
+    setOrdem((o) => {
+      const p = proximaOrdem(
+        { coluna: o.sort, sentido: o.dir },
+        c,
+        c === 'quando' ? 'desc' : 'asc',
+      );
+      return { sort: p.coluna, dir: p.sentido };
+    });
+  // "Mais vistas" chega inteira (10 linhas): ordena aqui.
+  const ordTop = useOrdem<'caminho' | 'visitas'>(null, (c) => (c === 'visitas' ? 'desc' : 'asc'));
 
   if (estado.fase === 'erro' && (estado.status === 401 || estado.status === 403)) {
     return (
@@ -273,14 +280,22 @@ export function VisitasPage() {
           <Table size="small" sx={{ tableLayout: 'fixed', width: '100%' }}>
             <TableHead>
               <TableRow>
-                <TableCell>Mais vistas em 7 dias</TableCell>
-                <TableCell align="right" sx={{ width: 90 }}>
-                  Visitas
-                </TableCell>
+                <CabecalhosOrdenaveis
+                  ordem={ordTop.ordem}
+                  onOrdenar={ordTop.ordenar}
+                  colunas={[
+                    { coluna: 'caminho', rotulo: 'Mais vistas em 7 dias' },
+                    { coluna: 'visitas', rotulo: 'Visitas', align: 'right', sx: { width: 90 } },
+                  ]}
+                />
               </TableRow>
             </TableHead>
             <TableBody>
-              {(d?.top ?? []).map((t) => (
+              {ordenarPor(
+                d?.top ?? [],
+                { caminho: (t) => t.caminho, visitas: (t) => Number(t.visitas) },
+                ordTop.ordem,
+              ).map((t) => (
                 <TableRow key={t.caminho}>
                   <TableCell sx={{ overflowWrap: 'anywhere' }}>{t.caminho}</TableCell>
                   <TableCell align="right">{t.visitas}</TableCell>
@@ -359,21 +374,15 @@ export function VisitasPage() {
             >
               <TableHead>
                 <TableRow>
-                  {COLUNAS.map((c) => (
-                    <TableCell
-                      key={c.chave}
-                      sortDirection={ordem.sort === c.chave ? ordem.dir : false}
-                      sx={{ width: c.largura }}
-                    >
-                      <TableSortLabel
-                        active={ordem.sort === c.chave}
-                        direction={ordem.sort === c.chave ? ordem.dir : 'asc'}
-                        onClick={() => ordenar(c.chave)}
-                      >
-                        {c.titulo}
-                      </TableSortLabel>
-                    </TableCell>
-                  ))}
+                  <CabecalhosOrdenaveis
+                    ordem={{ coluna: ordem.sort, sentido: ordem.dir }}
+                    onOrdenar={ordenar}
+                    colunas={COLUNAS.map((c) => ({
+                      coluna: c.chave,
+                      rotulo: c.titulo,
+                      sx: { width: c.largura },
+                    }))}
+                  />
                 </TableRow>
               </TableHead>
               <TableBody>

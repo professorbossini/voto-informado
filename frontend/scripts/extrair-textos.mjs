@@ -29,9 +29,13 @@ function visitar(no, arq, src) {
     const ehImport = pai && (ts.isImportDeclaration(pai) || ts.isExportDeclaration(pai) || ts.isExternalModuleReference(pai));
     const ehChave = pai && ts.isPropertyAssignment(pai) && pai.name === no;
     const ehTipo = pai && ts.isLiteralTypeNode(pai);
-    const ehSx = (() => { let p = no.parent; for (let i = 0; i < 6 && p; i++, p = p.parent) if (ts.isJsxAttribute(p) && ['sx', 'className', 'variant', 'component', 'color', 'size', 'href', 'to', 'id', 'key'].includes(p.name.getText(src))) return true; return false; })();
+    const ehSx = (() => { let p = no.parent; for (let i = 0; i < 6 && p; i++, p = p.parent) if (ts.isJsxAttribute(p) && ['sx', 'className', 'variant', 'component', 'color', 'size', 'href', 'to', 'id', 'key', 'coluna'].includes(p.name.getText(src))) return true; return false; })();
     const ehChamada = pai && ts.isCallExpression(pai) && /^(import|require|get|getItem|setItem|querySelector|getElementById|matchMedia|useLocalState|replace|split|startsWith|endsWith|includes|test|localeCompare|toLocaleString|padStart|join|set|has|delete|setParams|navigate)$/.test(pai.expression.getText(src).split('.').pop());
-    if (!ehImport && !ehChave && !ehTipo && !ehSx && !ehChamada) add(no.text, 'exato', arq);
+    // Tabelas ordenáveis: `coluna: 'chave'` é identificador; `rotulo: '...'` é sempre texto da tela.
+    const comparacao = pai && ts.isBinaryExpression(pai) && /^(===|!==|==|!=)$/.test(pai.operatorToken.getText(src)) && /^[a-z][a-z0-9_]*$/.test(no.text);
+    const prop = pai && ts.isPropertyAssignment(pai) && pai.initializer === no ? pai.name.getText(src) : null;
+    if (prop === 'rotulo') add(no.text, 'exato', arq, true);
+    else if (prop !== 'coluna' && !comparacao && !ehImport && !ehChave && !ehTipo && !ehSx && !ehChamada) add(no.text, 'exato', arq);
   } else if (ts.isTemplateExpression(no)) {
     let n = 0;
     let s = no.head.text;

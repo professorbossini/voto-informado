@@ -11,7 +11,6 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  TableSortLabel,
   Tooltip,
   Typography,
   useMediaQuery,
@@ -24,6 +23,9 @@ import { CandidatePhoto } from '@/components/election/CandidatePhoto';
 import { CARGO_LABEL, money, money0, NAO_INFORMADO } from '@/data/format';
 import type { ParlamentarResumo } from '@/data/types';
 import { CASA_LABEL, CASA_NOME, mesesTexto, percentSigned } from './gastos';
+import { CabecalhoOrdenavel } from '@/components/tabela/CabecalhoOrdenavel';
+import { proximaOrdem } from '@/components/tabela/ordenacao';
+import { ordemDaUrl, ordemParaUrl, partidoUf, type ColunaRanking, type Ordem } from './rankingOrdem';
 
 export interface RankingRow {
   p: ParlamentarResumo;
@@ -39,7 +41,6 @@ export interface RankingRow {
   diff: number | null;
 }
 
-export type Ordem = 'valor-desc' | 'valor-asc' | 'mensal-desc' | 'mensal-asc' | 'nome';
 
 /** Thin value bar, same neutral color for everyone. */
 function InlineBar({ value, max }: { value: number; max: number }) {
@@ -60,9 +61,6 @@ function InlineBar({ value, max }: { value: number; max: number }) {
   );
 }
 
-function partidoUf(p: ParlamentarResumo) {
-  return `${p.partido ?? NAO_INFORMADO}-${p.uf ?? NAO_INFORMADO}`;
-}
 
 function DiffText({ row, stacked = false }: { row: RankingRow; stacked?: boolean }) {
   const txt = percentSigned(row.diff);
@@ -142,43 +140,34 @@ function RankingCards({ rows, max }: { rows: RankingRow[]; max: number }) {
   );
 }
 
-function RankingTable({ rows, max, ordem, onOrdem }: { rows: RankingRow[]; max: number; ordem: Ordem; onOrdem: (o: Ordem) => void }) {
+function RankingTable({ rows, max, ordem: ordemUrl, onOrdem }: { rows: RankingRow[]; max: number; ordem: Ordem; onOrdem: (o: Ordem) => void }) {
+  const ordem = ordemDaUrl(ordemUrl);
+  // Valores começam do maior; nome e partido, de A a Z.
+  const ordenar = (c: ColunaRanking) => onOrdem(ordemParaUrl(proximaOrdem(ordem, c, c === 'nome' || c === 'partido' ? 'asc' : 'desc')));
   return (
     <TableContainer>
       <Table size="small" aria-label="Gastos da cota parlamentar por parlamentar">
         <TableHead>
           <TableRow>
-            <TableCell sortDirection={ordem === 'nome' ? 'asc' : false}>
-              <TableSortLabel active={ordem === 'nome'} direction="asc" onClick={() => onOrdem('nome')}>
-                Parlamentar
-              </TableSortLabel>
-            </TableCell>
-            <TableCell>Partido-UF · Casa</TableCell>
-            <TableCell sortDirection={ordem.startsWith('valor') ? (ordem === 'valor-asc' ? 'asc' : 'desc') : false} sx={{ minWidth: 200 }}>
-              <TableSortLabel
-                active={ordem.startsWith('valor')}
-                direction={ordem === 'valor-asc' ? 'asc' : 'desc'}
-                onClick={() => onOrdem(ordem === 'valor-desc' ? 'valor-asc' : 'valor-desc')}
-              >
-                Valor no período
-              </TableSortLabel>
-            </TableCell>
-            <TableCell align="right" sx={{ whiteSpace: 'nowrap' }} sortDirection={ordem.startsWith('mensal') ? (ordem === 'mensal-asc' ? 'asc' : 'desc') : false}>
+            <CabecalhoOrdenavel coluna="nome" ordem={ordem} onOrdenar={ordenar}>
+              Parlamentar
+            </CabecalhoOrdenavel>
+            <CabecalhoOrdenavel coluna="partido" ordem={ordem} onOrdenar={ordenar}>
+              Partido-UF · Casa
+            </CabecalhoOrdenavel>
+            <CabecalhoOrdenavel coluna="valor" ordem={ordem} onOrdenar={ordenar} sx={{ minWidth: 200 }}>
+              Valor no período
+            </CabecalhoOrdenavel>
+            <CabecalhoOrdenavel coluna="mensal" ordem={ordem} onOrdenar={ordenar} align="right" sx={{ whiteSpace: 'nowrap' }}>
               <Tooltip title="Valor no período ÷ meses com lançamento (o número de meses aparece abaixo)">
-                <TableSortLabel
-                  active={ordem.startsWith('mensal')}
-                  direction={ordem === 'mensal-asc' ? 'asc' : 'desc'}
-                  onClick={() => onOrdem(ordem === 'mensal-desc' ? 'mensal-asc' : 'mensal-desc')}
-                >
-                  Média por mês
-                </TableSortLabel>
+                <span>Média por mês</span>
               </Tooltip>
-            </TableCell>
-            <TableCell>
+            </CabecalhoOrdenavel>
+            <CabecalhoOrdenavel coluna="comparacao" ordem={ordem} onOrdenar={ordenar}>
               <Tooltip title="Diferença entre a média por mês deste parlamentar e a média das médias mensais dos colegas da mesma casa e UF, no mesmo período">
                 <span>Comparação</span>
               </Tooltip>
-            </TableCell>
+            </CabecalhoOrdenavel>
           </TableRow>
         </TableHead>
         <TableBody>

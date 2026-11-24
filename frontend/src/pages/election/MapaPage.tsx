@@ -24,6 +24,8 @@ import {
   ToggleButtonGroup,
   Typography,
 } from '@mui/material';
+import { CabecalhosOrdenaveis } from '@/components/tabela/CabecalhoOrdenavel';
+import { ordenarPor, useOrdem } from '@/components/tabela/ordenacao';
 import { useColorScheme } from '@mui/material/styles';
 import OpenInNewRounded from '@mui/icons-material/OpenInNewRounded';
 import VerifiedRounded from '@mui/icons-material/VerifiedRounded';
@@ -345,6 +347,20 @@ export function MapaPage() {
   const sel = mun ? nomes.get(mun) : undefined;
   const selLinha = mun ? indexados.get(mun)?.linha : undefined;
 
+  // Tabela por estado: em ordem alfabética (exterior no fim) até alguém clicar numa coluna.
+  const ordEstados = useOrdem<'estado' | 'municipios' | 'validos' | 'votos' | 'pct'>(null, (c) => (c === 'estado' ? 'asc' : 'desc'));
+  const estadosOrdenados = ordenarPor(
+    [...resumo].sort((a, b) => (a.uf === 'ZZ' ? 1 : b.uf === 'ZZ' ? -1 : nomeLocal(a.uf).localeCompare(nomeLocal(b.uf), 'pt-BR'))),
+    {
+      estado: (r) => (r.uf === 'ZZ' ? 'Exterior' : nomeLocal(r.uf)),
+      municipios: (r) => r.total,
+      validos: (r) => r.linha[0],
+      votos: (r) => (escolhido ? r.linha[indice + 1] : null),
+      pct: (r) => (escolhido ? pctNaLinha(r.linha, indice) : null),
+    },
+    ordEstados.ordem,
+  );
+
   const rotulo = (cd: string) => {
     const n = nomes.get(cd);
     const linha = indexados.get(cd)?.linha;
@@ -604,22 +620,33 @@ export function MapaPage() {
                   </caption>
                   <TableHead>
                     <TableRow>
-                      <TableCell>Estado</TableCell>
-                      <TableCell align="right">Municípios</TableCell>
-                      <TableCell align="right">Votos válidos</TableCell>
-                      {escolhido && (
-                        <>
-                          <TableCell align="right">
-                            Votos de <span translate="no">{nomeProprio(escolhido.nome_urna)}</span>
-                          </TableCell>
-                          <TableCell align="right">% dos válidos</TableCell>
-                        </>
-                      )}
+                      <CabecalhosOrdenaveis
+                        ordem={ordEstados.ordem}
+                        onOrdenar={ordEstados.ordenar}
+                        colunas={[
+                          { coluna: 'estado', rotulo: 'Estado' },
+                          { coluna: 'municipios', rotulo: 'Municípios', align: 'right' },
+                          { coluna: 'validos', rotulo: 'Votos válidos', align: 'right' },
+                          ...(escolhido
+                            ? ([
+                                {
+                                  coluna: 'votos',
+                                  rotulo: (
+                                    <>
+                                      Votos de <span translate="no">{nomeProprio(escolhido.nome_urna)}</span>
+                                    </>
+                                  ),
+                                  align: 'right',
+                                },
+                                { coluna: 'pct', rotulo: '% dos válidos', align: 'right' },
+                              ] as const)
+                            : []),
+                        ]}
+                      />
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {[...resumo]
-                      .sort((a, b) => (a.uf === 'ZZ' ? 1 : b.uf === 'ZZ' ? -1 : nomeLocal(a.uf).localeCompare(nomeLocal(b.uf), 'pt-BR')))
+                    {estadosOrdenados
                       .map((r) => (
                         <TableRow key={r.uf} hover>
                           <TableCell component="th" scope="row">

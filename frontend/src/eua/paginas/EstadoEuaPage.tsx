@@ -19,6 +19,8 @@ import { Link as RouterLink, useParams } from 'react-router';
 import { PageHeader } from '@/pages/PageHeader';
 import { BarList } from '@/components/charts/charts';
 import { useAsync } from '@/hooks/useAsync';
+import { CabecalhoOrdenavel } from '@/components/tabela/CabecalhoOrdenavel';
+import { ordenarPor, useOrdem } from '@/components/tabela/ordenacao';
 import { eua, ou404 } from '../api';
 import { LinkExterno } from '../componentes/blocos';
 import { AvisoInformativo, CartaoMembro, Carregando, FonteNota } from '../componentes/comuns';
@@ -48,6 +50,7 @@ export function EstadoEuaPage() {
   const esc = useAsync(() => ou404(eua.escritorios()), []);
   const cal = useAsync(() => ou404(eua.calendario()), []);
   const res = useAsync(() => ou404(eua.resumoCandidatos()), []);
+  const { ordem, ordenar } = useOrdem<'ano' | 'votos' | 'colegio'>({ coluna: 'ano', sentido: 'desc' }, { ano: 'desc', votos: 'desc', colegio: 'desc' });
 
   const senadores = (cong.data?.senado.membros ?? []).filter((m) => m.uf === uf).sort((a, b) => (a.sobrenome ?? '').localeCompare(b.sobrenome ?? '', 'pt-BR'));
   const deputados = (cong.data?.camara.membros ?? []).filter((m) => m.uf === uf).sort((a, b) => (a.distrito ?? 0) - (b.distrito ?? 0));
@@ -124,13 +127,28 @@ export function EstadoEuaPage() {
                 <Table size="small">
                   <TableHead>
                     <TableRow>
-                      <TableCell>Ano</TableCell>
-                      <TableCell>Candidaturas no estado (votos e %)</TableCell>
-                      <TableCell align="right">Colégio Eleitoral</TableCell>
+                      <CabecalhoOrdenavel coluna="ano" ordem={ordem} onOrdenar={ordenar}>
+                        Ano
+                      </CabecalhoOrdenavel>
+                      <CabecalhoOrdenavel coluna="votos" ordem={ordem} onOrdenar={ordenar}>
+                        Candidaturas no estado (votos e %)
+                      </CabecalhoOrdenavel>
+                      <CabecalhoOrdenavel coluna="colegio" ordem={ordem} onOrdenar={ordenar} align="right">
+                        Colégio Eleitoral
+                      </CabecalhoOrdenavel>
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {[...pres.data.anos].reverse().map((a) => {
+                    {ordenarPor(
+                      pres.data.anos,
+                      {
+                        ano: (a) => a,
+                        // Candidaturas: pelo total de votos no estado; Colégio: pelos delegados do estado.
+                        votos: (a) => pres.data!.por_ano[String(a)]?.estados[uf]?.total,
+                        colegio: (a) => pres.data!.por_ano[String(a)]?.candidatos.reduce((t, c) => t + (c.eleitores_por_estado?.[uf] ?? 0), 0) || null,
+                      },
+                      ordem,
+                    ).map((a) => {
                       const e = pres.data!.por_ano[String(a)];
                       const x = e.estados[uf];
                       if (!x) return null;

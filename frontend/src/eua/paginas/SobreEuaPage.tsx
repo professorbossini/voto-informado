@@ -3,7 +3,9 @@ import { Alert, Box, Card, CardContent, Link, Stack, Table, TableBody, TableCell
 import { Link as RouterLink } from 'react-router';
 import { PageHeader } from '@/pages/PageHeader';
 import { useAsync } from '@/hooks/useAsync';
-import { eua } from '../api';
+import { eua, type FonteEua } from '../api';
+import { CabecalhosOrdenaveis } from '@/components/tabela/CabecalhoOrdenavel';
+import { ordenarPor, useOrdem } from '@/components/tabela/ordenacao';
 import { LinkExterno } from '../componentes/blocos';
 import { Carregando } from '../componentes/comuns';
 import { dataHoraBrasilia } from '../formato';
@@ -45,8 +47,16 @@ const PARTES: Record<string, string> = {
   suprema: 'Suprema Corte',
 };
 
+const COLUNAS_FONTES = {
+  fonte: (f: FonteEua) => f.nome,
+  traz: (f: FonteEua) => f.descricao,
+  licenca: (f: FonteEua) => f.licenca,
+  coleta: (f: FonteEua) => f.coletado_em,
+};
+
 export function SobreEuaPage() {
   const fontes = useAsync(() => eua.fontes(), []);
+  const { ordem, ordenar } = useOrdem<keyof typeof COLUNAS_FONTES>(null, { coleta: 'desc' });
   const meta = useAsync(() => eua.meta(), []);
 
   return (
@@ -166,14 +176,20 @@ export function SobreEuaPage() {
               <Table size="small">
                 <TableHead>
                   <TableRow>
-                    <TableCell>Fonte</TableCell>
-                    <TableCell>O que traz</TableCell>
-                    <TableCell>Licença</TableCell>
-                    <TableCell>Coleta</TableCell>
+                    <CabecalhosOrdenaveis
+                      ordem={ordem}
+                      onOrdenar={ordenar}
+                      colunas={[
+                        { coluna: 'fonte', rotulo: 'Fonte' },
+                        { coluna: 'traz', rotulo: 'O que traz' },
+                        { coluna: 'licenca', rotulo: 'Licença' },
+                        { coluna: 'coleta', rotulo: 'Coleta' },
+                      ]}
+                    />
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {fontes.data.fontes.map((f) => (
+                  {ordenarPor(fontes.data.fontes, COLUNAS_FONTES, ordem).map((f) => (
                     <TableRow key={f.chave}>
                       <TableCell sx={{ verticalAlign: 'top', minWidth: 180 }}>
                         <LinkExterno href={f.pagina ?? f.url}>{f.nome}</LinkExterno>

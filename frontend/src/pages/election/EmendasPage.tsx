@@ -38,6 +38,8 @@ import { money, moneyCompact, nomeProprio, normalize, number, percent } from '@/
 import type { EmendasMunicipio, EmendasUf, ResumoEmendas, ValorEmenda } from '@/data/types';
 import { MUN_BRASILIA, MUN_PADRAO, useMunicipioUsuario } from '@/data/useMunicipioUsuario';
 import { useAsync } from '@/hooks/useAsync';
+import { CabecalhosOrdenaveis } from '@/components/tabela/CabecalhoOrdenavel';
+import { ordenarPor, useOrdem } from '@/components/tabela/ordenacao';
 import { PageHeader } from '../PageHeader';
 
 const UFS_NOMES: Record<string, string> = {
@@ -104,6 +106,11 @@ function AvisoCobertura({ resumo }: { resumo: ResumoEmendas | undefined }) {
 function Municipio({ m, resumo, recorte }: { m: EmendasMunicipio; resumo: ResumoEmendas | undefined; recorte: Recorte }) {
   const [verTodosAutores, setVerTodosAutores] = useState(false);
   const [verTodasMaiores, setVerTodasMaiores] = useState(false);
+  // Valores começam do maior; textos, de A a Z. Sem clique: a ordem de sempre (maior valor pago).
+  const textoAsc = (c: string) => (['pago', 'emendas', 'empenhado', 'liquidado', 'rp', 'ano'].includes(c) ? 'desc' : 'asc');
+  const ordAutores = useOrdem<'autor' | 'tipo' | 'pago'>(null, textoAsc);
+  const ordMaiores = useOrdem<'emenda' | 'autor' | 'funcao' | 'pago'>(null, textoAsc);
+  const ordAnos = useOrdem<'ano' | 'emendas' | 'empenhado' | 'liquidado' | 'pago' | 'rp'>({ coluna: 'ano', sentido: 'desc' }, textoAsc);
   const r = m.recebido;
   const ate = resumo?.periodo.ate ?? new Date().getFullYear();
   const anos = useMemo(() => {
@@ -124,8 +131,16 @@ function Municipio({ m, resumo, recorte }: { m: EmendasMunicipio; resumo: Resumo
     .map((t) => ({ label: TIPO_EMENDA[t.nome]?.curto ?? t.nome, value: val(t, recorte), hint: `${TIPO_EMENDA[t.nome]?.completo ?? t.nome}: ${money(val(t, recorte))}` }))
     .filter((t) => t.value > 0)
     .sort((a, b) => b.value - a.value);
-  const autores = r.por_autor.filter((a) => val(a, recorte) > 0).sort((a, b) => val(b, recorte) - val(a, recorte));
-  const maiores = m.maiores.filter((e) => val(e, recorte) > 0).sort((a, b) => val(b, recorte) - val(a, recorte));
+  const autores = ordenarPor(
+    r.por_autor.filter((a) => val(a, recorte) > 0).sort((a, b) => val(b, recorte) - val(a, recorte)),
+    { autor: (a) => a.nome ?? a.autor, tipo: (a) => TIPO_AUTOR[a.autor_tipo] ?? a.autor_tipo, pago: (a) => val(a, recorte) },
+    ordAutores.ordem,
+  );
+  const maiores = ordenarPor(
+    m.maiores.filter((e) => val(e, recorte) > 0).sort((a, b) => val(b, recorte) - val(a, recorte)),
+    { emenda: (e) => e.codigo, autor: (e) => e.nome ?? e.autor, funcao: (e) => e.funcao, pago: (e) => val(e, recorte) },
+    ordMaiores.ordem,
+  );
   const nome = nomeProprio(m.nome);
 
   return (
@@ -226,9 +241,15 @@ function Municipio({ m, resumo, recorte }: { m: EmendasMunicipio; resumo: Resumo
               <Table size="small" stickyHeader aria-label={`Autores das emendas pagas em ${nome}`}>
                 <TableHead>
                   <TableRow>
-                    <TableCell>Autor</TableCell>
-                    <TableCell>Tipo</TableCell>
-                    <TableCell align="right">Pago</TableCell>
+                    <CabecalhosOrdenaveis
+                      ordem={ordAutores.ordem}
+                      onOrdenar={ordAutores.ordenar}
+                      colunas={[
+                        { coluna: 'autor', rotulo: 'Autor' },
+                        { coluna: 'tipo', rotulo: 'Tipo' },
+                        { coluna: 'pago', rotulo: 'Pago', align: 'right' },
+                      ]}
+                    />
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -288,10 +309,16 @@ function Municipio({ m, resumo, recorte }: { m: EmendasMunicipio; resumo: Resumo
               <Table size="small" aria-label={`Emendas com maior valor pago em ${nome}`}>
                 <TableHead>
                   <TableRow>
-                    <TableCell>Emenda</TableCell>
-                    <TableCell>Autor</TableCell>
-                    <TableCell>Para quê</TableCell>
-                    <TableCell align="right">Pago aqui</TableCell>
+                    <CabecalhosOrdenaveis
+                      ordem={ordMaiores.ordem}
+                      onOrdenar={ordMaiores.ordenar}
+                      colunas={[
+                        { coluna: 'emenda', rotulo: 'Emenda' },
+                        { coluna: 'autor', rotulo: 'Autor' },
+                        { coluna: 'funcao', rotulo: 'Para quê' },
+                        { coluna: 'pago', rotulo: 'Pago aqui', align: 'right' },
+                      ]}
+                    />
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -357,16 +384,26 @@ function Municipio({ m, resumo, recorte }: { m: EmendasMunicipio; resumo: Resumo
               <Table size="small" aria-label="Estágios das emendas com destino no município">
                 <TableHead>
                   <TableRow>
-                    <TableCell>Ano da emenda</TableCell>
-                    <TableCell align="right">Emendas</TableCell>
-                    <TableCell align="right">Empenhado</TableCell>
-                    <TableCell align="right">Liquidado</TableCell>
-                    <TableCell align="right">Pago no ano</TableCell>
-                    <TableCell align="right">Restos a pagar pagos</TableCell>
+                    <CabecalhosOrdenaveis
+                      ordem={ordAnos.ordem}
+                      onOrdenar={ordAnos.ordenar}
+                      colunas={[
+                        { coluna: 'ano', rotulo: 'Ano da emenda' },
+                        { coluna: 'emendas', rotulo: 'Emendas', align: 'right' },
+                        { coluna: 'empenhado', rotulo: 'Empenhado', align: 'right' },
+                        { coluna: 'liquidado', rotulo: 'Liquidado', align: 'right' },
+                        { coluna: 'pago', rotulo: 'Pago no ano', align: 'right' },
+                        { coluna: 'rp', rotulo: 'Restos a pagar pagos', align: 'right' },
+                      ]}
+                    />
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {[...m.destinadas.por_ano].reverse().map((a) => (
+                  {ordenarPor(
+                    m.destinadas.por_ano,
+                    { ano: (a) => a.ano, emendas: (a) => a.emendas, empenhado: (a) => a.empenhado, liquidado: (a) => a.liquidado, pago: (a) => a.pago, rp: (a) => a.rp_pago },
+                    ordAnos.ordem,
+                  ).map((a) => (
                     <TableRow key={a.ano}>
                       <TableCell>{a.ano}</TableCell>
                       <TableCell align="right">{number(a.emendas)}</TableCell>
@@ -395,16 +432,19 @@ function Municipio({ m, resumo, recorte }: { m: EmendasMunicipio; resumo: Resumo
 }
 
 function MunicipiosDaUf({ u, recorte, atual }: { u: EmendasUf; recorte: Recorte; atual: string | null }) {
-  const [ordem, setOrdem] = useState<OrdemMunicipios>('valor');
+  const { ordem: ordemTabela, ordenar, setOrdem: setOrdemTabela } = useOrdem<'municipio' | 'pago' | 'emendas'>({ coluna: 'pago', sentido: 'desc' }, (c) => (c === 'municipio' ? 'asc' : 'desc'));
+  // Atalhos do celular (as colunas de valor somem na tela estreita): maior valor ou A–Z.
+  const ordem: OrdemMunicipios | null =
+    ordemTabela?.coluna === 'pago' && ordemTabela.sentido === 'desc' ? 'valor' : ordemTabela?.coluna === 'municipio' && ordemTabela.sentido === 'asc' ? 'nome' : null;
+  const setOrdem = (o: OrdemMunicipios) => setOrdemTabela(o === 'valor' ? { coluna: 'pago', sentido: 'desc' } : { coluna: 'municipio', sentido: 'asc' });
   const [busca, setBusca] = useState('');
   const [verTodos, setVerTodos] = useState(false);
   const chave = recorte === 'prefeitura' ? 'prefeitura' : 'recebido';
   const lista = useMemo(() => {
     const q = normalize(busca);
-    return u.municipios
-      .filter((m) => !q || normalize(m.nome).includes(q))
-      .sort((a, b) => (ordem === 'valor' ? b[chave] - a[chave] : 0) || a.nome.localeCompare(b.nome, 'pt-BR'));
-  }, [u.municipios, busca, ordem, chave]);
+    const porNome = u.municipios.filter((m) => !q || normalize(m.nome).includes(q)).sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR'));
+    return ordenarPor(porNome, { municipio: (m) => m.nome, pago: (m) => m[chave], emendas: (m) => m.emendas }, ordemTabela);
+  }, [u.municipios, busca, ordemTabela, chave]);
   const max = Math.max(0, ...u.municipios.map((m) => m[chave]));
   const visiveis = verTodos || busca ? lista : lista.slice(0, 20);
   const totalUf = recorte === 'prefeitura' ? u.recebido_municipios.prefeitura : u.recebido_municipios.total;
@@ -452,12 +492,20 @@ function MunicipiosDaUf({ u, recorte, atual }: { u: EmendasUf; recorte: Recorte;
             <Table size="small" aria-label={`Valor pago em cada município de ${u.nome}`}>
               <TableHead>
                 <TableRow>
-                  <TableCell>Município</TableCell>
+                  <CabecalhosOrdenaveis
+                    ordem={ordemTabela}
+                    onOrdenar={ordenar}
+                    colunas={[{ coluna: 'municipio', rotulo: 'Município' }]}
+                  />
                   <TableCell sx={{ width: '40%', display: { xs: 'none', sm: 'table-cell' } }} aria-hidden />
-                  <TableCell align="right">Pago</TableCell>
-                  <TableCell align="right" sx={{ display: { xs: 'none', sm: 'table-cell' } }}>
-                    Emendas
-                  </TableCell>
+                  <CabecalhosOrdenaveis
+                    ordem={ordemTabela}
+                    onOrdenar={ordenar}
+                    colunas={[
+                      { coluna: 'pago', rotulo: 'Pago', align: 'right' },
+                      { coluna: 'emendas', rotulo: 'Emendas', align: 'right', sx: { display: { xs: 'none', sm: 'table-cell' } } },
+                    ]}
+                  />
                 </TableRow>
               </TableHead>
               <TableBody>

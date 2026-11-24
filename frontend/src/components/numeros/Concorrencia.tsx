@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
   Box,
   Grid,
@@ -8,7 +7,6 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  TableSortLabel,
   Typography,
   useMediaQuery,
   useTheme,
@@ -17,19 +15,19 @@ import { UfTileMap } from '@/components/election/UfTileMap';
 import { number } from '@/data/format';
 import type { Estatisticas } from '@/data/types';
 import { porVaga } from './numeros';
+import { CabecalhoOrdenavel } from '@/components/tabela/CabecalhoOrdenavel';
+import { useOrdenacao } from '@/components/tabela/ordenacao';
 
 type Linha = Estatisticas['concorrencia'][number];
-type Ordem = 'uf' | 'por_vaga' | 'candidatos';
+const COLUNAS = { uf: (l: Linha) => l.uf, vagas: (l: Linha) => l.vagas, candidatos: (l: Linha) => l.candidatos, por_vaga: (l: Linha) => l.por_vaga };
+const MAIOR_PRIMEIRO = { vagas: 'desc', candidatos: 'desc', por_vaga: 'desc' } as const;
 
 /** Candidates per seat by UF: equal-size tile map + sortable compact table. */
 export function Concorrencia({ linhas, nomes }: { linhas: Linha[]; nomes: Record<string, string> }) {
   const theme = useTheme();
   const xs = useMediaQuery(theme.breakpoints.down('sm'), { noSsr: true });
-  const [ordem, setOrdem] = useState<Ordem>('uf');
   const values = Object.fromEntries(linhas.map((l) => [l.uf, l.por_vaga]));
-  const ordenadas = [...linhas].sort((a, b) =>
-    ordem === 'uf' ? a.uf.localeCompare(b.uf) : ordem === 'por_vaga' ? b.por_vaga - a.por_vaga || a.uf.localeCompare(b.uf) : b.candidatos - a.candidatos || a.uf.localeCompare(b.uf),
-  );
+  const { ordenadas, ordem, alternar } = useOrdenacao(linhas, COLUNAS, { coluna: 'uf', sentido: 'asc' }, MAIOR_PRIMEIRO);
 
   return (
     <Grid container spacing={3}>
@@ -43,22 +41,18 @@ export function Concorrencia({ linhas, nomes }: { linhas: Linha[]; nomes: Record
           <Table size="small" stickyHeader aria-label="Candidaturas por vaga em cada UF">
             <TableHead>
               <TableRow>
-                <TableCell sortDirection={ordem === 'uf' ? 'asc' : false}>
-                  <TableSortLabel active={ordem === 'uf'} direction="asc" onClick={() => setOrdem('uf')}>
-                    UF
-                  </TableSortLabel>
-                </TableCell>
-                <TableCell align="right">Vagas</TableCell>
-                <TableCell align="right" sortDirection={ordem === 'candidatos' ? 'desc' : false}>
-                  <TableSortLabel active={ordem === 'candidatos'} direction="desc" onClick={() => setOrdem('candidatos')}>
-                    Candidaturas
-                  </TableSortLabel>
-                </TableCell>
-                <TableCell align="right" sortDirection={ordem === 'por_vaga' ? 'desc' : false}>
-                  <TableSortLabel active={ordem === 'por_vaga'} direction="desc" onClick={() => setOrdem('por_vaga')}>
-                    Por vaga
-                  </TableSortLabel>
-                </TableCell>
+                <CabecalhoOrdenavel coluna="uf" ordem={ordem} onOrdenar={alternar}>
+                  UF
+                </CabecalhoOrdenavel>
+                <CabecalhoOrdenavel coluna="vagas" ordem={ordem} onOrdenar={alternar} align="right">
+                  Vagas
+                </CabecalhoOrdenavel>
+                <CabecalhoOrdenavel coluna="candidatos" ordem={ordem} onOrdenar={alternar} align="right">
+                  Candidaturas
+                </CabecalhoOrdenavel>
+                <CabecalhoOrdenavel coluna="por_vaga" ordem={ordem} onOrdenar={alternar} align="right">
+                  Por vaga
+                </CabecalhoOrdenavel>
               </TableRow>
             </TableHead>
             <TableBody>

@@ -16,7 +16,6 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  TableSortLabel,
   TextField,
   ToggleButton,
   ToggleButtonGroup,
@@ -26,6 +25,8 @@ import { Link as RouterLink, useNavigate } from 'react-router';
 import { PageHeader } from '@/pages/PageHeader';
 import { BarList } from '@/components/charts/charts';
 import { normalize } from '@/data/format';
+import { CabecalhoOrdenavel } from '@/components/tabela/CabecalhoOrdenavel';
+import { ordenarLinhas, proximaOrdem, type Ordem } from '@/components/tabela/ordenacao';
 import { useAsync } from '@/hooks/useAsync';
 import { eua, type MembroResumo } from '../api';
 import { LegendaEscala, MapaEua, faixasPorPosicao } from '../componentes/MapaEua';
@@ -38,7 +39,8 @@ function GastoFederal() {
   const r = useAsync(() => eua.gastoFederal(), []);
   const [medida, setMedida] = useState<'per_capita' | 'valor'>('per_capita');
   const [anoSel, setAnoSel] = useState<string | null>(null);
-  const [ordem, setOrdem] = useState<'nome' | 'valor'>('nome');
+  const [ordem, setOrdem] = useState<Ordem<'nome' | 'valor'>>({ coluna: 'nome', sentido: 'asc' });
+  const ordenar = (c: 'nome' | 'valor') => setOrdem((o) => proximaOrdem(o, c, c === 'valor' ? 'desc' : 'asc'));
   const d = r.data;
   const ano = anoSel ?? d?.ano_distritos ?? '';
   const valores = useMemo(
@@ -49,7 +51,11 @@ function GastoFederal() {
   if (!d) return <Carregando />;
   const nums = Object.values(valores).filter((v): v is number => v != null);
   const fmt = medida === 'valor' ? dolarCompacto : dolar0;
-  const linhas = UFS_POR_NOME.filter((uf) => valores[uf] != null).sort((a, b) => (ordem === 'nome' ? 0 : (valores[b] ?? 0) - (valores[a] ?? 0)));
+  const linhas = ordenarLinhas(
+    UFS_POR_NOME.filter((uf) => valores[uf] != null),
+    (uf) => (ordem.coluna === 'nome' ? nomeEstado(uf) : valores[uf]),
+    ordem.sentido,
+  );
 
   return (
     <Card variant="outlined">
@@ -91,16 +97,12 @@ function GastoFederal() {
               <Table size="small" stickyHeader>
                 <TableHead>
                   <TableRow>
-                    <TableCell>
-                      <TableSortLabel active={ordem === 'nome'} direction="asc" onClick={() => setOrdem('nome')}>
-                        Estado
-                      </TableSortLabel>
-                    </TableCell>
-                    <TableCell align="right">
-                      <TableSortLabel active={ordem === 'valor'} direction="desc" onClick={() => setOrdem('valor')}>
-                        {medida === 'valor' ? 'Total' : 'Por habitante'}
-                      </TableSortLabel>
-                    </TableCell>
+                    <CabecalhoOrdenavel coluna="nome" ordem={ordem} onOrdenar={ordenar}>
+                      Estado
+                    </CabecalhoOrdenavel>
+                    <CabecalhoOrdenavel coluna="valor" ordem={ordem} onOrdenar={ordenar} align="right">
+                      {medida === 'valor' ? 'Total' : 'Por habitante'}
+                    </CabecalhoOrdenavel>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -134,7 +136,8 @@ function GastosGabinetes() {
   const r = useAsync(() => eua.gastosCamara(), []);
   const cong = useAsync(() => eua.congresso(), []);
   const [anoSel, setAnoSel] = useState<string | null>(null);
-  const [ordem, setOrdem] = useState<string>('nome');
+  const [ordem, setOrdem] = useState<Ordem>({ coluna: 'nome', sentido: 'asc' });
+  const ordenar = (c: string) => setOrdem((o) => proximaOrdem(o, c, c === 'nome' ? 'asc' : 'desc'));
   const [busca, setBusca] = useState('');
   const membros = useMemo(() => new Map<string, MembroResumo>((cong.data?.camara.membros ?? []).map((m) => [m.id, m])), [cong.data]);
   if (r.error) return <Erro onRetry={r.reload} />;
@@ -143,13 +146,11 @@ function GastosGabinetes() {
   const anos = Object.keys(d.anos).sort();
   const ano = anoSel ?? anos[anos.length - 1];
   const q = normalize(busca);
-  const linhas = (d.anos[ano] ?? [])
-    .filter((x) => membros.has(x.id) && (!q || normalize(membros.get(x.id)!.nome).includes(q)))
-    .sort((a, b) =>
-      ordem === 'nome'
-        ? (membros.get(a.id)!.sobrenome ?? '').localeCompare(membros.get(b.id)!.sobrenome ?? '', 'pt-BR')
-        : Number(b[ordem] ?? 0) - Number(a[ordem] ?? 0),
-    );
+  const linhas = ordenarLinhas(
+    (d.anos[ano] ?? []).filter((x) => membros.has(x.id) && (!q || normalize(membros.get(x.id)!.nome).includes(q))),
+    (x) => (ordem.coluna === 'nome' ? (membros.get(x.id)!.sobrenome ?? '') : Number(x[ordem.coluna] ?? 0)),
+    ordem.sentido,
+  );
   const totalCat = d.categorias
     .map((c) => ({ label: CATEGORIAS_GASTO[c] ?? c, value: (d.anos[ano] ?? []).reduce((s, x) => s + Number(x[c] ?? 0), 0) }))
     .filter((x) => x.value > 0)
@@ -190,17 +191,13 @@ function GastosGabinetes() {
               <Table size="small" stickyHeader>
                 <TableHead>
                   <TableRow>
-                    <TableCell>
-                      <TableSortLabel active={ordem === 'nome'} direction="asc" onClick={() => setOrdem('nome')}>
-                        Gabinete
-                      </TableSortLabel>
-                    </TableCell>
+                    <CabecalhoOrdenavel coluna="nome" ordem={ordem} onOrdenar={ordenar}>
+                      Gabinete
+                    </CabecalhoOrdenavel>
                     {colunas.map((c) => (
-                      <TableCell key={c} align="right">
-                        <TableSortLabel active={ordem === c} direction="desc" onClick={() => setOrdem(c)}>
-                          {c === 'total' ? 'Total' : (CATEGORIAS_GASTO[c] ?? c).split(' (')[0].split(',')[0]}
-                        </TableSortLabel>
-                      </TableCell>
+                      <CabecalhoOrdenavel key={c} coluna={c} ordem={ordem} onOrdenar={ordenar} align="right">
+                        {c === 'total' ? 'Total' : (CATEGORIAS_GASTO[c] ?? c).split(' (')[0].split(',')[0]}
+                      </CabecalhoOrdenavel>
                     ))}
                   </TableRow>
                 </TableHead>

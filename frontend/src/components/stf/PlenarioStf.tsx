@@ -19,6 +19,8 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
+import { CabecalhosOrdenaveis } from '@/components/tabela/CabecalhoOrdenavel';
+import { ordenarPor, useOrdem } from '@/components/tabela/ordenacao';
 import OpenInNewRounded from '@mui/icons-material/OpenInNewRounded';
 import GavelRounded from '@mui/icons-material/GavelRounded';
 import { Link as RouterLink, useHref, useNavigate } from 'react-router';
@@ -335,7 +337,12 @@ function QuemNomeou({ stf }: { stf: Stf }) {
 }
 
 function Remuneracoes({ stf }: { stf: Stf }) {
-  const lista = porNome(stf.ministros).filter((m) => m.remuneracao);
+  const { ordem, ordenar } = useOrdem<'nome' | 'subsidio' | 'bruto' | 'liquido'>(null, (c) => (c === 'nome' ? 'asc' : 'desc'));
+  const lista = ordenarPor(
+    porNome(stf.ministros).filter((m) => m.remuneracao),
+    { nome: (m) => m.nome, subsidio: (m) => m.remuneracao?.subsidio, bruto: (m) => m.remuneracao?.bruto, liquido: (m) => m.remuneracao?.liquido },
+    ordem,
+  );
   const ref = lista[0]?.remuneracao?.ref;
   if (!lista.length) return null;
   return (
@@ -353,10 +360,16 @@ function Remuneracoes({ stf }: { stf: Stf }) {
           <Table size="small">
             <TableHead>
               <TableRow>
-                <TableCell>Ministro(a)</TableCell>
-                <TableCell align="right">Subsídio</TableCell>
-                <TableCell align="right">Bruto no mês</TableCell>
-                <TableCell align="right">Líquido</TableCell>
+                <CabecalhosOrdenaveis
+                  ordem={ordem}
+                  onOrdenar={ordenar}
+                  colunas={[
+                    { coluna: 'nome', rotulo: 'Ministro(a)' },
+                    { coluna: 'subsidio', rotulo: 'Subsídio', align: 'right' },
+                    { coluna: 'bruto', rotulo: 'Bruto no mês', align: 'right' },
+                    { coluna: 'liquido', rotulo: 'Líquido', align: 'right' },
+                  ]}
+                />
               </TableRow>
             </TableHead>
             <TableBody>
@@ -388,8 +401,22 @@ function Remuneracoes({ stf }: { stf: Stf }) {
 }
 
 function Viagens({ stf }: { stf: Stf }) {
-  const lista = porNome(stf.ministros);
   const ano = String(new Date().getFullYear());
+  const { ordem, ordenar } = useOrdem<'nome' | 'passagensAno' | 'diariasAno' | 'passagens' | 'diarias'>(null, (c) => (c === 'nome' ? 'asc' : 'desc'));
+  const total = (m: MinistroStf) =>
+    Object.values(m.viagens.anos).reduce((s, x) => ({ p: s.p + x.passagens_valor, brl: s.brl + x.diarias_brl, usd: s.usd + x.diarias_usd }), { p: 0, brl: 0, usd: 0 });
+  // Passagens: pelo valor; diárias: pelo valor em reais (as em dólar desempatam).
+  const lista = ordenarPor(
+    porNome(stf.ministros),
+    {
+      nome: (m) => m.nome,
+      passagensAno: (m) => m.viagens.anos[ano]?.passagens_valor || null,
+      diariasAno: (m) => (m.viagens.anos[ano] ? m.viagens.anos[ano].diarias_brl + m.viagens.anos[ano].diarias_usd / 1e6 : null) || null,
+      passagens: (m) => total(m).p || null,
+      diarias: (m) => total(m).brl + total(m).usd / 1e6 || null,
+    },
+    ordem,
+  );
   return (
     <Card>
       <CardContent sx={{ p: { xs: 2, md: 3 } }}>
@@ -405,11 +432,17 @@ function Viagens({ stf }: { stf: Stf }) {
           <Table size="small">
             <TableHead>
               <TableRow>
-                <TableCell>Ministro(a)</TableCell>
-                <TableCell align="right">Passagens {ano}</TableCell>
-                <TableCell align="right">Diárias {ano}</TableCell>
-                <TableCell align="right">Passagens (total)</TableCell>
-                <TableCell align="right">Diárias (total)</TableCell>
+                <CabecalhosOrdenaveis
+                  ordem={ordem}
+                  onOrdenar={ordenar}
+                  colunas={[
+                    { coluna: 'nome', rotulo: 'Ministro(a)' },
+                    { coluna: 'passagensAno', rotulo: <>Passagens {ano}</>, align: 'right' },
+                    { coluna: 'diariasAno', rotulo: <>Diárias {ano}</>, align: 'right' },
+                    { coluna: 'passagens', rotulo: 'Passagens (total)', align: 'right' },
+                    { coluna: 'diarias', rotulo: 'Diárias (total)', align: 'right' },
+                  ]}
+                />
               </TableRow>
             </TableHead>
             <TableBody>

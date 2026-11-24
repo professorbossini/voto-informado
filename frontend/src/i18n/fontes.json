@@ -2951,7 +2951,6 @@
   "texto": "aceito",
   "tipo": "exato",
   "arquivos": [
-   "analytics/medicao.ts",
    "components/AvisoMedicao.tsx"
   ]
  },
@@ -3387,14 +3386,6 @@
   ]
  },
  {
-  "texto": "ambas",
-  "tipo": "exato",
-  "arquivos": [
-   "components/gastos/gastos.ts",
-   "pages/election/ParlamentarPage.tsx"
-  ]
- },
- {
   "texto": "Analfabeto",
   "tipo": "exato",
   "arquivos": [
@@ -3405,7 +3396,8 @@
   "texto": "ano",
   "tipo": "exato",
   "arquivos": [
-   "eua/paginas/EleicoesEuaPage.tsx"
+   "eua/paginas/EleicoesEuaPage.tsx",
+   "pages/election/EmendasPage.tsx"
   ]
  },
  {
@@ -3962,9 +3954,18 @@
   "texto": "asc",
   "tipo": "exato",
   "arquivos": [
+   "components/emendas/EmendasIndicadas.tsx",
    "components/gastos/RankingList.tsx",
+   "components/gastos/rankingOrdem.ts",
    "components/numeros/Concorrencia.tsx",
-   "eua/paginas/GastosEuaPage.tsx"
+   "components/stf/PlenarioStf.tsx",
+   "components/tabela/CabecalhoOrdenavel.tsx",
+   "components/tabela/ordenacao.ts",
+   "eua/paginas/EleicoesEuaPage.tsx",
+   "eua/paginas/GastosEuaPage.tsx",
+   "pages/election/EmendasPage.tsx",
+   "pages/election/MapaPage.tsx",
+   "pages/election/ParlamentarPage.tsx"
   ]
  },
  {
@@ -4073,7 +4074,6 @@
   "texto": "ativo",
   "tipo": "exato",
   "arquivos": [
-   "components/conta/ContaPerfil.tsx",
    "data/sync/perfil.ts"
   ]
  },
@@ -4131,13 +4131,6 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/CongressoEleitoPage.tsx"
-  ]
- },
- {
-  "texto": "authenticated",
-  "tipo": "exato",
-  "arquivos": [
-   "components/conta/ContaPerfil.tsx"
   ]
  },
  {
@@ -4302,13 +4295,6 @@
   ]
  },
  {
-  "texto": "b",
-  "tipo": "exato",
-  "arquivos": [
-   "pages/election/SimuladorPage.tsx"
-  ]
- },
- {
   "texto": "B",
   "tipo": "exato",
   "arquivos": [
@@ -4354,7 +4340,6 @@
   "texto": "baixado",
   "tipo": "exato",
   "arquivos": [
-   "components/compartilhar/DialogoCompartilhar.tsx",
    "components/compartilhar/compartilhar.ts"
   ]
  },
@@ -4425,6 +4410,7 @@
   "texto": "base",
   "tipo": "exato",
   "arquivos": [
+   "components/tabela/ordenacao.ts",
    "pages/election/PlanosPage.tsx"
   ]
  },
@@ -4619,7 +4605,6 @@
   "texto": "br",
   "tipo": "exato",
   "arquivos": [
-   "components/PaisMenu.tsx",
    "components/pais.ts"
   ]
  },
@@ -4652,7 +4637,6 @@
   "tipo": "exato",
   "arquivos": [
    "components/urna/UrnaKeypad.tsx",
-   "components/urna/UrnaScreen.tsx",
    "components/urna/ballot.ts",
    "pages/election/SimuladorPage.tsx"
   ]
@@ -4785,12 +4769,8 @@
   "texto": "buscando",
   "tipo": "exato",
   "arquivos": [
-   "components/resultados/ApuracaoAoVivo.tsx",
    "components/resultados/hooks.ts",
-   "data/useMunicipioUsuario.ts",
-   "pages/election/EmendasPage.tsx",
-   "pages/election/MinhaCidadePage.tsx",
-   "pages/election/PlenarioPage.tsx"
+   "data/useMunicipioUsuario.ts"
   ]
  },
  {
@@ -5106,17 +5086,11 @@
   "texto": "camara",
   "tipo": "exato",
   "arquivos": [
-   "components/compartilhar/dados.ts",
    "components/congresso/perfil.ts",
-   "components/votacoes/VotacoesNominais.tsx",
-   "eua/componentes/comuns.tsx",
    "eua/paginas/CongressoEuaPage.tsx",
-   "eua/paginas/MembroEuaPage.tsx",
    "eua/paginas/VotacoesEuaPage.tsx",
-   "pages/election/CandidatoPage.tsx",
    "pages/election/CongressoEleitoPage.tsx",
    "pages/election/GastosPage.tsx",
-   "pages/election/ParlamentarPage.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
  },
@@ -5269,7 +5243,6 @@
   "texto": "cancelado",
   "tipo": "exato",
   "arquivos": [
-   "components/compartilhar/DialogoCompartilhar.tsx",
    "components/compartilhar/compartilhar.ts"
   ]
  },
@@ -5291,7 +5264,6 @@
   "texto": "cancelled",
   "tipo": "exato",
   "arquivos": [
-   "components/compartilhar/compartilhar.ts",
    "native/platform.ts"
   ]
  },
@@ -5306,9 +5278,7 @@
   "texto": "candidato",
   "tipo": "exato",
   "arquivos": [
-   "components/urna/UrnaScreen.tsx",
    "components/urna/ballot.ts",
-   "pages/election/ColaPage.tsx",
    "pages/election/SimuladorPage.tsx"
   ]
  },
@@ -5331,13 +5301,6 @@
   "tipo": "padrao",
   "arquivos": [
    "components/gastos/RankingList.tsx"
-  ]
- },
- {
-  "texto": "candidatos",
-  "tipo": "exato",
-  "arquivos": [
-   "components/numeros/Concorrencia.tsx"
   ]
  },
  {
@@ -5596,7 +5559,6 @@
   "texto": "carregando",
   "tipo": "exato",
   "arquivos": [
-   "components/conta/ContaPerfil.tsx",
    "data/sync/perfil.ts"
   ]
  },
@@ -5885,13 +5847,6 @@
   "tipo": "exato",
   "arquivos": [
    "components/election/DesfechoChip.tsx"
-  ]
- },
- {
-  "texto": "clickaway",
-  "tipo": "exato",
-  "arquivos": [
-   "components/feedback/NotificationsProvider.tsx"
   ]
  },
  {
@@ -6713,13 +6668,6 @@
   ]
  },
  {
-  "texto": "contained",
-  "tipo": "exato",
-  "arquivos": [
-   "theme/theme.ts"
-  ]
- },
- {
   "texto": "Continuar com Google",
   "tipo": "exato",
   "arquivos": [
@@ -6842,11 +6790,7 @@
   "texto": "copied",
   "tipo": "exato",
   "arquivos": [
-   "components/compartilhar/compartilhar.ts",
-   "components/share/ShareButton.tsx",
-   "native/platform.ts",
-   "pages/election/CandidatoPage.tsx",
-   "pages/election/CompararPage.tsx"
+   "native/platform.ts"
   ]
  },
  {
@@ -7165,7 +7109,6 @@
   "texto": "cupertino",
   "tipo": "exato",
   "arquivos": [
-   "components/AparenciaMenu.tsx",
    "theme/temas.ts"
   ]
  },
@@ -7591,8 +7534,7 @@
    "components/election/UfTileMap.tsx",
    "config/brand.ts",
    "eua/componentes/MapaEua.tsx",
-   "eua/componentes/blocos.tsx",
-   "theme/theme.ts"
+   "eua/componentes/blocos.tsx"
   ]
  },
  {
@@ -7662,10 +7604,7 @@
   "texto": "denied",
   "tipo": "exato",
   "arquivos": [
-   "analytics/medicao.ts",
-   "components/avisos/AvisoResultado.tsx",
-   "components/resultados/hooks.ts",
-   "data/useMunicipioUsuario.ts"
+   "analytics/medicao.ts"
   ]
  },
  {
@@ -7964,9 +7903,19 @@
   "texto": "desc",
   "tipo": "exato",
   "arquivos": [
+   "components/emendas/EmendasIndicadas.tsx",
    "components/gastos/RankingList.tsx",
    "components/numeros/Concorrencia.tsx",
-   "eua/paginas/GastosEuaPage.tsx"
+   "components/stf/PlenarioStf.tsx",
+   "components/tabela/ordenacao.ts",
+   "eua/paginas/EleicoesEuaPage.tsx",
+   "eua/paginas/EstadoEuaPage.tsx",
+   "eua/paginas/GastosEuaPage.tsx",
+   "eua/paginas/SobreEuaPage.tsx",
+   "pages/election/EmendasPage.tsx",
+   "pages/election/MapaPage.tsx",
+   "pages/election/MinistroStfPage.tsx",
+   "pages/election/ParlamentarPage.tsx"
   ]
  },
  {
@@ -8161,10 +8110,7 @@
   "texto": "df",
   "tipo": "exato",
   "arquivos": [
-   "data/useMunicipioUsuario.ts",
-   "pages/election/EmendasPage.tsx",
-   "pages/election/MinhaCidadePage.tsx",
-   "pages/election/PlenarioPage.tsx"
+   "data/useMunicipioUsuario.ts"
   ]
  },
  {
@@ -8297,9 +8243,7 @@
   "texto": "digitando",
   "tipo": "exato",
   "arquivos": [
-   "components/urna/UrnaScreen.tsx",
-   "components/urna/ballot.ts",
-   "pages/election/SimuladorPage.tsx"
+   "components/urna/ballot.ts"
   ]
  },
  {
@@ -8778,7 +8722,6 @@
   "texto": "eleicao",
   "tipo": "exato",
   "arquivos": [
-   "components/SomenteNoPeriodo.tsx",
    "layouts/navigation.ts",
    "router.tsx"
   ]
@@ -9101,10 +9044,7 @@
   "texto": "eleito",
   "tipo": "exato",
   "arquivos": [
-   "components/compartilhar/dados.ts",
-   "components/election/DesfechoChip.tsx",
    "components/resultados/ApuracaoAoVivo.tsx",
-   "components/resultados/Evolucao.tsx",
    "data/apuracao.ts"
   ]
  },
@@ -9442,6 +9382,13 @@
   "tipo": "exato",
   "arquivos": [
    "eua/formato.ts"
+  ]
+ },
+ {
+  "texto": "emendas",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/EmendasPage.tsx"
   ]
  },
  {
@@ -9822,7 +9769,6 @@
   "arquivos": [
    "components/avisos/AvisoResultado.tsx",
    "components/compartilhar/DialogoCompartilhar.tsx",
-   "components/conta/ContaPerfil.tsx",
    "data/sync/perfil.ts"
   ]
  },
@@ -10476,7 +10422,6 @@
   "tipo": "exato",
   "arquivos": [
    "components/apoio/ApoioPix.tsx",
-   "components/compartilhar/DialogoCompartilhar.tsx",
    "components/compartilhar/compartilhar.ts"
   ]
  },
@@ -10680,13 +10625,6 @@
   "tipo": "exato",
   "arquivos": [
    "components/compartilhar/figura.ts"
-  ]
- },
- {
-  "texto": "filled",
-  "tipo": "exato",
-  "arquivos": [
-   "components/anuncios/Anuncio.tsx"
   ]
  },
  {
@@ -11116,9 +11054,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/resultados/hooks.ts",
-   "data/useMunicipioUsuario.ts",
-   "pages/election/EmendasPage.tsx",
-   "pages/election/PlenarioPage.tsx"
+   "data/useMunicipioUsuario.ts"
   ]
  },
  {
@@ -11238,15 +11174,6 @@
   "tipo": "exato",
   "arquivos": [
    "pages/legal/PrivacidadePage.tsx"
-  ]
- },
- {
-  "texto": "function",
-  "tipo": "exato",
-  "arquivos": [
-   "components/compartilhar/compartilhar.ts",
-   "data/localStore.ts",
-   "native/platform.ts"
   ]
  },
  {
@@ -11594,21 +11521,15 @@
   "texto": "governador",
   "tipo": "exato",
   "arquivos": [
-   "components/avisos/AvisoResultado.tsx",
    "components/numeros/numeros.ts",
    "components/resultados/ApuracaoAoVivo.tsx",
    "components/resultados/CartaoEleitos.tsx",
    "components/resultados/hooks.ts",
    "components/urna/ballot.ts",
-   "data/apuracao.ts",
    "pages/election/CandidatoPage.tsx",
-   "pages/election/ComoVotarPage.tsx",
    "pages/election/EleicaoPage.tsx",
    "pages/election/HomePage.tsx",
    "pages/election/MinhaCidadePage.tsx",
-   "pages/election/PartidoPage.tsx",
-   "pages/election/PartidosPage.tsx",
-   "pages/election/SegundoTurnoPage.tsx",
    "pages/election/SimuladorPage.tsx"
   ]
  },
@@ -11739,7 +11660,6 @@
   "texto": "gps",
   "tipo": "exato",
   "arquivos": [
-   "components/resultados/ApuracaoAoVivo.tsx",
    "components/resultados/hooks.ts"
   ]
  },
@@ -11768,9 +11688,7 @@
   "texto": "granted",
   "tipo": "exato",
   "arquivos": [
-   "analytics/medicao.ts",
-   "components/avisos/push.ts",
-   "data/useMunicipioUsuario.ts"
+   "analytics/medicao.ts"
   ]
  },
  {
@@ -12002,7 +11920,6 @@
   "texto": "html",
   "tipo": "exato",
   "arquivos": [
-   "components/compartilhar/figura.ts",
    "eua/paginas/MembroEuaPage.tsx",
    "eua/paginas/SupremaCortePage.tsx",
    "pages/election/ColaPage.tsx",
@@ -12022,13 +11939,6 @@
   "tipo": "padrao",
   "arquivos": [
    "api/client.ts"
-  ]
- },
- {
-  "texto": "i",
-  "tipo": "exato",
-  "arquivos": [
-   "data/apuracao.ts"
   ]
  },
  {
@@ -12398,7 +12308,6 @@
   "texto": "indireta",
   "tipo": "exato",
   "arquivos": [
-   "pages/presidentes/PresidentesPage.tsx",
    "pages/presidentes/presidentes.ts"
   ]
  },
@@ -12407,10 +12316,7 @@
   "tipo": "exato",
   "arquivos": [
    "components/resultados/hooks.ts",
-   "data/useMunicipioUsuario.ts",
-   "eua/paginas/VotacoesEuaPage.tsx",
-   "pages/election/EmendasPage.tsx",
-   "pages/election/PlenarioPage.tsx"
+   "data/useMunicipioUsuario.ts"
   ]
  },
  {
@@ -12572,9 +12478,7 @@
   "texto": "invalido",
   "tipo": "exato",
   "arquivos": [
-   "components/urna/ballot.ts",
-   "pages/election/ColaPage.tsx",
-   "pages/election/SimuladorPage.tsx"
+   "components/urna/ballot.ts"
   ]
  },
  {
@@ -12868,13 +12772,6 @@
   ]
  },
  {
-  "texto": "k",
-  "tipo": "exato",
-  "arquivos": [
-   "layouts/PublicLayout.tsx"
-  ]
- },
- {
   "texto": "K",
   "tipo": "exato",
   "arquivos": [
@@ -13001,9 +12898,7 @@
   "texto": "legenda",
   "tipo": "exato",
   "arquivos": [
-   "components/urna/UrnaScreen.tsx",
    "components/urna/ballot.ts",
-   "pages/election/ColaPage.tsx",
    "pages/election/SimuladorPage.tsx"
   ]
  },
@@ -13394,13 +13289,6 @@
   ]
  },
  {
-  "texto": "loading",
-  "tipo": "exato",
-  "arquivos": [
-   "components/conta/ContaPerfil.tsx"
-  ]
- },
- {
   "texto": "Localidade",
   "tipo": "exato",
   "arquivos": [
@@ -13446,7 +13334,6 @@
   "texto": "logos",
   "tipo": "exato",
   "arquivos": [
-   "components/compartilhar/figura.ts",
    "pages/election/PartidosPage.tsx"
   ]
  },
@@ -13604,6 +13491,20 @@
   "tipo": "exato",
   "arquivos": [
    "layouts/PublicLayout.tsx"
+  ]
+ },
+ {
+  "texto": "Mais abaixo da média primeiro",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/GastosPage.tsx"
+  ]
+ },
+ {
+  "texto": "Mais acima da média primeiro",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/GastosPage.tsx"
   ]
  },
  {
@@ -13886,7 +13787,6 @@
   "texto": "material",
   "tipo": "exato",
   "arquivos": [
-   "components/AparenciaMenu.tsx",
    "theme/temas.ts"
   ]
  },
@@ -14459,7 +14359,6 @@
   "texto": "mosaico",
   "tipo": "exato",
   "arquivos": [
-   "components/compartilhar/figura.ts",
    "eua/paginas/EstadoEuaPage.tsx",
    "eua/paginas/SupremaCortePage.tsx",
    "pages/election/EleicaoPage.tsx",
@@ -14560,13 +14459,6 @@
   ]
  },
  {
-  "texto": "mouse",
-  "tipo": "exato",
-  "arquivos": [
-   "components/mapa/MapaCanvas.tsx"
-  ]
- },
- {
   "texto": "MS",
   "tipo": "exato",
   "arquivos": [
@@ -14606,7 +14498,6 @@
   "texto": "mun",
   "tipo": "exato",
   "arquivos": [
-   "data/mapaLider.ts",
    "pages/election/MapaPage.tsx"
   ]
  },
@@ -15238,9 +15129,7 @@
   "arquivos": [
    "components/avisos/AvisoResultado.tsx",
    "components/resultados/hooks.ts",
-   "data/useMunicipioUsuario.ts",
-   "pages/election/EmendasPage.tsx",
-   "pages/election/PlenarioPage.tsx"
+   "data/useMunicipioUsuario.ts"
   ]
  },
  {
@@ -15804,8 +15693,6 @@
   "texto": "nome",
   "tipo": "exato",
   "arquivos": [
-   "components/gastos/RankingList.tsx",
-   "eua/paginas/GastosEuaPage.tsx",
    "pages/election/EleicaoPage.tsx",
    "pages/election/EmendasPage.tsx",
    "pages/election/GastosPage.tsx",
@@ -15825,6 +15712,13 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/EleicaoPage.tsx",
+   "pages/election/GastosPage.tsx"
+  ]
+ },
+ {
+  "texto": "Nome (Z–A)",
+  "tipo": "exato",
+  "arquivos": [
    "pages/election/GastosPage.tsx"
   ]
  },
@@ -15926,6 +15820,7 @@
    "eua/componentes/PlenarioEua.tsx",
    "layouts/AppLayout.tsx",
    "layouts/PublicLayout.tsx",
+   "pages/election/EmendasPage.tsx",
    "pages/election/HomePage.tsx",
    "pages/election/MapaPage.tsx",
    "pages/election/PlenarioPage.tsx",
@@ -16162,7 +16057,6 @@
   "texto": "nulo",
   "tipo": "exato",
   "arquivos": [
-   "components/urna/UrnaScreen.tsx",
    "components/urna/ballot.ts",
    "pages/election/SimuladorPage.tsx"
   ]
@@ -16172,14 +16066,6 @@
   "tipo": "exato",
   "arquivos": [
    "components/resultados/ApuracaoAoVivo.tsx"
-  ]
- },
- {
-  "texto": "number",
-  "tipo": "exato",
-  "arquivos": [
-   "components/compartilhar/desenho.ts",
-   "data/apuracao.ts"
   ]
  },
  {
@@ -16762,14 +16648,6 @@
   "tipo": "exato",
   "arquivos": [
    "pages/election/ColaPage.tsx"
-  ]
- },
- {
-  "texto": "object",
-  "tipo": "exato",
-  "arquivos": [
-   "api/client.ts",
-   "pages/election/MinhaCidadePage.tsx"
   ]
  },
  {
@@ -17462,8 +17340,7 @@
   "texto": "paisagem",
   "tipo": "exato",
   "arquivos": [
-   "components/compartilhar/DialogoCompartilhar.tsx",
-   "components/compartilhar/desenho.ts"
+   "components/compartilhar/DialogoCompartilhar.tsx"
   ]
  },
  {
@@ -17817,6 +17694,20 @@
   "tipo": "exato",
   "arquivos": [
    "components/gastos/RankingList.tsx"
+  ]
+ },
+ {
+  "texto": "Partido-UF (A–Z)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/GastosPage.tsx"
+  ]
+ },
+ {
+  "texto": "Partido-UF (Z–A)",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/GastosPage.tsx"
   ]
  },
  {
@@ -18395,13 +18286,6 @@
   ]
  },
  {
-  "texto": "pointerup",
-  "tipo": "exato",
-  "arquivos": [
-   "components/mapa/MapaCanvas.tsx"
-  ]
- },
- {
   "texto": "polite",
   "tipo": "exato",
   "arquivos": [
@@ -18800,20 +18684,11 @@
    "components/resultados/ApuracaoAoVivo.tsx",
    "components/resultados/hooks.ts",
    "components/urna/ballot.ts",
-   "data/apuracao.ts",
-   "eua/paginas/SupremaCortePage.tsx",
    "pages/election/CandidatoPage.tsx",
-   "pages/election/ColaPage.tsx",
-   "pages/election/ComoVotarPage.tsx",
-   "pages/election/CompararPage.tsx",
    "pages/election/EleicaoPage.tsx",
    "pages/election/HomePage.tsx",
    "pages/election/MinhaCidadePage.tsx",
    "pages/election/NumerosPage.tsx",
-   "pages/election/PartidosPage.tsx",
-   "pages/election/PesquisasPage.tsx",
-   "pages/election/PlanosPage.tsx",
-   "pages/election/SegundoTurnoPage.tsx",
    "pages/election/SimuladorPage.tsx"
   ]
  },
@@ -19602,7 +19477,6 @@
   "texto": "recusado",
   "tipo": "exato",
   "arquivos": [
-   "analytics/medicao.ts",
    "components/AvisoMedicao.tsx"
   ]
  },
@@ -19673,7 +19547,6 @@
   "texto": "regiao",
   "tipo": "exato",
   "arquivos": [
-   "data/mapaLider.ts",
    "pages/election/MapaPage.tsx"
   ]
  },
@@ -20712,6 +20585,13 @@
   ]
  },
  {
+  "texto": "rp",
+  "tipo": "exato",
+  "arquivos": [
+   "pages/election/EmendasPage.tsx"
+  ]
+ },
+ {
   "texto": "RR",
   "tipo": "exato",
   "arquivos": [
@@ -20734,13 +20614,6 @@
   "tipo": "exato",
   "arquivos": [
    "pages/presidentes/presidentes.ts"
-  ]
- },
- {
-  "texto": "s",
-  "tipo": "exato",
-  "arquivos": [
-   "data/apuracao.ts"
   ]
  },
  {
@@ -21238,15 +21111,11 @@
   "texto": "senado",
   "tipo": "exato",
   "arquivos": [
-   "components/compartilhar/dados.ts",
    "components/congresso/perfil.ts",
-   "eua/formato.ts",
    "eua/paginas/CongressoEuaPage.tsx",
-   "eua/paginas/MembroEuaPage.tsx",
    "eua/paginas/VotacoesEuaPage.tsx",
    "pages/election/CongressoEleitoPage.tsx",
    "pages/election/GastosPage.tsx",
-   "pages/election/ParlamentarPage.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
  },
@@ -21336,11 +21205,8 @@
    "components/numeros/numeros.ts",
    "components/resultados/ApuracaoAoVivo.tsx",
    "components/resultados/CartaoEleitos.tsx",
-   "components/resultados/Panorama.tsx",
-   "components/urna/UrnaScreen.tsx",
    "components/urna/ballot.ts",
    "pages/election/CandidatoPage.tsx",
-   "pages/election/ColaPage.tsx",
    "pages/election/EleicaoPage.tsx",
    "pages/election/HomePage.tsx",
    "pages/election/MinhaCidadePage.tsx"
@@ -21543,7 +21409,6 @@
   "texto": "shared",
   "tipo": "exato",
   "arquivos": [
-   "components/compartilhar/compartilhar.ts",
    "native/platform.ts"
   ]
  },
@@ -21862,13 +21727,6 @@
   ]
  },
  {
-  "texto": "soft",
-  "tipo": "exato",
-  "arquivos": [
-   "theme/theme.ts"
-  ]
- },
- {
   "texto": "Soma da contribuição previdenciária e do imposto de renda.",
   "tipo": "exato",
   "arquivos": [
@@ -22016,7 +21874,6 @@
   "texto": "stf",
   "tipo": "exato",
   "arquivos": [
-   "pages/election/MinistroStfPage.tsx",
    "pages/election/PlenarioPage.tsx"
   ]
  },
@@ -22047,8 +21904,7 @@
   "texto": "stories",
   "tipo": "exato",
   "arquivos": [
-   "components/compartilhar/DialogoCompartilhar.tsx",
-   "components/compartilhar/desenho.ts"
+   "components/compartilhar/DialogoCompartilhar.tsx"
   ]
  },
  {
@@ -22063,15 +21919,6 @@
   "tipo": "exato",
   "arquivos": [
    "components/compartilhar/DialogoCompartilhar.tsx"
-  ]
- },
- {
-  "texto": "string",
-  "tipo": "exato",
-  "arquivos": [
-   "api/client.ts",
-   "components/mapa/MapaCanvas.tsx",
-   "config/env.ts"
   ]
  },
  {
@@ -22244,13 +22091,6 @@
   ]
  },
  {
-  "texto": "suspended",
-  "tipo": "exato",
-  "arquivos": [
-   "components/urna/sound.ts"
-  ]
- },
- {
   "texto": "svg",
   "tipo": "exato",
   "arquivos": [
@@ -22286,11 +22126,7 @@
    "App.tsx",
    "components/AparenciaMenu.tsx",
    "components/ColorModeToggle.tsx",
-   "components/resultados/ApuracaoAoVivo.tsx",
-   "eua/componentes/MapaEua.tsx",
-   "main.tsx",
-   "native/NativeBridge.tsx",
-   "pages/election/MapaPage.tsx"
+   "main.tsx"
   ]
  },
  {
@@ -22670,7 +22506,6 @@
   "texto": "todas",
   "tipo": "exato",
   "arquivos": [
-   "components/gastos/gastos.ts",
    "pages/election/GastosPage.tsx"
   ]
  },
@@ -22834,13 +22669,6 @@
   "arquivos": [
    "pages/election/GastosPage.tsx",
    "pages/election/PartidoPage.tsx"
-  ]
- },
- {
-  "texto": "tonal",
-  "tipo": "exato",
-  "arquivos": [
-   "theme/theme.ts"
   ]
  },
  {
@@ -23135,7 +22963,6 @@
   "tipo": "exato",
   "arquivos": [
    "components/brand/BrandPlaceholder.tsx",
-   "components/compartilhar/figura.ts",
    "components/election/CandidateCard.tsx",
    "components/resultados/ApuracaoAoVivo.tsx",
    "components/resultados/Evolucao.tsx",
@@ -23257,8 +23084,7 @@
   "texto": "tse",
   "tipo": "exato",
   "arquivos": [
-   "components/resultados/hooks.ts",
-   "pages/election/SegundoTurnoPage.tsx"
+   "components/resultados/hooks.ts"
   ]
  },
  {
@@ -23384,13 +23210,6 @@
   ]
  },
  {
-  "texto": "twitter",
-  "tipo": "exato",
-  "arquivos": [
-   "eua/paginas/MembroEuaPage.tsx"
-  ]
- },
- {
   "texto": "TX",
   "tipo": "exato",
   "arquivos": [
@@ -23429,8 +23248,6 @@
   "texto": "uf",
   "tipo": "exato",
   "arquivos": [
-   "components/numeros/Concorrencia.tsx",
-   "data/mapaLider.ts",
    "eua/paginas/CandidatosEuaPage.tsx",
    "pages/election/GastosPage.tsx",
    "pages/election/MapaPage.tsx"
@@ -23517,20 +23334,6 @@
   ]
  },
  {
-  "texto": "undefined",
-  "tipo": "exato",
-  "arquivos": [
-   "analytics/medicao.ts",
-   "components/avisos/push.ts",
-   "components/compartilhar/compartilhar.ts",
-   "components/compartilhar/desenho.ts",
-   "components/mapa/MapaCanvas.tsx",
-   "components/resultados/ApuracaoAoVivo.tsx",
-   "components/resultados/Evolucao.tsx",
-   "native/platform.ts"
-  ]
- },
- {
   "texto": "update",
   "tipo": "exato",
   "arquivos": [
@@ -23548,7 +23351,6 @@
   "texto": "urna",
   "tipo": "exato",
   "arquivos": [
-   "components/urna/DigitBoxes.tsx",
    "components/urna/UrnaScreen.tsx"
   ]
  },
@@ -23570,8 +23372,7 @@
   "texto": "us",
   "tipo": "exato",
   "arquivos": [
-   "components/pais.ts",
-   "layouts/PublicLayout.tsx"
+   "components/pais.ts"
   ]
  },
  {
@@ -23936,7 +23737,6 @@
   "tipo": "exato",
   "arquivos": [
    "components/urna/ballot.ts",
-   "pages/election/ColaPage.tsx",
    "pages/election/SimuladorPage.tsx"
   ]
  },
@@ -24376,8 +24176,6 @@
   "tipo": "exato",
   "arquivos": [
    "components/mapa/MapaCanvas.tsx",
-   "components/resultados/hooks.ts",
-   "components/resultados/serie.ts",
    "pages/election/ColaPage.tsx",
    "theme/theme.ts"
   ]
@@ -25079,13 +24877,6 @@
   "tipo": "exato",
   "arquivos": [
    "config/env.ts"
-  ]
- },
- {
-  "texto": "z",
-  "tipo": "exato",
-  "arquivos": [
-   "data/localizacao.ts"
   ]
  },
  {
